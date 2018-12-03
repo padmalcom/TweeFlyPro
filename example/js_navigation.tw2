@@ -1,0 +1,9 @@
+::Navigation[script]
+
+config.history.controls = false;
+
+predisplay["Menu Return"] = function (taskName) {
+	if (! tags().contains("noreturn")) {
+		State.variables.return = passage();
+	}
+};

@@ -1,0 +1,46 @@
+::CSSStyle[scss stylesheet]
+
+table.cloth {border: 1px solid black; table-layout:fixed; width: 100%; }
+td.cloth {overflow: hidden; text-align: center; vertical-align: middle;}
+th.cloth {}
+
+table.cloth_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.cloth_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}
+th.cloth_sidebar {}
+
+table.inventory {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.inventory {overflow: hidden; text-align: center; vertical-align: middle;}
+th.inventory {}
+
+table.inventory_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.inventory_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}
+th.inventory_sidebar {}
+
+table.wardrobe {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.wardrobe {overflow: hidden; text-align: center; vertical-align: middle;}
+th.wardrobe {}
+
+table.stats {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.stats {overflow: hidden; text-align: center; vertical-align: middle;}
+th.stats {}
+
+table.stats_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.stats_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}
+th.stats_sidebar {}
+
+table.shop {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.shop {overflow: hidden; text-align: center; vertical-align: middle;}
+th.shop {}
+
+table.jobs {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.jobs {overflow: hidden; text-align: center; vertical-align: middle;}
+th.jobs {}
+img.jobs {width:100%; max-width:100px;}
+
+table.character {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.character {overflow: hidden;text-align: center; vertical-align: middle;}
+th.character {}
+
+table.character_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}
+td.character_sidebar {overflow: hidden;text-align: center; vertical-align: middle;}
+th.character_sidebar {}

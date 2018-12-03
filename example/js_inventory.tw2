@@ -1,0 +1,222 @@
+::Inv[script]
+
+var inventorySkill1Label = "";
+var inventorySkill2Label = "";
+var inventorySkill3Label = "";
+
+macros.initItems = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.items === undefined) {
+			state.active.variables.items = [];
+			state.active.variables.items.push({"ID": 0,"name": "key", "category":"story item", "owned":1, "buyPrice": 2, "sellPrice": 1, "image":"data/img/key.jpg"});
+			state.active.variables.items.push({"ID": 1,"name": "smartphone", "category":"story item", "owned":1, "buyPrice": 300, "sellPrice": 100, "image":"data/img/smartphone.jpg"});
+			state.active.variables.items.push({"ID": 2,"name": "taxi driver card",  "category":"story item", "owned":1, "buyPrice": 0, "sellPrice":-1, "image":"data/img/taxicard.jpg"});
+			state.active.variables.items.push({"ID": 3,"name": "Zimmerkarte",  "category":"story item", "owned":0, "buyPrice": 0, "sellPrice":-1, "image":"data/img/greenkeycard.jpg"});
+			state.active.variables.items.push({"ID": 4,"name": "chokolate",  "category":"food", "owned":0, "buyPrice": 1, "sellPrice":1, "image":"data/img/chokolate.jpg"});
+		}
+	}
+};
+
+
+window.getInv = function () {
+	return state.active.variables.inventory;
+}
+
+macros.initInv = {
+	handler: function (place, macroName, params, parser) {
+		state.active.variables.inventory = [];
+	}
+};
+
+macros.addToInv = {
+	handler: function (place, macroName, params, parser) {
+		if (params.length != 2) {
+			throwError(place, "<<" + macroName + ">>: expects two parameters, item id and amount.");
+			return;
+		}
+
+		if ((!Number.isInteger(params[0])) || (!Number.isInteger(params[1]))) {
+			throwError(place, "<<" + macroName + ">>: expects two integer parameters.");
+			return;
+		}
+
+		if (typeof state.active.variables.items[params[0]] === 'undefined') {
+			throwError(place, "<<" + macroName + ">>: An item with id " + params[0] + " does not exist.");
+			return;
+		}
+
+		// Clone item
+		var item_in_catalog = state.active.variables.items.filter(obj => {return obj.ID === params[0]});
+		if (item_in_catalog.length != 1) {
+			throwError(place, "<<" + macroName + ">>: There must be exactly one item of id " + params[0] + " in the item catalog but there are " + item_in_catalog.length);
+			return;			
+		}
+		var item = JSON.parse(JSON.stringify(item_in_catalog[0]));
+		item.owned = params[1];
+
+		// item not yet existent?
+		var existing_items_with_id = state.active.variables.inventory.filter(obj => {
+				return obj.ID === item.ID
+			});
+
+		if (existing_items_with_id.length == 0) {
+			// add new item
+			state.active.variables.inventory.push(item);
+		} else if (existing_items_with_id.length > 0) {
+			// change owned
+			for (var i in state.active.variables.inventory) {
+				if (state.active.variables.inventory[i].ID == item.ID) {
+					state.active.variables.inventory[i].owned += item.owned;
+					break;
+				}
+			}
+		} else {
+			throwError(place, "<<" + macroName + ">>: There are several items with the same id " + item.ID);
+			return;
+		}
+	}
+};
+
+// Removes an item from your inventory
+// Usage: <<removeFromInv rock>> or <<removeFromInv "a smooth rock">>
+macros.removeFromInv = {
+	handler: function (place, macroName, params, parser) {
+		if ((params.length == 0) || (params.length > 2)) {
+			throwError(place, "<<" + macroName + ">>: expecting one or two parameters.");
+			return;
+		}
+
+		var existing_items_with_id = state.active.variables.inventory.filter(obj => {
+				return obj.ID === params[0]
+			});
+		if (existing_items_with_id.length == 0)
+			return;
+
+		// Delete a single item
+		if (params.length == 1) {
+			for (var i in state.active.variables.inventory) {
+				if (state.active.variables.inventory[i].ID == params[0]) {
+					state.active.variables.inventory.splice(i, 1);
+					break;
+				}
+			}
+		} else if (params.length == 2) {
+			// Delete a special amount from inventory
+			for (var i in state.active.variables.inventory) {
+				if (state.active.variables.inventory[i].ID == params[0]) {
+					state.active.variables.inventory[i].owned -= params[1];
+
+					// Delete item completely if owned <= 0
+					if (state.active.variables.inventory[i].owned <= 0) {
+						state.active.variables.inventory.splice(i, 1);
+					}
+					break;
+				}
+			}
+		}
+	}
+};
+
+macros.inv = {
+	handler: function (place, macroName, params, parser) {
+		if (state.active.variables.inventory.length == 0) {
+			new Wikifier(place, 'nothing');
+		} else {
+			var inv_str = "<table class=\"inventory\"><tr>";
+			inv_str +="<th class=\"inventory\">ID</th>";
+			inv_str +="<th class=\"inventory\">name</th>";
+			inv_str +="<th class=\"inventory\">description</th>";
+			inv_str +="<th class=\"inventory\">category</th>";
+			inv_str +="<th class=\"inventory\">shop category</th>";
+			inv_str +="<th class=\"inventory\">owned</th>";
+			inv_str +="<th class=\"inventory\">can buy</th>";
+			inv_str +="<th class=\"inventory\">buy price</th>";
+			inv_str +="<th class=\"inventory\">sell price</th>";
+			inv_str +="<th class=\"inventory\">can own multiple</th>";
+			if (inventorySkill1Label.length > 0) inv_str +="<th class=\"inventory\">" + inventorySkill1Label + "</th>";
+			if (inventorySkill2Label.length > 0) inv_str +="<th class=\"inventory\">" + inventorySkill2Label + "</th>";
+			if (inventorySkill3Label.length > 0) inv_str +="<th class=\"inventory\">" + inventorySkill3Label + "</th>";	
+			inv_str +="<th class=\"inventory\">image</th>";
+			inv_str +="</tr>";
+
+			for (var i=0; i<state.active.variables.inventory.length; i++) {
+				inv_str += "<tr>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].ID + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].name + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].description + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].category + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].shop_category + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].owned + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].can_buy + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].buy_price + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].sell_price + "</td>";
+				inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].can_own_multiple + "</td>";
+				if (inventorySkill1Label.length > 0) inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].skill1 + "</td>";
+				if (inventorySkill2Label.length > 0) inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].skill2 + "</td>";
+				if (inventorySkill3Label.length > 0) inv_str +="<td class=\"inventory\">" + state.active.variables.inventory[i].skill3 + "</td>";				
+				inv_str += "<td class=\"inventory\"><img src=\"" + state.active.variables.inventory[i].image + "\"></td>";
+				inv_str +="</tr>";
+			}
+			inv_str +="</table>";
+			new Wikifier(place, inv_str);
+		}
+	}
+};
+
+macros.inventorySidebar = {
+ handler: function(place, macroName, params, parser) {
+
+	var wstr = "<table class=\"inventory_sidebar\">";	
+	wstr +="<tr><td colspan=2>Inventory</td></tr>";	
+		for (var w = 0; w<state.active.variables.inventory.length; w +=2) {
+			wstr +="<tr>";
+			
+			var item_info_1 = "ID: " + state.active.variables.inventory[w].ID + "&#10;";
+			item_info_1 += "name:" + state.active.variables.inventory[w].name + "&#10;";
+			item_info_1 += "description:" + state.active.variables.inventory[w].description + "&#10;";
+			item_info_1 += "category:" + state.active.variables.inventory[w].category + "&#10;";
+			item_info_1 += "shop category:" + state.active.variables.inventory[w].shop_category + "&#10;";
+			item_info_1 += "owned:" + state.active.variables.inventory[w].owned + "&#10;";
+			item_info_1 += "can buy:" + state.active.variables.inventory[w].can_buy + "&#10;";
+			item_info_1 += "buy price:" + state.active.variables.inventory[w].buy_price + "&#10;";
+			item_info_1 += "sell price:" + state.active.variables.inventory[w].sell_price + "&#10;";
+			item_info_1 += "can own multiple:" + state.active.variables.inventory[w].can_own_multiple + "&#10;";
+			if (inventorySkill1Label.length > 0) item_info_1 +="skill1: " + state.active.variables.inventory[w].skill1 + "&#10;";
+			if (inventorySkill2Label.length > 0) item_info_1 +="snill2: " + state.active.variables.inventory[w].skill2 + "&#10;";
+			if (inventorySkill3Label.length > 0) item_info_1 +="skill3: " + state.active.variables.inventory[w].skill3 + "&#10;";		
+			wstr +="<td class=\"character\"><img height=\"50%\" src=\"" + state.active.variables.inventory[w].image + "\" title=\"" + item_info_1 + "\"></td>";
+			
+			if (w+1 < state.active.variables.inventory.length) {
+				
+				var item_info_2 = "ID: " + state.active.variables.inventory[w+1].ID + "&#10;";
+				item_info_2 += "name:" + state.active.variables.inventory[w+1].name + "&#10;";
+				item_info_2 += "description:" + state.active.variables.inventory[w+1].description + "&#10;";
+				item_info_2 += "category:" + state.active.variables.inventory[w+1].category + "&#10;";
+				item_info_2 += "shop category:" + state.active.variables.inventory[w+1].shop_category + "&#10;";
+				item_info_2 += "owned:" + state.active.variables.inventory[w+1].owned + "&#10;";
+				item_info_2 += "can buy:" + state.active.variables.inventory[w+1].can_buy + "&#10;";
+				item_info_2 += "buy price:" + state.active.variables.inventory[w+1].buy_price + "&#10;";
+				item_info_2 += "sell price:" + state.active.variables.inventory[w+1].sell_price + "&#10;";
+				item_info_2 += "can own multiple:" + state.active.variables.inventory[w+1].can_own_multiple + "&#10;";
+				if (inventorySkill1Label.length > 0) item_info_2 +="skill1: " + state.active.variables.inventory[w+1].skill1 + "&#10;";
+				if (inventorySkill2Label.length > 0) item_info_2 +="snill2: " + state.active.variables.inventory[w+1].skill2 + "&#10;";
+				if (inventorySkill3Label.length > 0) item_info_2 +="skill3: " + state.active.variables.inventory[w+1].skill3 + "&#10;";
+			
+				wstr +="<td class=\"character\"><img height=\"50%\" src=\"" + state.active.variables.inventory[w+1].image + "\" title=\"" + item_info_2 + "\"></td>";
+			} else {
+				wstr +="<td></td>";
+			}
+			wstr +="</tr>";
+		}
+		wstr +="</table>";
+		
+		new Wikifier(place,wstr);
+	}
+};
+
+macros.clearInv = {
+	handler: function (place, macroName, params, parser) {
+		state.active.variables.inventory = []
+	}
+};

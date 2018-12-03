@@ -1,0 +1,203 @@
+::Daytime[script]
+
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+
+macros.initDaytime = {
+	handler: function (place, macroName, params, parser) {		
+		if (state.active.variables.time === undefined) {
+			state.active.variables.time = new Date(2018, 11, 8, 22, 44, 0);
+		}
+	}
+};
+
+macros.getTime = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+		
+		new Wikifier(place, ("0" + state.active.variables.time.getHours()).slice(-2) + ":" + ("0" + state.active.variables.time.getMinutes()).slice(-2) + ":" + ("0" + state.active.variables.time.getSeconds()).slice(-2));
+	}
+};
+
+macros.getDate = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+
+		new Wikifier(place, formatDate(state.active.variables.time));
+	}
+};
+
+macros.getDateTime = {
+	handler: function (place, macroName, params, parser) {
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+
+		new Wikifier(place, formatDate(state.active.variables.time) + " " + ("0" + state.active.variables.time.getHours()).slice(-2) +
+			":" + ("0" + state.active.variables.time.getMinutes()).slice(-2) + ":" + ("0" + state.active.variables.time.getSeconds()).slice(-2));
+	}
+};
+
+macros.getTimeOfDay = {
+	handler: function (place, macroName, params, parser) {
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+
+		if((state.active.variables.time.getHours() >= 1) && (state.active.variables.time < 4)) {
+			new Wikifier(place, "Early morning");
+		} else if ((state.active.variables.time.getHours() >= 4) && (state.active.variables.time.getHours() < 6)) {
+			new Wikifier(place, "Dawn");
+		} else if ((state.active.variables.time.getHours() >= 6) && (state.active.variables.time.getHours() < 11)) {
+			new Wikifier(place, "Morning");
+		} else if ((state.active.variables.time.getHours() >= 11) && (state.active.variables.time.getHours() < 13)) {
+			new Wikifier(place, "Noon");
+		} else if ((state.active.variables.time.getHours() >= 13) && (state.active.variables.time.getHours() < 16)) {
+			new Wikifier(place, "Afternoon");
+		} else if ((state.active.variables.time.getHours() >= 16) && (state.active.variables.time.getHours() < 21)) {
+			new Wikifier(place, "Evening");
+		} else if ((state.active.variables.time.getHours() >= 21) && (state.active.variables.time.getHours() < 24)) {
+			new Wikifier(place, "Night");
+		} else if ((state.active.variables.time.getHours() >= 0) && (state.active.variables.time.getHours() < 1)) {
+			new Wikifier(place, "Mid-Night");
+		} else {
+			new Wikifier(place, "Woop, that (" + state.active.variables.time.getHours() + ") is not a time!");
+		}
+	}
+};
+
+macros.setTime = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+		
+		if (params.length != 3) {
+			throwError(place, "<<" + macroName + ">>: Expecting three parameters, hours, minutes and seconds.");
+			return;
+		}
+
+		var hours = params[0];
+		var minutes = params[1];
+		var seconds = params[2];
+		
+		state.active.variables.time.setHours(hours);
+		state.active.variables.time.setMinutes(minutes);
+		state.active.variables.time.setSeconds(seconds);
+	}
+};
+
+macros.setDate = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+		
+		if (params.length != 3) {
+			throwError(place, "<<" + macroName + ">>: Expecting three parameters: year, month and days.");
+			return;
+		}
+
+		var year = params[0];
+		var month = params[1];
+		var day = params[2];
+		
+		state.active.variables.time.setYear(year);
+		state.active.variables.time.setMonth(month);
+		state.active.variables.time.setDay(day);
+	}
+};
+
+macros.setDateTime = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+		
+		if (params.length != 6) {
+			throwError(place, "<<" + macroName + ">>: Expecting six parameters: year, month, days, hours, minutes and seconds.");
+			return;
+		}
+		
+		var year = params[0];
+		var month = params[1];
+		var day = params[2];
+		
+		var hours = params[3];
+		var minutes = params[4];
+		var seconds = params[5];
+		
+		state.active.variables.time.setHours(hours);
+		state.active.variables.time.setMinutes(minutes);
+		state.active.variables.time.setSeconds(seconds);
+		state.active.variables.time.setHours(hours);
+		state.active.variables.time.setMinutes(minutes);
+		state.active.variables.time.setSeconds(seconds);
+	}
+};
+
+macros.addTimeInMinutes = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+		
+		if (params.length != 1) {
+			throwError(place, "<<" + macroName + ">>: Expecting minutes as first parameter.");
+			return;
+		}
+		
+		var minutes = params[0];
+		
+		state.active.variables.time.setMinutes(state.active.variables.time.getMinutes() + minutes);
+	}
+};
+
+macros.addTimeInDays = {
+	handler: function (place, macroName, params, parser) {
+		
+		if (state.active.variables.time === undefined) {
+			throwError(place, "<<" + macroName + ">>: Please call initDaytime first.");
+			return;
+		}
+		
+		if (params.length != 1) {
+			throwError(place, "<<" + macroName + ">>: Expecting days as first parameter.");
+			return;
+		}
+		
+		var days = params[0];
+		
+		state.active.variables.time.setDays(state.active.variables.time.setDays() + 30);
+	}
+};

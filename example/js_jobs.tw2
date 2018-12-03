@@ -1,0 +1,182 @@
+::Jobs[script]
+
+macros.initJobs = {
+	handler: function(place, macroName, params, parser) {
+		
+		if (state.active.variables.jobs === undefined) {
+			state.active.variables.jobs = [];
+
+			state.active.variables.jobs.push({"ID":0, "name":"washing the dishes", "description":"washing dishes", "category":"kitchen", "avaiable":true,
+			"rewardMoney":5, "cooldown":60, "lastStart":new Date(0, 0, 0, 0, 0, 0), "duration":60, "image":"data/img/dishes.jpg",
+			"rewardItems": [
+				{"type":"ITEM", "ID":4, "amount":1},
+				{"type":"CLOTH", "ID":1, "amount":1}
+			]});
+			
+			state.active.variables.jobs.push({"ID":1, "name":"floor cleaning", "description":"cleaning the kitchen floor", "category":"kitchen", "avaiable":true,
+			"rewardMoney":10, "cooldown":120, "lastStart":new Date(0, 0, 0, 0, 0, 0), "duration":60, "image":"data/img/cleaningfloor.jpg",
+			"rewardItems": [
+				{"type":"ITEM", "ID":4, "amount":1},
+				{"type":"CLOTH", "ID":1, "amount":1}
+			]});
+		}
+	}
+};
+
+window.doJob = function (_job) {
+	
+	var job_obj = JSON.parse(unescape(_job));
+	
+	// Add time
+	if (state.active.variables.time !== undefined) {
+		state.active.variables.time.setMinutes(state.active.variables.time.getMinutes() + job_obj.duration);
+	} else {
+		throwError(null, "Time system has not been initialized and the cooldown can not be applied to job system.");
+	}
+	
+	// Give reward
+	if (state.active.variables.time !== undefined) {
+		state.active.variables.money +=job_obj.rewardMoney;
+	} else {
+		throwError(null, "Money system has not been initialized so no reward money can be given for doing job.");
+	}
+	
+	// Add reward items
+	if (state.active.variables.inventory !== undefined) {
+		for (var i=0; i<job_obj.rewardItems.length; i++) {
+			if (job_obj.rewardItems[i].type === "ITEM") {
+				
+				var item_in_catalog = state.active.variables.items.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});
+				if (item_in_catalog.length != 1) {
+					throwError(place, "<<" + macroName + ">>: There must be exactly one item of id " + params[0] + " in the item catalog but there are " + item_in_catalog.length);
+					return;			
+				}
+				var item = JSON.parse(JSON.stringify(item_in_catalog[0]));
+				item.owned = job_obj.rewardItems[i].amount;
+
+				// item not yet existent?
+				var existing_items_with_id = state.active.variables.inventory.filter(obj => {
+						return obj.ID === item.ID
+					});
+
+				if (existing_items_with_id.length == 0) {
+					// add new item
+					state.active.variables.inventory.push(item);
+				} else if (existing_items_with_id.length > 0) {
+					// change owned
+					for (var i in state.active.variables.inventory) {
+						if (state.active.variables.inventory[i].ID == item.ID) {
+							state.active.variables.inventory[i].owned += item.owned;
+							break;
+						}
+					}
+				} else {
+					throwError(place, "<<" + macroName + ">>: There are several items with the same id " + item.ID);
+					return;
+				}
+			} else if (job_obj.rewardItems[i].type === "CLOTH") {
+				var cloth_in_catalog = state.active.variables.all_cloth.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});
+
+				if (cloth_in_catalog.length == 0) {
+					throwError(place, "<<" + macroName + ">>: Cloth with id " + job_obj.rewardItems[i].ID + " does not exist.");
+					return;
+				}
+
+				// Clone cloth
+				var new_cloth = JSON.parse(JSON.stringify(cloth_in_catalog[0]));
+				new_cloth.owned = job_obj.rewardItems[i].amount;
+
+				// cloth not yet existent?
+				var existing_cloth_in_wardrobe_with_id = state.active.variables.wardrobe.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});
+
+				if (existing_cloth_in_wardrobe_with_id.length == 0) {
+					// add new cloth
+					state.active.variables.wardrobe.push(new_cloth);
+				} else if (existing_cloth_in_wardrobe_with_id.length > 0) {
+					// change owned
+					for (var i in state.active.variables.wardrobe) {
+						if (state.active.variables.wardrobe[i].ID == new_cloth.ID) {
+							state.active.variables.wardrobe[i].owned += new_cloth.owned;
+							break;
+						}
+					}
+				} else {
+					throwError(place, "<<" + macroName + ">>: There are several cloth with the same id " + new_cloth.ID);
+					return;
+				}
+			}
+		}
+		
+		// Set cooldown
+		var job_by_id = state.active.variables.jobs.filter(obj => {return obj.ID == job_obj.ID});
+		if (job_by_id.length == 1) {
+			job_by_id[0].lastStart = state.active.variables.time;
+		}
+	} else {
+		throwError(null, "Inventory system has not been initialized so no reward items can be given for doing job.");
+	}
+	state.display(state.active.title, null, "back");
+};
+
+macros.showJobs = {
+	handler: function(place, macroName, params, parser) {
+		
+		if (params.length < 1) {
+			throwError(place, "<<" + macroName + ">>: showJobs expects an array of job IDs as first parameter.");
+			return;
+		}
+		
+		if (state.active.variables.jobs === undefined) {
+			throwError(place, "<<" + macroName + ">>: please call initJobs first.");
+			return;
+		}
+		
+		var jobs_str = "<table class=\"jobs\"><tr>";
+		jobs_str +="<th class=\"jobs\">ID</th>";
+		jobs_str +="<th class=\"jobs\">name</th>";
+		jobs_str +="<th class=\"jobs\">description</th>";
+		jobs_str +="<th class=\"jobs\">category</th>";
+		jobs_str +="<th class=\"jobs\">available</th>";
+		jobs_str +="<th class=\"jobs\">reward money</th>";
+		jobs_str +="<th class=\"jobs\">cooldown</th>";
+		jobs_str +="<th class=\"jobs\">last start</th>";
+		jobs_str +="<th class=\"jobs\">duration</th>";
+		jobs_str +="<th class=\"jobs\">image</th>";
+		jobs_str +="<th class=\"jobs\">start</th>";
+		jobs_str +="</tr>";
+		
+		for(var i=0; i<params.length; i++) {
+			var job_by_id = state.active.variables.jobs.filter(obj => {return obj.ID == params[i]});
+						
+			if (job_by_id.length == 1) {
+				
+				// Check if job cooldown is passed
+				var minutes_diff = Math.floor(((Math.abs(state.active.variables.time - job_by_id[0].lastStart))/1000)/60);
+				
+				jobs_str +="<tr>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].ID + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].name + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].description + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].category + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].avaiable + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].rewardMoney + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].cooldown + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].lastStart + "</td>";
+				jobs_str +="<td class=\"jobs\">" + job_by_id[0].duration + "</td>";
+				jobs_str +="<td class=\"jobs\"><img class=\"jobs\" src=\"" + job_by_id[0].image + "\"></td>";
+				
+				if (minutes_diff >= job_by_id[0].cooldown) {
+					jobs_str +="<td class=\"jobs\"><a onClick=\"doJob('"+escape(JSON.stringify(job_by_id[0]))+"');\" href=\"javascript:void(0);\">Start</a></td>";
+				} else {
+					jobs_str +="<td class=\"jobs\">Not ready</td>";
+				}
+				
+				jobs_str +="</tr>";
+			}
+		}
+		
+		jobs_str +="</table>";
+		new Wikifier(place, jobs_str);
+	}
+};
+

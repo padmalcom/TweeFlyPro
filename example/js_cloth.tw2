@@ -1,0 +1,536 @@
+::Cloth[script]
+	
+// Constants
+var HEAD_NAME = "head";
+var HAIR_NAME = "hair";
+var NECK_NAME = "neck";
+var UPPER_BODY_NAME = "upperbody";
+var LOWER_BODY_NAME = "lowerbody";
+var BELT_NAME = "belt";
+var SOCKS_NAME = "socks";
+var SHOES_NAME = "shoes";
+var UNDERWEAR_TOP_NAME = "underweartop";
+var UNDERWEAR_BOTTOM_NAME = "underwearbottom";
+
+// Labels
+var clothSkill1Label = "gender";
+var clothSkill2Label = "";
+var clothSkill3Label = "";
+
+// All available cloth in the game
+macros.initAllCloth = {
+	handler: function(place, macroName, params, parser) {
+		
+		if (state.active.variables.all_cloth === undefined) {
+			state.active.variables.all_cloth = [];
+
+			// Head
+			state.active.variables.all_cloth.push({"ID":0, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":HEAD_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":1, "name":"cap", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":10, "shopCategory":"","bodyPart":HEAD_NAME, "image":"data/img/cap.jpg", "skill1":0, "skill2":-2, "skill3":""});
+
+			// Hair
+			state.active.variables.all_cloth.push({"ID":2, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":HAIR_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":3, "name":"headscarf", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":HAIR_NAME, "image":"data/img/headscarf.jpg", "skill1":-2, "skill2":0, "skill3":""});
+
+			// Neck
+			state.active.variables.all_cloth.push({"ID":4, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":NECK_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":5, "name":"leatherchain", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":NECK_NAME, "image":"data/img/leatherchain.jpg", "skill1":-2, "skill2":0, "skill3":""});
+
+			// Upper body
+			state.active.variables.all_cloth.push({"ID":6, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":UPPER_BODY_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":7, "name":"shirt", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":UPPER_BODY_NAME, "image":"data/img/shirt.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":8, "name":"tshirt", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":UPPER_BODY_NAME, "image":"data/img/tshirt.jpg", "skill1":-5, "skill2":0, "skill3":""});
+
+			// Lower body
+			state.active.variables.all_cloth.push({"ID":9, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":LOWER_BODY_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":10, "name":"jeans", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":LOWER_BODY_NAME, "image":"data/img/jeans.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":11, "name":"short pants", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":LOWER_BODY_NAME, "image":"data/img/shortpants.jpg", "skill1":-5, "skill2":0, "skill3":""});
+
+			// Belt
+			state.active.variables.all_cloth.push({"ID":12, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":BELT_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":13, "name":"simple belt", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":BELT_NAME, "image":"data/img/belt.jpg", "skill1":-4, "skill2":0, "skill3":""});
+
+			// Socks
+			state.active.variables.all_cloth.push({"ID":14, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":SOCKS_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":15, "name":"male socks", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":SOCKS_NAME, "image":"data/img/socks.jpg", "skill1":-4, "skill2":0, "skill3":""});
+
+			// Shoes
+			state.active.variables.all_cloth.push({"ID":16, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":SHOES_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":17, "name":"sports shoes", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":SHOES_NAME, "image":"data/img/sportsshoes.jpg", "skill1":-4, "skill2":0, "skill3":""});
+
+			// Underwear top
+			state.active.variables.all_cloth.push({"ID":18, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":UNDERWEAR_TOP_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":19, "name":"undershirt", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":UNDERWEAR_TOP_NAME, "image":"data/img/undershirt.jpg", "skill1":-2, "skill2":0, "skill3":""});
+
+			// Underwear top
+			state.active.variables.all_cloth.push({"ID":20, "name":"nothing", "canBeBought":false,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":0, "shopCategory":"","bodyPart":UNDERWEAR_BOTTOM_NAME, "image":"data/img/none.jpg", "skill1":0, "skill2":0, "skill3":""});
+			state.active.variables.all_cloth.push({"ID":21, "name":"boxershorts", "canBeBought":true,"canOwnMultiple":false,"category":"cloth",  "sellPrice":10,"buyPrice":50, "shopCategory":"","bodyPart":UNDERWEAR_BOTTOM_NAME, "image":"data/img/boxershorts.jpg", "skill1":-2, "skill2":0, "skill3":""});
+		}
+	}
+};
+
+window.is_worn = function(_id) {
+	
+	for(var i=0; i<state.active.variables.wearing.length; i++) {
+		if (state.active.variables.wearing[i].ID == _id) return true;
+	}
+	return false;
+};
+
+// Cloth that are currently worn by the player
+macros.initCloth = {
+	handler: function(place, macroName, params, parser) {
+		
+		if (state.active.variables.wearing === undefined) {		
+			state.active.variables.wearing = {};
+			state.active.variables.wearing[HEAD_NAME] = state.active.variables.all_cloth[1];
+			state.active.variables.wearing[HAIR_NAME] = state.active.variables.all_cloth[2];
+			state.active.variables.wearing[NECK_NAME] = state.active.variables.all_cloth[4];
+			state.active.variables.wearing[UPPER_BODY_NAME] = state.active.variables.all_cloth[6];
+			state.active.variables.wearing[LOWER_BODY_NAME] = state.active.variables.all_cloth[9];
+			state.active.variables.wearing[BELT_NAME] = state.active.variables.all_cloth[12];
+			state.active.variables.wearing[SOCKS_NAME] = state.active.variables.all_cloth[14];
+			state.active.variables.wearing[SHOES_NAME] = state.active.variables.all_cloth[16];
+			state.active.variables.wearing[UNDERWEAR_TOP_NAME] = state.active.variables.all_cloth[18];
+			state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] = state.active.variables.all_cloth[20];
+		}
+	}
+};
+
+// Cloth in the players wardrobe
+macros.initWardrobe = {
+	handler: function(place, macroName, params, parser) {
+		
+		if (state.active.variables.wardrobe === undefined) {	
+			state.active.variables.wardrobe = [];
+			var v1 = state.active.variables.all_cloth[0]; v1.owned = 1;
+			var v2 = state.active.variables.all_cloth[2]; v2.owned = 1;
+			var v3 = state.active.variables.all_cloth[4]; v3.owned = 1;
+			var v4 = state.active.variables.all_cloth[6]; v4.owned = 1;
+			var v5 = state.active.variables.all_cloth[7]; v5.owned = 1;
+			var v6 = state.active.variables.all_cloth[9]; v6.owned = 1;
+			var v7 = state.active.variables.all_cloth[10]; v7.owned = 1;
+			var v8 = state.active.variables.all_cloth[12]; v8.owned = 1;
+			var v9 = state.active.variables.all_cloth[14]; v9.owned = 1;
+			var v10 = state.active.variables.all_cloth[15]; v10.owned = 1;
+			var v11 = state.active.variables.all_cloth[16]; v11.owned = 1;
+			var v12 = state.active.variables.all_cloth[17]; v12.owned = 1;
+			var v13 = state.active.variables.all_cloth[18]; v13.owned = 1;
+			var v14 = state.active.variables.all_cloth[19]; v14.owned = 1;
+			var v15 = state.active.variables.all_cloth[20]; v15.owned = 1;
+			var v16 = state.active.variables.all_cloth[10]; v16.owned = 1;
+			
+			
+			state.active.variables.wardrobe.push(v1);
+			state.active.variables.wardrobe.push(v2);
+			state.active.variables.wardrobe.push(v3);
+			state.active.variables.wardrobe.push(v4);
+			state.active.variables.wardrobe.push(v5);
+			state.active.variables.wardrobe.push(v6);
+			state.active.variables.wardrobe.push(v7);
+			state.active.variables.wardrobe.push(v8);
+			state.active.variables.wardrobe.push(v9);
+			state.active.variables.wardrobe.push(v10);
+			state.active.variables.wardrobe.push(v11);
+			state.active.variables.wardrobe.push(v12);
+			state.active.variables.wardrobe.push(v13);
+			state.active.variables.wardrobe.push(v14);
+			state.active.variables.wardrobe.push(v15);
+			state.active.variables.wardrobe.push(v16);
+		}
+	}
+};
+
+macros.cloth = {
+ handler: function(place, macroName, params, parser) {
+
+	// what is worn?
+	var s = "<table class=\"cloth\">"+
+	
+	// header
+	"<tr><td class=\"cloth\">Körperteil</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + clothSkill1Label + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + clothSkill2Label + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + clothSkill3Label + "</b></td>";		
+	s +="<td class=\"cloth\">Image</td></tr>";
+	
+	s +="<tr><td class=\"cloth\">Kopf</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[HEAD_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[HEAD_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[HEAD_NAME].skill1 + "</b></td>";		
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[HEAD_NAME].image+"></td></tr>";
+	
+	s +="<tr><td class=\"cloth\">Haare</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[HEAD_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[HAIR_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[HAIR_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[HAIR_NAME].image+"></td></tr>";
+	
+	
+	
+	s +="<tr><td class=\"cloth\">Hals</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[NECK_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[NECK_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[NECK_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[NECK_NAME].image+"></td></tr>";
+	
+	
+	
+	s +="<tr><td class=\"cloth\">Oberbekleidung</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UPPER_BODY_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UPPER_BODY_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UPPER_BODY_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[UPPER_BODY_NAME].image+"></td></tr>";
+	
+	
+	s +="<tr><td class=\"cloth\">Hose</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[LOWER_BODY_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[LOWER_BODY_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[LOWER_BODY_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[LOWER_BODY_NAME].image+"></td></tr>";
+	
+	
+	s +="<tr><td class=\"cloth\">Gürtel</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[BELT_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[BELT_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[BELT_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[BELT_NAME].image+"></td></tr>";
+	
+	
+	s +="<tr><td class=\"cloth\">Strümpfe</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[SOCKS_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[SOCKS_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[SOCKS_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[SOCKS_NAME].image+"></td></tr>";
+	
+	
+	s +="<tr><td class=\"cloth\">Schuhe</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[SHOES_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[SHOES_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[SHOES_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[SHOES_NAME].image+"></td></tr>";
+	
+	
+	s +="<tr><td class=\"cloth\">Unterwäsche</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+"></td></tr>";
+	
+	
+	s +="<tr><td class=\"cloth\">Unterhemd</td>";
+	if (clothSkill1Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1 + "</b></td>";
+	if (clothSkill2Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1 + "</b></td>";
+	if (clothSkill3Label.length > 0) s +="<td class=\"cloth\"><b>" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1 + "</b></td>";	
+	s +="<td class=\"cloth\"><img height=\"50%\" src="+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+"></td></tr>";
+	
+	s +="</table>";
+	
+	new Wikifier(place, s);
+ }
+};
+
+macros.clothSidebar = {
+ handler: function(place, macroName, params, parser) {
+
+	// what is worn?
+	new Wikifier(place,
+	"<table class=\"cloth_sidebar\">"+
+	"<tr><td colspan=2>Cloth</td></tr>"+
+	"<tr><td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[HEAD_NAME].image+"></td>" +
+	"<td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[HAIR_NAME].image+"></td></tr>" +
+	"<tr><td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[NECK_NAME].image+"></td>" +
+	"<td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[UPPER_BODY_NAME].image+"></td></tr>" +
+	"<tr><td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[LOWER_BODY_NAME].image+"></td>" +
+	"<td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[BELT_NAME].image+"></td></tr>" +
+	"<tr><td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[SOCKS_NAME].image+"></td>"+
+	"<td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[SHOES_NAME].image+"></td></tr>"+
+	"<tr><td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+"></td>"+
+	"<td class=\"cloth_sidebar\"><img height=\"50%\" src="+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+"></td></tr>"+
+	"</table>");
+ }
+};
+
+
+window.wear = function (_cloth) {
+	var cloth_obj = JSON.parse(unescape(_cloth));
+	state.active.variables.wearing[cloth_obj.bodyPart] = cloth_obj;
+	state.display(state.active.title, null, "back");
+};
+
+macros.wardrobe = {
+ handler: function(place, macroName, params, parser) {
+	var wstr = "<table class=\"wardrobe\">";
+	wstr +="<tr><td class=\"wardrobe\"><b>name</b></td><td class=\"wardrobe\"><b>bodypart</b></td>";
+	if (clothSkill1Label.length > 0) wstr +="<td class=\"wardrobe\"><b>" + clothSkill1Label + "</b></td>";
+	if (clothSkill2Label.length > 0) wstr +="<td class=\"wardrobe\"><b>" + clothSkill2Label + "</b></td>";
+	if (clothSkill3Label.length > 0) wstr +="<td class=\"wardrobe\"><b>" + clothSkill3Label + "</b></td>";	
+	wstr +="<td class=\"wardrobe\"><b>owned</b></td><td class=\"wardrobe\"><b>image</b></td><td></td></tr>";
+	
+	for (var w = 0; w<state.active.variables.wardrobe.length; w++) {
+		wstr +="<tr><td class=\"wardrobe\">" + state.active.variables.wardrobe[w].name + "</td><td class=\"wardrobe\">" + state.active.variables.wardrobe[w].bodyPart + "</td>";
+		if (clothSkill1Label.length > 0) wstr +="<td class=\"wardrobe\">" + state.active.variables.wardrobe[w].skill1 + "</td>";
+		if (clothSkill2Label.length > 0) wstr +="<td class=\"wardrobe\">" + state.active.variables.wardrobe[w].skill2 + "</td>";
+		if (clothSkill3Label.length > 0) wstr +="<td class=\"wardrobe\">" + state.active.variables.wardrobe[w].skill3 + "</td>";
+		wstr +="<td class=\"wardrobe\">" + state.active.variables.wardrobe[w].owned + "</td>";
+		wstr +="<td class=\"wardrobe\"><img height=\"50%\" src=\"" + state.active.variables.wardrobe[w].image + "\"></td>";
+
+		if (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID) {
+			wstr +="<td class=\"wardrobe\"><a onClick=\"wear('"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+"');\" href=\"javascript:void(0);\">wear</a></td></tr>";
+		} else {
+			wstr +="<td class=\"wardrobe\">wearing</td></tr>";
+		}
+	}
+	wstr +="</table>";
+	
+	new Wikifier(place,wstr);
+ }
+};
+
+macros.addToWardrobe = {
+	handler: function (place, macroName, params, parser) {
+		if (params.length != 2) {
+			throwError(place, "<<" + macroName + ">>: expects two parameters, cloth ID and amount.");
+			return;
+		}
+
+		if ((!Number.isInteger(params[0])) || (!Number.isInteger(params[1]))) {
+			throwError(place, "<<" + macroName + ">>: expects two integer parameters.");
+			return;
+		}
+		
+		var cloth_in_catalog = state.active.variables.all_cloth.filter(obj => {return obj.ID === params[0]});
+
+		if (cloth_in_catalog.length == 0) {
+			throwError(place, "<<" + macroName + ">>: Cloth with id " + params[0] + " does not exist.");
+			return;
+		}
+
+		// Clone cloth
+		var new_cloth = JSON.parse(JSON.stringify(cloth_in_catalog[0]));
+		new_cloth.owned = params[1];
+
+		// cloth not yet existent?
+		var existing_cloth_in_wardrobe_with_id = state.active.variables.wardrobe.filter(obj => {return obj.ID === params[0]});
+
+		if (existing_cloth_in_wardrobe_with_id.length == 0) {
+			// add new cloth
+			state.active.variables.wardrobe.push(new_cloth);
+		} else if (existing_cloth_in_wardrobe_with_id.length > 0) {
+			// change owned
+			for (var i in state.active.variables.wardrobe) {
+				if (state.active.variables.wardrobe[i].ID == new_cloth.ID) {
+					state.active.variables.wardrobe[i].owned += new_cloth.owned;
+					break;
+				}
+			}
+		} else {
+			throwError(place, "<<" + macroName + ">>: There are several cloth with the same id " + new_cloth.ID);
+			return;
+		}
+	}
+};
+
+
+macros.skill1Sum = {
+ handler: function(place, macroName, params, parser) {
+	var sum = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill1 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill1 is not set for current cloth.");
+			return;
+		} else {
+			sum +=state.active.variables.wearing[s].skill1;
+		}
+	}
+	new Wikifier(place, clothSkill1Label + ": " + sum);
+ }
+};
+
+macros.skill1Max = {
+ handler: function(place, macroName, params, parser) {
+	var max = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill1 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill1 is not set for current cloth.");
+			return;
+		} else {
+			if (state.active.variables.wearing[s].skill1 > max) {
+				max = state.active.variables.wearing[s].skill1;
+			}
+		}
+
+	}
+	new Wikifier(place, clothSkill1Label + ": " + max);
+ }
+};
+
+macros.skill1Min = {
+ handler: function(place, macroName, params, parser) {
+	var min = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill1 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill1 is not set for current cloth.");
+			return;
+		} else {
+			if (state.active.variables.wearing[s].skill1 < min) {
+				min = state.active.variables.wearing[s].skill1;
+			}
+		}
+	}
+	new Wikifier(place, clothSkill1Label + ": " + min);
+ }
+};
+
+macros.skill1Avr = {
+ handler: function(place, macroName, params, parser) {
+	var sum = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill1 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill1 is not set for current cloth.");
+			return;
+		} else {
+			sum +=state.active.variables.wearing[s].skill1;
+		}
+	}
+	sum /=state.active.variables.wearing.length;
+	new Wikifier(place, clothSkill1Label + ": " + sum);
+ }
+};
+
+
+
+
+
+macros.skill2Sum = {
+ handler: function(place, macroName, params, parser) {
+	var sum = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill2 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill2 is not set for current cloth.");
+			return;
+		} else {
+			sum +=state.active.variables.wearing[s].skill2;
+		}
+	}
+	new Wikifier(place, clothSkill2Label + ": " + sum);
+ }
+};
+
+macros.skill2Max = {
+ handler: function(place, macroName, params, parser) {
+	var max = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill2 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill2 is not set for current cloth.");
+			return;
+		} else {
+			if (state.active.variables.wearing[s].skill2 > max) {
+				max = state.active.variables.wearing[s].skill2;
+			}
+		}
+	}
+	new Wikifier(place, clothSkill2Label + ": " + max);
+ }
+};
+
+macros.skill2Min = {
+ handler: function(place, macroName, params, parser) {
+	var min = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill2 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill2 is not set for current cloth.");
+			return;
+		} else {
+			if (state.active.variables.wearing[s].skill2 < min) {
+				min = state.active.variables.wearing[s].skill2;
+			}
+		}
+	}
+	new Wikifier(place, clothSkill2Label + ": " + min);
+ }
+};
+
+macros.skill2Avr = {
+ handler: function(place, macroName, params, parser) {
+	var sum = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill2 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill2 is not set for current cloth.");
+			return;
+		} else {
+			sum +=state.active.variables.wearing[s].skill2;
+		}
+	}
+	sum /=state.active.variables.wearing.length;
+	new Wikifier(place, clothSkill2Label + ": " + sum);
+ }
+};
+
+
+
+
+macros.skill3Sum = {
+ handler: function(place, macroName, params, parser) {
+	var sum = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill3 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill3 is not set for current cloth.");
+			return;
+		} else {
+			sum +=state.active.variables.wearing[s].skill3;
+		}
+	}
+	new Wikifier(place, clothSkill3Label + ": " + sum);
+ }
+};
+
+macros.skill3Max = {
+ handler: function(place, macroName, params, parser) {
+	var max = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill3 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill3 is not set for current cloth.");
+			return;
+		} else {
+			if (state.active.variables.wearing[s].skill3 > max) {
+				max = state.active.variables.wearing[s].skill3;
+			}
+		}
+	}
+	new Wikifier(place, clothSkill3Label + ": " + max);
+ }
+};
+
+macros.skill3Min = {
+ handler: function(place, macroName, params, parser) {
+	var min = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill3 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill3 is not set for current cloth.");
+			return;
+		} else {
+			if (state.active.variables.wearing[s].skill3 < min) {
+				min = state.active.variables.wearing[s].skill3;
+			}
+		}
+	}
+	new Wikifier(place, clothSkill3Label + ": " + min);
+ }
+};
+
+macros.skill3Avr = {
+ handler: function(place, macroName, params, parser) {
+	var sum = 0;
+	for (var s in state.active.variables.wearing) {
+		if (state.active.variables.wearing[s].skill3 === undefined) {
+			throwError(place, "<<" + macroName + ">>: skill3 is not set for current cloth.");
+			return;
+		} else {
+			sum +=state.active.variables.wearing[s].skill3;
+		}
+	}
+	sum /=state.active.variables.wearing.length;
+	new Wikifier(place, clothSkill3Label + ": " + sum);
+ }
+};
