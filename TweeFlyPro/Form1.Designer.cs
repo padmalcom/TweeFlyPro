@@ -322,6 +322,9 @@
             this.label60 = new System.Windows.Forms.Label();
             this.checkBox22 = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.button32 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label112 = new System.Windows.Forms.Label();
             this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.textBox46 = new System.Windows.Forms.TextBox();
             this.label72 = new System.Windows.Forms.Label();
@@ -359,12 +362,29 @@
             this.columnHeader48 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader49 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader51 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader71 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader52 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader53 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader54 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.checkBox44 = new System.Windows.Forms.CheckBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label109 = new System.Windows.Forms.Label();
+            this.numericUpDown24 = new System.Windows.Forms.NumericUpDown();
+            this.label110 = new System.Windows.Forms.Label();
+            this.numericUpDown31 = new System.Windows.Forms.NumericUpDown();
+            this.label111 = new System.Windows.Forms.Label();
+            this.checkBox43 = new System.Windows.Forms.CheckBox();
+            this.checkBox42 = new System.Windows.Forms.CheckBox();
+            this.label108 = new System.Windows.Forms.Label();
+            this.label107 = new System.Windows.Forms.Label();
+            this.label106 = new System.Windows.Forms.Label();
+            this.label105 = new System.Windows.Forms.Label();
+            this.label104 = new System.Windows.Forms.Label();
+            this.numericUpDown30 = new System.Windows.Forms.NumericUpDown();
+            this.label103 = new System.Windows.Forms.Label();
             this.numericUpDown28 = new System.Windows.Forms.NumericUpDown();
             this.label101 = new System.Windows.Forms.Label();
             this.numericUpDown29 = new System.Windows.Forms.NumericUpDown();
@@ -405,27 +425,11 @@
             this.checkBox24 = new System.Windows.Forms.CheckBox();
             this.button31 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.label103 = new System.Windows.Forms.Label();
-            this.numericUpDown30 = new System.Windows.Forms.NumericUpDown();
-            this.label104 = new System.Windows.Forms.Label();
-            this.label105 = new System.Windows.Forms.Label();
-            this.label106 = new System.Windows.Forms.Label();
-            this.label107 = new System.Windows.Forms.Label();
-            this.label108 = new System.Windows.Forms.Label();
-            this.checkBox42 = new System.Windows.Forms.CheckBox();
-            this.checkBox43 = new System.Windows.Forms.CheckBox();
-            this.checkBox44 = new System.Windows.Forms.CheckBox();
-            this.label97 = new System.Windows.Forms.Label();
-            this.label109 = new System.Windows.Forms.Label();
-            this.numericUpDown24 = new System.Windows.Forms.NumericUpDown();
-            this.label110 = new System.Windows.Forms.Label();
-            this.numericUpDown31 = new System.Windows.Forms.NumericUpDown();
-            this.label111 = new System.Windows.Forms.Label();
-            this.label112 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button32 = new System.Windows.Forms.Button();
-            this.columnHeader71 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button33 = new System.Windows.Forms.Button();
+            this.checkBox45 = new System.Windows.Forms.CheckBox();
+            this.checkBox48 = new System.Windows.Forms.CheckBox();
+            this.label113 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -471,6 +475,9 @@
             this.tabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown27)).BeginInit();
@@ -479,9 +486,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -623,6 +627,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox45);
             this.tabPage1.Controls.Add(this.checkedListBox3);
             this.tabPage1.Controls.Add(this.label90);
             this.tabPage1.Controls.Add(this.checkBox27);
@@ -1036,9 +1041,9 @@
             this.checkBox9.AutoSize = true;
             this.checkBox9.Location = new System.Drawing.Point(124, 11);
             this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(130, 17);
+            this.checkBox9.Size = new System.Drawing.Size(127, 17);
             this.checkBox9.TabIndex = 1;
-            this.checkBox9.Text = "Display link in side bar";
+            this.checkBox9.Text = "Display link in sidebar";
             this.checkBox9.UseVisualStyleBackColor = true;
             this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
@@ -1231,9 +1236,9 @@
             this.checkBox34.AutoSize = true;
             this.checkBox34.Location = new System.Drawing.Point(124, 31);
             this.checkBox34.Name = "checkBox34";
-            this.checkBox34.Size = new System.Drawing.Size(177, 17);
+            this.checkBox34.Size = new System.Drawing.Size(174, 17);
             this.checkBox34.TabIndex = 57;
-            this.checkBox34.Text = "Display wardrobe link in side bar";
+            this.checkBox34.Text = "Display wardrobe link in sidebar";
             this.checkBox34.UseVisualStyleBackColor = true;
             this.checkBox34.CheckedChanged += new System.EventHandler(this.checkBox34_CheckedChanged);
             // 
@@ -1296,9 +1301,9 @@
             this.checkBox21.AutoSize = true;
             this.checkBox21.Location = new System.Drawing.Point(124, 51);
             this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(137, 17);
+            this.checkBox21.Size = new System.Drawing.Size(134, 17);
             this.checkBox21.TabIndex = 23;
-            this.checkBox21.Text = "Display cloth in side bar";
+            this.checkBox21.Text = "Display cloth in sidebar";
             this.checkBox21.UseVisualStyleBackColor = true;
             this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
             // 
@@ -1691,9 +1696,9 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Location = new System.Drawing.Point(124, 11);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(156, 17);
+            this.checkBox8.Size = new System.Drawing.Size(153, 17);
             this.checkBox8.TabIndex = 1;
-            this.checkBox8.Text = "Display cloth link in side bar";
+            this.checkBox8.Text = "Display cloth link in sidebar";
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
@@ -1834,9 +1839,9 @@
             this.checkBox23.AutoSize = true;
             this.checkBox23.Location = new System.Drawing.Point(124, 31);
             this.checkBox23.Name = "checkBox23";
-            this.checkBox23.Size = new System.Drawing.Size(111, 17);
+            this.checkBox23.Size = new System.Drawing.Size(108, 17);
             this.checkBox23.TabIndex = 17;
-            this.checkBox23.Text = "Display in side bar";
+            this.checkBox23.Text = "Display in sidebar";
             this.checkBox23.UseVisualStyleBackColor = true;
             this.checkBox23.CheckedChanged += new System.EventHandler(this.checkBox23_CheckedChanged);
             // 
@@ -2067,9 +2072,9 @@
             this.checkBox7.AutoSize = true;
             this.checkBox7.Location = new System.Drawing.Point(124, 11);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(130, 17);
+            this.checkBox7.Size = new System.Drawing.Size(127, 17);
             this.checkBox7.TabIndex = 1;
-            this.checkBox7.Text = "Display link in side bar";
+            this.checkBox7.Text = "Display link in sidebar";
             this.checkBox7.UseVisualStyleBackColor = true;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
@@ -2189,9 +2194,9 @@
             this.checkBox10.AutoSize = true;
             this.checkBox10.Location = new System.Drawing.Point(124, 11);
             this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(111, 17);
+            this.checkBox10.Size = new System.Drawing.Size(108, 17);
             this.checkBox10.TabIndex = 1;
-            this.checkBox10.Text = "Display in side bar";
+            this.checkBox10.Text = "Display in sidebar";
             this.checkBox10.UseVisualStyleBackColor = true;
             this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
@@ -2757,9 +2762,9 @@
             this.checkBox11.AutoSize = true;
             this.checkBox11.Location = new System.Drawing.Point(124, 11);
             this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(111, 17);
+            this.checkBox11.Size = new System.Drawing.Size(108, 17);
             this.checkBox11.TabIndex = 1;
-            this.checkBox11.Text = "Display in side bar";
+            this.checkBox11.Text = "Display in sidebar";
             this.checkBox11.UseVisualStyleBackColor = true;
             this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
@@ -3328,6 +3333,7 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.checkBox48);
             this.tabPage8.Controls.Add(this.checkBox36);
             this.tabPage8.Controls.Add(this.label92);
             this.tabPage8.Controls.Add(this.checkedListBox5);
@@ -3354,9 +3360,9 @@
             this.checkBox36.AutoSize = true;
             this.checkBox36.Location = new System.Drawing.Point(124, 31);
             this.checkBox36.Name = "checkBox36";
-            this.checkBox36.Size = new System.Drawing.Size(111, 17);
+            this.checkBox36.Size = new System.Drawing.Size(108, 17);
             this.checkBox36.TabIndex = 49;
-            this.checkBox36.Text = "Display in side bar";
+            this.checkBox36.Text = "Display in sidebar";
             this.checkBox36.UseVisualStyleBackColor = true;
             this.checkBox36.CheckedChanged += new System.EventHandler(this.checkBox36_CheckedChanged);
             // 
@@ -3471,9 +3477,9 @@
             this.checkBox22.AutoSize = true;
             this.checkBox22.Location = new System.Drawing.Point(124, 11);
             this.checkBox22.Name = "checkBox22";
-            this.checkBox22.Size = new System.Drawing.Size(130, 17);
+            this.checkBox22.Size = new System.Drawing.Size(127, 17);
             this.checkBox22.TabIndex = 1;
-            this.checkBox22.Text = "Display link in side bar";
+            this.checkBox22.Text = "Display link in sidebar";
             this.checkBox22.UseVisualStyleBackColor = true;
             this.checkBox22.CheckedChanged += new System.EventHandler(this.checkBox22_CheckedChanged);
             // 
@@ -3516,6 +3522,33 @@
             this.groupBox9.TabIndex = 39;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Character";
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(363, 130);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(40, 23);
+            this.button32.TabIndex = 35;
+            this.button32.Text = "...";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(249, 131);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(108, 22);
+            this.panel1.TabIndex = 34;
+            // 
+            // label112
+            // 
+            this.label112.AutoSize = true;
+            this.label112.Location = new System.Drawing.Point(169, 136);
+            this.label112.Name = "label112";
+            this.label112.Size = new System.Drawing.Size(34, 13);
+            this.label112.TabIndex = 33;
+            this.label112.Text = "Color:";
             // 
             // checkBox17
             // 
@@ -3835,6 +3868,10 @@
             // 
             this.columnHeader51.Text = "Image";
             // 
+            // columnHeader71
+            // 
+            this.columnHeader71.Text = "Color";
+            // 
             // columnHeader52
             // 
             this.columnHeader52.Text = "Skill1";
@@ -3906,6 +3943,185 @@
             this.tabPage10.Text = "Configuration";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
+            // checkBox44
+            // 
+            this.checkBox44.AutoSize = true;
+            this.checkBox44.Location = new System.Drawing.Point(10, 373);
+            this.checkBox44.Name = "checkBox44";
+            this.checkBox44.Size = new System.Drawing.Size(192, 17);
+            this.checkBox44.TabIndex = 34;
+            this.checkBox44.Text = "Resize character images in dialogs:";
+            this.checkBox44.UseVisualStyleBackColor = true;
+            this.checkBox44.CheckedChanged += new System.EventHandler(this.checkBox44_CheckedChanged);
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(177, 396);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(18, 13);
+            this.label97.TabIndex = 33;
+            this.label97.Text = "px";
+            // 
+            // label109
+            // 
+            this.label109.AutoSize = true;
+            this.label109.Location = new System.Drawing.Point(177, 420);
+            this.label109.Name = "label109";
+            this.label109.Size = new System.Drawing.Size(18, 13);
+            this.label109.TabIndex = 32;
+            this.label109.Text = "px";
+            // 
+            // numericUpDown24
+            // 
+            this.numericUpDown24.Enabled = false;
+            this.numericUpDown24.Location = new System.Drawing.Point(98, 418);
+            this.numericUpDown24.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown24.Name = "numericUpDown24";
+            this.numericUpDown24.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown24.TabIndex = 31;
+            this.numericUpDown24.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown24.ValueChanged += new System.EventHandler(this.numericUpDown24_ValueChanged);
+            // 
+            // label110
+            // 
+            this.label110.AutoSize = true;
+            this.label110.Location = new System.Drawing.Point(40, 420);
+            this.label110.Name = "label110";
+            this.label110.Size = new System.Drawing.Size(41, 13);
+            this.label110.TabIndex = 30;
+            this.label110.Text = "Height:";
+            // 
+            // numericUpDown31
+            // 
+            this.numericUpDown31.Enabled = false;
+            this.numericUpDown31.Location = new System.Drawing.Point(98, 394);
+            this.numericUpDown31.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown31.Name = "numericUpDown31";
+            this.numericUpDown31.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown31.TabIndex = 29;
+            this.numericUpDown31.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown31.ValueChanged += new System.EventHandler(this.numericUpDown31_ValueChanged);
+            // 
+            // label111
+            // 
+            this.label111.AutoSize = true;
+            this.label111.Location = new System.Drawing.Point(40, 396);
+            this.label111.Name = "label111";
+            this.label111.Size = new System.Drawing.Size(38, 13);
+            this.label111.TabIndex = 28;
+            this.label111.Text = "Width:";
+            // 
+            // checkBox43
+            // 
+            this.checkBox43.AutoSize = true;
+            this.checkBox43.Location = new System.Drawing.Point(7, 177);
+            this.checkBox43.Name = "checkBox43";
+            this.checkBox43.Size = new System.Drawing.Size(145, 17);
+            this.checkBox43.TabIndex = 27;
+            this.checkBox43.Text = "Resize images in sidebar:";
+            this.checkBox43.UseVisualStyleBackColor = true;
+            this.checkBox43.CheckedChanged += new System.EventHandler(this.checkBox43_CheckedChanged);
+            // 
+            // checkBox42
+            // 
+            this.checkBox42.AutoSize = true;
+            this.checkBox42.Location = new System.Drawing.Point(7, 272);
+            this.checkBox42.Name = "checkBox42";
+            this.checkBox42.Size = new System.Drawing.Size(164, 17);
+            this.checkBox42.TabIndex = 26;
+            this.checkBox42.Text = "Resize images in paragraphs:";
+            this.checkBox42.UseVisualStyleBackColor = true;
+            this.checkBox42.CheckedChanged += new System.EventHandler(this.checkBox42_CheckedChanged);
+            // 
+            // label108
+            // 
+            this.label108.AutoSize = true;
+            this.label108.Location = new System.Drawing.Point(177, 197);
+            this.label108.Name = "label108";
+            this.label108.Size = new System.Drawing.Size(18, 13);
+            this.label108.TabIndex = 25;
+            this.label108.Text = "px";
+            // 
+            // label107
+            // 
+            this.label107.AutoSize = true;
+            this.label107.Location = new System.Drawing.Point(177, 224);
+            this.label107.Name = "label107";
+            this.label107.Size = new System.Drawing.Size(18, 13);
+            this.label107.TabIndex = 24;
+            this.label107.Text = "px";
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.Location = new System.Drawing.Point(177, 295);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(18, 13);
+            this.label106.TabIndex = 23;
+            this.label106.Text = "px";
+            // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Location = new System.Drawing.Point(177, 325);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(18, 13);
+            this.label105.TabIndex = 22;
+            this.label105.Text = "px";
+            // 
+            // label104
+            // 
+            this.label104.AutoSize = true;
+            this.label104.Location = new System.Drawing.Point(177, 476);
+            this.label104.Name = "label104";
+            this.label104.Size = new System.Drawing.Size(18, 13);
+            this.label104.TabIndex = 21;
+            this.label104.Text = "px";
+            // 
+            // numericUpDown30
+            // 
+            this.numericUpDown30.Location = new System.Drawing.Point(98, 474);
+            this.numericUpDown30.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown30.Name = "numericUpDown30";
+            this.numericUpDown30.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown30.TabIndex = 20;
+            this.numericUpDown30.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown30.ValueChanged += new System.EventHandler(this.numericUpDown30_ValueChanged);
+            // 
+            // label103
+            // 
+            this.label103.AutoSize = true;
+            this.label103.Location = new System.Drawing.Point(7, 476);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(87, 13);
+            this.label103.TabIndex = 19;
+            this.label103.Text = "Paragraph width:";
+            // 
             // numericUpDown28
             // 
             this.numericUpDown28.Enabled = false;
@@ -3919,7 +4135,7 @@
             this.numericUpDown28.Size = new System.Drawing.Size(73, 20);
             this.numericUpDown28.TabIndex = 18;
             this.numericUpDown28.Value = new decimal(new int[] {
-            400,
+            100,
             0,
             0,
             0});
@@ -3947,7 +4163,7 @@
             this.numericUpDown29.Size = new System.Drawing.Size(73, 20);
             this.numericUpDown29.TabIndex = 16;
             this.numericUpDown29.Value = new decimal(new int[] {
-            600,
+            100,
             0,
             0,
             0});
@@ -3975,7 +4191,7 @@
             this.numericUpDown27.Size = new System.Drawing.Size(73, 20);
             this.numericUpDown27.TabIndex = 14;
             this.numericUpDown27.Value = new decimal(new int[] {
-            150,
+            60,
             0,
             0,
             0});
@@ -4003,7 +4219,7 @@
             this.numericUpDown26.Size = new System.Drawing.Size(73, 20);
             this.numericUpDown26.TabIndex = 12;
             this.numericUpDown26.Value = new decimal(new int[] {
-            150,
+            60,
             0,
             0,
             0});
@@ -4253,7 +4469,7 @@
             // 
             // button30
             // 
-            this.button30.Location = new System.Drawing.Point(12, 423);
+            this.button30.Location = new System.Drawing.Point(12, 467);
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(216, 23);
             this.button30.TabIndex = 24;
@@ -4264,7 +4480,7 @@
             // checkBox24
             // 
             this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(12, 373);
+            this.checkBox24.Location = new System.Drawing.Point(16, 399);
             this.checkBox24.Name = "checkBox24";
             this.checkBox24.Size = new System.Drawing.Size(123, 17);
             this.checkBox24.TabIndex = 25;
@@ -4274,7 +4490,7 @@
             // 
             // button31
             // 
-            this.button31.Location = new System.Drawing.Point(12, 481);
+            this.button31.Location = new System.Drawing.Point(12, 525);
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(216, 23);
             this.button31.TabIndex = 26;
@@ -4291,219 +4507,9 @@
             this.label7.TabIndex = 27;
             this.label7.Text = "Story name:";
             // 
-            // label103
-            // 
-            this.label103.AutoSize = true;
-            this.label103.Location = new System.Drawing.Point(7, 476);
-            this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(87, 13);
-            this.label103.TabIndex = 19;
-            this.label103.Text = "Paragraph width:";
-            // 
-            // numericUpDown30
-            // 
-            this.numericUpDown30.Location = new System.Drawing.Point(98, 474);
-            this.numericUpDown30.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown30.Name = "numericUpDown30";
-            this.numericUpDown30.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDown30.TabIndex = 20;
-            this.numericUpDown30.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown30.ValueChanged += new System.EventHandler(this.numericUpDown30_ValueChanged);
-            // 
-            // label104
-            // 
-            this.label104.AutoSize = true;
-            this.label104.Location = new System.Drawing.Point(177, 476);
-            this.label104.Name = "label104";
-            this.label104.Size = new System.Drawing.Size(18, 13);
-            this.label104.TabIndex = 21;
-            this.label104.Text = "px";
-            // 
-            // label105
-            // 
-            this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(177, 325);
-            this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(18, 13);
-            this.label105.TabIndex = 22;
-            this.label105.Text = "px";
-            // 
-            // label106
-            // 
-            this.label106.AutoSize = true;
-            this.label106.Location = new System.Drawing.Point(177, 295);
-            this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(18, 13);
-            this.label106.TabIndex = 23;
-            this.label106.Text = "px";
-            // 
-            // label107
-            // 
-            this.label107.AutoSize = true;
-            this.label107.Location = new System.Drawing.Point(177, 224);
-            this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(18, 13);
-            this.label107.TabIndex = 24;
-            this.label107.Text = "px";
-            // 
-            // label108
-            // 
-            this.label108.AutoSize = true;
-            this.label108.Location = new System.Drawing.Point(177, 197);
-            this.label108.Name = "label108";
-            this.label108.Size = new System.Drawing.Size(18, 13);
-            this.label108.TabIndex = 25;
-            this.label108.Text = "px";
-            // 
-            // checkBox42
-            // 
-            this.checkBox42.AutoSize = true;
-            this.checkBox42.Location = new System.Drawing.Point(7, 272);
-            this.checkBox42.Name = "checkBox42";
-            this.checkBox42.Size = new System.Drawing.Size(164, 17);
-            this.checkBox42.TabIndex = 26;
-            this.checkBox42.Text = "Resize images in paragraphs:";
-            this.checkBox42.UseVisualStyleBackColor = true;
-            this.checkBox42.CheckedChanged += new System.EventHandler(this.checkBox42_CheckedChanged);
-            // 
-            // checkBox43
-            // 
-            this.checkBox43.AutoSize = true;
-            this.checkBox43.Location = new System.Drawing.Point(7, 177);
-            this.checkBox43.Name = "checkBox43";
-            this.checkBox43.Size = new System.Drawing.Size(145, 17);
-            this.checkBox43.TabIndex = 27;
-            this.checkBox43.Text = "Resize images in sidebar:";
-            this.checkBox43.UseVisualStyleBackColor = true;
-            this.checkBox43.CheckedChanged += new System.EventHandler(this.checkBox43_CheckedChanged);
-            // 
-            // checkBox44
-            // 
-            this.checkBox44.AutoSize = true;
-            this.checkBox44.Location = new System.Drawing.Point(10, 373);
-            this.checkBox44.Name = "checkBox44";
-            this.checkBox44.Size = new System.Drawing.Size(192, 17);
-            this.checkBox44.TabIndex = 34;
-            this.checkBox44.Text = "Resize character images in dialogs:";
-            this.checkBox44.UseVisualStyleBackColor = true;
-            this.checkBox44.CheckedChanged += new System.EventHandler(this.checkBox44_CheckedChanged);
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(177, 396);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(18, 13);
-            this.label97.TabIndex = 33;
-            this.label97.Text = "px";
-            // 
-            // label109
-            // 
-            this.label109.AutoSize = true;
-            this.label109.Location = new System.Drawing.Point(177, 420);
-            this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(18, 13);
-            this.label109.TabIndex = 32;
-            this.label109.Text = "px";
-            // 
-            // numericUpDown24
-            // 
-            this.numericUpDown24.Enabled = false;
-            this.numericUpDown24.Location = new System.Drawing.Point(98, 418);
-            this.numericUpDown24.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown24.Name = "numericUpDown24";
-            this.numericUpDown24.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDown24.TabIndex = 31;
-            this.numericUpDown24.Value = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.numericUpDown24.ValueChanged += new System.EventHandler(this.numericUpDown24_ValueChanged);
-            // 
-            // label110
-            // 
-            this.label110.AutoSize = true;
-            this.label110.Location = new System.Drawing.Point(40, 420);
-            this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(41, 13);
-            this.label110.TabIndex = 30;
-            this.label110.Text = "Height:";
-            // 
-            // numericUpDown31
-            // 
-            this.numericUpDown31.Enabled = false;
-            this.numericUpDown31.Location = new System.Drawing.Point(98, 394);
-            this.numericUpDown31.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown31.Name = "numericUpDown31";
-            this.numericUpDown31.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDown31.TabIndex = 29;
-            this.numericUpDown31.Value = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.numericUpDown31.ValueChanged += new System.EventHandler(this.numericUpDown31_ValueChanged);
-            // 
-            // label111
-            // 
-            this.label111.AutoSize = true;
-            this.label111.Location = new System.Drawing.Point(40, 396);
-            this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(38, 13);
-            this.label111.TabIndex = 28;
-            this.label111.Text = "Width:";
-            // 
-            // label112
-            // 
-            this.label112.AutoSize = true;
-            this.label112.Location = new System.Drawing.Point(169, 136);
-            this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(34, 13);
-            this.label112.TabIndex = 33;
-            this.label112.Text = "Color:";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(249, 131);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(108, 22);
-            this.panel1.TabIndex = 34;
-            // 
-            // button32
-            // 
-            this.button32.Location = new System.Drawing.Point(363, 130);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(40, 23);
-            this.button32.TabIndex = 35;
-            this.button32.Text = "...";
-            this.button32.UseVisualStyleBackColor = true;
-            this.button32.Click += new System.EventHandler(this.button32_Click);
-            // 
-            // columnHeader71
-            // 
-            this.columnHeader71.Text = "Color";
-            // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(12, 452);
+            this.button33.Location = new System.Drawing.Point(12, 496);
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(216, 23);
             this.button33.TabIndex = 28;
@@ -4511,11 +4517,53 @@
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
             // 
+            // checkBox45
+            // 
+            this.checkBox45.AutoSize = true;
+            this.checkBox45.Location = new System.Drawing.Point(124, 51);
+            this.checkBox45.Name = "checkBox45";
+            this.checkBox45.Size = new System.Drawing.Size(138, 17);
+            this.checkBox45.TabIndex = 55;
+            this.checkBox45.Text = "Inventory sidebar tooltip";
+            this.checkBox45.UseVisualStyleBackColor = true;
+            this.checkBox45.CheckedChanged += new System.EventHandler(this.checkBox45_CheckedChanged);
+            // 
+            // checkBox48
+            // 
+            this.checkBox48.AutoSize = true;
+            this.checkBox48.Location = new System.Drawing.Point(124, 51);
+            this.checkBox48.Name = "checkBox48";
+            this.checkBox48.Size = new System.Drawing.Size(140, 17);
+            this.checkBox48.TabIndex = 50;
+            this.checkBox48.Text = "Character sidebar tooltip";
+            this.checkBox48.UseVisualStyleBackColor = true;
+            this.checkBox48.CheckedChanged += new System.EventHandler(this.checkBox48_CheckedChanged);
+            // 
+            // label113
+            // 
+            this.label113.AutoSize = true;
+            this.label113.Location = new System.Drawing.Point(12, 376);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(49, 13);
+            this.label113.TabIndex = 29;
+            this.label113.Text = "Main file:";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(100, 373);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(128, 20);
+            this.textBox5.TabIndex = 30;
+            this.textBox5.Text = "my_story.tw2";
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 729);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label113);
             this.Controls.Add(this.button33);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.button31);
@@ -4598,6 +4646,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown27)).EndInit();
@@ -4607,9 +4658,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5013,6 +5061,10 @@
         private System.Windows.Forms.Label label112;
         private System.Windows.Forms.ColumnHeader columnHeader71;
         private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.CheckBox checkBox45;
+        private System.Windows.Forms.CheckBox checkBox48;
+        private System.Windows.Forms.Label label113;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 

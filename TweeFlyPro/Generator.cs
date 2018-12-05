@@ -60,6 +60,21 @@ namespace TweeFly
                 if (_conf.charactersActive) twMain.WriteLine("_js_characters.tw2");
                 twMain.WriteLine("_tw_sidebar.tw2");
                 twMain.WriteLine("_css_style.tw2");
+                if (!string.IsNullOrEmpty(_conf.mainFile))
+                {
+                    string storyFileAbsolute = Path.IsPathRooted(_conf.mainFile) ? _conf.mainFile : Path.Combine(_path, _conf.mainFile);
+
+                    if (!File.Exists(storyFileAbsolute))
+                    {
+                        if (Path.GetExtension(storyFileAbsolute).Equals(""))
+                        {
+                            storyFileAbsolute += ".tw2";
+                        }
+                        MessageBox.Show("Story file '" + storyFileAbsolute + "' does not exist. Creating dummy story as '" + storyFileAbsolute + "'.");
+                        generateEmptyStory(storyFileAbsolute);
+                    }
+                    twMain.WriteLine(Path.GetFileName(storyFileAbsolute));
+                }
                 twMain.WriteLine("");
 
                 // Story init
@@ -93,6 +108,25 @@ namespace TweeFly
                 {
                     twMain.Flush();
                     twMain.Close();
+                }
+            }
+        }
+
+        private static void generateEmptyStory(string _path)
+        {
+            TextWriter twStory = null;
+            try
+            {
+                twStory = new StreamWriter(_path, false, new UTF8Encoding(false));
+                twStory.WriteLine("::Start");
+                twStory.WriteLine("Start writing your story here...");
+            }
+            finally
+            {
+                if (twStory != null)
+                {
+                    twStory.Flush();
+                    twStory.Close();
                 }
             }
         }
@@ -153,7 +187,7 @@ namespace TweeFly
                     twMenu.WriteLine("::InventoryMenu[noreturn]");
                     twMenu.WriteLine("<<if $inventory.length == 0>>" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_EMPTY_CAP")).caption +
                         "<<else>>" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_TITLE_CAP")).caption);
-                    twMenu.WriteLine("<<inv>>");
+                    twMenu.WriteLine("<<inventory>>");
                     twMenu.WriteLine("<<endif>>");
                     twMenu.WriteLine("[["+ _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption +"|$return]]");
                     twMenu.WriteLine("");
@@ -224,7 +258,8 @@ namespace TweeFly
                     twInventory.Write("\"description\":\"" + _conf.items[i].description + "\",");
                     twInventory.Write("\"category\":\"" + _conf.items[i].category + "\",");
                     twInventory.Write("\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",");
-                    twInventory.Write("\"image\":\"" + _conf.items[i].image + "\",");
+                    twInventory.Write("\"image\":\"" + pathSubtract(_conf.items[i].image, _conf.pathSubtract) + "\",");
+                    twInventory.Write("\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",");
                     twInventory.Write("\"buyPrice\":" + _conf.items[i].buyPrice+ ",");
                     twInventory.Write("\"sellPrice\":" + _conf.items[i].sellPrice + ",");
                     twInventory.Write("\"canOwnMultiple\":" + _conf.items[i].canOwnMultiple.ToString().ToLower() + ",");
@@ -273,7 +308,8 @@ namespace TweeFly
                         twInventory.Write("\"description\":\"" + _conf.items[i].description + "\",");
                         twInventory.Write("\"category\":\"" + _conf.items[i].category + "\",");
                         twInventory.Write("\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",");
-                        twInventory.Write("\"image\":\"" + _conf.items[i].image + "\",");
+                        twInventory.Write("\"image\":\"" + pathSubtract(_conf.items[i].image, _conf.pathSubtract) + "\",");
+                        twInventory.Write("\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",");
                         twInventory.Write("\"buyPrice\":" + _conf.items[i].buyPrice + ",");
                         twInventory.Write("\"sellPrice\":" + _conf.items[i].sellPrice + ",");
                         twInventory.Write("\"canOwnMultiple\":" + _conf.items[i].canOwnMultiple.ToString().ToLower() + ",");
@@ -371,22 +407,22 @@ namespace TweeFly
                 twInventory.WriteLine("");
 
                 // Inventory
-                twInventory.WriteLine("macros.inv = {");
+                twInventory.WriteLine("macros.inventory = {");
                 twInventory.WriteLine("\thandler: function(place, macroName, params, parser) {");
                 twInventory.WriteLine("\t\tif (state.active.variables.inventory.length == 0) {");
                 twInventory.WriteLine("\t\t\tnew Wikifier(place, 'nothing');");
                 twInventory.WriteLine("\t\t} else {");
                 twInventory.WriteLine("\t\t\tvar inv_str = \"<table class=\\\"inventory\\\"><tr>\";");
-                if (_conf.displayInInventory.Contains("ID")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">ID</th>\";");
-                if (_conf.displayInInventory.Contains("Name")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">name</th>\";");
-                if (_conf.displayInInventory.Contains("Description")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">description</th>\";");
-                if (_conf.displayInInventory.Contains("Category")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> category</th>\";");
-                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> shop category</th>\";");
-                if (_conf.displayInInventory.Contains("Owned")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> owned</th>\";");
-                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> can buy</th>\";");
-                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> buy price</th>\";");
-                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> sell price</th>\";");
-                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\"> can own multiple</th>\";");
+                if (_conf.displayInInventory.Contains("ID")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_ID_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Name")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_NAME_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Description")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_DESCRIPTION_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Category")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_CATEGORY_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SHOP_CATEGORY_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Owned")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_OWNED_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_CAN_BUY_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_BUY_PRICE_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SELL_PRICE_CAP")).caption + "</th>\";");
+                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_CAN_OWN_MULTIPLE_CAP")).caption + "</th>\";");
 
                 if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
                     twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\" >" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL1_CAP")).caption + "</th>\";");
@@ -397,7 +433,7 @@ namespace TweeFly
                 if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
                     twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL3_CAP")).caption + "</th>\";");
 
-                if (_conf.displayInInventory.Contains("Image")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">image</th>\";");
+                if (_conf.displayInInventory.Contains("Image")) twInventory.WriteLine("\t\t\tinv_str += \"<th class=\\\"inventory\\\">" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_IMAGE_CAP")).caption + "</th>\";");
                 twInventory.WriteLine("\t\t\tinv_str += \"</tr>\";");
 
                 twInventory.WriteLine("\t\t\tfor (var i = 0; i < state.active.variables.inventory.length; i++)");
@@ -407,12 +443,12 @@ namespace TweeFly
                 if (_conf.displayInInventory.Contains("Name")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].name + \"</td>\";");
                 if (_conf.displayInInventory.Contains("Description")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].description + \"</td>\";");
                 if (_conf.displayInInventory.Contains("Category")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].category + \"</td>\";");
-                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].shop_category + \"</td>\";");
+                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].shopCategory + \"</td>\";");
                 if (_conf.displayInInventory.Contains("Owned")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].owned + \"</td>\";");
-                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].can_buy + \"</td>\";");
-                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].buy_price + \"</td>\";");
-                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].sell_price + \"</td>\";");
-                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].can_own_multiple + \"</td>\";");
+                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].canBeBought + \"</td>\";");
+                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].buyPrice + \"</td>\";");
+                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].sellPrice + \"</td>\";");
+                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].canOwnMultiple + \"</td>\";");
 
                 if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
                     twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].skill1 + \"</td>\";");
@@ -423,7 +459,7 @@ namespace TweeFly
                 if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
                     twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].skill3 + \"</td>\";");
 
-                if (_conf.displayInInventory.Contains("Image")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"><img src=\\\"\" + state.active.variables.inventory[i].image + \"\\\" ></td>\";");
+                if (_conf.displayInInventory.Contains("Image")) twInventory.WriteLine("\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.inventory[i].image + \"\\\" ></td>\";");
                 twInventory.WriteLine("\t\t\t\tinv_str += \"</tr>\";");
                 twInventory.WriteLine("\t\t\t}");
                 twInventory.WriteLine("\t\t\tinv_str += \"</table>\";");
@@ -447,23 +483,29 @@ namespace TweeFly
                 if (_conf.displayInInventory.Contains("Name")) twInventory.WriteLine("\t\t\titem_info_1 += \"name:\" + state.active.variables.inventory[w].name + \"&#10;\";");
                 if (_conf.displayInInventory.Contains("Description")) twInventory.WriteLine("\t\t\titem_info_1 += \"description:\" + state.active.variables.inventory[w].description + \"&#10;\";");
                 if (_conf.displayInInventory.Contains("Category")) twInventory.WriteLine("\t\t\titem_info_1 += \"category:\" + state.active.variables.inventory[w].category + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\titem_info_1 += \"shop category:\" + state.active.variables.inventory[w].shop_category + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\titem_info_1 += \"shop category:\" + state.active.variables.inventory[w].shopCategory + \"&#10;\";");
                 if (_conf.displayInInventory.Contains("Owned")) twInventory.WriteLine("\t\t\titem_info_1 += \"owned:\" + state.active.variables.inventory[w].owned + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\titem_info_1 += \"can buy:\" + state.active.variables.inventory[w].can_buy + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\titem_info_1 += \"buy price:\" + state.active.variables.inventory[w].buy_price + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\titem_info_1 += \"sell price:\" + state.active.variables.inventory[w].sell_price + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\titem_info_1 += \"can own multiple:\" + state.active.variables.inventory[w].can_own_multiple + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\titem_info_1 += \"can buy:\" + state.active.variables.inventory[w].canBeBought + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\titem_info_1 += \"buy price:\" + state.active.variables.inventory[w].buyPrice + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\titem_info_1 += \"sell price:\" + state.active.variables.inventory[w].sellPrice + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\titem_info_1 += \"can own multiple:\" + state.active.variables.inventory[w].canOwnMultiple + \"&#10;\";");
 
                 if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
-                    twInventory.WriteLine("\t\t\titem_info_1 +=\"skill1: \" + state.active.variables.inventory[w].skill1 + \"&#10;\";");
+                    twInventory.WriteLine("\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL1_CAP")).caption + ": \" + state.active.variables.inventory[w].skill1 + \"&#10;\";");
 
                 if (_conf.displayInInventory.Contains("Skill2") && _conf.inventoryUseSkill2)
-                    twInventory.WriteLine("\t\t\titem_info_1 +=\"snill2: \" + state.active.variables.inventory[w].skill2 + \"&#10;\";");
+                    twInventory.WriteLine("\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL2_CAP")).caption + ": \" + state.active.variables.inventory[w].skill2 + \"&#10;\";");
 
                 if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
-                    twInventory.WriteLine("\t\t\titem_info_1 +=\"skill3: \" + state.active.variables.inventory[w].skill3 + \"&#10;\";");
+                    twInventory.WriteLine("\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL3_CAP")).caption + ": \" + state.active.variables.inventory[w].skill3 + \"&#10;\";");
 
-                twInventory.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img height=\\\"50%\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" title=\\\"\" + item_info_1 + \"\\\"></td>\";");
+                if (_conf.inventorySidebarTooltip)
+                {
+                    twInventory.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" title=\\\"\" + item_info_1 + \"\\\"></td>\";");
+                } else
+                {
+                    twInventory.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\"></td>\";");
+                }
                 twInventory.WriteLine("");
                 twInventory.WriteLine("\t\t\tif (w+1 < state.active.variables.inventory.length) {");
                 twInventory.WriteLine("");
@@ -472,24 +514,31 @@ namespace TweeFly
                 if (_conf.displayInInventory.Contains("Name")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"name:\" + state.active.variables.inventory[w+1].name + \"&#10;\";");
                 if (_conf.displayInInventory.Contains("Description")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"description:\" + state.active.variables.inventory[w+1].description + \"&#10;\";");
                 if (_conf.displayInInventory.Contains("Category")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"category:\" + state.active.variables.inventory[w+1].category + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"shop category:\" + state.active.variables.inventory[w+1].shop_category + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Shop category")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"shop category:\" + state.active.variables.inventory[w+1].shopCategory + \"&#10;\";");
                 if (_conf.displayInInventory.Contains("Owned")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"owned:\" + state.active.variables.inventory[w+1].owned + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"can buy:\" + state.active.variables.inventory[w+1].can_buy + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"buy price:\" + state.active.variables.inventory[w+1].buy_price + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"sell price:\" + state.active.variables.inventory[w+1].sell_price + \"&#10;\";");
-                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"can own multiple:\" + state.active.variables.inventory[w+1].can_own_multiple + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Can buy")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"can buy:\" + state.active.variables.inventory[w+1].canBeBought + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Buy price")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"buy price:\" + state.active.variables.inventory[w+1].buyPrice + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Sell price")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"sell price:\" + state.active.variables.inventory[w+1].sellPrice + \"&#10;\";");
+                if (_conf.displayInInventory.Contains("Can own multiple")) twInventory.WriteLine("\t\t\t\titem_info_2 += \"can own multiple:\" + state.active.variables.inventory[w+1].canOwnMultiple + \"&#10;\";");
 
                 if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
-                    twInventory.WriteLine("\t\t\t\titem_info_2 +=\"skill1: \" + state.active.variables.inventory[w+1].skill1 + \"&#10;\";");
+                    twInventory.WriteLine("\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL1_CAP")).caption + ": \" + state.active.variables.inventory[w+1].skill1 + \"&#10;\";");
 
                 if (_conf.displayInInventory.Contains("Skill2") && _conf.inventoryUseSkill2)
-                    twInventory.WriteLine("\t\t\t\titem_info_2 +=\"snill2: \" + state.active.variables.inventory[w+1].skill2 + \"&#10;\";");
+                    twInventory.WriteLine("\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL2_CAP")).caption + ": \" + state.active.variables.inventory[w+1].skill2 + \"&#10;\";");
 
                 if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
-                    twInventory.WriteLine("\t\t\t\titem_info_2 +=\"skill3: \" + state.active.variables.inventory[w+1].skill3 + \"&#10;\";");
+                    twInventory.WriteLine("\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL3_CAP")).caption + ": \" + state.active.variables.inventory[w+1].skill3 + \"&#10;\";");
 
                 twInventory.WriteLine("");
-                twInventory.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img height=\\\"50%\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" title=\\\"\" + item_info_2 + \"\\\"></td>\";");
+
+                if (_conf.inventorySidebarTooltip)
+                {
+                    twInventory.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" title=\\\"\" + item_info_2 + \"\\\"></td>\";");
+                } else
+                {
+                    twInventory.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></td>\";");
+                }
                 twInventory.WriteLine("\t\t\t} else {");
                 twInventory.WriteLine("\t\t\t\twstr +=\"<td></td>\";");
                 twInventory.WriteLine("\t\t\t}");
@@ -503,7 +552,7 @@ namespace TweeFly
                 twInventory.WriteLine("");
 
                 // clearInventory
-                twInventory.WriteLine("macros.clearInv = {");
+                twInventory.WriteLine("macros.clearInventory = {");
                 twInventory.WriteLine("\thandler: function(place, macroName, params, parser) {");
                 twInventory.WriteLine("\t\tstate.active.variables.inventory = [];");
                 twInventory.WriteLine("\t}");
@@ -559,7 +608,7 @@ namespace TweeFly
                     twCloth.Write("\"shopCategory\":\"" + _conf.cloth[i].shopCategory + "\",");
                     twCloth.Write("\"category\":\"" + _conf.cloth[i].category + "\",");
                     twCloth.Write("\"bodyPart\":\"" + _conf.cloth[i].bodyPart + "\",");
-                    twCloth.Write("\"image\":\"" + _conf.cloth[i].image + "\",");
+                    twCloth.Write("\"image\":\"" + pathSubtract(_conf.cloth[i].image, _conf.pathSubtract) + "\",");
                     twCloth.Write("\"buyPrice\":" + _conf.cloth[i].buyPrice + ",");
                     twCloth.Write("\"sellPrice\":" + _conf.cloth[i].sellPrice + ",");
                     twCloth.Write("\"isWorn\":" + _conf.cloth[i].isWornAtBeginning.ToString().ToLower() + ",");
@@ -705,7 +754,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // hair
@@ -741,7 +790,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // neck
@@ -777,7 +826,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // upper body
@@ -813,7 +862,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // lower body
@@ -849,7 +898,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // belt
@@ -885,7 +934,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // socks
@@ -921,7 +970,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // shoes
@@ -957,7 +1006,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // underwear bottom
@@ -993,7 +1042,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 // underwear top
@@ -1029,7 +1078,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
                     twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill3 + \"</b></td>\";");
                 if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td>\";");
+                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td>\";");
                 twCloth.WriteLine("\t\ts +=\"</tr>\";");
 
                 twCloth.WriteLine("\t\ts +=\"</table>\";");
@@ -1045,16 +1094,16 @@ namespace TweeFly
                 twCloth.WriteLine("\tnew Wikifier(place,");
                 twCloth.WriteLine("\t\t\"<table class=\\\"cloth_sidebar\\\">\"+");
                 twCloth.WriteLine("\t\t\"<tr><td colspan=2>Cloth</td></tr>\"+");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\" +");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td></tr>\" +");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\" +");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td></tr>\" +");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\" +");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td></tr>\" +");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\"+");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td></tr>\"+");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\"+");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img height=\\\"50%\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td></tr>\"+");
+                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\" +");
+                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td></tr>\" +");
+                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\" +");
+                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td></tr>\" +");
+                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\" +");
+                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td></tr>\" +");
+                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\"+");
+                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td></tr>\"+");
+                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\"+");
+                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td></tr>\"+");
                 twCloth.WriteLine("\t\t\"</table>\");");
                 twCloth.WriteLine("\t}");
                 twCloth.WriteLine("};");
@@ -1109,7 +1158,7 @@ namespace TweeFly
                 if (_conf.clothUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill2 + \"</td>\";");
                 if (_conf.clothUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill3 + \"</td>\";");
                 if (_conf.displayInWardrobe.Contains("Owned")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Image")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img height=\\\"50%\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";");
+                if (_conf.displayInWardrobe.Contains("Image")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";");
                 twCloth.WriteLine("");
                 twCloth.WriteLine("\t\t\tif (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID) {");
                 twCloth.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_WEAR_CAP")).caption +"</a></td></tr>\";");
@@ -1201,7 +1250,7 @@ namespace TweeFly
                     twStats.Write("\"name\":\"" + _conf.stats[i].name + "\",");
                     twStats.Write("\"value\":" + _conf.stats[i].value + ",");
                     twStats.Write("\"description\":\"" + _conf.stats[i].description + "\",");
-                    twStats.WriteLine("\"image\":\"" + _conf.stats[i].img + "\"});");
+                    twStats.WriteLine("\"image\":\"" + pathSubtract(_conf.stats[i].img, _conf.pathSubtract) + "\"});");
                 }
                 twStats.WriteLine("\t}");
                 twStats.WriteLine("};");
@@ -1283,7 +1332,7 @@ namespace TweeFly
                 twStats.WriteLine("\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].name + \"</td>\";");
                 twStats.WriteLine("\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].value + \"</td>\";");
                 twStats.WriteLine("\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].description + \"</td>\";");
-                twStats.WriteLine("\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img height=\\\"50%\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";");
+                twStats.WriteLine("\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";");
                 twStats.WriteLine("\t\t\t\tstats_str += \"</tr>\";");
                 twStats.WriteLine("\t\t\t}");
                 twStats.WriteLine("\t\t\tstats_str += \"</table>\";");
@@ -1912,7 +1961,7 @@ namespace TweeFly
                 }
 
                 if (_conf.itemPropertiesInShops.Contains("Image"))
-                    twShops.WriteLine("\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td></tr>\";");
+                    twShops.WriteLine("\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img class=\\\"paragraph\\\" src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td></tr>\";");
                 twShops.WriteLine("\t\t\t}");
                 twShops.WriteLine("\t\t\tshop_str +=\"</table>\";");
                 twShops.WriteLine("\t\t\tnew Wikifier(place, shop_str);");
@@ -2016,7 +2065,7 @@ namespace TweeFly
                     twJobs.Write("\"cooldown\":" + _conf.jobs[i].cooldown + ",");
                     twJobs.Write("\"lastStart\":new Date(0, 0, 0, 0, 0, 0),");
                     twJobs.Write("\"duration\":" + _conf.jobs[i].duration + ",");
-                    twJobs.Write("\"image\":\"" + _conf.jobs[i].image + "\",");
+                    twJobs.Write("\"image\":\"" + pathSubtract(_conf.jobs[i].image, _conf.pathSubtract) + "\",");
                     twJobs.WriteLine("\"rewardItems\":[");
                     for(int j=0; j<_conf.jobs[i].rewardItems.Count; j++)
                     {
@@ -2180,7 +2229,7 @@ namespace TweeFly
                 if (_conf.displayInJobsView.Contains("Cooldown")) twJobs.WriteLine("\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].cooldown + \"</td>\";");
                 if (_conf.displayInJobsView.Contains("LastStart")) twJobs.WriteLine("\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].lastStart + \"</td>\";");
                 if (_conf.displayInJobsView.Contains("Duration")) twJobs.WriteLine("\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].duration + \"</td>\";");
-                if (_conf.displayInJobsView.Contains("Image")) twJobs.WriteLine("\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><img class=\\\"jobs\\\" src=\\\"\" + job_by_id[0].image + \"\\\"></td>\";");
+                if (_conf.displayInJobsView.Contains("Image")) twJobs.WriteLine("\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><img class=\\\"paragraph\\\" src=\\\"\" + job_by_id[0].image + \"\\\"></td>\";");
                 twJobs.WriteLine("");
                 twJobs.WriteLine("\t\t\t\tif ((minutes_diff >= job_by_id[0].cooldown) && (job_by_id[0].available)) {");
                 twJobs.WriteLine("\t\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><a onClick=\\\"doJob('\"+escape(JSON.stringify(job_by_id[0]))+\"');\\\" href=\\\"javascript:void(0);\\\">Start</a></td>\";");
@@ -2237,7 +2286,7 @@ namespace TweeFly
                     twCharacters.Write("\"relation\":" + _conf.characters[i].relation + ",");
                     twCharacters.Write("\"known\":" + _conf.characters[i].known.ToString().ToLower() + ",");
                     twCharacters.Write("\"color\":\"" + _conf.characters[i].color + "\",");
-                    twCharacters.Write("\"image\":\"" + _conf.characters[i].image + "\"");
+                    twCharacters.Write("\"image\":\"" + pathSubtract(_conf.characters[i].image, _conf.pathSubtract) + "\"");
                     if (_conf.characterUseSkill1)
                     {
                         string skill1val = (isBool(_conf.characters[i].skill1) || isNumber(_conf.characters[i].skill1)) ? _conf.characters[i].skill1 : "\"" + _conf.characters[i].skill1 + "\"";
@@ -2302,7 +2351,7 @@ namespace TweeFly
                 if (_conf.displayInCharactersView.Contains("Relation")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].relation + \"</td>\";");
                 if (_conf.displayInCharactersView.Contains("Known")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].known + \"</td>\";");
                 if (_conf.displayInCharactersView.Contains("Color")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].color + \"</td>\";");
-                if (_conf.displayInCharactersView.Contains("Image")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";");
+                if (_conf.displayInCharactersView.Contains("Image")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";");
                 twCharacters.WriteLine("");
 
                 if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
@@ -2338,7 +2387,7 @@ namespace TweeFly
                 twCharacters.WriteLine("\t\t\treturn;");
                 twCharacters.WriteLine("\t\t}");
                 twCharacters.WriteLine("");
-                twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"say\\\"><tr><td rowspan=\\\"2\\\"><img src=\\\"\" + character[0].image + \"\\\"></td><td><font color=\\\"\"+character[0].color+\"\\\">\" + character[0].name + \"</font></td></tr><tr><td>\"+params[1]+\"</td></tr></table>\";");
+                twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"say\\\"><tr><td rowspan=\\\"2\\\"><img class=\\\"dialog\\\" src=\\\"\" + character[0].image + \"\\\"></td><td><font color=\\\"\"+character[0].color+\"\\\">\" + character[0].name + \"</font></td></tr><tr><td>\"+params[1]+\"</td></tr></table>\";");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\tnew Wikifier(place, wstr);");
                 twCharacters.WriteLine("\t}");
@@ -2372,7 +2421,14 @@ namespace TweeFly
                 if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
                     twCharacters.WriteLine("\t\t\tchar_info_1 +=\"skill3: \" + state.active.variables.characters[w].skill3 + \"&#10;\";");
                 twCharacters.WriteLine("");
-                twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img height=\\\"50%\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\" title=\\\"\" + char_info_1 + \"\\\"></td>\";");
+
+                if (_conf.charactersSidebarTooltip)
+                {
+                    twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\" title=\\\"\" + char_info_1 + \"\\\"></td>\";");
+                } else
+                {
+                    twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";");
+                }
                 twCharacters.WriteLine("\t\t\tif (w+1 < state.active.variables.characters.length) {");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\t\t\tvar char_info_2 = \"\";");
@@ -2396,7 +2452,14 @@ namespace TweeFly
                 if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
                     twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"skill3: \" + state.active.variables.characters[w+1].skill3 + \"&#10;\";");
                 twCharacters.WriteLine("");
-                twCharacters.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img height=\\\"50%\\\" src=\\\"\" + state.active.variables.characters[w+1].image + \"\\\" title=\\\"\" + char_info_2 + \"\\\"></td>\";");
+
+                if (_conf.charactersSidebarTooltip)
+                {
+                    twCharacters.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w+1].image + \"\\\" title=\\\"\" + char_info_2 + \"\\\"></td>\";");
+                } else
+                {
+                    twCharacters.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w+1].image + \"\\\"></td>\";");
+                }
                 twCharacters.WriteLine("\t\t\t} else {");
                 twCharacters.WriteLine("\t\t\t\twstr +=\"<td></td>\";");
                 twCharacters.WriteLine("\t\t\t}");
@@ -2451,54 +2514,83 @@ namespace TweeFly
                 twCss = new StreamWriter(cssPath, false, new UTF8Encoding(false));
                 twCss.WriteLine("::CSSStyle[scss stylesheet]");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.cloth {border: 1px solid black; table-layout:fixed; width: 100%; }");
+                twCss.WriteLine("table.cloth {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%; }");
                 twCss.WriteLine("td.cloth {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.cloth {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.cloth_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.cloth_sidebar {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.cloth_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.cloth_sidebar {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.inventory {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.inventory {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.inventory {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.inventory {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.inventory_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.inventory_sidebar {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.inventory_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.inventory_sidebar {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.wardrobe {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.wardrobe {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.wardrobe {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.wardrobe {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.stats {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.stats {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.stats {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.stats {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.stats_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.stats_sidebar {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.stats_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.stats_sidebar {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.shop {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.shop {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.shop {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.shop {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.jobs {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.jobs {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.jobs {overflow: hidden; text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.jobs {}");
                 twCss.WriteLine("img.jobs {width:100%; max-width:100px;}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.character {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.character {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.character {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.character {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.character_sidebar {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.character_sidebar {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.character_sidebar {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.character_sidebar {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.say {border: 1px solid black; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.say {border: 1px solid white; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.say {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.say {}");
+                twCss.WriteLine("");
+                twCss.WriteLine("#passages {max-width: " + _conf.paragraphWidth + "px;}");
+
+                if (_conf.resizeImagesInSidebar)
+                {
+                    twCss.WriteLine("img.sidebar {height: auto; width: auto; max-width: " + _conf.imageWidthInSidebar + "px; max-height: " + _conf.imageHeightInSidebar + "px; }");
+                }
+                else
+                {
+                    twCss.WriteLine("img.sidebar {}");
+                }
+
+                if (_conf.resizeImagesInParagraph)
+                {
+                    twCss.WriteLine("img.paragraph {height: auto; width: auto; max-width: " + _conf.imageWidthInParagraph + "px; max-height: " + _conf.imageHeightInParagraph + "px; }");
+                }
+                else
+                {
+                    twCss.WriteLine("img.paragraph {}");
+                }
+
+                if (_conf.resizeImagesInDialogs)
+                {
+                    twCss.WriteLine("img.dialogs {height: auto; width: auto; max-width: " + _conf.imageWidthInDialogs + "px; max-height: " + _conf.imageHeightInDialogs + "px; }");
+                }
+                else
+                {
+                    twCss.WriteLine("img.dialogs {}");
+                }
             }
             finally
             {
@@ -2535,6 +2627,12 @@ namespace TweeFly
                 }
 
             return fbd.SelectedPath;
+        }
+
+        private static string pathSubtract(string _s, string _subtract)
+        {
+            int index = _s.IndexOf(_subtract);
+            return (index < 0) ? _s : _s.Remove(index, _subtract.Length);
         }
     }
 }

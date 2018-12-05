@@ -22,7 +22,8 @@ namespace TweeFly
 
         // Build
         public string pathSubtract { get; set; } = "";
-        public string storyName { get; set; } = "story.tw2";
+        public string storyName { get; set; } = "story";
+        public string mainFile { get; set; } = "my_story.tw2";
         public bool runAfterGenerate { get; set; } = false;
 
         // Story options
@@ -49,6 +50,7 @@ namespace TweeFly
         // Inventory
         public bool inventoryInSidebar { get; set; } = false;
         public bool inventoryLinkInSidebar { get; set; } = false;
+        public bool inventorySidebarTooltip { get; set; } = false;
         public bool inventoryUseSkill1 { get; set; } = false;
         public bool inventoryUseSkill2 { get; set; } = false;
         public bool inventoryUseSkill3 { get; set; } = false;
@@ -101,6 +103,7 @@ namespace TweeFly
         // Characters
         public bool charactersInSidebar { get; set; } = false;
         public bool charactersLinkInSidebar { get; set; } = false;
+        public bool charactersSidebarTooltip { get; set; } = false;
         public bool characterUseSkill1 { get; set; } = false;
         public bool characterUseSkill2 { get; set; } = false;
         public bool characterUseSkill3 { get; set; } = false;
@@ -130,6 +133,11 @@ namespace TweeFly
                 captions.Add(new CaptionPair("INVENTORY_COL_NAME_CAP", "name"));
                 captions.Add(new CaptionPair("INVENTORY_COL_DESCRIPTION_CAP", "description"));
                 captions.Add(new CaptionPair("INVENTORY_COL_CATEGORY_CAP", "category"));
+                captions.Add(new CaptionPair("INVENTORY_COL_SHOP_CATEGORY_CAP", "shop category"));
+                captions.Add(new CaptionPair("INVENTORY_COL_CAN_BUY_CAP", "can be bought"));
+                captions.Add(new CaptionPair("INVENTORY_COL_BUY_PRICE_CAP", "buy price"));
+                captions.Add(new CaptionPair("INVENTORY_COL_SELL_PRICE_CAP", "sell price"));
+                captions.Add(new CaptionPair("INVENTORY_COL_CAN_OWN_MULTIPLE_CAP", "Can own multiple"));
                 captions.Add(new CaptionPair("INVENTORY_COL_OWNED_CAP", "owned"));
                 captions.Add(new CaptionPair("INVENTORY_COL_IMAGE_CAP", "image"));
                 captions.Add(new CaptionPair("INVENTORY_COL_SKILL1_CAP", "skill1"));

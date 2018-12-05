@@ -66,6 +66,7 @@ namespace TweeFly
                 // Inventory
                 checkBox9.Checked = _conf.inventoryLinkInSidebar;
                 checkBox20.Checked = _conf.inventoryInSidebar;
+                checkBox45.Checked = _conf.inventorySidebarTooltip;
 
                 listView1.Items.Clear();
                 for(int i=0; i<_conf.items.Count; i++)
@@ -124,6 +125,7 @@ namespace TweeFly
                 checkBox8.Checked = _conf.clothLinkInSidebar;
                 checkBox21.Checked = _conf.clothInSidebar;
                 checkBox34.Checked = _conf.wardrobeLinkInSidebar;
+                
                 listView2.Items.Clear();
                 for(int i=0; i< _conf.cloth.Count; i++)
                 {
@@ -323,7 +325,7 @@ namespace TweeFly
                 }
                 checkBox36.Checked = _conf.charactersInSidebar;
                 checkBox22.Checked = _conf.charactersLinkInSidebar;
-
+                checkBox48.Checked = _conf.charactersSidebarTooltip;
 
                 checkBox33.Checked = _conf.characterUseSkill1;
                 checkBox32.Checked = _conf.characterUseSkill2;
@@ -2292,10 +2294,16 @@ namespace TweeFly
                 true, 0, "", "", ""));
 
             conf.displayInInventory.Clear();
-            for (int i = 0; i < checkedListBox3.CheckedItems.Count; i++)
+            /*for (int i = 0; i < checkedListBox3.CheckedItems.Count; i++)
             {
                 conf.displayInInventory.Add(checkedListBox3.CheckedItems[i].ToString());
-            }
+            }*/
+            conf.displayInInventory.Add("Name");
+            conf.displayInInventory.Add("Owned");
+            conf.displayInInventory.Add("Image");
+            conf.displayInInventory.Add("Skill1");
+            conf.displayInInventory.Add("Skill2");
+            conf.displayInInventory.Add("Skill3");
 
             // Cloth
             conf.clothInSidebar = true;
@@ -2416,6 +2424,15 @@ namespace TweeFly
                 conf.displayInCharactersView.Add(checkedListBox5.CheckedItems[i].ToString());
             }
 
+            // CSS
+            conf.resizeImagesInSidebar = true;
+            conf.imageWidthInSidebar = 50;
+            conf.imageHeightInSidebar = 50;
+
+            conf.resizeImagesInParagraph = true;
+            conf.imageWidthInParagraph = 80;
+            conf.imageHeightInParagraph = 80;
+
             updateFromConf(conf);
         }
 
@@ -2518,6 +2535,12 @@ namespace TweeFly
                     _processStartInfo.Arguments = "build " + storyFile + " " + htmlFile;
                     _processStartInfo.CreateNoWindow = true;
                     Process myProcess = Process.Start(_processStartInfo);
+
+                    if ((myProcess != null) && (checkBox24.Checked))
+                    {
+                        myProcess.WaitForExit();
+                        Process.Start(htmlFile);
+                    }
                 } else
                 {
                     MessageBox.Show("twee2 is not found.");
@@ -2576,6 +2599,8 @@ namespace TweeFly
         private void checkBox42_CheckedChanged(object sender, EventArgs e)
         {
             conf.resizeImagesInParagraph = checkBox42.Checked;
+            numericUpDown29.Enabled = checkBox42.Checked;
+            numericUpDown28.Enabled = checkBox42.Checked;
         }
 
         private void numericUpDown29_ValueChanged(object sender, EventArgs e)
@@ -2591,6 +2616,8 @@ namespace TweeFly
         private void checkBox44_CheckedChanged(object sender, EventArgs e)
         {
             conf.resizeImagesInDialogs = checkBox44.Checked;
+            numericUpDown31.Enabled = checkBox44.Checked;
+            numericUpDown24.Enabled = checkBox44.Checked;
         }
 
         private void numericUpDown31_ValueChanged(object sender, EventArgs e)
@@ -2606,6 +2633,21 @@ namespace TweeFly
         private void numericUpDown30_ValueChanged(object sender, EventArgs e)
         {
             conf.paragraphWidth = Convert.ToInt32(numericUpDown30.Value);
+        }
+
+        private void checkBox48_CheckedChanged(object sender, EventArgs e)
+        {
+            conf.charactersSidebarTooltip = checkBox48.Checked;
+        }
+
+        private void checkBox45_CheckedChanged(object sender, EventArgs e)
+        {
+            conf.inventorySidebarTooltip = checkBox45.Checked;
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            conf.mainFile = textBox5.Text;
         }
     }
 }

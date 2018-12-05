@@ -19,6 +19,15 @@ A setup tool for interactive stories writte in Twee.
 	- Remove "mayOwnMultiple" for cloth
 	- Add number, string, bool to skill1-3
 	- Add configuration tab
+	
+- Free2Pro:
+	- Add main file
+	- Add new captions to inventory
+				captions.Add(new CaptionPair("INVENTORY_COL_SHOP_CATEGORY_CAP", "shop category"));
+                captions.Add(new CaptionPair("INVENTORY_COL_CAN_BUY_CAP", "can be bought"));
+                captions.Add(new CaptionPair("INVENTORY_COL_BUY_PRICE_CAP", "buy price"));
+                captions.Add(new CaptionPair("INVENTORY_COL_SELL_PRICE_CAP", "sell price"));
+                captions.Add(new CaptionPair("INVENTORY_COL_CAN_OWN_MULTIPLE_CAP", "sell price"));
 
 - Example project
 	- Add "_" to all variables used by the scripts
