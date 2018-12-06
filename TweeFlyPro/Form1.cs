@@ -108,18 +108,20 @@ namespace TweeFly
                 }
 
                 // Reset rest
-                numericUpDown6.Value = 0;
-                numericUpDown7.Value = 0;
-                numericUpDown8.Value = 0;
-                textBox11.Text = "";
-                comboBox2.Items.Clear();
-                textBox13.Text = "";
-                textBox14.Text = "";
-                checkBox15.Checked = false;
-                checkBox16.Checked = false;
-                textBox20.Text = "";
-                textBox23.Text = "";
-                textBox24.Text = "";
+                numericUpDown3.Value = 0;
+                numericUpDown5.Value = 0;
+                numericUpDown22.Value = 0;
+                numericUpDown4.Value = 0;
+                textBox7.Text = "";
+                textBox30.Text = "";
+                comboBox3.Text = "";
+                comboBox3.Items.Clear();
+                textBox8.Text = "";
+                textBox10.Text = "";
+                textBox29.Text = "";
+                textBox2.Text = "";
+                textBox28.Text = "";
+
 
                 // Wardrobe
                 checkBox8.Checked = _conf.clothingLinkInSidebar;
