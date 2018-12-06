@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label95 = new System.Windows.Forms.Label();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox12 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
@@ -42,6 +41,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox45 = new System.Windows.Forms.CheckBox();
             this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
             this.label90 = new System.Windows.Forms.Label();
             this.checkBox27 = new System.Windows.Forms.CheckBox();
@@ -309,6 +309,7 @@
             this.columnHeader57 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader37 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.checkBox48 = new System.Windows.Forms.CheckBox();
             this.checkBox36 = new System.Windows.Forms.CheckBox();
             this.label92 = new System.Windows.Forms.Label();
             this.checkedListBox5 = new System.Windows.Forms.CheckedListBox();
@@ -426,8 +427,6 @@
             this.button31 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.button33 = new System.Windows.Forms.Button();
-            this.checkBox45 = new System.Windows.Forms.CheckBox();
-            this.checkBox48 = new System.Windows.Forms.CheckBox();
             this.label113 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -490,7 +489,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label95);
             this.groupBox1.Controls.Add(this.checkBox19);
             this.groupBox1.Controls.Add(this.checkBox12);
             this.groupBox1.Controls.Add(this.checkBox6);
@@ -501,19 +499,10 @@
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Location = new System.Drawing.Point(9, 162);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(219, 154);
+            this.groupBox1.Size = new System.Drawing.Size(219, 128);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Features ";
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(7, 129);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(28, 13);
-            this.label95.TabIndex = 21;
-            this.label95.Text = "Info:";
             // 
             // checkBox19
             // 
@@ -586,9 +575,9 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(6, 52);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(50, 17);
+            this.checkBox2.Size = new System.Drawing.Size(64, 17);
             this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Cloth";
+            this.checkBox2.Text = "Clothing";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -649,6 +638,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Inventory";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox45
+            // 
+            this.checkBox45.AutoSize = true;
+            this.checkBox45.Location = new System.Drawing.Point(124, 51);
+            this.checkBox45.Name = "checkBox45";
+            this.checkBox45.Size = new System.Drawing.Size(138, 17);
+            this.checkBox45.TabIndex = 55;
+            this.checkBox45.Text = "Inventory sidebar tooltip";
+            this.checkBox45.UseVisualStyleBackColor = true;
+            this.checkBox45.CheckedChanged += new System.EventHandler(this.checkBox45_CheckedChanged);
             // 
             // checkedListBox3
             // 
@@ -1208,7 +1208,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(930, 664);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Cloth";
+            this.tabPage2.Text = "Clothing";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // checkedListBox2
@@ -1227,9 +1227,9 @@
             this.label87.AutoSize = true;
             this.label87.Location = new System.Drawing.Point(675, 276);
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(106, 13);
+            this.label87.Size = new System.Drawing.Size(120, 13);
             this.label87.TabIndex = 58;
-            this.label87.Text = "Display in cloth view:";
+            this.label87.Text = "Display in clothing view:";
             // 
             // checkBox34
             // 
@@ -1301,9 +1301,9 @@
             this.checkBox21.AutoSize = true;
             this.checkBox21.Location = new System.Drawing.Point(124, 51);
             this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(134, 17);
+            this.checkBox21.Size = new System.Drawing.Size(148, 17);
             this.checkBox21.TabIndex = 23;
-            this.checkBox21.Text = "Display cloth in sidebar";
+            this.checkBox21.Text = "Display clothing in sidebar";
             this.checkBox21.UseVisualStyleBackColor = true;
             this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
             // 
@@ -1346,7 +1346,7 @@
             this.groupBox4.Size = new System.Drawing.Size(837, 188);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Cloth";
+            this.groupBox4.Text = "Clothing";
             // 
             // checkBox35
             // 
@@ -1696,9 +1696,9 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Location = new System.Drawing.Point(124, 11);
             this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(153, 17);
+            this.checkBox8.Size = new System.Drawing.Size(167, 17);
             this.checkBox8.TabIndex = 1;
-            this.checkBox8.Text = "Display cloth link in sidebar";
+            this.checkBox8.Text = "Display clothing link in sidebar";
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
@@ -1812,9 +1812,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 24);
+            this.label3.Size = new System.Drawing.Size(87, 24);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Cloth";
+            this.label3.Text = "Clothing";
             // 
             // tabPage3
             // 
@@ -2368,7 +2368,7 @@
             this.comboBox6.FormattingEnabled = true;
             this.comboBox6.Items.AddRange(new object[] {
             "ITEM",
-            "CLOTH"});
+            "CLOTHING"});
             this.comboBox6.Location = new System.Drawing.Point(90, 19);
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(64, 21);
@@ -2855,7 +2855,7 @@
             this.comboBox7.FormattingEnabled = true;
             this.comboBox7.Items.AddRange(new object[] {
             "ITEM",
-            "CLOTH"});
+            "CLOTHING"});
             this.comboBox7.Location = new System.Drawing.Point(65, 18);
             this.comboBox7.Name = "comboBox7";
             this.comboBox7.Size = new System.Drawing.Size(77, 21);
@@ -3354,6 +3354,17 @@
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Characters";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // checkBox48
+            // 
+            this.checkBox48.AutoSize = true;
+            this.checkBox48.Location = new System.Drawing.Point(124, 51);
+            this.checkBox48.Name = "checkBox48";
+            this.checkBox48.Size = new System.Drawing.Size(140, 17);
+            this.checkBox48.TabIndex = 50;
+            this.checkBox48.Text = "Character sidebar tooltip";
+            this.checkBox48.UseVisualStyleBackColor = true;
+            this.checkBox48.CheckedChanged += new System.EventHandler(this.checkBox48_CheckedChanged);
             // 
             // checkBox36
             // 
@@ -4445,7 +4456,7 @@
             // label82
             // 
             this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(12, 325);
+            this.label82.Location = new System.Drawing.Point(12, 299);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(73, 13);
             this.label82.TabIndex = 20;
@@ -4453,7 +4464,7 @@
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(100, 322);
+            this.textBox12.Location = new System.Drawing.Point(100, 296);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(128, 20);
             this.textBox12.TabIndex = 21;
@@ -4461,7 +4472,7 @@
             // 
             // textBox47
             // 
-            this.textBox47.Location = new System.Drawing.Point(100, 347);
+            this.textBox47.Location = new System.Drawing.Point(100, 321);
             this.textBox47.Name = "textBox47";
             this.textBox47.Size = new System.Drawing.Size(128, 20);
             this.textBox47.TabIndex = 23;
@@ -4469,7 +4480,7 @@
             // 
             // button30
             // 
-            this.button30.Location = new System.Drawing.Point(12, 467);
+            this.button30.Location = new System.Drawing.Point(12, 435);
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(216, 23);
             this.button30.TabIndex = 24;
@@ -4480,7 +4491,7 @@
             // checkBox24
             // 
             this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(16, 399);
+            this.checkBox24.Location = new System.Drawing.Point(16, 373);
             this.checkBox24.Name = "checkBox24";
             this.checkBox24.Size = new System.Drawing.Size(123, 17);
             this.checkBox24.TabIndex = 25;
@@ -4490,7 +4501,7 @@
             // 
             // button31
             // 
-            this.button31.Location = new System.Drawing.Point(12, 525);
+            this.button31.Location = new System.Drawing.Point(12, 493);
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(216, 23);
             this.button31.TabIndex = 26;
@@ -4501,7 +4512,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 350);
+            this.label7.Location = new System.Drawing.Point(12, 324);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 13);
             this.label7.TabIndex = 27;
@@ -4509,7 +4520,7 @@
             // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(12, 496);
+            this.button33.Location = new System.Drawing.Point(12, 464);
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(216, 23);
             this.button33.TabIndex = 28;
@@ -4517,32 +4528,10 @@
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
             // 
-            // checkBox45
-            // 
-            this.checkBox45.AutoSize = true;
-            this.checkBox45.Location = new System.Drawing.Point(124, 51);
-            this.checkBox45.Name = "checkBox45";
-            this.checkBox45.Size = new System.Drawing.Size(138, 17);
-            this.checkBox45.TabIndex = 55;
-            this.checkBox45.Text = "Inventory sidebar tooltip";
-            this.checkBox45.UseVisualStyleBackColor = true;
-            this.checkBox45.CheckedChanged += new System.EventHandler(this.checkBox45_CheckedChanged);
-            // 
-            // checkBox48
-            // 
-            this.checkBox48.AutoSize = true;
-            this.checkBox48.Location = new System.Drawing.Point(124, 51);
-            this.checkBox48.Name = "checkBox48";
-            this.checkBox48.Size = new System.Drawing.Size(140, 17);
-            this.checkBox48.TabIndex = 50;
-            this.checkBox48.Text = "Character sidebar tooltip";
-            this.checkBox48.UseVisualStyleBackColor = true;
-            this.checkBox48.CheckedChanged += new System.EventHandler(this.checkBox48_CheckedChanged);
-            // 
             // label113
             // 
             this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(12, 376);
+            this.label113.Location = new System.Drawing.Point(12, 350);
             this.label113.Name = "label113";
             this.label113.Size = new System.Drawing.Size(49, 13);
             this.label113.TabIndex = 29;
@@ -4550,7 +4539,7 @@
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(100, 373);
+            this.textBox5.Location = new System.Drawing.Point(100, 347);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(128, 20);
             this.textBox5.TabIndex = 30;
@@ -4578,6 +4567,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "TweeFly - Interactive Story Setup for SugarCube2";
@@ -5015,7 +5005,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox35;
         private System.Windows.Forms.ColumnHeader columnHeader70;
-        private System.Windows.Forms.Label label95;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox17;
         private System.Windows.Forms.ColumnHeader columnHeader69;

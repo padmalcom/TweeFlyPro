@@ -50,7 +50,7 @@ namespace TweeFly
                 // Story includes
                 twMain.WriteLine("::StoryIncludes");
                 if (_conf.inventoryActive) twMain.WriteLine("_js_inventory.tw2");
-                if (_conf.clothActive) twMain.WriteLine("_js_cloth.tw2");
+                if (_conf.clothingActive) twMain.WriteLine("_js_clothing.tw2");
                 if (_conf.statsActive) twMain.WriteLine("_js_stats.tw2");
                 if (_conf.moneyActive) twMain.WriteLine("_js_money.tw2");
                 twMain.WriteLine("_js_navigation.tw2");
@@ -80,10 +80,10 @@ namespace TweeFly
                 // Story init
                 twMain.WriteLine("::StoryInit");
                 if (_conf.daytimeActive) twMain.WriteLine("<<initDaytime>>");
-                if (_conf.clothActive)
+                if (_conf.clothingActive)
                 {
-                    twMain.WriteLine("<<initAllCloth>>");
-                    twMain.WriteLine("<<initCloth>>");
+                    twMain.WriteLine("<<initAllClothing>>");
+                    twMain.WriteLine("<<initClothing>>");
                     twMain.WriteLine("<<initWardrobe>>");
                 }
                 if (_conf.inventoryActive)
@@ -144,11 +144,11 @@ namespace TweeFly
                 if (_conf.inventoryActive && _conf.inventoryLinkInSidebar)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_LINK_CAP")).caption + "->InventoryMenu]]");
                 
-                if (_conf.clothActive && _conf.wardrobeLinkInSidebar)
+                if (_conf.clothingActive && _conf.wardrobeLinkInSidebar)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_LINK_CAP")).caption + "->WardrobeMenu]]");
 
-                if (_conf.clothActive && _conf.clothLinkInSidebar)
-                    twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_LINK_CAP")).caption + "->ClothMenu]]");
+                if (_conf.clothingActive && _conf.clothingLinkInSidebar)
+                    twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_LINK_CAP")).caption + "->ClothingMenu]]");
 
                 if (_conf.statsActive && _conf.statsLinkInSidebar)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("STATS_LINK_CAP")).caption + "->StatsMenu]]");
@@ -176,7 +176,7 @@ namespace TweeFly
 
                 // Sidebar menus
                 if (_conf.inventoryActive && _conf.inventoryInSidebar) twMenu.WriteLine("<<inventorySidebar>>");
-                if (_conf.clothActive && _conf.clothInSidebar) twMenu.WriteLine("<<clothSidebar>>");
+                if (_conf.clothingActive && _conf.clothingInSidebar) twMenu.WriteLine("<<clothingSidebar>>");
                 if (_conf.statsActive && _conf.statsInSidebar) twMenu.WriteLine("<<statsSidebar>>");
                 if (_conf.charactersActive && _conf.charactersInSidebar) twMenu.WriteLine("<<charactersSidebar>>");
                 twMenu.WriteLine("");
@@ -193,11 +193,11 @@ namespace TweeFly
                     twMenu.WriteLine("");
                 }
 
-                if (_conf.clothActive)
+                if (_conf.clothingActive)
                 {
-                    twMenu.WriteLine("::ClothMenu[noreturn]");
-                    twMenu.WriteLine("<h1>"+_conf.captions.Single(s => s.captionName.Equals("CLOTH_TITLE_CAP")).caption+"</h1>");
-                    twMenu.WriteLine("<<cloth>>");
+                    twMenu.WriteLine("::ClothingMenu[noreturn]");
+                    twMenu.WriteLine("<h1>"+_conf.captions.Single(s => s.captionName.Equals("CLOTHING_TITLE_CAP")).caption+"</h1>");
+                    twMenu.WriteLine("<<clothing>>");
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]");
                     twMenu.WriteLine("");
 
@@ -569,661 +569,661 @@ namespace TweeFly
             }
         }
 
-        private static void generateCloth(Configuration _conf, string _path)
+        private static void generateClothing(Configuration _conf, string _path)
         {
-            string clothPath = Path.Combine(_path, "_js_cloth.tw2");
-            TextWriter twCloth = null;
+            string clothingPath = Path.Combine(_path, "_js_clothing.tw2");
+            TextWriter twClothing = null;
             try
             {
-                twCloth = new StreamWriter(clothPath, false, new UTF8Encoding(false));
-                twCloth.WriteLine("::Captions[script]");
-                twCloth.WriteLine("");
+                twClothing = new StreamWriter(clothingPath, false, new UTF8Encoding(false));
+                twClothing.WriteLine("::Captions[script]");
+                twClothing.WriteLine("");
 
                 // Constants
-                twCloth.WriteLine("var HEAD_NAME = \""+ _conf.captions.Single(s => s.captionName.Equals("HEAD_CAP")).caption + "\";");
-                twCloth.WriteLine("var HAIR_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("HAIR_CAP")).caption + "\";");
-                twCloth.WriteLine("var NECK_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("NECK_CAP")).caption + "\";");
-                twCloth.WriteLine("var UPPER_BODY_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UPPER_BODY_CAP")).caption + "\";");
-                twCloth.WriteLine("var LOWER_BODY_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("LOWER_BODY_CAP")).caption + "\";");
-                twCloth.WriteLine("var BELT_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("BELT_CAP")).caption + "\";");
-                twCloth.WriteLine("var SOCKS_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("SOCKS_CAP")).caption + "\";");
-                twCloth.WriteLine("var SHOES_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("SHOES_CAP")).caption + "\";");
-                twCloth.WriteLine("var UNDERWEAR_TOP_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UNDERWEAR_TOP_CAP")).caption + "\";");
-                twCloth.WriteLine("var UNDERWEAR_BOTTOM_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UNDERWEAR_BOTTOM_CAP")).caption + "\";");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("var HEAD_NAME = \""+ _conf.captions.Single(s => s.captionName.Equals("HEAD_CAP")).caption + "\";");
+                twClothing.WriteLine("var HAIR_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("HAIR_CAP")).caption + "\";");
+                twClothing.WriteLine("var NECK_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("NECK_CAP")).caption + "\";");
+                twClothing.WriteLine("var UPPER_BODY_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UPPER_BODY_CAP")).caption + "\";");
+                twClothing.WriteLine("var LOWER_BODY_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("LOWER_BODY_CAP")).caption + "\";");
+                twClothing.WriteLine("var BELT_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("BELT_CAP")).caption + "\";");
+                twClothing.WriteLine("var SOCKS_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("SOCKS_CAP")).caption + "\";");
+                twClothing.WriteLine("var SHOES_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("SHOES_CAP")).caption + "\";");
+                twClothing.WriteLine("var UNDERWEAR_TOP_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UNDERWEAR_TOP_CAP")).caption + "\";");
+                twClothing.WriteLine("var UNDERWEAR_BOTTOM_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UNDERWEAR_BOTTOM_CAP")).caption + "\";");
+                twClothing.WriteLine("");
 
-                // InitAllCloth
-                twCloth.WriteLine("macros.initAllCloth = {");
-                twCloth.WriteLine("\thandler: function(place, macroName, params, parser) {");
-                twCloth.WriteLine("\t\tif (state.active.variables.all_cloth === undefined)");
-                twCloth.WriteLine("\t\t{");
-                twCloth.WriteLine("\t\t\tstate.active.variables.all_cloth = [];");
-                for(int i=0; i<_conf.cloth.Count; i++)
+                // InitAllClothing
+                twClothing.WriteLine("macros.initAllClothing = {");
+                twClothing.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twClothing.WriteLine("\t\tif (state.active.variables.allClothing === undefined)");
+                twClothing.WriteLine("\t\t{");
+                twClothing.WriteLine("\t\t\tstate.active.variables.allClothing = [];");
+                for(int i=0; i<_conf.clothing.Count; i++)
                 {
-                    twCloth.Write("\t\t\tstate.active.variables.all_cloth.push({");
-                    twCloth.Write("\"ID\":" + _conf.cloth[i].ID + ",");
-                    twCloth.Write("\"name\":\"" + _conf.cloth[i].name + "\",");
-                    twCloth.Write("\"description\":\"" + _conf.cloth[i].description + "\",");
-                    twCloth.Write("\"canBuy\":" + _conf.cloth[i].canBeBought.ToString().ToLower() + ",");
-                    twCloth.Write("\"shopCategory\":\"" + _conf.cloth[i].shopCategory + "\",");
-                    twCloth.Write("\"category\":\"" + _conf.cloth[i].category + "\",");
-                    twCloth.Write("\"bodyPart\":\"" + _conf.cloth[i].bodyPart + "\",");
-                    twCloth.Write("\"image\":\"" + pathSubtract(_conf.cloth[i].image, _conf.pathSubtract) + "\",");
-                    twCloth.Write("\"buyPrice\":" + _conf.cloth[i].buyPrice + ",");
-                    twCloth.Write("\"sellPrice\":" + _conf.cloth[i].sellPrice + ",");
-                    twCloth.Write("\"isWorn\":" + _conf.cloth[i].isWornAtBeginning.ToString().ToLower() + ",");
-                    twCloth.Write("\"canOwnMultiple\":" + _conf.cloth[i].canOwnMultiple.ToString().ToLower() + ",");
-                    twCloth.Write("\"owned\":" + _conf.cloth[i].owned);
-                    if (_conf.clothUseSkill1)
+                    twClothing.Write("\t\t\tstate.active.variables.allClothing.push({");
+                    twClothing.Write("\"ID\":" + _conf.clothing[i].ID + ",");
+                    twClothing.Write("\"name\":\"" + _conf.clothing[i].name + "\",");
+                    twClothing.Write("\"description\":\"" + _conf.clothing[i].description + "\",");
+                    twClothing.Write("\"canBuy\":" + _conf.clothing[i].canBeBought.ToString().ToLower() + ",");
+                    twClothing.Write("\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",");
+                    twClothing.Write("\"category\":\"" + _conf.clothing[i].category + "\",");
+                    twClothing.Write("\"bodyPart\":\"" + _conf.clothing[i].bodyPart + "\",");
+                    twClothing.Write("\"image\":\"" + pathSubtract(_conf.clothing[i].image, _conf.pathSubtract) + "\",");
+                    twClothing.Write("\"buyPrice\":" + _conf.clothing[i].buyPrice + ",");
+                    twClothing.Write("\"sellPrice\":" + _conf.clothing[i].sellPrice + ",");
+                    twClothing.Write("\"isWorn\":" + _conf.clothing[i].isWornAtBeginning.ToString().ToLower() + ",");
+                    twClothing.Write("\"canOwnMultiple\":" + _conf.clothing[i].canOwnMultiple.ToString().ToLower() + ",");
+                    twClothing.Write("\"owned\":" + _conf.clothing[i].owned);
+                    if (_conf.clothingUseSkill1)
                     {
-                        string skill1val = (isBool(_conf.cloth[i].skill1) || isNumber(_conf.cloth[i].skill1)) ? _conf.cloth[i].skill1 : "\"" + _conf.cloth[i].skill1 + "\"";
-                        twCloth.Write(",\"" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_SKILL1_CAP")).caption + "\":" + skill1val);
+                        string skill1val = (isBool(_conf.clothing[i].skill1) || isNumber(_conf.clothing[i].skill1)) ? _conf.clothing[i].skill1 : "\"" + _conf.clothing[i].skill1 + "\"";
+                        twClothing.Write(",\"" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + "\":" + skill1val);
                     }
-                    if (_conf.clothUseSkill2)
+                    if (_conf.clothingUseSkill2)
                     {
-                        string skill2val = (isBool(_conf.cloth[i].skill2) || isNumber(_conf.cloth[i].skill2)) ? _conf.cloth[i].skill2 : "\"" + _conf.cloth[i].skill2 + "\"";
-                        twCloth.Write(",\"" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_SKILL2_CAP")).caption + "\":" + skill2val);
+                        string skill2val = (isBool(_conf.clothing[i].skill2) || isNumber(_conf.clothing[i].skill2)) ? _conf.clothing[i].skill2 : "\"" + _conf.clothing[i].skill2 + "\"";
+                        twClothing.Write(",\"" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + "\":" + skill2val);
                     }
-                    if (_conf.clothUseSkill3)
+                    if (_conf.clothingUseSkill3)
                     {
-                        string skill3val = (isBool(_conf.cloth[i].skill3) || isNumber(_conf.cloth[i].skill3)) ? _conf.cloth[i].skill3 : "\"" + _conf.cloth[i].skill3 + "\"";
-                        twCloth.Write(",\"" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_SKILL3_CAP")).caption + "\":" + skill3val);
+                        string skill3val = (isBool(_conf.clothing[i].skill3) || isNumber(_conf.clothing[i].skill3)) ? _conf.clothing[i].skill3 : "\"" + _conf.clothing[i].skill3 + "\"";
+                        twClothing.Write(",\"" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + "\":" + skill3val);
                     }
-                    twCloth.WriteLine(",\"isWornAtBeginning\":" + _conf.cloth[i].isWornAtBeginning.ToString().ToLower() + "});");
+                    twClothing.WriteLine(",\"isWornAtBeginning\":" + _conf.clothing[i].isWornAtBeginning.ToString().ToLower() + "});");
                 }
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // isWorn
-                twCloth.WriteLine("window.is_worn = function(_id) {");
-                twCloth.WriteLine("\tfor (var i = 0; i < state.active.variables.wearing.length; i++) {");
-                twCloth.WriteLine("\t\tif (state.active.variables.wearing[i].ID == _id) return true;");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("\treturn false;");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("window.is_worn = function(_id) {");
+                twClothing.WriteLine("\tfor (var i = 0; i < state.active.variables.wearing.length; i++) {");
+                twClothing.WriteLine("\t\tif (state.active.variables.wearing[i].ID == _id) return true;");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("\treturn false;");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // initCloth
-                twCloth.WriteLine("macros.initCloth = {");
-                twCloth.WriteLine("\thandler: function(place, macroName, params, parser) {");
-                twCloth.WriteLine("\t\tif (state.active.variables.wearing === undefined)");
-                twCloth.WriteLine("\t\t{");
-                twCloth.WriteLine("\t\t\tstate.active.variables.wearing = {};");
-                for(int i=0; i<_conf.cloth.Count; i++)
+                twClothing.WriteLine("macros.initClothing = {");
+                twClothing.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twClothing.WriteLine("\t\tif (state.active.variables.wearing === undefined)");
+                twClothing.WriteLine("\t\t{");
+                twClothing.WriteLine("\t\t\tstate.active.variables.wearing = {};");
+                for(int i=0; i<_conf.clothing.Count; i++)
                 {
-                    if ((_conf.cloth[i].isWornAtBeginning) && (_conf.cloth[i].owned > 0))
+                    if ((_conf.clothing[i].isWornAtBeginning) && (_conf.clothing[i].owned > 0))
                     {
-                        twCloth.WriteLine("\t\t\tstate.active.variables.wearing[" + _conf.cloth[i].bodyPart + "] = state.active.variables.all_cloth[" + i + "];");
+                        twClothing.WriteLine("\t\t\tstate.active.variables.wearing[" + _conf.clothing[i].bodyPart + "] = state.active.variables.allClothing[" + i + "];");
                     }
                 }
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // initWardrobe
-                twCloth.WriteLine("macros.initWardrobe = {");
-                twCloth.WriteLine("\thandler: function(place, macroName, params, parser) {");
-                twCloth.WriteLine("\t\tif (state.active.variables.wardrobe === undefined)");
-                twCloth.WriteLine("\t\t{");
-                twCloth.WriteLine("\t\t\tstate.active.variables.wardrobe = [];");
-                for (int i = 0; i < _conf.cloth.Count; i++)
+                twClothing.WriteLine("macros.initWardrobe = {");
+                twClothing.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twClothing.WriteLine("\t\tif (state.active.variables.wardrobe === undefined)");
+                twClothing.WriteLine("\t\t{");
+                twClothing.WriteLine("\t\t\tstate.active.variables.wardrobe = [];");
+                for (int i = 0; i < _conf.clothing.Count; i++)
                 {
-                    if ((_conf.cloth[i].isWornAtBeginning) && (_conf.cloth[i].owned > 0))
+                    if ((_conf.clothing[i].isWornAtBeginning) && (_conf.clothing[i].owned > 0))
                     {
-                        twCloth.WriteLine("\t\t\tstate.active.variables.wardrobe.push(state.active.variables.all_cloth[" + i + "]);");
+                        twClothing.WriteLine("\t\t\tstate.active.variables.wardrobe.push(state.active.variables.allClothing[" + i + "]);");
                     }
                 }
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // cloth
-                twCloth.WriteLine("macros.cloth = {");
-                twCloth.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twClothing.WriteLine("macros.clothing = {");
+                twClothing.WriteLine("\thandler: function(place, macroName, params, parser) {");
 
                 // header
-                twCloth.WriteLine("\t\tvar s = \"<table class=\\\"cloth\\\">\";");
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_ID_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_NAME_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_DESCRIPTION_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_CATEGORY_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SHOP_CATEGORY_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_BODY_PART_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_OWNED_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_IS_WORN_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_CAN_BUY_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_BUY_PRICE_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SELL_PRICE_CAP")).caption + "</td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_CAN_OWN_MULTIPLE_CAP")).caption + "</td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_SKILL1_CAP")).caption + "</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_SKILL2_CAP")).caption + "</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_SKILL3_CAP")).caption + "</b></td>\";");
-                twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_IMAGE_CAP")).caption + "</td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\tvar s = \"<table class=\\\"clothing\\\">\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_ID_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_NAME_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_DESCRIPTION_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_CATEGORY_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SHOP_CATEGORY_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_BODY_PART_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_OWNED_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IS_WORN_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_CAN_BUY_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_BUY_PRICE_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SELL_PRICE_CAP")).caption + "</td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_CAN_OWN_MULTIPLE_CAP")).caption + "</td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + "</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + "</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + "</b></td>\";");
+                twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // head
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // hair
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // neck
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // upper body
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // lower body
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // belt
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // socks
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // shoes
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // underwear bottom
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
                 // underwear top
-                twCloth.WriteLine("\t\ts +=\"<tr>\";");
-                if (_conf.displayInClothView.Contains("ID"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].ID + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Name"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].name + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Description"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].description + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].category + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Shop category"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].shopCategory + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Body part"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].bodyPart + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Owned"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].owned + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Is worn"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].isWorn + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can buy"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].canBuy + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Buy price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].buyPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Sell price"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].sellPrice + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Can own multiple"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].canOwnMultiple + \"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInClothView.Contains("Skill1"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1 + \"</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInClothView.Contains("Skill2"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill2 + \"</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInClothView.Contains("Skill3"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill3 + \"</b></td>\";");
-                if (_conf.displayInClothView.Contains("Image"))
-                    twCloth.WriteLine("\t\ts +=\"<td class=\\\"cloth\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td>\";");
-                twCloth.WriteLine("\t\ts +=\"</tr>\";");
+                twClothing.WriteLine("\t\ts +=\"<tr>\";");
+                if (_conf.displayInClothingView.Contains("ID"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].ID + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Name"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].name + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Description"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].description + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].category + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Shop category"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].shopCategory + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Body part"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].bodyPart + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Owned"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].owned + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Is worn"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].isWorn + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can buy"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].canBuy + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Buy price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].buyPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Sell price"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].sellPrice + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Can own multiple"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].canOwnMultiple + \"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1 + \"</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill2 + \"</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill3 + \"</b></td>\";");
+                if (_conf.displayInClothingView.Contains("Image"))
+                    twClothing.WriteLine("\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td>\";");
+                twClothing.WriteLine("\t\ts +=\"</tr>\";");
 
-                twCloth.WriteLine("\t\ts +=\"</table>\";");
-                twCloth.WriteLine("\t\tnew Wikifier(place, s);");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("\t\ts +=\"</table>\";");
+                twClothing.WriteLine("\t\tnew Wikifier(place, s);");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // clothSidebar
-                twCloth.WriteLine("macros.clothSidebar = {");
-                twCloth.WriteLine("\thandler: function(place, macroName, params, parser) {");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\tnew Wikifier(place,");
-                twCloth.WriteLine("\t\t\"<table class=\\\"cloth_sidebar\\\">\"+");
-                twCloth.WriteLine("\t\t\"<tr><td colspan=2>Cloth</td></tr>\"+");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\" +");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td></tr>\" +");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\" +");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td></tr>\" +");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\" +");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td></tr>\" +");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\"+");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td></tr>\"+");
-                twCloth.WriteLine("\t\t\"<tr><td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\"+");
-                twCloth.WriteLine("\t\t\"<td class=\\\"cloth_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td></tr>\"+");
-                twCloth.WriteLine("\t\t\"</table>\");");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("macros.clothingSidebar = {");
+                twClothing.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\tnew Wikifier(place,");
+                twClothing.WriteLine("\t\t\"<table class=\\\"clothing_sidebar\\\">\"+");
+                twClothing.WriteLine("\t\t\"<tr><td colspan=2>Cloth</td></tr>\"+");
+                twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\" +");
+                twClothing.WriteLine("\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td></tr>\" +");
+                twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\" +");
+                twClothing.WriteLine("\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td></tr>\" +");
+                twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\" +");
+                twClothing.WriteLine("\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td></tr>\" +");
+                twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\"+");
+                twClothing.WriteLine("\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td></tr>\"+");
+                twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\"+");
+                twClothing.WriteLine("\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td></tr>\"+");
+                twClothing.WriteLine("\t\t\"</table>\");");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // wear
-                twCloth.WriteLine("window.wear = function(_cloth) {");
-                twCloth.WriteLine("\tvar cloth_obj = JSON.parse(unescape(_cloth));");
-                twCloth.WriteLine("\tstate.active.variables.wearing[cloth_obj.bodyPart] = cloth_obj;");
-                twCloth.WriteLine("\tstate.display(state.active.title, null, \"back\");");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("window.wear = function(_clothing) {");
+                twClothing.WriteLine("\tvar cloth_obj = JSON.parse(unescape(_clothing));");
+                twClothing.WriteLine("\tstate.active.variables.wearing[cloth_obj.bodyPart] = cloth_obj;");
+                twClothing.WriteLine("\tstate.display(state.active.title, null, \"back\");");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // wardrobe
-                twCloth.WriteLine("macros.wardrobe = {");
-                twCloth.WriteLine("\thandler: function(place, macroName, params, parser) {");
-                twCloth.WriteLine("\t\tvar wstr = \"<table class=\\\"wardrobe\\\">\";");
-                twCloth.WriteLine("\t\twstr +=\"<tr>\";");
-                if (_conf.displayInWardrobe.Contains("ID")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_ID_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Name")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_NAME_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Description")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_DESCRIPTION_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Category")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_CATEGORY_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Shop category")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SHOP_CATEGORY_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Is worn")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_IS_WORN_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Can buy")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_CAN_BUY_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Buy price")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_BUY_PRICE_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Sell price")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SELL_PRICE_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Can own multiple")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_CAN_OWN_MULTIPLE_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Body part")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_BODY_PART_CAP")).caption +"</b></td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInWardrobe.Contains("Skill1")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SKILL1_CAP")).caption + "</b></td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SKILL2_CAP")).caption + "</b></td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_SKILL3_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Owned")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_OWNED_CAP")).caption + "</b></td>\";");
-                if (_conf.displayInWardrobe.Contains("Image")) twCloth.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_COL_IMAGE_CAP")).caption + "</b></td>\";");
-                twCloth.WriteLine("\t\twstr +=\"<td></td>\";"); // wear / isworn
-                twCloth.WriteLine("\t\twstr +=\"</tr>\";");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\tfor (var w = 0; w<state.active.variables.wardrobe.length; w++) {");
-                twCloth.WriteLine("\t\t\twstr +=\"<tr>\";");
-                if (_conf.displayInWardrobe.Contains("ID")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].ID + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Name")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].name + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Description")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].description + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Category")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].category + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Shop category")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].shopCategory + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Is worn")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].isWorn + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Can buy")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].canBuy + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Buy price")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].buyPrice + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Sell price")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].sellPrice + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Can own multiple")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].canOwnMultiple + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Body part")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].bodyPart + \"</td>\";");
-                if (_conf.clothUseSkill1 && _conf.displayInWardrobe.Contains("Skill1")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill1 + \"</td>\";");
-                if (_conf.clothUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill2 + \"</td>\";");
-                if (_conf.clothUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill3 + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Owned")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";");
-                if (_conf.displayInWardrobe.Contains("Image")) twCloth.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\t\tif (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID) {");
-                twCloth.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_WEAR_CAP")).caption +"</a></td></tr>\";");
-                twCloth.WriteLine("\t\t\t} else {");
-                twCloth.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTH_IS_WORN_CAP")).caption +"</td></tr>\";");
-                twCloth.WriteLine("\t\t\t}");
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("\twstr +=\"</table>\";");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\tnew Wikifier(place,wstr);");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
-                twCloth.WriteLine("");
+                twClothing.WriteLine("macros.wardrobe = {");
+                twClothing.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twClothing.WriteLine("\t\tvar wstr = \"<table class=\\\"wardrobe\\\">\";");
+                twClothing.WriteLine("\t\twstr +=\"<tr>\";");
+                if (_conf.displayInWardrobe.Contains("ID")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_ID_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Name")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_NAME_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Description")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_DESCRIPTION_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Category")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_CATEGORY_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Shop category")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SHOP_CATEGORY_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Is worn")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IS_WORN_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Can buy")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_CAN_BUY_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Buy price")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_BUY_PRICE_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Sell price")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SELL_PRICE_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Can own multiple")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_CAN_OWN_MULTIPLE_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Body part")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_BODY_PART_CAP")).caption +"</b></td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInWardrobe.Contains("Skill1")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SKILL1_CAP")).caption + "</b></td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SKILL2_CAP")).caption + "</b></td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SKILL3_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Owned")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_OWNED_CAP")).caption + "</b></td>\";");
+                if (_conf.displayInWardrobe.Contains("Image")) twClothing.WriteLine("\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</b></td>\";");
+                twClothing.WriteLine("\t\twstr +=\"<td></td>\";"); // wear / isworn
+                twClothing.WriteLine("\t\twstr +=\"</tr>\";");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\tfor (var w = 0; w<state.active.variables.wardrobe.length; w++) {");
+                twClothing.WriteLine("\t\t\twstr +=\"<tr>\";");
+                if (_conf.displayInWardrobe.Contains("ID")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].ID + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Name")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].name + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Description")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].description + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Category")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].category + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Shop category")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].shopCategory + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Is worn")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].isWorn + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Can buy")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].canBuy + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Buy price")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].buyPrice + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Sell price")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].sellPrice + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Can own multiple")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].canOwnMultiple + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Body part")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].bodyPart + \"</td>\";");
+                if (_conf.clothingUseSkill1 && _conf.displayInWardrobe.Contains("Skill1")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill1 + \"</td>\";");
+                if (_conf.clothingUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill2 + \"</td>\";");
+                if (_conf.clothingUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill3 + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Owned")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";");
+                if (_conf.displayInWardrobe.Contains("Image")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\t\tif (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID) {");
+                twClothing.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_WEAR_CAP")).caption +"</a></td></tr>\";");
+                twClothing.WriteLine("\t\t\t} else {");
+                twClothing.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_IS_WORN_CAP")).caption +"</td></tr>\";");
+                twClothing.WriteLine("\t\t\t}");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("\twstr +=\"</table>\";");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\tnew Wikifier(place,wstr);");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
+                twClothing.WriteLine("");
 
                 // addToWardrobe
-                twCloth.WriteLine("macros.addToWardrobe = {");
-                twCloth.WriteLine("\thandler: function (place, macroName, params, parser) {");
-                twCloth.WriteLine("\t\tif (params.length != 2) {");
-                twCloth.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters, cloth ID and amount.\");");
-                twCloth.WriteLine("\t\t\treturn;");
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\tif ((!Number.isInteger(params[0])) || (!Number.isInteger(params[1]))) {");
-                twCloth.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two integer parameters.\");");
-                twCloth.WriteLine("\t\t\treturn;");
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\tvar cloth_in_catalog = state.active.variables.all_cloth.filter(obj => {return obj.ID === params[0]});");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\tif (cloth_in_catalog.length == 0) {");
-                twCloth.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: Cloth with id \" + params[0] + \" does not exist.\");");
-                twCloth.WriteLine("\t\t\treturn;");
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\t// Clone cloth");
-                twCloth.WriteLine("\t\tvar new_cloth = JSON.parse(JSON.stringify(cloth_in_catalog[0]));");
-                twCloth.WriteLine("\t\tnew_cloth.owned = params[1];");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\t// cloth not yet existent?");
-                twCloth.WriteLine("\t\tvar existing_cloth_in_wardrobe_with_id = state.active.variables.wardrobe.filter(obj => {return obj.ID === params[0]});");
-                twCloth.WriteLine("");
-                twCloth.WriteLine("\t\tif (existing_cloth_in_wardrobe_with_id.length == 0) {");
-                twCloth.WriteLine("\t\t\t// add new cloth");
-                twCloth.WriteLine("\t\t\tstate.active.variables.wardrobe.push(new_cloth);");
-                twCloth.WriteLine("\t\t} else if (existing_cloth_in_wardrobe_with_id.length > 0) {");
-                twCloth.WriteLine("\t\t\t// change owned");
-                twCloth.WriteLine("\t\t\tfor (var i in state.active.variables.wardrobe) {");
-                twCloth.WriteLine("\t\t\t\tif (state.active.variables.wardrobe[i].ID == new_cloth.ID) {");
-                twCloth.WriteLine("\t\t\t\t\tstate.active.variables.wardrobe[i].owned += new_cloth.owned;");
-                twCloth.WriteLine("\t\t\t\t\tbreak;");
-                twCloth.WriteLine("\t\t\t\t}");
-                twCloth.WriteLine("\t\t\t}");
-                twCloth.WriteLine("\t\t} else {");
-                twCloth.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several cloth with the same id \" + new_cloth.ID);");
-                twCloth.WriteLine("\t\t\treturn;");
-                twCloth.WriteLine("\t\t}");
-                twCloth.WriteLine("\t}");
-                twCloth.WriteLine("};");
+                twClothing.WriteLine("macros.addToWardrobe = {");
+                twClothing.WriteLine("\thandler: function (place, macroName, params, parser) {");
+                twClothing.WriteLine("\t\tif (params.length != 2) {");
+                twClothing.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters, clothing ID and amount.\");");
+                twClothing.WriteLine("\t\t\treturn;");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\tif ((!Number.isInteger(params[0])) || (!Number.isInteger(params[1]))) {");
+                twClothing.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two integer parameters.\");");
+                twClothing.WriteLine("\t\t\treturn;");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\tvar clothing_in_catalog = state.active.variables.allClothing.filter(obj => {return obj.ID === params[0]});");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\tif (clothing_in_catalog.length == 0) {");
+                twClothing.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: Clothing with id \" + params[0] + \" does not exist.\");");
+                twClothing.WriteLine("\t\t\treturn;");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\t// Clone clothing");
+                twClothing.WriteLine("\t\tvar new_clothing = JSON.parse(JSON.stringify(CLOTHING_in_catalog[0]));");
+                twClothing.WriteLine("\t\tnew_clothing.owned = params[1];");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\t// clothing not yet existent?");
+                twClothing.WriteLine("\t\tvar existing_clothing_in_wardrobe_with_id = state.active.variables.wardrobe.filter(obj => {return obj.ID === params[0]});");
+                twClothing.WriteLine("");
+                twClothing.WriteLine("\t\tif (existing_clothing_in_wardrobe_with_id.length == 0) {");
+                twClothing.WriteLine("\t\t\t// add new clothing");
+                twClothing.WriteLine("\t\t\tstate.active.variables.wardrobe.push(new_clothing);");
+                twClothing.WriteLine("\t\t} else if (existing_clothing_in_wardrobe_with_id.length > 0) {");
+                twClothing.WriteLine("\t\t\t// change owned");
+                twClothing.WriteLine("\t\t\tfor (var i in state.active.variables.wardrobe) {");
+                twClothing.WriteLine("\t\t\t\tif (state.active.variables.wardrobe[i].ID == new_clothing.ID) {");
+                twClothing.WriteLine("\t\t\t\t\tstate.active.variables.wardrobe[i].owned += new_clothing.owned;");
+                twClothing.WriteLine("\t\t\t\t\tbreak;");
+                twClothing.WriteLine("\t\t\t\t}");
+                twClothing.WriteLine("\t\t\t}");
+                twClothing.WriteLine("\t\t} else {");
+                twClothing.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);");
+                twClothing.WriteLine("\t\t\treturn;");
+                twClothing.WriteLine("\t\t}");
+                twClothing.WriteLine("\t}");
+                twClothing.WriteLine("};");
             }
             finally
             {
-                if (twCloth != null)
+                if (twClothing != null)
                 {
-                    twCloth.Flush();
-                    twCloth.Close();
+                    twClothing.Flush();
+                    twClothing.Close();
                 }
             }
         }
@@ -1738,19 +1738,19 @@ namespace TweeFly
                 twShops.WriteLine("\t\t\t}");
                 twShops.WriteLine("");
                 twShops.WriteLine("\t\t/*");
-                twShops.WriteLine("\t\t* Buy cloth");
+                twShops.WriteLine("\t\t* Buy clothing");
                 twShops.WriteLine("\t\t*/");
-                twShops.WriteLine("\t\t} else if (_type.toUpperCase() === \"CLOTH\") {");
-                twShops.WriteLine("\t\t\t// cloth not yet existent?");
-                twShops.WriteLine("\t\t\tvar existing_cloths_with_id = state.active.variables.wardrobe.filter(obj => {");
+                twShops.WriteLine("\t\t} else if (_type.toUpperCase() === \"CLOTHING\") {");
+                twShops.WriteLine("\t\t\t// clothing not yet existent?");
+                twShops.WriteLine("\t\t\tvar existing_clothing_with_id = state.active.variables.wardrobe.filter(obj => {");
                 twShops.WriteLine("\t\t\t\treturn obj.ID === item_obj.ID");
                 twShops.WriteLine("\t\t\t});");
                 twShops.WriteLine("");
-                twShops.WriteLine("\t\t\tif (existing_cloths_with_id.length == 0) {");
-                twShops.WriteLine("\t\t\t\t// add new cloth");
+                twShops.WriteLine("\t\t\tif (existing_clothing_with_id.length == 0) {");
+                twShops.WriteLine("\t\t\t\t// add new clothing");
                 twShops.WriteLine("\t\t\t\tstate.active.variables.wardrobe.push(item_obj);");
                 twShops.WriteLine("\t\t\t\tstate.active.variables.money -=item_obj.buyPrice;");
-                twShops.WriteLine("\t\t\t} else if (existing_cloths_with_id.length > 0) {");
+                twShops.WriteLine("\t\t\t} else if (existing_clothing_with_id.length > 0) {");
                 twShops.WriteLine("\t\t\t\t// change amount");
                 twShops.WriteLine("\t\t\t\tfor (var i in state.active.variables.wardrobe) {");
                 twShops.WriteLine("\t\t\t\t\tif (state.active.variables.wardrobe[i].ID == item_obj.ID) {");
@@ -1761,7 +1761,7 @@ namespace TweeFly
                 twShops.WriteLine("\t\t\t\t\t}");
                 twShops.WriteLine("\t\t\t\t}");
                 twShops.WriteLine("\t\t\t} else {");
-                twShops.WriteLine("\t\t\t\tthrowError(null, \"<<\" + macroName + \">>: There are several cloth with the same id \" + item_obj.ID);");
+                twShops.WriteLine("\t\t\t\tthrowError(null, \"<<\" + macroName + \">>: There are several clothing with the same id \" + item_obj.ID);");
                 twShops.WriteLine("\t\t\t\treturn;");
                 twShops.WriteLine("\t\t\t}");
                 twShops.WriteLine("\t\t} else {");
@@ -1807,9 +1807,9 @@ namespace TweeFly
                 twShops.WriteLine("\t\t\t}");
                 twShops.WriteLine("");
                 twShops.WriteLine("\t\t\t/*");
-                twShops.WriteLine("\t\t\t* Sell cloth");
+                twShops.WriteLine("\t\t\t* Sell clothing");
                 twShops.WriteLine("\t\t\t*/");
-                twShops.WriteLine("\t\t\t} else if (_type.toUpperCase() === \"CLOTH\") {");
+                twShops.WriteLine("\t\t\t} else if (_type.toUpperCase() === \"CLOTHING\") {");
                 twShops.WriteLine("\t\t\t\tvar existing_items_with_id = state.active.variables.wardrobe.filter(obj => {");
                 twShops.WriteLine("\t\t\t\t\treturn obj.ID === item_obj.ID");
                 twShops.WriteLine("\t\t\t});");
@@ -1818,7 +1818,7 @@ namespace TweeFly
                 twShops.WriteLine("");
                 twShops.WriteLine("\t\t\t\t// TODO Check if wearing");
                 twShops.WriteLine("");
-                twShops.WriteLine("\t\t\t\t// Delete a special amount from cloth");
+                twShops.WriteLine("\t\t\t\t// Delete a special amount from clothing");
                 twShops.WriteLine("\t\t\t\tfor (var i in state.active.variables.wardrobe) {");
                 twShops.WriteLine("\t\t\t\tif (state.active.variables.wardrobe[i].ID == item_obj.ID) {");
                 twShops.WriteLine("\t\t\t\t\tstate.active.variables.wardrobe[i].owned -= 1;");
@@ -1884,7 +1884,7 @@ namespace TweeFly
                 twShops.WriteLine("\t\t\t\t}");
                 twShops.WriteLine("\t\t\t\tvar existing_items_with_id = [];");
                 twShops.WriteLine("\t\t\t\tvar object_owned = [];");
-                twShops.WriteLine("\t\t\t\tvar is_cloth_worn = false;");
+                twShops.WriteLine("\t\t\t\tvar is_clothing_worn = false;");
                 twShops.WriteLine("\t\t\t\tif (state.active.variables.shops[params[0]].items[i].type.toUpperCase() === \"ITEM\") {");
                 twShops.WriteLine("");
                 twShops.WriteLine("\t\t\t\t\t// Get the item in the list of all items");
@@ -1894,17 +1894,17 @@ namespace TweeFly
                 twShops.WriteLine("\t\t\t\t\tif (existing_items_with_id.length > 0) {");
                 twShops.WriteLine("\t\t\t\t\t\tobject_owned = state.active.variables.inventory.filter(obj => {return obj.ID === existing_items_with_id[0].ID});");
                 twShops.WriteLine("\t\t\t\t\t}");
-                twShops.WriteLine("\t\t\t\t} else if (state.active.variables.shops[params[0]].items[i].type.toUpperCase() === \"CLOTH\") {");
+                twShops.WriteLine("\t\t\t\t} else if (state.active.variables.shops[params[0]].items[i].type.toUpperCase() === \"CLOTHING\") {");
                 twShops.WriteLine("");
-                twShops.WriteLine("\t\t\t\t\t// Get the cloth in the list of all cloth");
-                twShops.WriteLine("\t\t\t\t\texisting_items_with_id = state.active.variables.all_cloth.filter(obj => {return obj.ID === state.active.variables.shops[params[0]].items[i].ID});");
+                twShops.WriteLine("\t\t\t\t\t// Get the clothing in the list of all clothings");
+                twShops.WriteLine("\t\t\t\t\texisting_items_with_id = state.active.variables.allClothing.filter(obj => {return obj.ID === state.active.variables.shops[params[0]].items[i].ID});");
                 twShops.WriteLine("");
-                twShops.WriteLine("\t\t\t\t\t// Get the cloth owned by the player");
+                twShops.WriteLine("\t\t\t\t\t// Get the clothing owned by the player");
                 twShops.WriteLine("\t\t\t\t\tif (existing_items_with_id.length > 0) {");
                 twShops.WriteLine("\t\t\t\t\t\tobject_owned = state.active.variables.wardrobe.filter(obj => {return obj.ID === existing_items_with_id[0].ID});");
                 twShops.WriteLine("");
                 twShops.WriteLine("\t\t\t\t\t\t// Check if cloth is worn");
-                twShops.WriteLine("\t\t\t\t\t\tis_cloth_worn = is_worn(existing_items_with_id[0].ID);");
+                twShops.WriteLine("\t\t\t\t\t\tis_clothing_worn = is_worn(existing_items_with_id[0].ID);");
                 twShops.WriteLine("\t\t\t\t\t}");
                 twShops.WriteLine("\t\t\t\t}");
                 twShops.WriteLine("");
@@ -1944,14 +1944,14 @@ namespace TweeFly
                 if (_conf.itemPropertiesInShops.Contains("Sell"))
                 {
                     twShops.WriteLine("\t\t\t\t// sell");
-                    twShops.WriteLine("\t\t\t\tvar min_owned = (is_cloth_worn) ? 1 : 0;");
+                    twShops.WriteLine("\t\t\t\tvar min_owned = (is_clothing_worn) ? 1 : 0;");
                     twShops.WriteLine("\t\t\t\tif ((object_owned.length > 0) && (object_owned[0].owned > min_owned)) {");
                     twShops.WriteLine("\t\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><a onClick=\\\"sell('\"+escape(JSON.stringify(existing_items_with_id[0]))+");
                     twShops.WriteLine("\t\t\t\t\t\t\"','\"+state.active.variables.shops[params[0]].items[i].type+\"',\" +params[0]+ \",\" +i+\");\\\" href=\\\"javascript:void(0);\\\">sell for \" + existing_items_with_id[0].sellPrice + \"\" + currency + \"</a></td>\";");
                     twShops.WriteLine("\t\t\t\t} else {");
                     twShops.WriteLine("");
-                    twShops.WriteLine("\t\t\t\t\t// Is player wearing that cloth?");
-                    twShops.WriteLine("\t\t\t\t\tif ((object_owned.length > 0) && (object_owned[0].owned == 1) && (is_cloth_worn)) {");
+                    twShops.WriteLine("\t\t\t\t\t// Is player wearing that clothing?");
+                    twShops.WriteLine("\t\t\t\t\tif ((object_owned.length > 0) && (object_owned[0].owned == 1) && (is_clothing_worn)) {");
                     twShops.WriteLine("\t\t\t\t\t\tshop_str += \"<td class=\\\"shop\\\">sell for \" + existing_items_with_id[0].sellPrice + \"\" + currency + \"<br>(You are wearing that)</td>\";");
                     twShops.WriteLine("\t\t\t\t\t} else {");
                     twShops.WriteLine("\t\t\t\t\t\tshop_str += \"<td class=\\\"shop\\\">sell for \" + existing_items_with_id[0].sellPrice + \"\" + currency + \"</td>\";");
@@ -2138,34 +2138,34 @@ namespace TweeFly
                 twJobs.WriteLine("\t\t\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several items with the same id \" + item.ID);");
                 twJobs.WriteLine("\t\t\t\t\treturn;");
                 twJobs.WriteLine("\t\t\t\t}");
-                twJobs.WriteLine("\t\t\t} else if (job_obj.rewardItems[i].type === \"CLOTH\") {");
-                twJobs.WriteLine("\t\t\t\tvar cloth_in_catalog = state.active.variables.all_cloth.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});");
+                twJobs.WriteLine("\t\t\t} else if (job_obj.rewardItems[i].type === \"CLOTHING\") {");
+                twJobs.WriteLine("\t\t\t\tvar clothing_in_catalog = state.active.variables.allClothing.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});");
                 twJobs.WriteLine("");
-                twJobs.WriteLine("\t\t\t\tif (cloth_in_catalog.length == 0) {");
-                twJobs.WriteLine("\t\t\t\t\tthrowError(place, \"<<\" + macroName + \">>: Cloth with id \" + job_obj.rewardItems[i].ID + \" does not exist.\");");
+                twJobs.WriteLine("\t\t\t\tif (clothing_in_catalog.length == 0) {");
+                twJobs.WriteLine("\t\t\t\t\tthrowError(place, \"<<\" + macroName + \">>: Clothing with id \" + job_obj.rewardItems[i].ID + \" does not exist.\");");
                 twJobs.WriteLine("\t\t\t\t\treturn;");
                 twJobs.WriteLine("\t\t\t\t}");
                 twJobs.WriteLine("");
-                twJobs.WriteLine("\t\t\t\t// Clone cloth");
-                twJobs.WriteLine("\t\t\t\tvar new_cloth = JSON.parse(JSON.stringify(cloth_in_catalog[0]));");
-                twJobs.WriteLine("\t\t\t\tnew_cloth.owned = job_obj.rewardItems[i].amount;");
+                twJobs.WriteLine("\t\t\t\t// Clone clothing");
+                twJobs.WriteLine("\t\t\t\tvar new_clothing = JSON.parse(JSON.stringify(clothing_in_catalog[0]));");
+                twJobs.WriteLine("\t\t\t\tnew_clothing.owned = job_obj.rewardItems[i].amount;");
                 twJobs.WriteLine("");
-                twJobs.WriteLine("\t\t\t\t// cloth not yet existent?");
-                twJobs.WriteLine("\t\t\t\tvar existing_cloth_in_wardrobe_with_id = state.active.variables.wardrobe.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});");
+                twJobs.WriteLine("\t\t\t\t// clothing not yet existent?");
+                twJobs.WriteLine("\t\t\t\tvar existing_clothing_in_wardrobe_with_id = state.active.variables.wardrobe.filter(obj => {return obj.ID === job_obj.rewardItems[i].ID});");
                 twJobs.WriteLine("");
-                twJobs.WriteLine("\t\t\t\tif (existing_cloth_in_wardrobe_with_id.length == 0) {");
-                twJobs.WriteLine("\t\t\t\t\t// add new cloth");
-                twJobs.WriteLine("\t\t\t\t\tstate.active.variables.wardrobe.push(new_cloth);");
-                twJobs.WriteLine("\t\t\t\t} else if (existing_cloth_in_wardrobe_with_id.length > 0) {");
+                twJobs.WriteLine("\t\t\t\tif (existing_clothing_in_wardrobe_with_id.length == 0) {");
+                twJobs.WriteLine("\t\t\t\t\t// add new clothing");
+                twJobs.WriteLine("\t\t\t\t\tstate.active.variables.wardrobe.push(new_clothing);");
+                twJobs.WriteLine("\t\t\t\t} else if (existing_clothing_in_wardrobe_with_id.length > 0) {");
                 twJobs.WriteLine("\t\t\t\t\t// change owned");
                 twJobs.WriteLine("\t\t\t\t\tfor (var i in state.active.variables.wardrobe) {");
-                twJobs.WriteLine("\t\t\t\t\t\tif (state.active.variables.wardrobe[i].ID == new_cloth.ID) {");
-                twJobs.WriteLine("\t\t\t\t\t\t\tstate.active.variables.wardrobe[i].owned += new_cloth.owned;");
+                twJobs.WriteLine("\t\t\t\t\t\tif (state.active.variables.wardrobe[i].ID == new_clothing.ID) {");
+                twJobs.WriteLine("\t\t\t\t\t\t\tstate.active.variables.wardrobe[i].owned += new_clothing.owned;");
                 twJobs.WriteLine("\t\t\t\t\t\t\tbreak;");
                 twJobs.WriteLine("\t\t\t\t\t\t}");
                 twJobs.WriteLine("\t\t\t\t\t}");
                 twJobs.WriteLine("\t\t\t\t} else {");
-                twJobs.WriteLine("\t\t\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several cloth with the same id \" + new_cloth.ID);");
+                twJobs.WriteLine("\t\t\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);");
                 twJobs.WriteLine("\t\t\t\t\treturn;");
                 twJobs.WriteLine("\t\t\t\t}");
                 twJobs.WriteLine("\t\t\t}");
@@ -2335,7 +2335,7 @@ namespace TweeFly
                 if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill2"))
                     twCharacters.WriteLine("\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_SKILL2_CAP")).caption + " </b></td>\";");
 
-                if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill3"))
+                if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
                     twCharacters.WriteLine("\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_SKILL3_CAP")).caption + "</b></td>\";");
                 twCharacters.WriteLine("\t\twstr +=\"</tr>\";");
                 twCharacters.WriteLine("");
@@ -2514,13 +2514,13 @@ namespace TweeFly
                 twCss = new StreamWriter(cssPath, false, new UTF8Encoding(false));
                 twCss.WriteLine("::CSSStyle[scss stylesheet]");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.cloth {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%; }");
-                twCss.WriteLine("td.cloth {overflow: hidden; text-align: center; vertical-align: middle;}");
-                twCss.WriteLine("th.cloth {}");
+                twCss.WriteLine("table.clothing {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%; }");
+                twCss.WriteLine("td.clothing {overflow: hidden; text-align: center; vertical-align: middle;}");
+                twCss.WriteLine("th.clothing {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.cloth_sidebar {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
-                twCss.WriteLine("td.cloth_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}");
-                twCss.WriteLine("th.cloth_sidebar {}");
+                twCss.WriteLine("table.clothing_sidebar {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("td.clothing_sidebar {overflow: hidden; text-align: center; vertical-align: middle;}");
+                twCss.WriteLine("th.clothing_sidebar {}");
                 twCss.WriteLine("");
                 twCss.WriteLine("table.inventory {border: 1px solid white; text-align: center; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.inventory {overflow: hidden; text-align: center; vertical-align: middle;}");
@@ -2612,11 +2612,10 @@ namespace TweeFly
                 {
                     generateMain(_conf, fbd.SelectedPath);
                     generateMenu(_conf, fbd.SelectedPath);
-                    //generateCaptions(_conf, fbd.SelectedPath);
                     generateNavigation(_conf, fbd.SelectedPath);
                     generateCss(_conf, fbd.SelectedPath);
                     if (_conf.inventoryActive) generateInventory(_conf, fbd.SelectedPath);
-                    if (_conf.clothActive) generateCloth(_conf, fbd.SelectedPath);
+                    if (_conf.clothingActive) generateClothing(_conf, fbd.SelectedPath);
                     if (_conf.statsActive) generateStats(_conf, fbd.SelectedPath);
                     if (_conf.daytimeActive) generateDaytime(_conf, fbd.SelectedPath);
                     if (_conf.shopActive) generateShops(_conf, fbd.SelectedPath);

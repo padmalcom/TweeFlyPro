@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TweeFly
 {
     [Serializable]
-    public class Cloth
+    public class Clothing
     {
         public int ID { get; set; } = 0;
         public string name { get; set; } = "";
@@ -26,7 +26,7 @@ namespace TweeFly
         public string skill3 { get; set; } = "";
         public bool isWornAtBeginning { get; set; } = false;
 
-        public Cloth(int iD, string name, string description, bool canBeBought, string shopCategory, string category, string bodyPart, string image, int buyPrice, int sellPrice, bool canOwnMultiple, int owned, string skill1, string skill2, string skill3, bool isWornAtBeginning)
+        public Clothing(int iD, string name, string description, bool canBeBought, string shopCategory, string category, string bodyPart, string image, int buyPrice, int sellPrice, bool canOwnMultiple, int owned, string skill1, string skill2, string skill3, bool isWornAtBeginning)
         {
             ID = iD;
             this.name = name;
@@ -46,6 +46,6 @@ namespace TweeFly
             this.isWornAtBeginning = isWornAtBeginning;
         }
 
-        public Cloth() { }
+        public Clothing() { }
     }
 }

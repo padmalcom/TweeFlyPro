@@ -12,7 +12,7 @@ namespace TweeFly
     public class Configuration
     {
         public bool inventoryActive { get; set; } = false;
-        public bool clothActive { get; set; } = false;
+        public bool clothingActive { get; set; } = false;
         public bool statsActive { get; set; } = false;
         public bool daytimeActive { get; set; } = false;
         public bool shopActive { get; set; } = false;
@@ -54,25 +54,19 @@ namespace TweeFly
         public bool inventoryUseSkill1 { get; set; } = false;
         public bool inventoryUseSkill2 { get; set; } = false;
         public bool inventoryUseSkill3 { get; set; } = false;
-        public string inventorySkill1Name { get; set; } = "";
-        public string inventorySkill2Name { get; set; } = "";
-        public string inventorySkill3Name { get; set; } = "";
         public List<Item> items { get; set; } = new List<Item>();
         public List<string> displayInInventory { get; set; } = new List<string>();
 
-        // Cloth
-        public bool clothInSidebar { get; set; } = false;
-        public bool clothLinkInSidebar { get; set; } = false;
+        // Clothing
+        public bool clothingInSidebar { get; set; } = false;
+        public bool clothingLinkInSidebar { get; set; } = false;
         public bool wardrobeLinkInSidebar { get; set; } = false;
-        public bool clothUseSkill1 { get; set; } = false;
-        public bool clothUseSkill2 { get; set; } = false;
-        public bool clothUseSkill3 { get; set; } = false;
-        public string clothSkill1Name { get; set; } = "";
-        public string clothSkill2Name { get; set; } = "";
-        public string clothSkill3Name { get; set; } = "";
-        public List<Cloth> cloth { get; set; } = new List<Cloth>();
+        public bool clothingUseSkill1 { get; set; } = false;
+        public bool clothingUseSkill2 { get; set; } = false;
+        public bool clothingUseSkill3 { get; set; } = false;
+        public List<Clothing> clothing { get; set; } = new List<Clothing>();
         public List<string> displayInWardrobe { get; set; } = new List<string>();
-        public List<string> displayInClothView { get; set; } = new List<string>();
+        public List<string> displayInClothingView { get; set; } = new List<string>();
 
         // Stats
         public bool statsInSidebar { get; set; } = false;
@@ -150,7 +144,7 @@ namespace TweeFly
                 captions.Add(new CaptionPair("WARDROBE_TITLE_CAP", "Wardrobe"));
                 captions.Add(new CaptionPair("WARDROBE_LINK_CAP", "Wardrobe"));
                 captions.Add(new CaptionPair("WARDROBE_SIDEBAR_TITLE_CAP", "Wardrobe"));
-                captions.Add(new CaptionPair("WARDROBE_EMPTY_CAP", "No cloth in wardrobe."));
+                captions.Add(new CaptionPair("WARDROBE_EMPTY_CAP", "No clothing in wardrobe."));
                 captions.Add(new CaptionPair("WARDROBE_COL_ID_CAP", "ID"));
                 captions.Add(new CaptionPair("WARDROBE_COL_NAME_CAP", "name"));
                 captions.Add(new CaptionPair("WARDROBE_COL_DESCRIPTION_CAP", "description"));
@@ -161,31 +155,31 @@ namespace TweeFly
                 captions.Add(new CaptionPair("WARDROBE_COL_SKILL3_CAP", "skill3"));
                 captions.Add(new CaptionPair("WARDROBE_COL_IMAGE_CAP", "image"));
 
-                // Cloth
-                captions.Add(new CaptionPair("CLOTH_TITLE_CAP", "Cloth"));
-                captions.Add(new CaptionPair("CLOTH_LINK_CAP", "Cloth"));
-                captions.Add(new CaptionPair("CLOTH_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("CLOTH_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("CLOTH_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("CLOTH_SIDEBAR_TITLE_CAP", "Cloth"));
-                captions.Add(new CaptionPair("CLOTH_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("CLOTH_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("CLOTH_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("CLOTH_COL_CATEGORY_CAP", "category"));
-                captions.Add(new CaptionPair("CLOTH_COL_SHOP_CATEGORY_CAP", "shop category"));
-                captions.Add(new CaptionPair("CLOTH_COL_OWNED_CAP", "owned"));
-                captions.Add(new CaptionPair("CLOTH_COL_IS_WORN_CAP", "is worn"));
-                captions.Add(new CaptionPair("CLOTH_COL_CAN_BUY_CAP", "can buy"));
-                captions.Add(new CaptionPair("CLOTH_COL_BUY_PRICE_CAP", "buy price"));
-                captions.Add(new CaptionPair("CLOTH_COL_SELL_PRICE_CAP", "sell price"));
-                captions.Add(new CaptionPair("CLOTH_COL_CAN_OWN_MULTIPLE_CAP", "can own multiple"));
-                captions.Add(new CaptionPair("CLOTH_COL_BODY_PART_CAP", "body part"));
-                captions.Add(new CaptionPair("CLOTH_COL_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("CLOTH_COL_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("CLOTH_COL_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("CLOTH_COL_IMAGE_CAP", "image"));
-                captions.Add(new CaptionPair("CLOTH_WEAR_CAP", "wear"));
-                captions.Add(new CaptionPair("CLOTH_IS_WORN_CAP", "This is worn."));
+                // Clothing
+                captions.Add(new CaptionPair("CLOTHING_TITLE_CAP", "Clothing"));
+                captions.Add(new CaptionPair("CLOTHING_LINK_CAP", "Clothing"));
+                captions.Add(new CaptionPair("CLOTHING_SKILL1_CAP", "skill1"));
+                captions.Add(new CaptionPair("CLOTHING_SKILL2_CAP", "skill2"));
+                captions.Add(new CaptionPair("CLOTHING_SKILL3_CAP", "skill3"));
+                captions.Add(new CaptionPair("CLOTHING_SIDEBAR_TITLE_CAP", "Clothing"));
+                captions.Add(new CaptionPair("CLOTHING_COL_ID_CAP", "ID"));
+                captions.Add(new CaptionPair("CLOTHING_COL_NAME_CAP", "name"));
+                captions.Add(new CaptionPair("CLOTHING_COL_DESCRIPTION_CAP", "description"));
+                captions.Add(new CaptionPair("CLOTHING_COL_CATEGORY_CAP", "category"));
+                captions.Add(new CaptionPair("CLOTHING_COL_SHOP_CATEGORY_CAP", "shop category"));
+                captions.Add(new CaptionPair("CLOTHING_COL_OWNED_CAP", "owned"));
+                captions.Add(new CaptionPair("CLOTHING_COL_IS_WORN_CAP", "is worn"));
+                captions.Add(new CaptionPair("CLOTHING_COL_CAN_BUY_CAP", "can buy"));
+                captions.Add(new CaptionPair("CLOTHING_COL_BUY_PRICE_CAP", "buy price"));
+                captions.Add(new CaptionPair("CLOTHING_COL_SELL_PRICE_CAP", "sell price"));
+                captions.Add(new CaptionPair("CLOTHING_COL_CAN_OWN_MULTIPLE_CAP", "can own multiple"));
+                captions.Add(new CaptionPair("CLOTHING_COL_BODY_PART_CAP", "body part"));
+                captions.Add(new CaptionPair("CLOTHING_COL_SKILL1_CAP", "skill1"));
+                captions.Add(new CaptionPair("CLOTHING_COL_SKILL2_CAP", "skill2"));
+                captions.Add(new CaptionPair("CLOTHING_COL_SKILL3_CAP", "skill3"));
+                captions.Add(new CaptionPair("CLOTHING_COL_IMAGE_CAP", "image"));
+                captions.Add(new CaptionPair("CLOTHING_WEAR_CAP", "wear"));
+                captions.Add(new CaptionPair("CLOTHING_IS_WORN_CAP", "This is worn."));
 
                 // Bodyparts
                 captions.Add(new CaptionPair("NOTHING_CAP", "-"));

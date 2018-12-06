@@ -32,7 +32,7 @@ namespace TweeFly
             if (_conf != null)
             {
                 checkBox1.Checked = _conf.inventoryActive;
-                checkBox2.Checked = _conf.clothActive;
+                checkBox2.Checked = _conf.clothingActive;
                 checkBox3.Checked = _conf.statsActive;
                 checkBox4.Checked = _conf.daytimeActive;
                 checkBox5.Checked = _conf.shopActive;
@@ -122,35 +122,35 @@ namespace TweeFly
                 textBox24.Text = "";
 
                 // Wardrobe
-                checkBox8.Checked = _conf.clothLinkInSidebar;
-                checkBox21.Checked = _conf.clothInSidebar;
+                checkBox8.Checked = _conf.clothingLinkInSidebar;
+                checkBox21.Checked = _conf.clothingInSidebar;
                 checkBox34.Checked = _conf.wardrobeLinkInSidebar;
                 
                 listView2.Items.Clear();
-                for(int i=0; i< _conf.cloth.Count; i++)
+                for(int i=0; i< _conf.clothing.Count; i++)
                 {
                     ListViewItem item = new ListViewItem();
-                    item.Text = _conf.cloth[i].ID.ToString();
-                    item.SubItems.Add(_conf.cloth[i].name);
-                    item.SubItems.Add(_conf.cloth[i].description);
-                    item.SubItems.Add(_conf.cloth[i].category);
-                    item.SubItems.Add(_conf.cloth[i].shopCategory);
-                    item.SubItems.Add(_conf.cloth[i].bodyPart);
-                    item.SubItems.Add(_conf.cloth[i].owned.ToString());
-                    item.SubItems.Add(_conf.cloth[i].isWornAtBeginning.ToString());
-                    item.SubItems.Add(_conf.cloth[i].canBeBought.ToString());
-                    item.SubItems.Add(_conf.cloth[i].buyPrice.ToString());
-                    item.SubItems.Add(_conf.cloth[i].sellPrice.ToString());
-                    item.SubItems.Add(_conf.cloth[i].canOwnMultiple.ToString());
-                    item.SubItems.Add(_conf.cloth[i].image);
-                    item.SubItems.Add(_conf.cloth[i].skill1);
-                    item.SubItems.Add(_conf.cloth[i].skill2);
-                    item.SubItems.Add(_conf.cloth[i].skill3);
+                    item.Text = _conf.clothing[i].ID.ToString();
+                    item.SubItems.Add(_conf.clothing[i].name);
+                    item.SubItems.Add(_conf.clothing[i].description);
+                    item.SubItems.Add(_conf.clothing[i].category);
+                    item.SubItems.Add(_conf.clothing[i].shopCategory);
+                    item.SubItems.Add(_conf.clothing[i].bodyPart);
+                    item.SubItems.Add(_conf.clothing[i].owned.ToString());
+                    item.SubItems.Add(_conf.clothing[i].isWornAtBeginning.ToString());
+                    item.SubItems.Add(_conf.clothing[i].canBeBought.ToString());
+                    item.SubItems.Add(_conf.clothing[i].buyPrice.ToString());
+                    item.SubItems.Add(_conf.clothing[i].sellPrice.ToString());
+                    item.SubItems.Add(_conf.clothing[i].canOwnMultiple.ToString());
+                    item.SubItems.Add(_conf.clothing[i].image);
+                    item.SubItems.Add(_conf.clothing[i].skill1);
+                    item.SubItems.Add(_conf.clothing[i].skill2);
+                    item.SubItems.Add(_conf.clothing[i].skill3);
                     listView2.Items.Add(item);
                 }
-                checkBox28.Checked = _conf.clothUseSkill1;
-                checkBox29.Checked = _conf.clothUseSkill2;
-                checkBox30.Checked = _conf.clothUseSkill3;
+                checkBox28.Checked = _conf.clothingUseSkill1;
+                checkBox29.Checked = _conf.clothingUseSkill2;
+                checkBox30.Checked = _conf.clothingUseSkill3;
 
                 for (int i = 0; i < checkedListBox4.Items.Count; i++)
                 {
@@ -171,11 +171,11 @@ namespace TweeFly
                 {
                     checkedListBox2.SetItemChecked(i, false);
                 }
-                for (int i = 0; i < _conf.displayInClothView.Count; i++)
+                for (int i = 0; i < _conf.displayInClothingView.Count; i++)
                 {
                     for (int j = 0; j < checkedListBox2.Items.Count; j++)
                     {
-                        if (checkedListBox2.Items[j].ToString().ToUpper().Equals(_conf.displayInClothView[i].ToUpper()))
+                        if (checkedListBox2.Items[j].ToString().ToUpper().Equals(_conf.displayInClothingView[i].ToUpper()))
                         {
                             checkedListBox2.SetItemChecked(j, true);
                         }
@@ -369,7 +369,7 @@ namespace TweeFly
                     comboBox3.Items.Add(conf.shops[i].name);
                 }
 
-                // Shop categories in cloth
+                // Shop categories in clothing
                 comboBox2.Items.Clear();
                 for (int i = 0; i < conf.shops.Count; i++)
                 {
@@ -402,7 +402,7 @@ namespace TweeFly
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            conf.clothActive = checkBox2.Checked;
+            conf.clothingActive = checkBox2.Checked;
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -604,9 +604,9 @@ namespace TweeFly
         private void button18_Click(object sender, EventArgs e)
         {
             bool found = false;
-            for (int i = 0; i < conf.cloth.Count; i++)
+            for (int i = 0; i < conf.clothing.Count; i++)
             {
-                if (conf.cloth[i].ID == numericUpDown8.Value)
+                if (conf.clothing[i].ID == numericUpDown8.Value)
                 {
                     found = true;
                     break;
@@ -619,27 +619,27 @@ namespace TweeFly
             }
             else
             {
-                Cloth cloth = new Cloth();
-                cloth.ID = Convert.ToInt32(numericUpDown8.Value);
-                cloth.name = textBox14.Text;
-                cloth.canBeBought = checkBox16.Checked;
-                cloth.bodyPart = comboBox5.Text;
-                cloth.skill1 = textBox20.Text;
-                cloth.skill2 = textBox23.Text;
-                cloth.skill3 = textBox24.Text;
-                cloth.shopCategory = comboBox2.Text;
-                cloth.category = textBox13.Text;
-                cloth.image = textBox11.Text;
-                cloth.buyPrice = Convert.ToInt32(numericUpDown6.Value);
-                cloth.sellPrice = Convert.ToInt32(numericUpDown23.Value);
-                cloth.canOwnMultiple = checkBox15.Checked;
-                cloth.owned = Convert.ToInt32(numericUpDown7.Value);
-                cloth.isWornAtBeginning = checkBox35.Checked;
+                Clothing clothing = new Clothing();
+                clothing.ID = Convert.ToInt32(numericUpDown8.Value);
+                clothing.name = textBox14.Text;
+                clothing.canBeBought = checkBox16.Checked;
+                clothing.bodyPart = comboBox5.Text;
+                clothing.skill1 = textBox20.Text;
+                clothing.skill2 = textBox23.Text;
+                clothing.skill3 = textBox24.Text;
+                clothing.shopCategory = comboBox2.Text;
+                clothing.category = textBox13.Text;
+                clothing.image = textBox11.Text;
+                clothing.buyPrice = Convert.ToInt32(numericUpDown6.Value);
+                clothing.sellPrice = Convert.ToInt32(numericUpDown23.Value);
+                clothing.canOwnMultiple = checkBox15.Checked;
+                clothing.owned = Convert.ToInt32(numericUpDown7.Value);
+                clothing.isWornAtBeginning = checkBox35.Checked;
 
-                conf.cloth.Add(cloth);
+                conf.clothing.Add(clothing);
 
                 // Update wardrobe                
-                updateCloth();
+                updateClothing();
 
                 numericUpDown8.Value += 1;
             }
@@ -647,61 +647,61 @@ namespace TweeFly
 
 
         // Update all cloth in the wardrobe
-        private void updateCloth()
+        private void updateClothing()
         {
             listView2.Items.Clear();
-            for (int i = 0; i < conf.cloth.Count; i++)
+            for (int i = 0; i < conf.clothing.Count; i++)
             {
                 ListViewItem updateItem = new ListViewItem();
-                updateItem.Text = conf.cloth[i].ID.ToString();
-                updateItem.SubItems.Add(conf.cloth[i].name);
-                updateItem.SubItems.Add(conf.cloth[i].description);
-                updateItem.SubItems.Add(conf.cloth[i].category);
-                updateItem.SubItems.Add(conf.cloth[i].shopCategory);
-                updateItem.SubItems.Add(conf.cloth[i].bodyPart);
-                updateItem.SubItems.Add(conf.cloth[i].owned.ToString());
-                updateItem.SubItems.Add(conf.cloth[i].isWornAtBeginning.ToString());
-                updateItem.SubItems.Add(conf.cloth[i].canBeBought.ToString());
-                updateItem.SubItems.Add(conf.cloth[i].buyPrice.ToString());
-                updateItem.SubItems.Add(conf.cloth[i].sellPrice.ToString());
-                updateItem.SubItems.Add(conf.cloth[i].canOwnMultiple.ToString());
-                updateItem.SubItems.Add(conf.cloth[i].image);
-                updateItem.SubItems.Add(conf.cloth[i].skill1);
-                updateItem.SubItems.Add(conf.cloth[i].skill2);
-                updateItem.SubItems.Add(conf.cloth[i].skill3);
+                updateItem.Text = conf.clothing[i].ID.ToString();
+                updateItem.SubItems.Add(conf.clothing[i].name);
+                updateItem.SubItems.Add(conf.clothing[i].description);
+                updateItem.SubItems.Add(conf.clothing[i].category);
+                updateItem.SubItems.Add(conf.clothing[i].shopCategory);
+                updateItem.SubItems.Add(conf.clothing[i].bodyPart);
+                updateItem.SubItems.Add(conf.clothing[i].owned.ToString());
+                updateItem.SubItems.Add(conf.clothing[i].isWornAtBeginning.ToString());
+                updateItem.SubItems.Add(conf.clothing[i].canBeBought.ToString());
+                updateItem.SubItems.Add(conf.clothing[i].buyPrice.ToString());
+                updateItem.SubItems.Add(conf.clothing[i].sellPrice.ToString());
+                updateItem.SubItems.Add(conf.clothing[i].canOwnMultiple.ToString());
+                updateItem.SubItems.Add(conf.clothing[i].image);
+                updateItem.SubItems.Add(conf.clothing[i].skill1);
+                updateItem.SubItems.Add(conf.clothing[i].skill2);
+                updateItem.SubItems.Add(conf.clothing[i].skill3);
                 listView2.Items.Add(updateItem);
             }
         }
 
-        // Update cloth in wardrobe
+        // Update clothing in wardrobe
         private void button8_Click(object sender, EventArgs e)
         {
             if (listView2.SelectedItems.Count == 1)
             {
-                for (int i = 0; i < conf.cloth.Count; i++)
+                for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    if (conf.cloth[i].ID == int.Parse(listView2.SelectedItems[0].Text))
+                    if (conf.clothing[i].ID == int.Parse(listView2.SelectedItems[0].Text))
                     {
-                        conf.cloth[i].ID = Convert.ToInt32(numericUpDown8.Value);
-                        conf.cloth[i].name = textBox14.Text;
-                        conf.cloth[i].description = textBox3.Text;
-                        conf.cloth[i].category = textBox13.Text;
-                        conf.cloth[i].shopCategory = comboBox2.Text;
-                        conf.cloth[i].bodyPart = comboBox5.Text;
-                        conf.cloth[i].owned = Convert.ToInt32(numericUpDown7.Value);
-                        conf.cloth[i].canBeBought = checkBox16.Checked;
-                        conf.cloth[i].buyPrice = Convert.ToInt32(numericUpDown6.Value);
-                        conf.cloth[i].sellPrice = Convert.ToInt32(numericUpDown23.Value);
-                        conf.cloth[i].canOwnMultiple = checkBox15.Checked;
-                        conf.cloth[i].image = textBox11.Text;
-                        conf.cloth[i].skill1 = textBox20.Text;
-                        conf.cloth[i].skill2 = textBox23.Text;
-                        conf.cloth[i].skill3 = textBox24.Text;
-                        conf.cloth[i].isWornAtBeginning = checkBox35.Checked;
+                        conf.clothing[i].ID = Convert.ToInt32(numericUpDown8.Value);
+                        conf.clothing[i].name = textBox14.Text;
+                        conf.clothing[i].description = textBox3.Text;
+                        conf.clothing[i].category = textBox13.Text;
+                        conf.clothing[i].shopCategory = comboBox2.Text;
+                        conf.clothing[i].bodyPart = comboBox5.Text;
+                        conf.clothing[i].owned = Convert.ToInt32(numericUpDown7.Value);
+                        conf.clothing[i].canBeBought = checkBox16.Checked;
+                        conf.clothing[i].buyPrice = Convert.ToInt32(numericUpDown6.Value);
+                        conf.clothing[i].sellPrice = Convert.ToInt32(numericUpDown23.Value);
+                        conf.clothing[i].canOwnMultiple = checkBox15.Checked;
+                        conf.clothing[i].image = textBox11.Text;
+                        conf.clothing[i].skill1 = textBox20.Text;
+                        conf.clothing[i].skill2 = textBox23.Text;
+                        conf.clothing[i].skill3 = textBox24.Text;
+                        conf.clothing[i].isWornAtBeginning = checkBox35.Checked;
 
-                        updateCloth();
+                        updateClothing();
 
-                        MessageBox.Show("Cloth updated.");
+                        MessageBox.Show("Clothing updated.");
                         return;
                     }
                 }
@@ -709,24 +709,24 @@ namespace TweeFly
             MessageBox.Show("Item could not be updated.");
         }
 
-        // Delete cloth from wardrobe
+        // Delete clothing from wardrobe
         private void button19_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listView2.SelectedItems)
             {
-                for (int i = conf.cloth.Count - 1; i >= 0; i--)
+                for (int i = conf.clothing.Count - 1; i >= 0; i--)
                 {
-                    if (conf.cloth[i].ID == int.Parse(eachItem.Text))
+                    if (conf.clothing[i].ID == int.Parse(eachItem.Text))
                     {
-                        var confirmResult = MessageBox.Show("Are you sure you want to delete cloth with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
+                        var confirmResult = MessageBox.Show("Are you sure you want to delete clothing with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
-                            conf.cloth.RemoveAt(i);
+                            conf.clothing.RemoveAt(i);
                         }
                     }
                 }
             }
-            updateCloth();
+            updateClothing();
         }
 
         private void listView2_DoubleClick(object sender, EventArgs e)
@@ -1136,9 +1136,9 @@ namespace TweeFly
                 }
             } else
             {
-                for (int i = 0; i < conf.cloth.Count; i++)
+                for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    comboBox1.Items.Add(conf.cloth[i].ID);
+                    comboBox1.Items.Add(conf.clothing[i].ID);
                 }
             }
         }
@@ -1157,11 +1157,11 @@ namespace TweeFly
             }
             else
             {
-                for (int i = 0; i < conf.cloth.Count; i++)
+                for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    if (comboBox1.Text == conf.cloth[i].ID.ToString())
+                    if (comboBox1.Text == conf.clothing[i].ID.ToString())
                     {
-                        label73.Text = "(" + conf.cloth[i].name + ")";
+                        label73.Text = "(" + conf.clothing[i].name + ")";
                     }
                 }
             }
@@ -1784,7 +1784,7 @@ namespace TweeFly
                     comboBox3.Items.Add(conf.shops[i].name);
                 }
             }
-            else if (tabControl1.SelectedTab.Text == "Cloth")
+            else if (tabControl1.SelectedTab.Text == "Clothing")
             {
                 comboBox2.Items.Clear();
                 for (int i = 0; i < conf.shops.Count; i++)
@@ -1812,7 +1812,7 @@ namespace TweeFly
 
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
-            conf.clothLinkInSidebar = checkBox8.Checked;
+            conf.clothingLinkInSidebar = checkBox8.Checked;
         }
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
@@ -2013,11 +2013,11 @@ namespace TweeFly
             }
             else
             {
-                for (int i = 0; i < conf.cloth.Count; i++)
+                for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    if (comboBox4.Text == conf.cloth[i].ID.ToString())
+                    if (comboBox4.Text == conf.clothing[i].ID.ToString())
                     {
-                        label80.Text = conf.cloth[i].name;
+                        label80.Text = conf.clothing[i].name;
                     }
                 }
             }
@@ -2061,7 +2061,7 @@ namespace TweeFly
 
         private void checkBox21_CheckedChanged(object sender, EventArgs e)
         {
-            conf.clothInSidebar = checkBox21.Checked;
+            conf.clothingInSidebar = checkBox21.Checked;
         }
 
         private void checkBox23_CheckedChanged(object sender, EventArgs e)
@@ -2148,17 +2148,17 @@ namespace TweeFly
 
         private void checkBox28_CheckedChanged(object sender, EventArgs e)
         {
-            conf.clothUseSkill1 = checkBox28.Checked;
+            conf.clothingUseSkill1 = checkBox28.Checked;
         }
 
         private void checkBox29_CheckedChanged(object sender, EventArgs e)
         {
-            conf.clothUseSkill2 = checkBox29.Checked;
+            conf.clothingUseSkill2 = checkBox29.Checked;
         }
 
         private void checkBox30_CheckedChanged(object sender, EventArgs e)
         {
-            conf.clothUseSkill3 = checkBox30.Checked;
+            conf.clothingUseSkill3 = checkBox30.Checked;
         }
 
         private void checkBox33_CheckedChanged(object sender, EventArgs e)
@@ -2189,9 +2189,9 @@ namespace TweeFly
             else
             {
                 comboBox1.Items.Clear();
-                for (int i = 0; i < conf.cloth.Count; i++)
+                for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    comboBox1.Items.Add(conf.cloth[i].ID);
+                    comboBox1.Items.Add(conf.clothing[i].ID);
                 }
             }
         }
@@ -2209,9 +2209,9 @@ namespace TweeFly
             else
             {
                 comboBox4.Items.Clear();
-                for (int i = 0; i < conf.cloth.Count; i++)
+                for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    comboBox4.Items.Add(conf.cloth[i].ID);
+                    comboBox4.Items.Add(conf.clothing[i].ID);
                 }
             }
         }
@@ -2267,7 +2267,7 @@ namespace TweeFly
 
             // Global
             conf.inventoryActive = true;
-            conf.clothActive = true;
+            conf.clothingActive = true;
             conf.statsActive = true;
             conf.daytimeActive = true;
             conf.shopActive = true;
@@ -2305,12 +2305,12 @@ namespace TweeFly
             conf.displayInInventory.Add("Skill2");
             conf.displayInInventory.Add("Skill3");
 
-            // Cloth
-            conf.clothInSidebar = true;
-            conf.clothLinkInSidebar = true;
-            conf.clothUseSkill1 = true;
-            conf.clothUseSkill2 = true;
-            conf.clothUseSkill3 = false;
+            // Clothing
+            conf.clothingInSidebar = true;
+            conf.clothingLinkInSidebar = true;
+            conf.clothingUseSkill1 = true;
+            conf.clothingUseSkill2 = true;
+            conf.clothingUseSkill3 = false;
 
             conf.displayInWardrobe.Clear();
             for (int i = 0; i < checkedListBox4.CheckedItems.Count; i++)
@@ -2318,53 +2318,53 @@ namespace TweeFly
                 conf.displayInWardrobe.Add(checkedListBox4.CheckedItems[i].ToString());
             }
 
-            conf.displayInClothView.Clear();
+            conf.displayInClothingView.Clear();
             for (int i = 0; i < checkedListBox2.CheckedItems.Count; i++)
             {
-                conf.displayInClothView.Add(checkedListBox2.CheckedItems[i].ToString());
+                conf.displayInClothingView.Add(checkedListBox2.CheckedItems[i].ToString());
             }
 
             // name, description, canbebougt, shopcat, cat, bodypart, image, buiprice, sellprice, multiple, owned, s1, s2, s3
-            conf.cloth.Add(new Cloth(0, "nothing", "description", false, "", "cloth", "HEAD_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.cloth.Add(new Cloth(1, "cap", "description", true, "", "cloth", "HEAD_NAME", "data/img/cap.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(1, "cap", "description", true, "", "clothing", "HEAD_NAME", "data/img/cap.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Hair
-            conf.cloth.Add(new Cloth(2, "nothing", "description",false, "", "cloth", "HAIR_NAME","data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.cloth.Add(new Cloth(3, "headscarf", "description",true, "", "cloth", "HAIR_NAME", "data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME","data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", "data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Neck
-            conf.cloth.Add(new Cloth(4, "nothing", "description",false,"", "cloth", "NECK_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.cloth.Add(new Cloth(5, "leatherchain", "description",true, "", "cloth", "NECK_NAME", "data/img/leatherchain.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(5, "leatherchain", "description",true, "", "clothing", "NECK_NAME", "data/img/leatherchain.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Upper body
-            conf.cloth.Add(new Cloth(6, "nothing", "description",false, "", "cloth","UPPER_BODY_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.cloth.Add(new Cloth(7, "shirt", "description",true,"", "cloth",  "UPPER_BODY_NAME", "data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
-            conf.cloth.Add(new Cloth(8, "tshirt", "description",true, "", "cloth", "UPPER_BODY_NAME", "data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", "data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", "data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Lower body
-            conf.cloth.Add(new Cloth(9, "nothing", "description",false,"","cloth", "LOWER_BODY_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.cloth.Add(new Cloth(10, "jeans", "description",true, "", "cloth", "LOWER_BODY_NAME", "data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
-            conf.cloth.Add(new Cloth(11, "short pants", "description",true, "", "cloth", "LOWER_BODY_NAME", "data/img/shortpants.jpg",20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", "data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", "data/img/shortpants.jpg",20, 10, true, 1, "", "", "", false));
 
             // Belt
-            conf.cloth.Add(new Cloth(12, "nothing", "description",false, "", "cloth",  "BELT_NAME","data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.cloth.Add(new Cloth(13, "simple belt", "description",true, "", "cloth", "BELT_NAME","data/img/belt.jpg",20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME","data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME","data/img/belt.jpg",20, 10, true, 1, "", "", "", false));
 
             // Socks
-            conf.cloth.Add(new Cloth(14, "nothing", "description",false,"", "cloth", "SOCKS_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.cloth.Add(new Cloth(15, "male socks", "description",true, "", "cloth", "SOCKS_NAME", "data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", "data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Shoes
-            conf.cloth.Add(new Cloth(16, "nothing", "description",false, "", "cloth","SHOES_NAME","data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.cloth.Add(new Cloth(17, "sports shoes", "description",true, "", "cloth", "SHOES_NAME", "data/img/sportsshoes.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME","data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(17, "sports shoes", "description",true, "", "clothing", "SHOES_NAME", "data/img/sportsshoes.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Underwear top
-            conf.cloth.Add(new Cloth(18, "nothing", "description",false,"","cloth", "UNDERWEAR_TOP_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.cloth.Add(new Cloth(19, "undershirt", "description",true,"","cloth","UNDERWEAR_TOP_NAME", "data/img/undershirt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(19, "undershirt", "description",true,"","clothing","UNDERWEAR_TOP_NAME", "data/img/undershirt.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Underwear bottom
-            conf.cloth.Add(new Cloth(20, "nothing", "description",false, "", "cloth", "UNDERWEAR_BOTTOM_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.cloth.Add(new Cloth(21, "boxershorts", "description",true,"", "cloth", "UNDERWEAR_BOTTOM_NAME","data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME","data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
 
 
             // Stats
@@ -2380,8 +2380,8 @@ namespace TweeFly
 
             // Shops
             Shop s1 = new Shop(0, "gift shop", new DateTime(2000, 01, 01, 0, 0, 0), new DateTime(2000, 01, 01, 23, 59, 59));
-            s1.items.Add(new ShopItem("CLOTH", 13, 10, 10, 1));
-            s1.items.Add(new ShopItem("CLOTH", 21, 1, 1, 0));
+            s1.items.Add(new ShopItem("CLOTHING", 13, 10, 10, 1));
+            s1.items.Add(new ShopItem("CLOTHING", 21, 1, 1, 0));
             s1.items.Add(new ShopItem("ITEM", 3, 1, 1, 1));
             conf.shops.Add(s1);
             conf.itemPropertiesInShops.Clear();
@@ -2492,10 +2492,10 @@ namespace TweeFly
 
         private void checkedListBox2_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            conf.displayInClothView.Clear();
+            conf.displayInClothingView.Clear();
             for (int i = 0; i < checkedListBox2.CheckedItems.Count; i++)
             {
-                conf.displayInClothView.Add(checkedListBox2.CheckedItems[i].ToString());
+                conf.displayInClothingView.Add(checkedListBox2.CheckedItems[i].ToString());
             }
         }
 
