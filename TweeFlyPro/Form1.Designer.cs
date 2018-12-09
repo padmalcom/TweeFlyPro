@@ -4505,7 +4505,7 @@
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(216, 23);
             this.button31.TabIndex = 26;
-            this.button31.Text = "Create dummy conf";
+            this.button31.Text = "Create dummy configuration";
             this.button31.UseVisualStyleBackColor = true;
             this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
