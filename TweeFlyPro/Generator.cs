@@ -1093,7 +1093,7 @@ namespace TweeFly
                 twClothing.WriteLine("");
                 twClothing.WriteLine("\tnew Wikifier(place,");
                 twClothing.WriteLine("\t\t\"<table class=\\\"clothing_sidebar\\\">\"+");
-                twClothing.WriteLine("\t\t\"<tr><td colspan=2>Cloth</td></tr>\"+");
+                twClothing.WriteLine("\t\t\"<tr><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+");
                 twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\" +");
                 twClothing.WriteLine("\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td></tr>\" +");
                 twClothing.WriteLine("\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\" +");
@@ -1250,7 +1250,7 @@ namespace TweeFly
                     twStats.Write("\"name\":\"" + _conf.stats[i].name + "\",");
                     twStats.Write("\"value\":" + _conf.stats[i].value + ",");
                     twStats.Write("\"description\":\"" + _conf.stats[i].description + "\",");
-                    twStats.WriteLine("\"image\":\"" + pathSubtract(_conf.stats[i].img, _conf.pathSubtract) + "\"});");
+                    twStats.WriteLine("\"image\":\"" + pathSubtract(_conf.stats[i].image, _conf.pathSubtract) + "\"});");
                 }
                 twStats.WriteLine("\t}");
                 twStats.WriteLine("};");

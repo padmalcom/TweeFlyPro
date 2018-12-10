@@ -14,16 +14,16 @@ namespace TweeFly
         public string description { get; set; } = "";
         public string value { get; set; } = "";
         public string unit { get; set; } = "";
-        public string img { get; set; } = "";
+        public string image { get; set; } = "";
 
-        public Stats(int iD, string name, string description, string value, string unit, string img)
+        public Stats(int iD, string name, string description, string value, string unit, string image)
         {
             ID = iD;
             this.name = name;
             this.description = description;
             this.value = value;
             this.unit = unit;
-            this.img = img;
+            this.image = image;
         }
 
         public Stats() { }

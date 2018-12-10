@@ -5,3 +5,5 @@ keycard: Photo by Sarah Pflug from Burst
 fitness: Photo by Humphrey Muleba from Burst
 kitchen: Photo by Brodie Vissers from Burst
 key: Photo by Matt Artz on Unsplash
+socks: Photo by Lum3n.com from Pexels
+tshirt: Photo by Shopify Partners from Burst
