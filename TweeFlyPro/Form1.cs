@@ -22,6 +22,7 @@ namespace TweeFly
         private Configuration conf = new Configuration();
         private string fileName = "";
         private const string APP_TITLE = "TweeFly - Interactive Story Setup for SugarCube2";
+        private string APP_DIR = "%APP_DIR%";
 
         public Form1()
         {
@@ -598,7 +599,8 @@ namespace TweeFly
                 textBox29.Text = listView1.SelectedItems[0].SubItems[12].Text;
                 textBox28.Text = listView1.SelectedItems[0].SubItems[13].Text;
 
-                if (File.Exists(textBox10.Text)) pictureBox2.Load(textBox10.Text);
+                string absPath = textBox10.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
 
@@ -756,7 +758,8 @@ namespace TweeFly
                 textBox23.Text = listView2.SelectedItems[0].SubItems[14].Text;
                 textBox24.Text = listView2.SelectedItems[0].SubItems[15].Text;
 
-                if (File.Exists(textBox11.Text)) pictureBox2.Load(textBox11.Text);
+                string absPath = textBox11.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
 
@@ -875,7 +878,8 @@ namespace TweeFly
                 textBox9.Text = listView5.SelectedItems[0].SubItems[5].Text;
                 textBox4.Text = listView5.SelectedItems[0].SubItems[6].Text;
 
-                if (File.Exists(textBox9.Text)) pictureBox2.Load(textBox9.Text);
+                string absPath = textBox9.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
 
@@ -1318,6 +1322,9 @@ namespace TweeFly
                 numericUpDown19.Value = int.Parse(listView4.SelectedItems[0].SubItems[7].Text);
                 numericUpDown9.Value = int.Parse(listView4.SelectedItems[0].SubItems[5].Text);
 
+                string absPath = textBox15.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                if (File.Exists(absPath)) pictureBox2.Load(absPath);
+
                 // Get the right job
                 for (int i = 0; i < conf.jobs.Count; i++)
                 {
@@ -1537,7 +1544,8 @@ namespace TweeFly
                 textBox35.Text = listView7.SelectedItems[0].SubItems[12].Text;
                 textBox34.Text = listView7.SelectedItems[0].SubItems[13].Text;
 
-                if (File.Exists(textBox37.Text)) pictureBox2.Load(textBox37.Text);
+                string absPath = textBox37.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
 
@@ -2287,7 +2295,7 @@ namespace TweeFly
             conf.moneyActive = true;
             conf.jobsActive = true;
             conf.charactersActive = true;
-            conf.pathSubtract = "C:\\Users\\admin\\Documents\\Projekte\\TweeFly\\example";
+            conf.pathSubtract = APP_DIR;
             conf.storyName = "story1";
 
             // Inventory
@@ -2298,12 +2306,12 @@ namespace TweeFly
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
-                "", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/taxicard.jpg", -1, -1, false, 1, "", "", ""));
-            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/smartphone.jpg", -1, -1,
+                "", APP_DIR + "data/img/taxicard.jpg", -1, -1, false, 1, "", "", ""));
+            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", APP_DIR + "data/img/smartphone.jpg", -1, -1,
                 false, 1, "", "", ""));
-            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/keycard.jpg", -1, -1,
+            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", APP_DIR + "data/img/keycard.jpg", -1, -1,
                 false, 1, "", "", ""));
-            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/chocolate.jpg", 2, 1,
+            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", APP_DIR + "data/img/chocolate.jpg", 2, 1,
                 true, 1, "", "", ""));
 
             conf.displayInInventory.Clear();
@@ -2342,53 +2350,53 @@ namespace TweeFly
             conf.displayInClothingView.Add("Image");
 
             // name, description, canbebougt, shopcat, cat, bodypart, image, buiprice, sellprice, multiple, owned, s1, s2, s3
-            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/beanie.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", APP_DIR + "data/img/beanie.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Hair
-            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", APP_DIR + "data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Neck
-            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/necklace_male.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", APP_DIR + "data/img/necklace_male.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Upper body
-            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", APP_DIR + "data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", APP_DIR + "data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Lower body
-            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/shortpants.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/shortpants.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Belt
-            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/belt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", APP_DIR + "data/img/belt.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Socks
-            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", APP_DIR + "data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Shoes
-            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/shoes_male.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", APP_DIR + "data/img/shoes_male.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Underwear top
-            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/tanktop.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", APP_DIR + "data/img/tanktop.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Underwear bottom
-            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", APP_DIR + "data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
 
 
             // Stats
             conf.statsInSidebar = true;
             conf.statsLinkInSidebar = true;
-            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/strength.jpg"));
-            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/intelligence.jpg"));
+            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", APP_DIR + "data/img/strength.jpg"));
+            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", APP_DIR + "data/img/intelligence.jpg"));
 
             // Daytime
             conf.daytimeFormat = 0;
@@ -2413,8 +2421,8 @@ namespace TweeFly
             conf.startMoney = 10;
 
             // Jobs
-            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 3600, "kitchen", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/dishes.jpg", 5, 60);
-            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 3600, "kitchen", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/cleaningfloor.jpg", 10, 120);
+            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 3600, "kitchen", APP_DIR + "data/img/dishes.jpg", 5, 60);
+            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 3600, "kitchen", APP_DIR + "data/img/cleaningfloor.jpg", 10, 120);
             j1.rewardItems.Add(new RewardItem("ITEM", 3, 1));
             conf.jobs.Add(j1);
             conf.jobs.Add(j2);
@@ -2425,8 +2433,8 @@ namespace TweeFly
             }
 
             // Characters
-            Character c1 = new Character(0, "Jim", 21, "Jim is a receptionist.", true, "hotel", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
-            Character c2 = new Character(1, "Joana", 21, "Joana is a room maid.", false, "hotel", "C:/Users/admin/Documents/Projekte/TweeFlyPro/example/data/img/joana.jpg", "female", "room maid", 0, "#f44242", "", "", "");
+            Character c1 = new Character(0, "Jim", 21, "Jim is a receptionist.", true, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
+            Character c2 = new Character(1, "Joana", 21, "Joana is a room maid.", false, "hotel", APP_DIR + "data/img/joana.jpg", "female", "room maid", 0, "#f44242", "", "", "");
             conf.characters.Add(c1);
             conf.characters.Add(c2);
             conf.charactersInSidebar = true;
@@ -2690,6 +2698,11 @@ namespace TweeFly
         private void textBox37_TextChanged(object sender, EventArgs e)
         {
             textBox37.Tag = textBox37.Text;
+        }
+
+        private void textBox47_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

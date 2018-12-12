@@ -2387,7 +2387,7 @@ namespace TweeFly
                 twCharacters.WriteLine("\t\t\treturn;");
                 twCharacters.WriteLine("\t\t}");
                 twCharacters.WriteLine("");
-                twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"say\\\"><tr><td rowspan=\\\"2\\\"><img class=\\\"dialog\\\" src=\\\"\" + character[0].image + \"\\\"></td><td><font color=\\\"\"+character[0].color+\"\\\">\" + character[0].name + \"</font></td></tr><tr><td>\"+params[1]+\"</td></tr></table>\";");
+                twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"say\\\"><tr><td style='width: 20%;'><img class=\\\"dialog\\\" src=\\\"\" + character[0].image + \"\\\"></td><td style='vertical-align: top; text-align: left;'><font color=\\\"\"+character[0].color+\"\\\">\" + character[0].name + \"</font><br\\>\"+params[1]+\"</td></tr></table>\";");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\tnew Wikifier(place, wstr);");
                 twCharacters.WriteLine("\t}");

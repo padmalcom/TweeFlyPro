@@ -4486,6 +4486,7 @@
             this.textBox47.Size = new System.Drawing.Size(128, 20);
             this.textBox47.TabIndex = 23;
             this.textBox47.Text = "story";
+            this.textBox47.TextChanged += new System.EventHandler(this.textBox47_TextChanged);
             // 
             // button30
             // 
