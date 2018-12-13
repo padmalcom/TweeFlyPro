@@ -1161,13 +1161,16 @@ namespace TweeFly
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox6.Text.Equals("Item"))
+            if (comboBox6.Text.Equals("ITEM"))
             {
                 for (int i = 0; i < conf.items.Count; i++)
                 {
                     if (comboBox1.Text == conf.items[i].ID.ToString())
                     {
                         label73.Text = "(" + conf.items[i].name + ")";
+
+                        string absPath = conf.items[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
             }
@@ -1178,6 +1181,9 @@ namespace TweeFly
                     if (comboBox1.Text == conf.clothing[i].ID.ToString())
                     {
                         label73.Text = "(" + conf.clothing[i].name + ")";
+
+                        string absPath = conf.clothing[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        pictureBox2.Load(absPath);
                     }
                 }
             }
@@ -1654,7 +1660,7 @@ namespace TweeFly
         private void saveConfAs()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "TweeFly Configuration XML|*.tfcx|TweeFly Configuration Binary|*.tfx";
+            saveFileDialog1.Filter = "TweeFly Configuration XML|*.tfcx|TweeFly Configuration Binary|*.tfc";
             saveFileDialog1.Title = "Save TweeFly Configuration File";
             saveFileDialog1.ShowDialog();
 
@@ -2029,6 +2035,9 @@ namespace TweeFly
                     if (comboBox4.Text == conf.items[i].ID.ToString())
                     {
                         label80.Text = conf.items[i].name;
+
+                        string absPath = conf.items[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
             }
@@ -2039,6 +2048,9 @@ namespace TweeFly
                     if (comboBox4.Text == conf.clothing[i].ID.ToString())
                     {
                         label80.Text = conf.clothing[i].name;
+
+                        string absPath = conf.clothing[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
             }
@@ -2702,7 +2714,7 @@ namespace TweeFly
 
         private void textBox47_TextChanged(object sender, EventArgs e)
         {
-
+            conf.storyName = textBox47.Text;
         }
     }
 }
