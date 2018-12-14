@@ -46,6 +46,7 @@ namespace TweeFly
                 textBox12.Text = _conf.pathSubtract;
                 textBox47.Text = _conf.storyName;
                 checkBox24.Checked = _conf.runAfterGenerate;
+                textBox5.Text = _conf.mainFile;
 
                 // Config
                 checkBox40.Checked = _conf.navigationArrows;
@@ -2309,6 +2310,7 @@ namespace TweeFly
             conf.charactersActive = true;
             conf.pathSubtract = APP_DIR;
             conf.storyName = "story1";
+            conf.mainFile = "mystory.tw2";
 
             // Inventory
             conf.inventoryInSidebar = true;
