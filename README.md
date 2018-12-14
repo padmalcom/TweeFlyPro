@@ -22,7 +22,6 @@ A setup tool for interactive stories writte in Twee.
 	
 - Macros:
 	- setNextDay with hours as parameter
-	- include hasItem in free edition
 
 - Example project
 	- Add "_" to all variables used by the scripts

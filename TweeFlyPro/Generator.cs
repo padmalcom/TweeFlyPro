@@ -413,7 +413,7 @@ namespace TweeFly
                 twInventory.WriteLine("\treturn 0;");
                 twInventory.WriteLine("}");
         
-        // Inventory
+                // Inventory
                 twInventory.WriteLine("macros.inventory = {");
                 twInventory.WriteLine("\thandler: function(place, macroName, params, parser) {");
                 twInventory.WriteLine("\t\tif (state.active.variables.inventory.length == 0) {");
