@@ -1184,7 +1184,7 @@ namespace TweeFly
                         label73.Text = "(" + conf.clothing[i].name + ")";
 
                         string absPath = conf.clothing[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
-                        pictureBox2.Load(absPath);
+                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
             }
@@ -1355,7 +1355,7 @@ namespace TweeFly
         private void button17_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "*.*|*.png|*.jpg|*.gif";
+            openFileDialog1.Filter = "|*.*||*.png||*.jpg||*.gif";
             openFileDialog1.Title = "Open Image File";
             openFileDialog1.ShowDialog();
 
@@ -1368,7 +1368,7 @@ namespace TweeFly
         private void button7_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "*.*|*.png|*.jpg|*.gif";
+            openFileDialog1.Filter = "|*.*||*.png||*.jpg||*.gif";
             openFileDialog1.Title = "Open Image File";
             openFileDialog1.ShowDialog();
 
@@ -1381,7 +1381,7 @@ namespace TweeFly
         private void button14_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "*.*|*.png|*.jpg|*.gif";
+            openFileDialog1.Filter = "|*.*||*.png||*.jpg||*.gif";
             openFileDialog1.Title = "Open Image File";
             openFileDialog1.ShowDialog();
 
@@ -1394,7 +1394,7 @@ namespace TweeFly
         private void button26_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "*.*|*.png|*.jpg|*.gif";
+            openFileDialog1.Filter = "|*.*||*.png||*.jpg||*.gif";
             openFileDialog1.Title = "Open Image File";
             openFileDialog1.ShowDialog();
 
@@ -2065,7 +2065,7 @@ namespace TweeFly
         private void button6_Click_1(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "*.*|*.png|*.jpg|*.gif";
+            openFileDialog1.Filter = "|*.*||*.png||*.jpg||*.gif";
             openFileDialog1.Title = "Open Image File";
             openFileDialog1.ShowDialog();
 
@@ -2320,11 +2320,11 @@ namespace TweeFly
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
-                "", APP_DIR + "data/img/taxicard.jpg", -1, -1, false, 1, "", "", ""));
+                "", APP_DIR + "data/img/taxicard.jpg", -1, -1, false, 0, "", "", ""));
             conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", APP_DIR + "data/img/smartphone.jpg", -1, -1,
                 false, 1, "", "", ""));
             conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", APP_DIR + "data/img/keycard.jpg", -1, -1,
-                false, 1, "", "", ""));
+                false, 0, "", "", ""));
             conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", APP_DIR + "data/img/chocolate.jpg", 2, 1,
                 true, 1, "", "", ""));
 
@@ -2447,8 +2447,8 @@ namespace TweeFly
             }
 
             // Characters
-            Character c1 = new Character(0, "Jim", 21, "Jim is a receptionist.", true, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
-            Character c2 = new Character(1, "Joana", 21, "Joana is a room maid.", false, "hotel", APP_DIR + "data/img/joana.jpg", "female", "room maid", 0, "#f44242", "", "", "");
+            Character c1 = new Character(0, "Arthur", 53, "Arthur is a receptionist.", false, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
+            Character c2 = new Character(1, "Mike", 21, "Mike is a footboy.", false, "hotel", APP_DIR + "data/img/joana.jpg", "male", "footboy", 0, "#f44242", "", "", "");
             conf.characters.Add(c1);
             conf.characters.Add(c2);
             conf.charactersInSidebar = true;

@@ -406,7 +406,14 @@ namespace TweeFly
                 twInventory.WriteLine("};");
                 twInventory.WriteLine("");
 
-                // Inventory
+                // hasItem
+                twInventory.WriteLine("window.has_item = function(_id) {");
+                twInventory.WriteLine("\tvar existing_items_with_id = state.active.variables.inventory.filter(obj => { return obj.ID == _id});");
+                twInventory.WriteLine("\tif (existing_items_with_id.length > 0) return 1;");
+                twInventory.WriteLine("\treturn 0;");
+                twInventory.WriteLine("}");
+        
+        // Inventory
                 twInventory.WriteLine("macros.inventory = {");
                 twInventory.WriteLine("\thandler: function(place, macroName, params, parser) {");
                 twInventory.WriteLine("\t\tif (state.active.variables.inventory.length == 0) {");
@@ -1160,7 +1167,7 @@ namespace TweeFly
                 if (_conf.displayInWardrobe.Contains("Owned")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";");
                 if (_conf.displayInWardrobe.Contains("Image")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";");
                 twClothing.WriteLine("");
-                twClothing.WriteLine("\t\t\tif (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID) {");
+                twClothing.WriteLine("\t\t\tif ((typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] != \"undefined\") && (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID)) {");
                 twClothing.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_WEAR_CAP")).caption +"</a></td></tr>\";");
                 twClothing.WriteLine("\t\t\t} else {");
                 twClothing.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_IS_WORN_CAP")).caption +"</td></tr>\";");
@@ -2340,6 +2347,7 @@ namespace TweeFly
                 twCharacters.WriteLine("\t\twstr +=\"</tr>\";");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\tfor (var w = 0; w<state.active.variables.characters.length; w++) {");
+                twCharacters.WriteLine("\t\t\tif (state.active.variables.characters[w].known == false) continue;");
                 twCharacters.WriteLine("\t\t\twstr +=\"<tr>\";");
                 if (_conf.displayInCharactersView.Contains("ID")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].ID + \"</td>\";");
                 if (_conf.displayInCharactersView.Contains("Name")) twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].name + \"</td>\";");
@@ -2394,13 +2402,37 @@ namespace TweeFly
                 twCharacters.WriteLine("};");
                 twCharacters.WriteLine("");
 
+                // setKnown
+                twCharacters.WriteLine("macros.setKnown = {");
+                twCharacters.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twCharacters.WriteLine("");
+                twCharacters.WriteLine("\t\tif (params.length != 1) {");
+                twCharacters.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects one parameter: character ID.\");");
+                twCharacters.WriteLine("\t\t\treturn;");
+                twCharacters.WriteLine("\t\t}");
+                twCharacters.WriteLine("");
+                twCharacters.WriteLine("\t\tvar character = state.active.variables.characters.filter(c => {return c.ID === params[0]});");
+                twCharacters.WriteLine("\t\tif (character.length != 1) {");
+                twCharacters.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: There must be exactly one character of id \" + params[0] + \" in the character list but there are \" + item_in_catalog.length);");
+                twCharacters.WriteLine("\t\t\treturn;");
+                twCharacters.WriteLine("\t\t}");
+                twCharacters.WriteLine("");
+                twCharacters.WriteLine("\t\tcharacter.known = true;");
+                twCharacters.WriteLine("\t}");
+                twCharacters.WriteLine("};");
+                twCharacters.WriteLine("");
+
                 // characterSidebar
                 twCharacters.WriteLine("macros.charactersSidebar = {");
                 twCharacters.WriteLine("\thandler: function(place, macroName, params, parser) {");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"character\\\">\";	");
                 twCharacters.WriteLine("\t\twstr +=\"<tr><td colspan=2>Characters</td></tr>\";	");
-                twCharacters.WriteLine("\t\tfor (var w = 0; w<state.active.variables.characters.length; w +=2) {");
+
+                // get known characters
+                twCharacters.WriteLine("\t\tvar knownCharacters = state.active.variables.characters.filter(c => {return c.known == true});");
+
+                twCharacters.WriteLine("\t\tfor (var w = 0; w<knownCharacters.length; w +=2) {");
                 twCharacters.WriteLine("\t\t\twstr +=\"<tr>\";");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\t\tvar char_info_1 = \"\";");

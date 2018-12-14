@@ -20,10 +20,9 @@ A setup tool for interactive stories writte in Twee.
 	- Add number, string, bool to skill1-3
 	- Add configuration tab
 	
-- Free2Pro:
-	- Remove skill1 name.
-	- Rename cloth to clothing
-	- Skill3 in characters is named skill2
+- Macros:
+	- setNextDay with hours as parameter
+	- include hasItem in free edition
 
 - Example project
 	- Add "_" to all variables used by the scripts

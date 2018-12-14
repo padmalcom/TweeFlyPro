@@ -34,7 +34,7 @@ I managed to sprint to the next cab in an instance.
 The cab stopped at a lively street. The hotel was enourmous. Since I grew up with my mom I only knew the complex from photos.
 
 [[Say thanks->Cab3]]
-[[Enter the Atlantic->Atlantic Lobby]]
+[[Enter the Atlantic->Atlantic lobby]]
 
 
 
@@ -47,18 +47,18 @@ The cab stopped at a lively street. The hotel was enourmous. Since I grew up wit
 
 __Got the drivers business card__
 
-[Add business card to inventory]
+<<addToInventory 0 1>>
 
 <span style="color:blue">Me</span>: I will. Bye!
 
-[[Enter the Atlantic->Atlantic Lobby]] 
+[[Enter the Atlantic->Atlantic lobby]] 
 
 
 
 
-::Atlantic Lobby
+::Atlantic lobby
 
-<<= '<img src="data/img/lobby01.jpg" alt="Atlantic lobby">' >>
+<<= '<img src="data/img/hotel_lobby_01.jpg" alt="Atlantic lobby">' >>
 
 You are in the lobby. Where do you want to go?
 
@@ -77,9 +77,9 @@ You are in the lobby. Where do you want to go?
 <<= '<img src="data/img/hotel_waiting_area_01.jpg" alt="Waiting area">' >>
 
 After an hour I feel rested.
-[Add 60 minutes to time]
+<<addTimeInMinutes 60>>
 
-[[Lobby->Atlantic Lobby]] 
+[[Lobby->Atlantic lobby]] 
 
 
 
@@ -91,7 +91,7 @@ It is late. The restaurant is empty.
 
 [[Elevator]]
 [[Reception]]
-[[Lobby->Atlantic Lobby]]
+[[Lobby->Atlantic lobby]]
 
 
 
@@ -101,29 +101,31 @@ It is late. The restaurant is empty.
 
 The gift shop is still open.
 
-[Open shop]
+<<shop 0>>
 
-[[Lobby->Atlantic Lobby]]
+[[Lobby->Atlantic lobby]]
 
 
 ::Elevator
 
 <<= '<img src="data/img/hotel_elevator_01.jpg" alt="Elevator">' >>
 
-<<if $keycard_player is 1>>
+<<if has_item(2) is 1>>
 	<<if $has_seen_room is 0>>
 <span style="color:green">Boy</span>: So you are the director's son? Saw you at the reception already!
 <span style="color:blue">Me</span>: My name is <<print $player_name>>.
 <span style="color:green">Boy</span>: I am Mike. Listen, <<print $player_name>>: I'll explain how this whole hotel works. If you want or need something, come to me. I know all employees and most guests. If you give me a little gift from time to time I'll take care of you.
 <span style="color:blue">Me</span>: Okay... thanks for the offer, I guess.
 <span style="color:green">Mike</span>: Great let me show you your room then!
+
+[[To my room->Room presentation]]
 	<<else>>
-		[[To my room->Room presentation]]
+		
 	<<endif>>
 <<else>>
 	A boy at my age is waiting at the elevator.
 	
-	[[Lobby->Atlantic Lobby]]
+	[[Lobby->Atlantic lobby]]
 <<endif>>
 
 
@@ -131,7 +133,7 @@ The gift shop is still open.
 
 <<= '<img src="data/img/hotel_lobby_01.jpg" alt="Lobby">' >>
 
-<<if $keycard_player is 1>>
+<<if has_item(2) is 1>>
 	<<if $has_seen_room is 0>>
 		I should go to the elevator and ask a guy named Mike to show me my room.
 	<<else>>
@@ -144,6 +146,7 @@ The gift shop is still open.
 	<<endif>>
 <<else>>
 
+<<set $has_seen_room to 0>>
 A kindly looking old man smiles at you.
 
 <span style="color:green">Receptionist</span>: Good evening Sir, how can I help you?
@@ -153,7 +156,7 @@ A kindly looking old man smiles at you.
 <span style="color:green">Arthur</span>: So let's see if we have a keycard for you! There it is!
 
 __Got the keycard for my room!__
-[Add keycard to inventory]
+<<addToInventory 2 1>>
 
 Your room is in the 12th floor, number 1221. Mike will help you with your luggage. He awaits you at the elevator. Welcome to the Atlantic!
 
@@ -164,20 +167,33 @@ Your room is in the 12th floor, number 1221. Mike will help you with your luggag
 
 
 
-::Hotel Kitchen
+::Hotel kitchen
 
 <<= '<img src="data/img/hotel_kitchen_01.jpg" alt="Hotel kitchen">' >>
 
-[show jobs]
+<<showJobs 0 1>>
 
-[[Lobby->Atlantic Lobby]]
+[[Lobby->Atlantic lobby]]
 
 
-::Room Presentation
+::Room presentation
 
 <<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
 
 We arrived in the 12th floor and passed many wooden doors until we reached number 1221. Mike unlocked the door with the keycard and kept the door open.
 
 <span style="color:blue">Me</span>: Wow...
-<span style="color:green">Mike</span>: Not bad, is it? This is your room now!
+<span style="color:green">Mike</span>: Not bad, is it? This is your room now! Okay <<print $player_name>>, I am leaving now. Have a great first day tomorrow.
+
+[[Go to sleep->First morning]]
+
+
+
+
+::First morning
+
+<<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
+
+I awoke the next morning at 8 o'clock. Was there a knock on the door? Before I open the door I should change my cloth.
+
+<<wardrobe>>
