@@ -2570,15 +2570,29 @@ namespace TweeFly
 
                     ProcessStartInfo _processStartInfo = new ProcessStartInfo();
                     _processStartInfo.WorkingDirectory = savedPath;
+                    _processStartInfo.FileName = @"C:\Ruby25-x64\bin\twee2.bat";
                     _processStartInfo.FileName = @"twee2";
-                    _processStartInfo.Arguments = "build " + storyFile + " " + htmlFile;
-                    _processStartInfo.CreateNoWindow = true;
+                    _processStartInfo.Arguments = "build \"" + storyFile + "\" \"" + htmlFile + "\"";
+                    _processStartInfo.RedirectStandardOutput = true;
+                    _processStartInfo.RedirectStandardInput = true;
+                    _processStartInfo.RedirectStandardError = true;
+                    _processStartInfo.UseShellExecute = false;
                     Process myProcess = Process.Start(_processStartInfo);
 
-                    if ((myProcess != null) && (checkBox24.Checked))
-                    {
+                    string errors = myProcess.StandardError.ReadToEnd();    
+
+                    if ((myProcess != null)) {     
                         myProcess.WaitForExit();
-                        Process.Start(htmlFile);
+
+                        if (!string.IsNullOrEmpty(errors))
+                        {
+                            MessageBox.Show("There were errors during twee2 build: " + errors);
+                        }
+
+                        if (checkBox24.Checked)
+                        {
+                            Process.Start(htmlFile);
+                        }      
                     }
                 } else
                 {
