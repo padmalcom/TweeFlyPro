@@ -71,7 +71,8 @@ namespace TweeFly
                             storyFileAbsolute += ".tw2";
                         }
                         MessageBox.Show("Story file '" + storyFileAbsolute + "' does not exist. Creating dummy story as '" + storyFileAbsolute + "'.");
-                        generateEmptyStory(storyFileAbsolute);
+                        //generateEmptyStory(storyFileAbsolute);
+                        copySampleStory(storyFileAbsolute);
                     }
                     twMain.WriteLine(Path.GetFileName(storyFileAbsolute));
                 }
@@ -128,6 +129,49 @@ namespace TweeFly
                     twStory.Flush();
                     twStory.Close();
                 }
+            }
+        }
+
+        private static void copySampleStory(string _path)
+        {
+            string exampleStory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "example/mystory.tw2");
+            string exampleAssets = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "example/data");
+            if (File.Exists(exampleStory))
+            {
+                File.Copy(exampleStory, _path);
+                CopyDir(exampleAssets, Path.Combine(Path.GetDirectoryName(_path), "data"));
+            } else
+            {
+                MessageBox.Show("Cannot copy example story from expected location '" + exampleStory + "'. Creating empty file.");
+                generateEmptyStory(_path);
+            }
+        }
+
+        private static void CopyDir(string sourceDirectory, string targetDirectory)
+        {
+            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
+            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
+
+            CopyAll(diSource, diTarget);
+        }
+
+        private static void CopyAll(DirectoryInfo source, DirectoryInfo target)
+        {
+            Directory.CreateDirectory(target.FullName);
+
+            // Copy each file into the new directory.
+            foreach (FileInfo fi in source.GetFiles())
+            {
+                Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
+                fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
+            }
+
+            // Copy each subdirectory using recursion.
+            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+            {
+                DirectoryInfo nextTargetSubDir =
+                    target.CreateSubdirectory(diSourceSubDir.Name);
+                CopyAll(diSourceSubDir, nextTargetSubDir);
             }
         }
 
@@ -1201,7 +1245,7 @@ namespace TweeFly
                 twClothing.WriteLine("\t\t}");
                 twClothing.WriteLine("");
                 twClothing.WriteLine("\t\t// Clone clothing");
-                twClothing.WriteLine("\t\tvar new_clothing = JSON.parse(JSON.stringify(CLOTHING_in_catalog[0]));");
+                twClothing.WriteLine("\t\tvar new_clothing = JSON.parse(JSON.stringify(clothing_in_catalog[0]));");
                 twClothing.WriteLine("\t\tnew_clothing.owned = params[1];");
                 twClothing.WriteLine("");
                 twClothing.WriteLine("\t\t// clothing not yet existent?");
@@ -2417,7 +2461,27 @@ namespace TweeFly
                 twCharacters.WriteLine("\t\t\treturn;");
                 twCharacters.WriteLine("\t\t}");
                 twCharacters.WriteLine("");
-                twCharacters.WriteLine("\t\tcharacter.known = true;");
+                twCharacters.WriteLine("\t\tcharacter[0].known = true;");
+                twCharacters.WriteLine("\t}");
+                twCharacters.WriteLine("};");
+                twCharacters.WriteLine("");
+
+                // rename
+                twCharacters.WriteLine("macros.renameCharacter = {");
+                twCharacters.WriteLine("\thandler: function(place, macroName, params, parser) {");
+                twCharacters.WriteLine("");
+                twCharacters.WriteLine("\t\tif (params.length != 2) {");
+                twCharacters.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters: character ID and new name.\");");
+                twCharacters.WriteLine("\t\t\treturn;");
+                twCharacters.WriteLine("\t\t}");
+                twCharacters.WriteLine("");
+                twCharacters.WriteLine("\t\tvar character = state.active.variables.characters.filter(c => {return c.ID === params[0]});");
+                twCharacters.WriteLine("\t\tif (character.length != 1) {");
+                twCharacters.WriteLine("\t\t\tthrowError(place, \"<<\" + macroName + \">>: There must be exactly one character of id \" + params[0] + \" in the character list but there are \" + item_in_catalog.length);");
+                twCharacters.WriteLine("\t\t\treturn;");
+                twCharacters.WriteLine("\t\t}");
+                twCharacters.WriteLine("");
+                twCharacters.WriteLine("\t\tcharacter[0].name = params[1];");
                 twCharacters.WriteLine("\t}");
                 twCharacters.WriteLine("};");
                 twCharacters.WriteLine("");
@@ -2436,58 +2500,58 @@ namespace TweeFly
                 twCharacters.WriteLine("\t\t\twstr +=\"<tr>\";");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\t\tvar char_info_1 = \"\";");
-                if (_conf.displayInCharactersView.Contains("ID")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"ID: \" + state.active.variables.characters[w].ID + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Name")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"name:\" + state.active.variables.characters[w].name + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Category")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"category:\" + state.active.variables.characters[w].category + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Description")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"description:\" + state.active.variables.characters[w].description + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Age")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"age:\" + state.active.variables.characters[w].age + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Gender")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"gender:\" + state.active.variables.characters[w].gender + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Job")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"job:\" + state.active.variables.characters[w].job + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Relation")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"relation:\" + state.active.variables.characters[w].relation + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Known")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"known:\" + state.active.variables.characters[w].known + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Color")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"color:\" + state.active.variables.characters[w].color + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("ID")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"ID: \" + knownCharacters[w].ID + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Name")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"name:\" + knownCharacters[w].name + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Category")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"category:\" + knownCharacters[w].category + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Description")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"description:\" + knownCharacters[w].description + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Age")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"age:\" + knownCharacters[w].age + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Gender")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"gender:\" + knownCharacters[w].gender + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Job")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"job:\" + knownCharacters[w].job + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Relation")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"relation:\" + knownCharacters[w].relation + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Known")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"known:\" + knownCharacters[w].known + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Color")) twCharacters.WriteLine("\t\t\tchar_info_1 += \"color:\" + knownCharacters[w].color + \"&#10;\";");
                 if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
-                    twCharacters.WriteLine("\t\t\tchar_info_1 +=\"skill1: \" + state.active.variables.characters[w].skill1 + \"&#10;\";");
+                    twCharacters.WriteLine("\t\t\tchar_info_1 +=\"skill1: \" + knownCharacters[w].skill1 + \"&#10;\";");
                 if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill2"))
-                    twCharacters.WriteLine("\t\t\tchar_info_1 +=\"snill2: \" + state.active.variables.characters[w].skill2 + \"&#10;\";");
+                    twCharacters.WriteLine("\t\t\tchar_info_1 +=\"snill2: \" + knownCharacters[w].skill2 + \"&#10;\";");
                 if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
-                    twCharacters.WriteLine("\t\t\tchar_info_1 +=\"skill3: \" + state.active.variables.characters[w].skill3 + \"&#10;\";");
+                    twCharacters.WriteLine("\t\t\tchar_info_1 +=\"skill3: \" + sknownCharacters[w].skill3 + \"&#10;\";");
                 twCharacters.WriteLine("");
 
                 if (_conf.charactersSidebarTooltip)
                 {
-                    twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\" title=\\\"\" + char_info_1 + \"\\\"></td>\";");
+                    twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + knownCharacters[w].image + \"\\\" title=\\\"\" + char_info_1 + \"\\\"></td>\";");
                 } else
                 {
-                    twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";");
+                    twCharacters.WriteLine("\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + knownCharacters[w].image + \"\\\"></td>\";");
                 }
-                twCharacters.WriteLine("\t\t\tif (w+1 < state.active.variables.characters.length) {");
+                twCharacters.WriteLine("\t\t\tif (w+1 < knownCharacters.length) {");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\t\t\tvar char_info_2 = \"\";");
-                if (_conf.displayInCharactersView.Contains("ID")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"ID: \" + state.active.variables.characters[w+1].ID + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Name")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"name:\" + state.active.variables.characters[w+1].name + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Category")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"category:\" + state.active.variables.characters[w+1].category + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Description")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"description:\" + state.active.variables.characters[w+1].description + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Age")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"age:\" + state.active.variables.characters[w+1].age + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Gender")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"gender:\" + state.active.variables.characters[w+1].gender + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Job")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"job:\" + state.active.variables.characters[w+1].job + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Relation")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"relation:\" + state.active.variables.characters[w+1].relation + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Known")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"known:\" + state.active.variables.characters[w+1].known + \"&#10;\";");
-                if (_conf.displayInCharactersView.Contains("Color")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"color:\" + state.active.variables.characters[w+1].color + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("ID")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"ID: \" + knownCharacters[w+1].ID + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Name")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"name:\" + knownCharacters[w+1].name + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Category")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"category:\" + knownCharacters[w+1].category + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Description")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"description:\" + knownCharacters[w+1].description + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Age")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"age:\" + knownCharacters[w+1].age + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Gender")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"gender:\" + knownCharacters[w+1].gender + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Job")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"job:\" + knownCharacters[w+1].job + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Relation")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"relation:\" + knownCharacters[w+1].relation + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Known")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"known:\" + knownCharacters[w+1].known + \"&#10;\";");
+                if (_conf.displayInCharactersView.Contains("Color")) twCharacters.WriteLine("\t\t\t\tchar_info_2 += \"color:\" + knownCharacters[w+1].color + \"&#10;\";");
 
                 if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
-                    twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"skill1: \" + state.active.variables.characters[w+1].skill1 + \"&#10;\";");
+                    twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"skill1: \" + knownCharacters[w+1].skill1 + \"&#10;\";");
 
                 if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill2"))
-                    twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"snill2: \" + state.active.variables.characters[w+1].skill2 + \"&#10;\";");
+                    twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"snill2: \" + knownCharacters[w+1].skill2 + \"&#10;\";");
 
                 if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
-                    twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"skill3: \" + state.active.variables.characters[w+1].skill3 + \"&#10;\";");
+                    twCharacters.WriteLine("\t\t\t\tchar_info_2 +=\"skill3: \" + knownCharacters[w+1].skill3 + \"&#10;\";");
                 twCharacters.WriteLine("");
 
                 if (_conf.charactersSidebarTooltip)
                 {
-                    twCharacters.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w+1].image + \"\\\" title=\\\"\" + char_info_2 + \"\\\"></td>\";");
+                    twCharacters.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + knownCharacters[w+1].image + \"\\\" title=\\\"\" + char_info_2 + \"\\\"></td>\";");
                 } else
                 {
                     twCharacters.WriteLine("\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.characters[w+1].image + \"\\\"></td>\";");
@@ -2591,7 +2655,7 @@ namespace TweeFly
                 twCss.WriteLine("td.character_sidebar {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.character_sidebar {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.say {border: 1px solid white; table-layout:fixed; width: 100%;}");
+                twCss.WriteLine("table.say {border: 1px solid white; table-layout:fixed; width: 100%; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px;}");
                 twCss.WriteLine("td.say {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.say {}");
                 twCss.WriteLine("");
@@ -2617,11 +2681,11 @@ namespace TweeFly
 
                 if (_conf.resizeImagesInDialogs)
                 {
-                    twCss.WriteLine("img.dialogs {height: auto; width: auto; max-width: " + _conf.imageWidthInDialogs + "px; max-height: " + _conf.imageHeightInDialogs + "px; }");
+                    twCss.WriteLine("img.dialog {height: auto; width: auto; max-width: " + _conf.imageWidthInDialogs + "px; max-height: " + _conf.imageHeightInDialogs + "px; }");
                 }
                 else
                 {
-                    twCss.WriteLine("img.dialogs {}");
+                    twCss.WriteLine("img.dialog {}");
                 }
             }
             finally

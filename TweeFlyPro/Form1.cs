@@ -2309,14 +2309,14 @@ namespace TweeFly
             conf.jobsActive = true;
             conf.charactersActive = true;
             conf.pathSubtract = APP_DIR;
-            conf.storyName = "story1";
+            conf.storyName = "The Atlantic Murder";
             conf.mainFile = "mystory.tw2";
 
             // Inventory
             conf.inventoryInSidebar = true;
             conf.inventoryLinkInSidebar = true;
-            conf.inventoryUseSkill1 = true;
-            conf.inventoryUseSkill2 = true;
+            conf.inventoryUseSkill1 = false;
+            conf.inventoryUseSkill2 = false;
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
@@ -2334,24 +2334,27 @@ namespace TweeFly
                 conf.displayInInventory.Add(checkedListBox3.CheckedItems[i].ToString());
             }*/
             conf.displayInInventory.Add("Name");
+            conf.displayInInventory.Add("Description");
             conf.displayInInventory.Add("Owned");
             conf.displayInInventory.Add("Image");
-            conf.displayInInventory.Add("Skill1");
-            conf.displayInInventory.Add("Skill2");
-            conf.displayInInventory.Add("Skill3");
 
             // Clothing
             conf.clothingInSidebar = true;
             conf.clothingLinkInSidebar = true;
-            conf.clothingUseSkill1 = true;
-            conf.clothingUseSkill2 = true;
+            conf.clothingUseSkill1 = false;
+            conf.clothingUseSkill2 = false;
             conf.clothingUseSkill3 = false;
 
             conf.displayInWardrobe.Clear();
-            for (int i = 0; i < checkedListBox4.CheckedItems.Count; i++)
+            /*for (int i = 0; i < checkedListBox4.CheckedItems.Count; i++)
             {
                 conf.displayInWardrobe.Add(checkedListBox4.CheckedItems[i].ToString());
-            }
+            }*/
+            conf.displayInWardrobe.Add("Name");
+            conf.displayInWardrobe.Add("Description");
+            conf.displayInWardrobe.Add("Body part");
+            conf.displayInWardrobe.Add("Owned");
+            conf.displayInWardrobe.Add("Image");
 
             conf.displayInClothingView.Clear();
             /*for (int i = 0; i < checkedListBox2.CheckedItems.Count; i++)
@@ -2405,6 +2408,10 @@ namespace TweeFly
             conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
             conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", APP_DIR + "data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
 
+            // Suit
+            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", APP_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
+
 
             // Stats
             conf.statsInSidebar = true;
@@ -2447,21 +2454,34 @@ namespace TweeFly
             }
 
             // Characters
-            Character c1 = new Character(0, "Arthur", 53, "Arthur is a receptionist.", false, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
-            Character c2 = new Character(1, "Mike", 21, "Mike is a footboy.", false, "hotel", APP_DIR + "data/img/joana.jpg", "male", "footboy", 0, "#f44242", "", "", "");
+            Character c0 = new Character(0, "Player", 21, "You", true, "", APP_DIR + "data/img/player.jpg", "male", "", 0, "#42f46e", "", "", "");
+            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
+            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", APP_DIR + "data/img/rex.jpg", "male", "footboy", 0, "#f44242", "", "", "");
+            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", APP_DIR + "data/img/simon.jpg", "male", "", 0, "#f44242", "", "", "");
+            conf.characters.Add(c0);
             conf.characters.Add(c1);
             conf.characters.Add(c2);
+            conf.characters.Add(c3);
             conf.charactersInSidebar = true;
             conf.charactersLinkInSidebar = true;
-            conf.characterUseSkill1 = true;
-            conf.characterUseSkill2 = true;
+            conf.charactersSidebarTooltip = true;
+            conf.characterUseSkill1 = false;
+            conf.characterUseSkill2 = false;
             conf.characterUseSkill3 = false;
 
             conf.displayInCharactersView.Clear();
-            for (int i = 0; i < checkedListBox5.CheckedItems.Count; i++)
+            /*for (int i = 0; i < checkedListBox5.CheckedItems.Count; i++)
             {
                 conf.displayInCharactersView.Add(checkedListBox5.CheckedItems[i].ToString());
-            }
+            }*/
+            conf.displayInCharactersView.Add("Name");
+            conf.displayInCharactersView.Add("Description");
+            conf.displayInCharactersView.Add("Age");
+            conf.displayInCharactersView.Add("Gender");
+            conf.displayInCharactersView.Add("Job");
+            conf.displayInCharactersView.Add("Relation");
+            conf.displayInCharactersView.Add("Image");
+
 
             // CSS
             conf.resizeImagesInSidebar = true;
@@ -2471,6 +2491,11 @@ namespace TweeFly
             conf.resizeImagesInParagraph = true;
             conf.imageWidthInParagraph = 80;
             conf.imageHeightInParagraph = 80;
+
+            conf.resizeImagesInDialogs = true;
+            conf.imageWidthInDialogs = 80;
+            conf.imageHeightInDialogs = 80;
+
 
             updateFromConf(conf);
         }
@@ -2570,27 +2595,14 @@ namespace TweeFly
 
                     ProcessStartInfo _processStartInfo = new ProcessStartInfo();
                     _processStartInfo.WorkingDirectory = savedPath;
-                    _processStartInfo.FileName = @"C:\Ruby25-x64\bin\twee2.bat";
                     _processStartInfo.FileName = @"twee2";
                     _processStartInfo.Arguments = "build \"" + storyFile + "\" \"" + htmlFile + "\"";
-                    _processStartInfo.RedirectStandardOutput = true;
-                    _processStartInfo.RedirectStandardInput = true;
-                    _processStartInfo.RedirectStandardError = true;
-                    _processStartInfo.UseShellExecute = false;
                     Process myProcess = Process.Start(_processStartInfo);
 
-                    string errors = myProcess.StandardError.ReadToEnd();    
-
                     if ((myProcess != null)) {     
-                        myProcess.WaitForExit();
-
-                        if (!string.IsNullOrEmpty(errors))
-                        {
-                            MessageBox.Show("There were errors during twee2 build: " + errors);
-                        }
-
                         if (checkBox24.Checked)
                         {
+                            myProcess.WaitForExit();
                             Process.Start(htmlFile);
                         }      
                     }

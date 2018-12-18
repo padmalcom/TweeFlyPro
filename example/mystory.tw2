@@ -1,6 +1,6 @@
 ::Start
 
-### Cab
+<h1>Cab</h1>
 <<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
 
 It was raining when I arrived at the station on Friday. Since I hadn't brought too much luggage
@@ -11,25 +11,28 @@ I managed to sprint to the next cab in an instance.
 
 ::Cab1
 
+<h1>Cab</h1>
 <<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
 
-<span style="color:blue">Me</span>: To the Atlantic hotel please.
-<span style="color:green">Driver</span>: You do not look like most of the guys I bring there.
-<span style="color:blue">Me</span>: I'm not a guest, I'm working there.
-<span style="color:green">Driver</span>: And then you can afford a cab? Must be a well payed job.
-<span style="color:blue">Me</span>: I... my father is the director. I'm beginning my training there this week.
-<span style="color:green">Driver</span>: I can't believe it! I know the sun of the manager of the Atlantic! What's your name boy?
-<span style="color:blue">Me</span>: My name is...
-<<textbox "$player_name" "James">> [[OK->Cab2]] 
+<<say 0 "To the Atlantic hotel please.">>
+<<say 3 "You do not look like most of the guys I bring there.">>
+<<say 0 "I'm not a guest, I'm working there.">>
+<<say 3 "And then you can afford a cab? Must be a well payed job.">>
+<<say 0 "I... my father is the director. I'm beginning my training there this week.">>
+<<say 3 "To the Atlantic hotel please.">>
+<<say 0 "I can't believe it! I know the sun of the manager of the Atlantic! What's your name boy?">>
 
+<<textbox "$player_name" "James">><<renameCharacter 0 $player_name>> [[OK->Cab2]] 
 
 
 
 ::Cab2
 
+<h1>Cab</h1>
 <<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
-<span style="color:green">Driver</span>: Hello <<print $player_name>>, it is an honor to meet you. Have a good start in this wonderful city full of crime and intrigues.
-<span style="color:blue">Me</span>: Yeah, thanks.
+
+<<say 3 "Hello $player_name, it is an honor to meet you. Have a good start in this wonderful city full of crime and intrigues.">>
+<<say 0 "Yeah, thanks.">>
 
 The cab stopped at a lively street. The hotel was enourmous. Since I grew up with my mom I only knew the complex from photos.
 
@@ -42,14 +45,14 @@ The cab stopped at a lively street. The hotel was enourmous. Since I grew up wit
 ::Cab3
 
 <<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
-<span style="color:blue">Me</span>: Thanks for the ride.
-<span style="color:green">Driver</span>: It's my job boy! Hey, when you have wealthy guests leaving a big tip, remember me okay?
+<<say 0 "Thanks for the ride.">>
+<<say 3 "It's my job boy! Hey, when you have wealthy guests leaving a big tip, remember me okay?">>
 
 __Got the drivers business card__
 
 <<addToInventory 0 1>>
 
-<span style="color:blue">Me</span>: I will. Bye!
+<<say 0 "I will. Bye!">>
 
 [[Enter the Atlantic->Atlantic lobby]] 
 
@@ -112,11 +115,13 @@ The gift shop is still open.
 
 <<if has_item(2) is 1>>
 	<<if $has_seen_room is 0>>
-<span style="color:green">Boy</span>: So you are the director's son? Saw you at the reception already!
-<span style="color:blue">Me</span>: My name is <<print $player_name>>.
-<span style="color:green">Boy</span>: I am Mike. Listen, <<print $player_name>>: I'll explain how this whole hotel works. If you want or need something, come to me. I know all employees and most guests. If you give me a little gift from time to time I'll take care of you.
-<span style="color:blue">Me</span>: Okay... thanks for the offer, I guess.
-<span style="color:green">Mike</span>: Great let me show you your room then!
+	
+		<<say 2 "So you are the director's son? Saw you at the reception already!">>
+		<<say 0 "My name is $player_name.">>
+		<<say 2 "I am Mike. Listen, $player_name: I'll explain how this whole hotel works. If you want or need something, come to me. I know all employees and most guests. If you give me a little gift from time to time I'll take care of you.">>
+		<<renameCharacter 2 "Mike">>
+		<<say 0 "Okay... thanks for the offer, I guess.">>
+		<<say 2 "Great let me show you your room then!">>
 
 [[To my room->Room presentation]]
 	<<else>>
@@ -149,16 +154,17 @@ The gift shop is still open.
 <<set $has_seen_room to 0>>
 A kindly looking old man smiles at you.
 
-<span style="color:green">Receptionist</span>: Good evening Sir, how can I help you?
-<span style="color:blue">Me</span>: Hello, my name is <<print $player_name>>, I uhm... I'm here to meet my father.
-<span style="color:green">Receptionist</span>: <<print $player_name>>, nice to meet you! We are all excited to get to know you! I'm Athur and I mostly work here at night.
-<span style="color:blue">Me</span>: Hello Arthur, nice to meet you, too.
-<span style="color:green">Arthur</span>: So let's see if we have a keycard for you! There it is!
+<<say 1 "Good evening Sir, how can I help you?">>
+<<say 0 "Hello, my name is $player_name, I uhm... I'm here to meet my father.">>
+<<say 1 "$player_name, nice to meet you! We are all excited to get to know you! I'm Athur and I mostly work here at night.">>
+<<renameCharacter 1 "Arthur">>
+<<say 0 "Hello Arthur, nice to meet you, too.">>
+<<say 1 "So let's see if we have a keycard for you! There it is!">>
 
 __Got the keycard for my room!__
 <<addToInventory 2 1>>
 
-Your room is in the 12th floor, number 1221. Mike will help you with your luggage. He awaits you at the elevator. Welcome to the Atlantic!
+<<say 1 "Your room is in the 12th floor, number 1221. Mike will help you with your luggage. He awaits you at the elevator. Welcome to the Atlantic!">>
 
 [[Elevator]]
 
@@ -182,8 +188,8 @@ Your room is in the 12th floor, number 1221. Mike will help you with your luggag
 
 We arrived in the 12th floor and passed many wooden doors until we reached number 1221. Mike unlocked the door with the keycard and kept the door open.
 
-<span style="color:blue">Me</span>: Wow...
-<span style="color:green">Mike</span>: Not bad, is it? This is your room now! Okay <<print $player_name>>, I am leaving now. Have a great first day tomorrow.
+<<say 0 "Wow...">>
+<<say 2 "Not bad, is it? This is your room now! Okay <<print $player_name>>, I am leaving now. Have a great first day tomorrow.">>
 
 [[Go to sleep->First morning]]
 
@@ -194,6 +200,30 @@ We arrived in the 12th floor and passed many wooden doors until we reached numbe
 
 <<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
 
-I awoke the next morning at 8 o'clock. Was there a knock on the door? Before I open the door I should change my cloth.
+I awoke the next morning at 8 o'clock. Was there a knock on the door?
+
+[[Open Door->First Morning Door]]
+
+
+
+
+::First Morning Door
+
+<<= '<img src="data/img/hotel_door_01.jpg" alt="Open door">' >>
+
+I opened the door and saw a little bag standing there.
+
+[[Pick up bag->Pick Up Bag]]
+
+
+
+
+::Pick Up Bag
+
+<<= '<img src="data/img/hotel_door_01.jpg" alt="Open door">' >>
+<<addToWardrobe 22 1>>
+<<addToWardrobe 23 1>>
+There is a suit in it. I guess I should wear it. Let me check my wardrobe.
+
 
 <<wardrobe>>
