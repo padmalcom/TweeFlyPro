@@ -98,10 +98,6 @@ namespace TweeFly
                 if (_conf.jobsActive) twMain.WriteLine("<<initJobs>>");
                 if (_conf.charactersActive) twMain.WriteLine("<<initCharacters>>");
                 twMain.WriteLine("");
-
-                // Start
-                twMain.WriteLine("::Start");
-                twMain.WriteLine("Start writing your story here...");
             }
             finally
             {
@@ -689,8 +685,12 @@ namespace TweeFly
 
                 // isWorn
                 twClothing.WriteLine("window.is_worn = function(_id) {");
-                twClothing.WriteLine("\tfor (var i = 0; i < state.active.variables.wearing.length; i++) {");
+                /*twClothing.WriteLine("\tfor (var i = 0; i < state.active.variables.wearing.length; i++) {");
                 twClothing.WriteLine("\t\tif (state.active.variables.wearing[i].ID == _id) return true;");
+                twClothing.WriteLine("\t}");*/
+                twClothing.WriteLine("\tfor (var w in state.active.variables.wearing) {");
+                //twClothing.WriteLine("\t\talert('w: ' + w + ' w.id ' + w.ID + ' _id: ' + _id);");
+                twClothing.WriteLine("\t\tif (state.active.variables.wearing[w].ID == _id) return true;");
                 twClothing.WriteLine("\t}");
                 twClothing.WriteLine("\treturn false;");
                 twClothing.WriteLine("};");
@@ -2589,7 +2589,7 @@ namespace TweeFly
                 storyFile = storyFile.EndsWith(".tw2") ? storyFile : storyFile + ".tw2";
                 string htmlFile = storyFile.Remove(storyFile.Length - 4, 4) + ".html";
 
-                twBat.WriteLine("twee2 build " + storyFile + " " + htmlFile);
+                twBat.WriteLine("twee2 build \"" + storyFile + "\" \"" + htmlFile + "\"");
             }
             finally
             {

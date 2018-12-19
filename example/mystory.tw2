@@ -206,6 +206,11 @@ I awoke the next morning at 8 o'clock. Was there a knock on the door?
 
 
 
+::Hotel Room Wardrobe
+<<wardrobe>>
+[[Back->My Room]]
+
+
 
 ::First Morning Door
 
@@ -225,5 +230,29 @@ I opened the door and saw a little bag standing there.
 <<addToWardrobe 23 1>>
 There is a suit in it. I guess I should wear it. Let me check my wardrobe.
 
+[[Wardrobe->Hotel Room Wardrobe]]
+[[Leave->Hotel Corridor]]
 
-<<wardrobe>>
+
+::My Room
+<<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
+
+I'm in my room. What should I do next?
+
+[[Suit Up->Hotel Room Wardrobe]]
+[[Leave->Hotel Corridor]]
+
+
+::Hotel Corridor
+
+	<<= is_worn(23)>>
+	<<= is_worn(22)>>
+
+<<if is_worn(23) and is_worn(22)>>	
+	When I left the room I spotted Mike standing at the end of the corridor.
+	<<say 2 "There you are! Hurry up, we have to get to the group! We are already late!">>
+<<else>>
+	I should change my cloth first and wear that suit.
+	[[Back->My Room]]
+<<endif>>
+

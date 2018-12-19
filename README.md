@@ -32,3 +32,4 @@ A setup tool for interactive stories writte in Twee.
 	
 - Bugs:
 	- "This is worn" in wardrobe is broken.
+	- Tooltips for cloth
