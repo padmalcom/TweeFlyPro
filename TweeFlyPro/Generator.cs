@@ -658,7 +658,7 @@ namespace TweeFly
                     twClothing.Write("\"canBuy\":" + _conf.clothing[i].canBeBought.ToString().ToLower() + ",");
                     twClothing.Write("\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",");
                     twClothing.Write("\"category\":\"" + _conf.clothing[i].category + "\",");
-                    twClothing.Write("\"bodyPart\":\"" + _conf.clothing[i].bodyPart + "\",");
+                    twClothing.Write("\"bodyPart\":" + _conf.clothing[i].bodyPart + ",");
                     twClothing.Write("\"image\":\"" + pathSubtract(_conf.clothing[i].image, _conf.pathSubtract) + "\",");
                     twClothing.Write("\"buyPrice\":" + _conf.clothing[i].buyPrice + ",");
                     twClothing.Write("\"sellPrice\":" + _conf.clothing[i].sellPrice + ",");
@@ -1211,7 +1211,7 @@ namespace TweeFly
                 if (_conf.displayInWardrobe.Contains("Owned")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";");
                 if (_conf.displayInWardrobe.Contains("Image")) twClothing.WriteLine("\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";");
                 twClothing.WriteLine("");
-                twClothing.WriteLine("\t\t\tif ((typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] != \"undefined\") && (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID)) {");
+                twClothing.WriteLine("\t\t\tif (((typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] !== \"undefined\") && (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID)) || (typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] === \"undefined\")) {");
                 twClothing.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_WEAR_CAP")).caption +"</a></td></tr>\";");
                 twClothing.WriteLine("\t\t\t} else {");
                 twClothing.WriteLine("\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_IS_WORN_CAP")).caption +"</td></tr>\";");
