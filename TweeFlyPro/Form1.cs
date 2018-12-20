@@ -2315,6 +2315,7 @@ namespace TweeFly
             // Inventory
             conf.inventoryInSidebar = true;
             conf.inventoryLinkInSidebar = true;
+            conf.inventorySidebarTooltip = true;
             conf.inventoryUseSkill1 = false;
             conf.inventoryUseSkill2 = false;
             conf.inventoryUseSkill3 = false;
@@ -2422,7 +2423,7 @@ namespace TweeFly
             // Daytime
             conf.daytimeFormat = 0;
             conf.daytimeInSidebar = true;
-            conf.startDate = DateTime.Now;
+            conf.startDate = new DateTime(2015, 12, 12, 20, 20, 00);
 
             // Shops
             Shop s1 = new Shop(0, "gift shop", new DateTime(2000, 01, 01, 0, 0, 0), new DateTime(2000, 01, 01, 23, 59, 59));
@@ -2458,10 +2459,12 @@ namespace TweeFly
             Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
             Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", APP_DIR + "data/img/rex.jpg", "male", "footboy", 0, "#f44242", "", "", "");
             Character c3 = new Character(3, "Taxi driver", 50, "", false, "", APP_DIR + "data/img/simon.jpg", "male", "", 0, "#f44242", "", "", "");
+            Character c4 = new Character(4, "Woman", 50, "", false, "", APP_DIR + "data/img/joana.jpg", "female", "", 0, "#f4d942", "", "", "");
             conf.characters.Add(c0);
             conf.characters.Add(c1);
             conf.characters.Add(c2);
             conf.characters.Add(c3);
+            conf.characters.Add(c4);
             conf.charactersInSidebar = true;
             conf.charactersLinkInSidebar = true;
             conf.charactersSidebarTooltip = true;

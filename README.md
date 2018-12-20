@@ -25,11 +25,12 @@ A setup tool for interactive stories writte in Twee.
 	- When using addItem then show a text if wanted.
 	- Display boolean values as images.
 	- Place image first, in each table.
+	- Activate/Deactivate menus and links in sidebar (e.g. to inventory)
 
 - Example project
 	- Add "_" to all variables used by the scripts
 	- Add macros to each
 	
 - Bugs:
-	- "This is worn" in wardrobe is broken.
 	- Tooltips for cloth
+	- has_seen_room: use isdef

@@ -2439,7 +2439,7 @@ namespace TweeFly
                 twCharacters.WriteLine("\t\t\treturn;");
                 twCharacters.WriteLine("\t\t}");
                 twCharacters.WriteLine("");
-                twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"say\\\"><tr><td style='width: 20%;'><img class=\\\"dialog\\\" src=\\\"\" + character[0].image + \"\\\"></td><td style='vertical-align: top; text-align: left;'><font color=\\\"\"+character[0].color+\"\\\">\" + character[0].name + \"</font><br\\>\"+params[1]+\"</td></tr></table>\";");
+                twCharacters.WriteLine("\t\tvar wstr = \"<table class=\\\"say\\\"><tr><td style='width: 20%;'><img class=\\\"dialog\\\" src=\\\"\" + character[0].image + \"\\\"></td><td style='vertical-align: top; text-align: left;'><font color=\\\"\"+character[0].color+\"\\\">\" + character[0].name + \"</font>: \"+params[1]+\"</td></tr></table>\";");
                 twCharacters.WriteLine("");
                 twCharacters.WriteLine("\t\tnew Wikifier(place, wstr);");
                 twCharacters.WriteLine("\t}");
@@ -2655,7 +2655,7 @@ namespace TweeFly
                 twCss.WriteLine("td.character_sidebar {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.character_sidebar {}");
                 twCss.WriteLine("");
-                twCss.WriteLine("table.say {border: 1px solid white; table-layout:fixed; width: 100%; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px;}");
+                twCss.WriteLine("table.say {border: 1px solid white; table-layout:fixed; width: 100%;}");
                 twCss.WriteLine("td.say {overflow: hidden;text-align: center; vertical-align: middle;}");
                 twCss.WriteLine("th.say {}");
                 twCss.WriteLine("");

@@ -14,6 +14,7 @@ I managed to sprint to the next cab in an instance.
 <h1>Cab</h1>
 <<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
 
+<<nobr>>
 <<say 0 "To the Atlantic hotel please.">>
 <<say 3 "You do not look like most of the guys I bring there.">>
 <<say 0 "I'm not a guest, I'm working there.">>
@@ -21,7 +22,7 @@ I managed to sprint to the next cab in an instance.
 <<say 0 "I... my father is the director. I'm beginning my training there this week.">>
 <<say 3 "To the Atlantic hotel please.">>
 <<say 0 "I can't believe it! I know the sun of the manager of the Atlantic! What's your name boy?">>
-
+<</nobr>>
 <<textbox "$player_name" "James">><<renameCharacter 0 $player_name>> [[OK->Cab2]] 
 
 
@@ -79,8 +80,12 @@ You are in the lobby. Where do you want to go?
 
 <<= '<img src="data/img/hotel_waiting_area_01.jpg" alt="Waiting area">' >>
 
-After an hour I feel rested.
-<<addTimeInMinutes 60>>
+<<if $has_seen_room is 0>>
+	I should go to the reception first. It is late already.
+<<else>>
+	After an hour I feel rested.
+	<<addTimeInMinutes 60>>
+<<endif>>
 
 [[Lobby->Atlantic lobby]] 
 
@@ -120,6 +125,7 @@ The gift shop is still open.
 		<<say 0 "My name is $player_name.">>
 		<<say 2 "I am Mike. Listen, $player_name: I'll explain how this whole hotel works. If you want or need something, come to me. I know all employees and most guests. If you give me a little gift from time to time I'll take care of you.">>
 		<<renameCharacter 2 "Mike">>
+		<<setKnown 2>>
 		<<say 0 "Okay... thanks for the offer, I guess.">>
 		<<say 2 "Great let me show you your room then!">>
 
@@ -158,6 +164,7 @@ A kindly looking old man smiles at you.
 <<say 0 "Hello, my name is $player_name, I uhm... I'm here to meet my father.">>
 <<say 1 "$player_name, nice to meet you! We are all excited to get to know you! I'm Athur and I mostly work here at night.">>
 <<renameCharacter 1 "Arthur">>
+<<setKnown 1>>
 <<say 0 "Hello Arthur, nice to meet you, too.">>
 <<say 1 "So let's see if we have a keycard for you! There it is!">>
 
@@ -177,7 +184,13 @@ __Got the keycard for my room!__
 
 <<= '<img src="data/img/hotel_kitchen_01.jpg" alt="Hotel kitchen">' >>
 
-<<showJobs 0 1>>
+<<if $has_seen_room is 0>>
+	I should go to the reception first. It is late already.
+<<else>>
+	In the kitchen I can do several jobs.
+	<<showJobs 0 1>>
+<<endif>>
+
 
 [[Lobby->Atlantic lobby]]
 
@@ -216,6 +229,7 @@ I awoke the next morning at 8 o'clock. Was there a knock on the door?
 
 <<= '<img src="data/img/hotel_door_01.jpg" alt="Open door">' >>
 
+<<setDateTime 13 12 2015 8 0 0>>
 I opened the door and saw a little bag standing there.
 
 [[Pick up bag->Pick Up Bag]]
@@ -245,14 +259,33 @@ I'm in my room. What should I do next?
 
 ::Hotel Corridor
 
-	<<= is_worn(23)>>
-	<<= is_worn(22)>>
-
 <<if is_worn(23) and is_worn(22)>>	
 	When I left the room I spotted Mike standing at the end of the corridor.
 	<<say 2 "There you are! Hurry up, we have to get to the group! We are already late!">>
+	<<say 0 "Nobody told me to ...">>
+	<<say 2 "It doesn't matter, we have to get down to the meeting room. Follow me!">>
+	
+	[[Follow Mike->Introducing New Employees]]
 <<else>>
 	I should change my cloth first and wear that suit.
 	[[Back->My Room]]
 <<endif>>
 
+
+::Introducing New Employees
+
+The meeting room was huge. And full of people who were staring at me. Somebody must have told them that I'm the director's son. Great!
+Suddenly a strict looking woman entered the room and the mumbling stopped instantly.
+<<say 4 "Silence, you are here to become the best of the best hotel professionals in the world and those professionals don't chatter!">>
+Okay, the next month will be hell.
+<<say 4 "My name is Florence and everytime you have questions you come to me. I'm responsible for your training.">>
+<<renameCharacter 4 "Florence">><<setKnown 4>>
+In the next two hours Florence told us how a hotel works, who the guests are and what we will be doing to keep everything clean and the guests happy.
+When she finished my head was aching.
+<<say 4 "For your first day, I want you to explore the hotel WITHOUT making noice or being visible to our guests. Do you hear me? When I ask you tomorrow where the kitchen is, you can tell me. When I ask you how many rooms we have, you can answer me. Got it? Dismissed!">>
+<<say 2 "Afraid? You souldn't, Florence is nice once you got to know her better.">>
+Mike again appeard out of nowhere.
+<<say 0 "Okay, so where should I begin?">>
+<<say 2 "I guess the lobby would be a good orientation point. Go there! Okay man, I have to get back to work. Whenever you need something or if you need some insider knowledge about the hotel, visit me at the elevator.">>
+
+[[Lobby->Atlantic lobby]]
