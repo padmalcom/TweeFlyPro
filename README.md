@@ -13,6 +13,7 @@ A setup tool for interactive stories writte in Twee.
 - Replace label edit fields from tabs and add to localization
 - Replace skill1,2,3 edit fields from taby by localization
 - Added "say" macro to characters
+- Added "renameCharacter" macro to characters
 
 ### TODO:
 - GUI
@@ -33,4 +34,4 @@ A setup tool for interactive stories writte in Twee.
 	
 - Bugs:
 	- Tooltips for cloth
-	- has_seen_room: use isdef
+	- Does job cooldown work?

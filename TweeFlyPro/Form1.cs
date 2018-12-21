@@ -2476,16 +2476,21 @@ namespace TweeFly
             conf.startMoney = 10;
 
             // Jobs
-            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 3600, "kitchen", APP_DIR + "data/img/dishes.jpg", 5, 60);
-            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 3600, "kitchen", APP_DIR + "data/img/cleaningfloor.jpg", 10, 120);
+            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", APP_DIR + "data/img/dishes.jpg", 5, 60);
+            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", APP_DIR + "data/img/cleaningfloor.jpg", 10, 120);
             j1.rewardItems.Add(new RewardItem("ITEM", 3, 1));
             conf.jobs.Add(j1);
             conf.jobs.Add(j2);
             conf.displayInJobsView.Clear();
-            for (int i = 0; i < checkedListBox6.CheckedItems.Count; i++)
+            /*for (int i = 0; i < checkedListBox6.CheckedItems.Count; i++)
             {
                 conf.displayInJobsView.Add(checkedListBox6.CheckedItems[i].ToString());
-            }
+            }*/
+            conf.displayInJobsView.Add("Name");
+            conf.displayInJobsView.Add("Description");
+            conf.displayInJobsView.Add("Reward money");
+            conf.displayInJobsView.Add("Cooldown");
+            conf.displayInJobsView.Add("Image");
 
             // Characters
             Character c0 = new Character(0, "Player", 21, "You", true, "", APP_DIR + "data/img/player.jpg", "male", "", 0, "#42f46e", "", "", "");
