@@ -67,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Character.cs" />
     <Compile Include="Cloth.cs" />
     <Compile Include="Configuration.cs" />
@@ -87,6 +93,9 @@
     <Compile Include="Shop.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="Templates.cs" />
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +129,8 @@
     <None Include="Resources\TweeFlyProLogo.png" />
     <None Include="Resources\TweeFlyLogo.png" />
     <None Include="Resources\TweeFlyFreeLogo.png" />
+    <None Include="Resources\TweeFlyLogo2.png" />
+    <None Include="Resources\StoneDrum.png" />
     <Content Include="StoneDrum.ico" />
   </ItemGroup>
   <ItemGroup>

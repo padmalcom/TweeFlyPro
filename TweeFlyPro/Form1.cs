@@ -2780,5 +2780,11 @@ namespace TweeFly
         {
             conf.storyName = textBox47.Text;
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About f = new About();
+            f.ShowDialog(this);
+        }
     }
 }

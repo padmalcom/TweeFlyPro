@@ -63,9 +63,29 @@ namespace TweeFlyPro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StoneDrum {
+            get {
+                object obj = ResourceManager.GetObject("StoneDrum", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap TweeFlyFreeLogo {
             get {
                 object obj = ResourceManager.GetObject("TweeFlyFreeLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TweeFlyLogo {
+            get {
+                object obj = ResourceManager.GetObject("TweeFlyLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
