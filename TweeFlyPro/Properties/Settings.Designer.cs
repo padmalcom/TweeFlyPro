@@ -22,5 +22,17 @@ namespace TweeFlyPro.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsProEdition {
+            get {
+                return ((bool)(this["IsProEdition"]));
+            }
+            set {
+                this["IsProEdition"] = value;
+            }
+        }
     }
 }

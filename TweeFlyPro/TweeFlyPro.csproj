@@ -115,6 +115,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\TweeFlyLogo1.png" />
+    <None Include="Resources\TweeFlyLogo.bmp" />
+    <None Include="Resources\TweeFlyProLogo.png" />
+    <None Include="Resources\TweeFlyLogo.png" />
+    <None Include="Resources\TweeFlyFreeLogo.png" />
     <Content Include="StoneDrum.ico" />
   </ItemGroup>
   <ItemGroup>

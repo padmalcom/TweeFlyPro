@@ -50,14 +50,14 @@ namespace TweeFly
                 // Story includes
                 twMain.WriteLine("::StoryIncludes");
                 if (_conf.inventoryActive) twMain.WriteLine("_js_inventory.tw2");
-                if (_conf.clothingActive) twMain.WriteLine("_js_clothing.tw2");
-                if (_conf.statsActive) twMain.WriteLine("_js_stats.tw2");
+                if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_clothing.tw2");
+                if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_stats.tw2");
                 if (_conf.moneyActive) twMain.WriteLine("_js_money.tw2");
                 twMain.WriteLine("_js_navigation.tw2");
-                if (_conf.daytimeActive) twMain.WriteLine("_js_daytime.tw2");
+                if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_daytime.tw2");
                 if (_conf.shopActive) twMain.WriteLine("_js_shops.tw2");
-                if (_conf.jobsActive) twMain.WriteLine("_js_jobs.tw2");
-                if (_conf.charactersActive) twMain.WriteLine("_js_characters.tw2");
+                if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_jobs.tw2");
+                if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_characters.tw2");
                 twMain.WriteLine("_tw_sidebar.tw2");
                 twMain.WriteLine("_css_style.tw2");
                 if (!string.IsNullOrEmpty(_conf.mainFile))
@@ -70,9 +70,16 @@ namespace TweeFly
                         {
                             storyFileAbsolute += ".tw2";
                         }
-                        MessageBox.Show("Story file '" + storyFileAbsolute + "' does not exist. Creating dummy story as '" + storyFileAbsolute + "'.");
-                        //generateEmptyStory(storyFileAbsolute);
-                        copySampleStory(storyFileAbsolute);
+                        MessageBox.Show("Story file '" + storyFileAbsolute + "' does not exist. Creating dummy/empty story as '" + storyFileAbsolute + "'.");
+
+                        if (!TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                        {
+                            generateEmptyStory(storyFileAbsolute);
+                        }
+                        else
+                        {
+                            copySampleStory(storyFileAbsolute);
+                        }
                     }
                     twMain.WriteLine(Path.GetFileName(storyFileAbsolute));
                 }
@@ -93,10 +100,10 @@ namespace TweeFly
                     twMain.WriteLine("<<initInventory>>");
                 }
                 if (_conf.shopActive) twMain.WriteLine("<<initShops>>");
-                if (_conf.statsActive) twMain.WriteLine("<<initStats>>");
+                if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("<<initStats>>");
                 if (_conf.moneyActive) twMain.WriteLine("<<initMoney>>");
-                if (_conf.jobsActive) twMain.WriteLine("<<initJobs>>");
-                if (_conf.charactersActive) twMain.WriteLine("<<initCharacters>>");
+                if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("<<initJobs>>");
+                if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("<<initCharacters>>");
                 twMain.WriteLine("");
             }
             finally
@@ -184,16 +191,16 @@ namespace TweeFly
                 if (_conf.inventoryActive && _conf.inventoryLinkInSidebar)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_LINK_CAP")).caption + "->InventoryMenu]]");
                 
-                if (_conf.clothingActive && _conf.wardrobeLinkInSidebar)
+                if (_conf.clothingActive && _conf.wardrobeLinkInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_LINK_CAP")).caption + "->WardrobeMenu]]");
 
-                if (_conf.clothingActive && _conf.clothingLinkInSidebar)
+                if (_conf.clothingActive && _conf.clothingLinkInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_LINK_CAP")).caption + "->ClothingMenu]]");
 
-                if (_conf.statsActive && _conf.statsLinkInSidebar)
+                if (_conf.statsActive && _conf.statsLinkInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("STATS_LINK_CAP")).caption + "->StatsMenu]]");
 
-                if (_conf.charactersActive && _conf.charactersLinkInSidebar)
+                if (_conf.charactersActive && _conf.charactersLinkInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                     twMenu.WriteLine("[[" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_LINK_CAP")).caption + "->CharactersMenu]]");
                 twMenu.WriteLine("");
 
@@ -202,7 +209,7 @@ namespace TweeFly
                     twMenu.WriteLine(_conf.captions.Single(s => s.captionName.Equals("MONEY_SIDEBAR_TITLE_CAP")).caption + " <<printMoney>>" +
                         _conf.captions.Single(s => s.captionName.Equals("MONEY_UNIT_CAP")).caption);
 
-                if (_conf.daytimeActive && _conf.daytimeInSidebar)
+                if (_conf.daytimeActive && _conf.daytimeInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     switch(_conf.daytimeFormat)
                     {
@@ -216,9 +223,9 @@ namespace TweeFly
 
                 // Sidebar menus
                 if (_conf.inventoryActive && _conf.inventoryInSidebar) twMenu.WriteLine("<<inventorySidebar>>");
-                if (_conf.clothingActive && _conf.clothingInSidebar) twMenu.WriteLine("<<clothingSidebar>>");
-                if (_conf.statsActive && _conf.statsInSidebar) twMenu.WriteLine("<<statsSidebar>>");
-                if (_conf.charactersActive && _conf.charactersInSidebar) twMenu.WriteLine("<<charactersSidebar>>");
+                if (_conf.clothingActive && _conf.clothingInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMenu.WriteLine("<<clothingSidebar>>");
+                if (_conf.statsActive && _conf.statsInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMenu.WriteLine("<<statsSidebar>>");
+                if (_conf.charactersActive && _conf.charactersInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMenu.WriteLine("<<charactersSidebar>>");
                 twMenu.WriteLine("");
 
                 // Menu paragraphs
@@ -233,7 +240,7 @@ namespace TweeFly
                     twMenu.WriteLine("");
                 }
 
-                if (_conf.clothingActive)
+                if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     twMenu.WriteLine("::ClothingMenu[noreturn]");
                     twMenu.WriteLine("<h1>"+_conf.captions.Single(s => s.captionName.Equals("CLOTHING_TITLE_CAP")).caption+"</h1>");
@@ -248,7 +255,7 @@ namespace TweeFly
                     twMenu.WriteLine("");
                 }
 
-                if (_conf.statsActive)
+                if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     twMenu.WriteLine("::StatsMenu[noreturn]");
                     twMenu.WriteLine("<<stats>>");
@@ -256,7 +263,7 @@ namespace TweeFly
                     twMenu.WriteLine("");
                 }
 
-                if (_conf.charactersActive)
+                if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     twMenu.WriteLine("::CharactersMenu[noreturn]");
                     twMenu.WriteLine("<<characters>>");
@@ -2711,13 +2718,13 @@ namespace TweeFly
                     generateNavigation(_conf, fbd.SelectedPath);
                     generateCss(_conf, fbd.SelectedPath);
                     if (_conf.inventoryActive) generateInventory(_conf, fbd.SelectedPath);
-                    if (_conf.clothingActive) generateClothing(_conf, fbd.SelectedPath);
-                    if (_conf.statsActive) generateStats(_conf, fbd.SelectedPath);
-                    if (_conf.daytimeActive) generateDaytime(_conf, fbd.SelectedPath);
+                    if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateClothing(_conf, fbd.SelectedPath);
+                    if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateStats(_conf, fbd.SelectedPath);
+                    if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateDaytime(_conf, fbd.SelectedPath);
                     if (_conf.shopActive) generateShops(_conf, fbd.SelectedPath);
                     if (_conf.moneyActive) generateMoney(_conf, fbd.SelectedPath);
-                    if (_conf.jobsActive) generateJobs(_conf, fbd.SelectedPath);
-                    if (_conf.charactersActive) generateCharacters(_conf, fbd.SelectedPath);
+                    if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateJobs(_conf, fbd.SelectedPath);
+                    if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateCharacters(_conf, fbd.SelectedPath);
                     generateBat(_conf, fbd.SelectedPath);
                 }
 

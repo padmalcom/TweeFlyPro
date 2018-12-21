@@ -1572,7 +1572,13 @@ namespace TweeFly
         private void loadConf()
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "|*.tfc||*.*";
+            if (TweeFlyPro.Properties.Settings.Default.IsProEdition)
+            {
+                openFileDialog1.Filter = "|*.tfcx||*.tfc||*.*";
+            } else
+            {
+                openFileDialog1.Filter = "|*.tfc";
+            }
             openFileDialog1.Title = "Open TweeFly Configuration File";
             openFileDialog1.ShowDialog();
 
@@ -1661,7 +1667,13 @@ namespace TweeFly
         private void saveConfAs()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "TweeFly Configuration XML|*.tfcx|TweeFly Configuration Binary|*.tfc";
+            if (TweeFlyPro.Properties.Settings.Default.IsProEdition)
+            {
+                saveFileDialog1.Filter = "TweeFly Configuration XML|*.tfcx|TweeFly Configuration Binary|*.tfc";
+            } else
+            {
+                saveFileDialog1.Filter = "TweeFly Configuration Binary|*.tfc";
+            }
             saveFileDialog1.Title = "Save TweeFly Configuration File";
             saveFileDialog1.ShowDialog();
 
@@ -1669,13 +1681,15 @@ namespace TweeFly
             {
                 string ext = Path.GetExtension(saveFileDialog1.FileName);
 
-                if (saveFileDialog1.FilterIndex == 1) // XML
+                if (string.IsNullOrEmpty(ext)) saveFileDialog1.FileName += ".tfc";
+                if (!ext.ToUpper().Equals(".TFCX") || !ext.ToUpper().Equals(".TFC")) saveFileDialog1.FileName += ".tfc";
+                if (ext.ToUpper().Equals("TFCX") && !TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
-                    // Add extension
-                    if (string.IsNullOrEmpty(ext))
-                    {
-                        saveFileDialog1.FileName += ".tfcx";
-                    }
+                    saveFileDialog1.FileName = saveFileDialog1.FileName.Remove(saveFileDialog1.FileName.Length - 1);
+                }
+
+                if (Path.GetExtension(saveFileDialog1.FileName).ToUpper().Equals(".TFCX")) // XML
+                {
                     TextWriter writer = null;
                     try
                     {
@@ -1695,12 +1709,6 @@ namespace TweeFly
                 }
                 else
                 {
-                    // Add extension
-                    if (string.IsNullOrEmpty(ext))
-                    {
-                        saveFileDialog1.FileName += ".tfc";
-                    }
-
                     Stream ms = null;
                     try
                     {
@@ -1732,7 +1740,15 @@ namespace TweeFly
             {
                 string ext = Path.GetExtension(fileName);
 
-                if (ext.ToUpper().Equals(".TFCX")) // XML
+                if (string.IsNullOrEmpty(ext)) fileName += ".tfc";
+                if (!ext.ToUpper().Equals(".TFCX") || !ext.ToUpper().Equals(".TFC")) fileName += ".tfc";
+                if (ext.ToUpper().Equals("TFCX") && !TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                {
+                    fileName = fileName.Remove(fileName.Length - 1);
+                }
+
+
+                if (Path.GetExtension(fileName).ToUpper().Equals(".TFCX")) // XML
                 {
 
                     TextWriter writer = null;
@@ -2162,6 +2178,23 @@ namespace TweeFly
             for(int i=0; i<checkedListBox1.Items.Count; i++)
             {
                 checkedListBox1.SetItemChecked(i, true);
+            }
+
+            // Make the pro version a free version
+            if (!TweeFlyPro.Properties.Settings.Default.IsProEdition)
+            {
+                tabControl1.TabPages.Remove(tabPage2);
+                tabControl1.TabPages.Remove(tabPage3);
+                tabControl1.TabPages.Remove(tabPage4);
+                tabControl1.TabPages.Remove(tabPage7);
+                tabControl1.TabPages.Remove(tabPage8);
+                tabControl1.TabPages.Remove(tabPage9);
+
+                // Remove CLOTHING type from shops
+                comboBox6.Items.Remove("CLOTHING");
+
+                // Change logo
+                pictureBox1.Image = TweeFlyPro.Properties.Resources.TweeFlyFreeLogo;
             }
         }
 
