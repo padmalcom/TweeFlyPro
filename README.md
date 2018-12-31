@@ -34,4 +34,3 @@ A setup tool for interactive stories writte in Twee.
 	
 - Bugs:
 	- Tooltips for cloth
-	- Does job cooldown work?
