@@ -392,8 +392,6 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -1153,7 +1151,6 @@
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.listView2);
             this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Enabled = false;
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -4167,8 +4164,6 @@
             this.loadToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.toolStripMenuItem1,
             this.toolStripSeparator4,
             this.generateToolStripMenuItem,
             this.toolStripSeparator3,
@@ -4180,68 +4175,57 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.newToolStripMenuItem.Text = "&New...";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(156, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.loadToolStripMenuItem.Text = "&Load...";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(156, 6);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(159, 22);
-            this.toolStripMenuItem1.Text = "Load template...";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(156, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(127, 6);
             // 
             // generateToolStripMenuItem
             // 
             this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
-            this.generateToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.generateToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.generateToolStripMenuItem.Text = "&Generate...";
             this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(156, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(127, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             // 
             // helpToolStripMenuItem
@@ -4413,7 +4397,8 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown2.Enabled = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
             this.numericUpDown2.Location = new System.Drawing.Point(124, 83);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             1000000,
@@ -4428,19 +4413,18 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(132, 20);
             this.numericUpDown2.TabIndex = 4;
-            this.numericUpDown2.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label11.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label11.Enabled = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
             this.label11.Location = new System.Drawing.Point(7, 85);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(80, 13);
             this.label11.TabIndex = 17;
             this.label11.Text = "Money per day:";
-            this.label11.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
             // 
             // checkBox44
             // 
@@ -4954,7 +4938,6 @@
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -4987,7 +4970,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label81;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.TextBox textBox12;

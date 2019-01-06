@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using TweeFlyPro;
@@ -46,6 +40,21 @@ namespace TweeFly
                 textBox47.Text = _conf.storyName;
                 checkBox24.Checked = _conf.runAfterGenerate;
                 textBox5.Text = _conf.mainFile;
+
+                // Captions
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
+                dataGridView1.Columns.Add("captionName", "captionName");
+                dataGridView1.Columns.Add("caption", "caption");
+                for (int i=0; i<_conf.captions.Count; i++)
+                {
+                    var index = dataGridView1.Rows.Add();
+                    dataGridView1.Rows[index].Cells["captionName"].Value = _conf.captions[i].captionName;
+                    dataGridView1.Rows[index].Cells["caption"].Value = _conf.captions[i].caption;
+                }
+                dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                 // Config
                 checkBox40.Checked = _conf.navigationArrows;
@@ -872,11 +881,10 @@ namespace TweeFly
             {
                 numericUpDown12.Value = int.Parse(listView5.SelectedItems[0].SubItems[0].Text);
                 textBox18.Text = listView5.SelectedItems[0].SubItems[1].Text;
-                textBox4.Text = listView5.SelectedItems[0].SubItems[2].Text;
-                textBox16.Text = listView5.SelectedItems[0].SubItems[3].Text;
-                textBox19.Text = listView5.SelectedItems[0].SubItems[4].Text;
-                textBox9.Text = listView5.SelectedItems[0].SubItems[5].Text;
-                textBox4.Text = listView5.SelectedItems[0].SubItems[6].Text;
+                textBox16.Text = listView5.SelectedItems[0].SubItems[2].Text;
+                textBox19.Text = listView5.SelectedItems[0].SubItems[3].Text;
+                textBox9.Text = listView5.SelectedItems[0].SubItems[4].Text;
+                textBox4.Text = listView5.SelectedItems[0].SubItems[5].Text;
 
                 string absPath = textBox9.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
@@ -1681,7 +1689,7 @@ namespace TweeFly
                 string ext = Path.GetExtension(saveFileDialog1.FileName);
 
                 if (string.IsNullOrEmpty(ext)) saveFileDialog1.FileName += ".tfc";
-                if (!ext.ToUpper().Equals(".TFCX") || !ext.ToUpper().Equals(".TFC")) saveFileDialog1.FileName += ".tfc";
+                if (!ext.ToUpper().Equals(".TFCX") && !ext.ToUpper().Equals(".TFC")) saveFileDialog1.FileName += ".tfc";
                 if (ext.ToUpper().Equals("TFCX") && !TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     saveFileDialog1.FileName = saveFileDialog1.FileName.Remove(saveFileDialog1.FileName.Length - 1);
@@ -1729,7 +1737,10 @@ namespace TweeFly
                     }
 
                 }
-
+            }
+            else
+            {
+                MessageBox.Show("Please enter a file name.");
             }
         }
 
@@ -1740,7 +1751,7 @@ namespace TweeFly
                 string ext = Path.GetExtension(fileName);
 
                 if (string.IsNullOrEmpty(ext)) fileName += ".tfc";
-                if (!ext.ToUpper().Equals(".TFCX") || !ext.ToUpper().Equals(".TFC")) fileName += ".tfc";
+                if (!ext.ToUpper().Equals(".TFCX") && !ext.ToUpper().Equals(".TFC")) fileName += ".tfc";
                 if (ext.ToUpper().Equals("TFCX") && !TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     fileName = fileName.Remove(fileName.Length - 1);
@@ -2130,10 +2141,20 @@ namespace TweeFly
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = conf.captions;
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("captionName", "captionName");
+            dataGridView1.Columns.Add("caption", "caption");
+            for (int i = 0; i < conf.captions.Count; i++)
+            {
+                var index = dataGridView1.Rows.Add();
+                dataGridView1.Rows[index].Cells["captionName"].Value = conf.captions[i].captionName;
+                dataGridView1.Rows[index].Cells["caption"].Value = conf.captions[i].caption;
+            }
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
             comboBox6.SelectedIndex = comboBox6.FindStringExact("Item");
             comboBox7.SelectedIndex = comboBox7.FindStringExact("Item");
 
