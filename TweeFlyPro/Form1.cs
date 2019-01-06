@@ -12,7 +12,7 @@ namespace TweeFly
     public partial class Form1 : Form
     {
 
-        private Configuration conf = new Configuration();
+        private Configuration conf = new Configuration(true);
         private string fileName = "";
         private const string APP_TITLE = "TweeFly - Interactive Story Setup for SugarCube2";
         private string APP_DIR = "%APP_DIR%";
@@ -1571,7 +1571,7 @@ namespace TweeFly
                 fileName = "";
                 this.Text = Form1.APP_TITLE;
 
-                conf = new Configuration();
+                conf = new Configuration(true);
                 updateFromConf(conf);
             }
         }
@@ -2810,6 +2810,18 @@ namespace TweeFly
         {
             About f = new About();
             f.ShowDialog(this);
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            for(int i=0; i<conf.captions.Count; i++)
+            {
+                if (conf.captions[i].captionName.Equals(dataGridView1[0, e.RowIndex].Value.ToString()))
+                {
+                    conf.captions[i].caption = dataGridView1[1, e.RowIndex].Value.ToString();
+                    break;
+                }
+            }
         }
     }
 }

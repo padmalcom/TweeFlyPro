@@ -105,197 +105,202 @@ namespace TweeFly
         public List<string> displayInCharactersView { get; set; } = new List<string>();
 
         // Constructor
-        public Configuration()
+        public Configuration() { }
+
+        public Configuration(bool _withCaptions = false)
         {
+            if (_withCaptions)
             {
-                // Navigation
-                captions.Add(new CaptionPair("BACK_CAP", "back"));
-                captions.Add(new CaptionPair("RETURN_CAP", "return"));
-                captions.Add(new CaptionPair("CONTINUE_CAP", "continue"));
-            }
+                {
+                    // Navigation
+                    captions.Add(new CaptionPair("BACK_CAP", "back"));
+                    captions.Add(new CaptionPair("RETURN_CAP", "return"));
+                    captions.Add(new CaptionPair("CONTINUE_CAP", "continue"));
+                }
 
-            {
-                // Inventory
-                captions.Add(new CaptionPair("INVENTORY_TITLE_CAP", "Inventory"));
-                captions.Add(new CaptionPair("INVENTORY_LINK_CAP", "Inventory"));
-                captions.Add(new CaptionPair("INVENTORY_SIDEBAR_TITLE_CAP", "Inventory"));
-                captions.Add(new CaptionPair("INVENTORY_EMPTY_CAP", "No items in inventory."));
-                captions.Add(new CaptionPair("INVENTORY_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("INVENTORY_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("INVENTORY_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("INVENTORY_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("INVENTORY_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("INVENTORY_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("INVENTORY_COL_CATEGORY_CAP", "category"));
-                captions.Add(new CaptionPair("INVENTORY_COL_SHOP_CATEGORY_CAP", "shop category"));
-                captions.Add(new CaptionPair("INVENTORY_COL_CAN_BUY_CAP", "can be bought"));
-                captions.Add(new CaptionPair("INVENTORY_COL_BUY_PRICE_CAP", "buy price"));
-                captions.Add(new CaptionPair("INVENTORY_COL_SELL_PRICE_CAP", "sell price"));
-                captions.Add(new CaptionPair("INVENTORY_COL_CAN_OWN_MULTIPLE_CAP", "Can own multiple"));
-                captions.Add(new CaptionPair("INVENTORY_COL_OWNED_CAP", "owned"));
-                captions.Add(new CaptionPair("INVENTORY_COL_IMAGE_CAP", "image"));
-                captions.Add(new CaptionPair("INVENTORY_COL_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("INVENTORY_COL_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("INVENTORY_COL_SKILL3_CAP", "skill3"));
-            }
+                {
+                    // Inventory
+                    captions.Add(new CaptionPair("INVENTORY_TITLE_CAP", "Inventory"));
+                    captions.Add(new CaptionPair("INVENTORY_LINK_CAP", "Inventory"));
+                    captions.Add(new CaptionPair("INVENTORY_SIDEBAR_TITLE_CAP", "Inventory"));
+                    captions.Add(new CaptionPair("INVENTORY_EMPTY_CAP", "No items in inventory."));
+                    captions.Add(new CaptionPair("INVENTORY_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("INVENTORY_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("INVENTORY_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_ID_CAP", "ID"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_NAME_CAP", "name"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_CATEGORY_CAP", "category"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_SHOP_CATEGORY_CAP", "shop category"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_CAN_BUY_CAP", "can be bought"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_BUY_PRICE_CAP", "buy price"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_SELL_PRICE_CAP", "sell price"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_CAN_OWN_MULTIPLE_CAP", "Can own multiple"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_OWNED_CAP", "owned"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_IMAGE_CAP", "image"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("INVENTORY_COL_SKILL3_CAP", "skill3"));
+                }
 
-            {
-                // Wardrobe
-                captions.Add(new CaptionPair("WARDROBE_TITLE_CAP", "Wardrobe"));
-                captions.Add(new CaptionPair("WARDROBE_LINK_CAP", "Wardrobe"));
-                captions.Add(new CaptionPair("WARDROBE_SIDEBAR_TITLE_CAP", "Wardrobe"));
-                captions.Add(new CaptionPair("WARDROBE_EMPTY_CAP", "No clothing in wardrobe."));
-                captions.Add(new CaptionPair("WARDROBE_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("WARDROBE_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("WARDROBE_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("WARDROBE_COL_CATEGORY_CAP", "category"));
-                captions.Add(new CaptionPair("WARDROBE_COL_OWNED_CAP", "owned"));
-                captions.Add(new CaptionPair("WARDROBE_COL_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("WARDROBE_COL_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("WARDROBE_COL_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("WARDROBE_COL_IMAGE_CAP", "image"));
+                {
+                    // Wardrobe
+                    captions.Add(new CaptionPair("WARDROBE_TITLE_CAP", "Wardrobe"));
+                    captions.Add(new CaptionPair("WARDROBE_LINK_CAP", "Wardrobe"));
+                    captions.Add(new CaptionPair("WARDROBE_SIDEBAR_TITLE_CAP", "Wardrobe"));
+                    captions.Add(new CaptionPair("WARDROBE_EMPTY_CAP", "No clothing in wardrobe."));
+                    captions.Add(new CaptionPair("WARDROBE_COL_ID_CAP", "ID"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_NAME_CAP", "name"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_CATEGORY_CAP", "category"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_OWNED_CAP", "owned"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("WARDROBE_COL_IMAGE_CAP", "image"));
 
-                // Clothing
-                captions.Add(new CaptionPair("CLOTHING_TITLE_CAP", "Clothing"));
-                captions.Add(new CaptionPair("CLOTHING_LINK_CAP", "Clothing"));
-                captions.Add(new CaptionPair("CLOTHING_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("CLOTHING_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("CLOTHING_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("CLOTHING_SIDEBAR_TITLE_CAP", "Clothing"));
-                captions.Add(new CaptionPair("CLOTHING_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("CLOTHING_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("CLOTHING_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("CLOTHING_COL_CATEGORY_CAP", "category"));
-                captions.Add(new CaptionPair("CLOTHING_COL_SHOP_CATEGORY_CAP", "shop category"));
-                captions.Add(new CaptionPair("CLOTHING_COL_OWNED_CAP", "owned"));
-                captions.Add(new CaptionPair("CLOTHING_COL_IS_WORN_CAP", "is worn"));
-                captions.Add(new CaptionPair("CLOTHING_COL_CAN_BUY_CAP", "can buy"));
-                captions.Add(new CaptionPair("CLOTHING_COL_BUY_PRICE_CAP", "buy price"));
-                captions.Add(new CaptionPair("CLOTHING_COL_SELL_PRICE_CAP", "sell price"));
-                captions.Add(new CaptionPair("CLOTHING_COL_CAN_OWN_MULTIPLE_CAP", "can own multiple"));
-                captions.Add(new CaptionPair("CLOTHING_COL_BODY_PART_CAP", "body part"));
-                captions.Add(new CaptionPair("CLOTHING_COL_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("CLOTHING_COL_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("CLOTHING_COL_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("CLOTHING_COL_IMAGE_CAP", "image"));
-                captions.Add(new CaptionPair("CLOTHING_WEAR_CAP", "wear"));
-                captions.Add(new CaptionPair("CLOTHING_IS_WORN_CAP", "This is worn."));
+                    // Clothing
+                    captions.Add(new CaptionPair("CLOTHING_TITLE_CAP", "Clothing"));
+                    captions.Add(new CaptionPair("CLOTHING_LINK_CAP", "Clothing"));
+                    captions.Add(new CaptionPair("CLOTHING_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("CLOTHING_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("CLOTHING_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("CLOTHING_SIDEBAR_TITLE_CAP", "Clothing"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_ID_CAP", "ID"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_NAME_CAP", "name"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_CATEGORY_CAP", "category"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_SHOP_CATEGORY_CAP", "shop category"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_OWNED_CAP", "owned"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_IS_WORN_CAP", "is worn"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_CAN_BUY_CAP", "can buy"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_BUY_PRICE_CAP", "buy price"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_SELL_PRICE_CAP", "sell price"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_CAN_OWN_MULTIPLE_CAP", "can own multiple"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_BODY_PART_CAP", "body part"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("CLOTHING_COL_IMAGE_CAP", "image"));
+                    captions.Add(new CaptionPair("CLOTHING_WEAR_CAP", "wear"));
+                    captions.Add(new CaptionPair("CLOTHING_IS_WORN_CAP", "This is worn."));
 
-                // Bodyparts
-                captions.Add(new CaptionPair("NOTHING_CAP", "-"));
-                captions.Add(new CaptionPair("BODY_PART_CAP", "body part"));
-                captions.Add(new CaptionPair("HEAD_CAP", "head"));
-                captions.Add(new CaptionPair("HAIR_CAP", "hair"));
-                captions.Add(new CaptionPair("NECK_CAP", "neck"));
-                captions.Add(new CaptionPair("UPPER_BODY_CAP", "upper body"));
-                captions.Add(new CaptionPair("LOWER_BODY_CAP", "lower body"));
-                captions.Add(new CaptionPair("BELT_CAP", "belt"));
-                captions.Add(new CaptionPair("SOCKS_CAP", "socks"));
-                captions.Add(new CaptionPair("SHOES_CAP", "shoes"));
-                captions.Add(new CaptionPair("UNDERWEAR_TOP_CAP", "underwear (top)"));
-                captions.Add(new CaptionPair("UNDERWEAR_BOTTOM_CAP", "underwear (bottom)"));
-            }
+                    // Bodyparts
+                    captions.Add(new CaptionPair("NOTHING_CAP", "-"));
+                    captions.Add(new CaptionPair("BODY_PART_CAP", "body part"));
+                    captions.Add(new CaptionPair("HEAD_CAP", "head"));
+                    captions.Add(new CaptionPair("HAIR_CAP", "hair"));
+                    captions.Add(new CaptionPair("NECK_CAP", "neck"));
+                    captions.Add(new CaptionPair("UPPER_BODY_CAP", "upper body"));
+                    captions.Add(new CaptionPair("LOWER_BODY_CAP", "lower body"));
+                    captions.Add(new CaptionPair("BELT_CAP", "belt"));
+                    captions.Add(new CaptionPair("SOCKS_CAP", "socks"));
+                    captions.Add(new CaptionPair("SHOES_CAP", "shoes"));
+                    captions.Add(new CaptionPair("UNDERWEAR_TOP_CAP", "underwear (top)"));
+                    captions.Add(new CaptionPair("UNDERWEAR_BOTTOM_CAP", "underwear (bottom)"));
+                }
 
-            {
-                // Stats
-                captions.Add(new CaptionPair("STATS_TITLE_CAP", "Stats"));
-                captions.Add(new CaptionPair("STATS_LINK_CAP", "Stats"));
-                captions.Add(new CaptionPair("STATS_SIDEBAR_TITLE_CAP", "Stats"));
-                captions.Add(new CaptionPair("STATS_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("STATS_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("STATS_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("STATS_COL_VALUE_CAP", "value"));
-                captions.Add(new CaptionPair("STATS_COL_IMAGE_CAP", "image"));
-            }
+                {
+                    // Stats
+                    captions.Add(new CaptionPair("STATS_TITLE_CAP", "Stats"));
+                    captions.Add(new CaptionPair("STATS_LINK_CAP", "Stats"));
+                    captions.Add(new CaptionPair("STATS_SIDEBAR_TITLE_CAP", "Stats"));
+                    captions.Add(new CaptionPair("STATS_COL_ID_CAP", "ID"));
+                    captions.Add(new CaptionPair("STATS_COL_NAME_CAP", "name"));
+                    captions.Add(new CaptionPair("STATS_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("STATS_COL_VALUE_CAP", "value"));
+                    captions.Add(new CaptionPair("STATS_COL_IMAGE_CAP", "image"));
+                }
 
-            {
-                // Daytime
-                captions.Add(new CaptionPair("DAYTIME_SIDEBAR_TITLE_CAP", "Daytime"));
-                captions.Add(new CaptionPair("DAYTIME_EARLY_MORNING_CAP", "Early morning"));
-                captions.Add(new CaptionPair("DAYTIME_DAWN_CAP", "Dawn"));
-                captions.Add(new CaptionPair("DAYTIME_MORNING_CAP", "Morning"));
-                captions.Add(new CaptionPair("DAYTIME_NOON_CAP", "Noon"));
-                captions.Add(new CaptionPair("DAYTIME_AFTERNOON_CAP", "Afternoon"));
-                captions.Add(new CaptionPair("DAYTIME_EVENING_CAP", "Evening"));
-                captions.Add(new CaptionPair("DAYTIME_NIGHT_CAP", "Night"));
-                captions.Add(new CaptionPair("DAYTIME_MID_NIGHT_CAP", "Mid-Night"));
+                {
+                    // Daytime
+                    captions.Add(new CaptionPair("DAYTIME_SIDEBAR_TITLE_CAP", "Daytime"));
+                    captions.Add(new CaptionPair("DAYTIME_EARLY_MORNING_CAP", "Early morning"));
+                    captions.Add(new CaptionPair("DAYTIME_DAWN_CAP", "Dawn"));
+                    captions.Add(new CaptionPair("DAYTIME_MORNING_CAP", "Morning"));
+                    captions.Add(new CaptionPair("DAYTIME_NOON_CAP", "Noon"));
+                    captions.Add(new CaptionPair("DAYTIME_AFTERNOON_CAP", "Afternoon"));
+                    captions.Add(new CaptionPair("DAYTIME_EVENING_CAP", "Evening"));
+                    captions.Add(new CaptionPair("DAYTIME_NIGHT_CAP", "Night"));
+                    captions.Add(new CaptionPair("DAYTIME_MID_NIGHT_CAP", "Mid-Night"));
 
-                captions.Add(new CaptionPair("DAYTIME_JANUARY_CAP", "January"));
-                captions.Add(new CaptionPair("DAYTIME_FEBRUARY_CAP", "February"));
-                captions.Add(new CaptionPair("DAYTIME_MARCH_CAP", "March"));
-                captions.Add(new CaptionPair("DAYTIME_APRIL_CAP", "April"));
-                captions.Add(new CaptionPair("DAYTIME_MAY_CAP", "May"));
-                captions.Add(new CaptionPair("DAYTIME_JUNE_CAP", "June"));
-                captions.Add(new CaptionPair("DAYTIME_JULY_CAP", "July"));
-                captions.Add(new CaptionPair("DAYTIME_AUGUST_CAP", "August"));
-                captions.Add(new CaptionPair("DAYTIME_SEPTEMBER_CAP", "September"));
-                captions.Add(new CaptionPair("DAYTIME_OCTOBER_CAP", "October"));
-                captions.Add(new CaptionPair("DAYTIME_NOVEMBER_CAP", "November"));
-                captions.Add(new CaptionPair("DAYTIME_DECEMBER_CAP", "December"));
-            }
+                    captions.Add(new CaptionPair("DAYTIME_JANUARY_CAP", "January"));
+                    captions.Add(new CaptionPair("DAYTIME_FEBRUARY_CAP", "February"));
+                    captions.Add(new CaptionPair("DAYTIME_MARCH_CAP", "March"));
+                    captions.Add(new CaptionPair("DAYTIME_APRIL_CAP", "April"));
+                    captions.Add(new CaptionPair("DAYTIME_MAY_CAP", "May"));
+                    captions.Add(new CaptionPair("DAYTIME_JUNE_CAP", "June"));
+                    captions.Add(new CaptionPair("DAYTIME_JULY_CAP", "July"));
+                    captions.Add(new CaptionPair("DAYTIME_AUGUST_CAP", "August"));
+                    captions.Add(new CaptionPair("DAYTIME_SEPTEMBER_CAP", "September"));
+                    captions.Add(new CaptionPair("DAYTIME_OCTOBER_CAP", "October"));
+                    captions.Add(new CaptionPair("DAYTIME_NOVEMBER_CAP", "November"));
+                    captions.Add(new CaptionPair("DAYTIME_DECEMBER_CAP", "December"));
+                }
 
-            {
-                // Shops
-                captions.Add(new CaptionPair("SHOP_COL_ID_CAP", "id"));
-                captions.Add(new CaptionPair("SHOP_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("SHOP_COL_QUANTITY_CAP", "quantity"));
-                captions.Add(new CaptionPair("SHOP_COL_PRICE_CAP", "price"));
-                captions.Add(new CaptionPair("SHOP_COL_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("SHOP_COL_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("SHOP_COL_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("SHOP_COL_PRICE_CAP", "price"));
-                captions.Add(new CaptionPair("SHOP_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("SHOP_COL_IMAGE_CAP", "image"));
-                captions.Add(new CaptionPair("SHOP_BUY_CAP", "buy"));
-                captions.Add(new CaptionPair("SHOP_SELL_CAP", "sell"));
-                captions.Add(new CaptionPair("SHOP_NO_ITEMS_CAP", "no items to sell."));
-                captions.Add(new CaptionPair("SHOP_CLOSED_CAP", "shop is closed."));
-            }
+                {
+                    // Shops
+                    captions.Add(new CaptionPair("SHOP_COL_ID_CAP", "id"));
+                    captions.Add(new CaptionPair("SHOP_COL_NAME_CAP", "name"));
+                    captions.Add(new CaptionPair("SHOP_COL_QUANTITY_CAP", "quantity"));
+                    captions.Add(new CaptionPair("SHOP_COL_PRICE_CAP", "price"));
+                    captions.Add(new CaptionPair("SHOP_COL_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("SHOP_COL_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("SHOP_COL_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("SHOP_COL_PRICE_CAP", "price"));
+                    captions.Add(new CaptionPair("SHOP_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("SHOP_COL_IMAGE_CAP", "image"));
+                    captions.Add(new CaptionPair("SHOP_BUY_CAP", "buy"));
+                    captions.Add(new CaptionPair("SHOP_SELL_CAP", "sell"));
+                    captions.Add(new CaptionPair("SHOP_NO_ITEMS_CAP", "no items to sell."));
+                    captions.Add(new CaptionPair("SHOP_CLOSED_CAP", "shop is closed."));
+                }
 
-            {
-                // Money
-                captions.Add(new CaptionPair("MONEY_SIDEBAR_TITLE_CAP", "Money: "));
-                captions.Add(new CaptionPair("MONEY_UNIT_CAP", "$"));
-            }
+                {
+                    // Money
+                    captions.Add(new CaptionPair("MONEY_SIDEBAR_TITLE_CAP", "Money: "));
+                    captions.Add(new CaptionPair("MONEY_UNIT_CAP", "$"));
+                }
 
-            {
-                // Jobs
-                captions.Add(new CaptionPair("JOBS_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("JOBS_COL_NAME_CAP", "job"));
-                captions.Add(new CaptionPair("JOBS_COL_DESCRIPTION_CAP", "description"));
-                captions.Add(new CaptionPair("JOBS_COL_CATEGORY_CAP", "category"));
-                captions.Add(new CaptionPair("JOBS_COL_AVAILABLE_CAP", "available"));
-                captions.Add(new CaptionPair("JOBS_COL_REWARD_MONEY_CAP", "reward money"));
-                captions.Add(new CaptionPair("JOBS_COL_COOLDOWN_CAP", "cooldown"));
-                captions.Add(new CaptionPair("JOBS_COL_DURATION_CAP", "duration"));
-                captions.Add(new CaptionPair("JOBS_COL_IMAGE_CAP", "image"));
-                captions.Add(new CaptionPair("JOBS_COL_REWARD_ITEMS_CAP", "reward items"));
-                captions.Add(new CaptionPair("JOBS_COL_DO_JOB_CAP", "start"));
-                captions.Add(new CaptionPair("JOBS_COL_JOB_NOT_READY_CAP", "not ready"));
-            }
+                {
+                    // Jobs
+                    captions.Add(new CaptionPair("JOBS_COL_ID_CAP", "ID"));
+                    captions.Add(new CaptionPair("JOBS_COL_NAME_CAP", "job"));
+                    captions.Add(new CaptionPair("JOBS_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("JOBS_COL_CATEGORY_CAP", "category"));
+                    captions.Add(new CaptionPair("JOBS_COL_AVAILABLE_CAP", "available"));
+                    captions.Add(new CaptionPair("JOBS_COL_REWARD_MONEY_CAP", "reward money"));
+                    captions.Add(new CaptionPair("JOBS_COL_COOLDOWN_CAP", "cooldown"));
+                    captions.Add(new CaptionPair("JOBS_COL_DURATION_CAP", "duration"));
+                    captions.Add(new CaptionPair("JOBS_COL_IMAGE_CAP", "image"));
+                    captions.Add(new CaptionPair("JOBS_COL_REWARD_ITEMS_CAP", "reward items"));
+                    captions.Add(new CaptionPair("JOBS_COL_DO_JOB_CAP", "start"));
+                    captions.Add(new CaptionPair("JOBS_COL_JOB_NOT_READY_CAP", "not ready"));
+                }
 
-            {
-                // Characters
-                captions.Add(new CaptionPair("CHARACTER_TITLE_CAP", "Characters"));
-                captions.Add(new CaptionPair("CHARACTER_LINK_CAP", "Characters"));
-                captions.Add(new CaptionPair("CHARACTER_SIDEBAR_TITLE_CAP", "Characters"));
-                captions.Add(new CaptionPair("CHARACTER_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("CHARACTER_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("CHARACTER_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("CHARACTER_COL_ID_CAP", "ID"));
-                captions.Add(new CaptionPair("CHARACTER_COL_NAME_CAP", "name"));
-                captions.Add(new CaptionPair("CHARACTER_COL_CATEGORY_CAP", "category"));
-                captions.Add(new CaptionPair("CHARACTER_COL_DESCRIPTION_CAP", "description"));            
-                captions.Add(new CaptionPair("CHARACTER_COL_AGE_CAP", "age"));
-                captions.Add(new CaptionPair("CHARACTER_COL_GENDER_CAP", "gender"));
-                captions.Add(new CaptionPair("CHARACTER_COL_JOB_CAP", "job"));
-                captions.Add(new CaptionPair("CHARACTER_COL_RELATION_CAP", "relation"));
-                captions.Add(new CaptionPair("CHARACTER_COL_KNOWN_CAP", "known"));
-                captions.Add(new CaptionPair("CHARACTER_COL_COLOR_CAP", "color"));
-                captions.Add(new CaptionPair("CHARACTER_COL_SKILL1_CAP", "skill1"));
-                captions.Add(new CaptionPair("CHARACTER_COL_SKILL2_CAP", "skill2"));
-                captions.Add(new CaptionPair("CHARACTER_COL_SKILL3_CAP", "skill3"));
-                captions.Add(new CaptionPair("CHARACTER_COL_IMAGE_CAP", "image"));
+                {
+                    // Characters
+                    captions.Add(new CaptionPair("CHARACTER_TITLE_CAP", "Characters"));
+                    captions.Add(new CaptionPair("CHARACTER_LINK_CAP", "Characters"));
+                    captions.Add(new CaptionPair("CHARACTER_SIDEBAR_TITLE_CAP", "Characters"));
+                    captions.Add(new CaptionPair("CHARACTER_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("CHARACTER_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("CHARACTER_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_ID_CAP", "ID"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_NAME_CAP", "name"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_CATEGORY_CAP", "category"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_DESCRIPTION_CAP", "description"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_AGE_CAP", "age"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_GENDER_CAP", "gender"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_JOB_CAP", "job"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_RELATION_CAP", "relation"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_KNOWN_CAP", "known"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_COLOR_CAP", "color"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_SKILL1_CAP", "skill1"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_SKILL2_CAP", "skill2"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("CHARACTER_COL_IMAGE_CAP", "image"));
+                }
             }
         }
     }
