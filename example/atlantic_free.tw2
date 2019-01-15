@@ -267,7 +267,13 @@ Mike again appeard out of nowhere.
 <<say 2 "I guess the lobby would be a good orientation point. Go there! Okay man, I have to get back to work. Whenever you need something or if you need some insider knowledge about the hotel, visit me at the elevator.">>
 <<set $has_had_introduction to 1>>
 <</nobr>>
-[[Lobby]]
+[[End of sample]]
+
+::End of sample
+<h1>End</h1>
+This is the end of the sample story.
+
+Visit <a href="https://www.stonedrum.de">stonedrum.de</a> and <a href="https://patreon.com/padmalcom">patreon.com/padmalcom</a> for regular updates.
 
 ::Lobby
 <h1>Lobby</h1>

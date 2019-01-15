@@ -2350,7 +2350,7 @@ namespace TweeFly
 
         private void button31_Click(object sender, EventArgs e)
         {
-            conf = new Configuration();
+            conf = new Configuration(true);
 
             // Global
             conf.inventoryActive = true;
@@ -2363,7 +2363,7 @@ namespace TweeFly
             conf.charactersActive = true;
             conf.pathSubtract = APP_DIR;
             conf.storyName = "The Atlantic Murder";
-            conf.mainFile = "mystory.tw2";
+            conf.mainFile = "atlantic.tw2";
 
             // Inventory
             conf.inventoryInSidebar = true;
@@ -2642,6 +2642,7 @@ namespace TweeFly
 
         private void button33_Click(object sender, EventArgs e)
         {
+            MessageBox.Show(conf.captions.Count.ToString());
             string savedPath = Generator.generate(conf).Trim();
             if (!string.IsNullOrEmpty(savedPath))
             {

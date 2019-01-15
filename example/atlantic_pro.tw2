@@ -1,0 +1,369 @@
+::Start
+<h1>Cab</h1>
+<<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
+<<nobr>>
+It was raining when I arrived at the station on Friday. Since I hadn't brought too much luggage
+I managed to sprint to the next cab in an instance.
+<</nobr>>
+[[Continue->Cab1]]
+
+::Cab1
+<h1>Cab</h1>
+<<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
+<<nobr>>
+<<say 0 "To the Atlantic hotel please.">>
+<<say 3 "You do not look like most of the guys I bring there.">>
+<<say 0 "I'm not a guest, I'm working there.">>
+<<say 3 "And then you can afford a cab? Must be a well payed job.">>
+<<say 0 "I... my father is the director. I'm beginning my training there this week.">>
+<<say 3 "To the Atlantic hotel please.">>
+<<say 0 "I can't believe it! I know the sun of the manager of the Atlantic! What's your name boy?">>
+<</nobr>>
+<<textbox "$player_name" "James">><<renameCharacter 0 $player_name>> [[OK->Cab2]] 
+
+::Cab2
+<h1>Cab</h1>
+<<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
+<<nobr>>
+<<say 3 "Hello $player_name, it is an honor to meet you. Have a good start in this wonderful city full of crime and intrigues.">>
+<<say 0 "Yeah, thanks.">>
+The cab stopped at a lively street. The hotel was enourmous. Since I grew up with my mom I only knew the complex from photos.
+<</nobr>>
+[[Say thanks->Cab3]]
+[[Enter the Atlantic->Lobby]]
+
+::Cab3
+<h1>Cab</h1>
+<<= '<img src="data/img/cab01.jpg" alt="Cab">' >>
+<<nobr>>
+<<say 0 "Thanks for the ride.">>
+<<say 3 "It's my job boy! Hey, when you have wealthy guests leaving a big tip, remember me okay?">>
+__Got the drivers business card__
+<<addToInventory 0 1>>
+<<say 0 "I will. Bye!">>
+<</nobr>>
+[[Enter the Atlantic->Lobby]] 
+
+::Lobby
+<h1>Lobby</h1>
+<<= '<img src="data/img/hotel_lobby_01.jpg" alt="Lobby">' >>
+<<nobr>>
+You are in the lobby. Where do you want to go?
+<</nobr>>
+[[Reception]]
+[[Elevator]]
+[[Restaurant]]
+[[Gift shop]]
+[[Hotel kitchen]]
+[[Waiting area (1h)->Waiting area]]
+
+::Waiting area
+<h1>Waiting area</h1>
+<<= '<img src="data/img/hotel_waiting_area_01.jpg" alt="Waiting area">' >>
+<<nobr>>
+<<if ndef $has_seen_room>>
+	I should go to the reception first. It is late already.
+<<else>>
+	<<if (state.active.variables.time.getHours() lt 22) and (state.active.variables.time.getHours() gt 6)>>
+		After an hour I feel rested.
+		<<addTimeInMinutes 60>>
+	<<else>>
+		It is too late, I should go to sleep.
+	<<endif>>
+<<endif>>
+<</nobr>>
+[[Lobby]] 
+
+::Restaurant
+<h1>Restaurant</h1>
+<<if (state.active.variables.time.getHours() gt 22) and (state.active.variables.time.getHours() lt 18)>>
+	<<= '<img src="data/img/restaurant_night_01.jpg" alt="Restaurant">' >>
+	<<nobr>>
+	It is late. The restaurant is empty.
+	<</nobr>>
+<<else>>
+	<<= '<img src="data/img/restaurant_night_01.jpg" alt="Restaurant">' >>
+	<<nobr>>
+	[TBD]
+	I don't want to eat at the moment.
+	<</nobr>>
+<<endif>>
+[[Elevator]]
+[[Reception]]
+[[Lobby]]
+
+::Gift shop
+<h1>Gift shop</h1>
+<<= '<img src="data/img/hotel_gift_shop_01.jpg" alt="Gift shop">' >>
+<<nobr>>
+The gift shop is open.
+<</nobr>>
+<<shop 0>>
+[[Lobby]]
+
+::Elevator
+<h1>Elevator</h1>
+<<= '<img src="data/img/hotel_elevator_01.jpg" alt="Elevator">' >>
+<<if has_item(2) is 1>>
+	<<if ndef $has_seen_room>>
+		<<nobr>>
+		<<say 2 "So you are the director's son? Saw you at the reception already!">>
+		<<say 0 "My name is $player_name.">>
+		<<say 2 "I am Mike. Listen, $player_name: I'll explain how this whole hotel works. If you want or need something, come to me. I know all employees and most guests. If you give me a little gift from time to time I'll take care of you.">>
+		<<renameCharacter 2 "Mike">>
+		<<setKnown 2>>
+		<<say 0 "Okay... thanks for the offer, I guess.">>
+		<<say 2 "Great let me show you your room then!">>
+		<</nobr>>
+		[[To my room->Room presentation]]
+	<<else>>
+		<<nobr>>
+		Where should I go?
+		<</nobr>>
+		[[Cellar->Cellar]]
+		[[Floor 1->Floor 1]]
+		[[Floor 2->Floor 2]]
+		[[Floor 3->Floor 3]]
+		[[Floor 4->Floor 4]]
+		[[Floor 5->Floor 5]]
+		[[Roof top->Roof top]]
+		[[Lobby]]
+	<<endif>>
+<<else>>
+	<<nobr>>
+	A boy at my age is waiting at the elevator.	
+	<</nobr>>
+	[[Lobby]]
+<<endif>>
+
+::Reception
+<h1>Reception</h1>
+<<= '<img src="data/img/hotel_lobby_01.jpg" alt="Lobby">' >>
+<<if has_item(2) is 1>>
+	<<if ndef $has_seen_room>>
+		<<nobr>>
+		I should go to the elevator and ask a guy named Mike to show me my room.
+		<</nobr>>
+	<<else>>
+		<<nobr>>
+		The reception.
+		<</nobr>>
+		[[Lobby]]
+		[[Elevator]] 
+		[[Restaurant]] 	
+	<<endif>>
+<<else>>
+	<<nobr>>
+	A kindly looking old man smiles at you.
+	<<say 1 "Good evening Sir, how can I help you?">>
+	<<say 0 "Hello, my name is $player_name, I uhm... I'm here to meet my father.">>
+	<<say 1 "$player_name, nice to meet you! We are all excited to get to know you! I'm Athur and I mostly work here at night.">>
+	<<renameCharacter 1 "Arthur">>
+	<<setKnown 1>>
+	<<say 0 "Hello Arthur, nice to meet you, too.">>
+	<<say 1 "So let's see if we have a keycard for you! There it is!">>
+	__Got the keycard for my room!__
+	<<addToInventory 2 1>>
+	<<say 1 "Your room is in the first floor, number 0121. Mike will help you with your luggage. He awaits you at the elevator. Welcome to the Atlantic!">>
+	<</nobr>>
+	[[Elevator]]
+<<endif>>
+
+::Hotel kitchen
+<h1>Hotel kitchen</h1>
+<<= '<img src="data/img/hotel_kitchen_01.jpg" alt="Hotel kitchen">' >>
+<<if ndef $has_seen_room>>
+	<<nobr>>
+	I should go to the reception first. It is late already.
+	<</nobr>>
+<<else>>
+	<<nobr>>
+	[TBD]
+	Chef: Hey boy, want to earn some money? We could really need some help!
+	<</nobr>>
+	<<showJobs 0 1>>
+<<endif>>
+[[Lobby]]
+
+
+::Room presentation
+<h1>Room</h1>
+<<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
+
+<<if ndef $has_seen_room>>
+	<<nobr>>
+	<<set $has_seen_room to 1>>
+	We arrived in the first floor and passed many wooden doors until we reached number 1221. Mike unlocked the door with the keycard and kept the door open.
+	<<say 0 "Wow...">>
+	<<say 2 "Not bad, is it? This is your room now! Okay <<print $player_name>>, I am leaving now. Have a great first day tomorrow.">>
+	<</nobr>>
+	[[Go to sleep->First morning]]
+<<else>>
+	[TBD]
+	This is my room, what should I do now?
+	[Sleep]
+	[[Floor 1]]
+<<endif>>
+
+::First morning
+<h1>First morning</h1>
+<<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
+<<nobr>>
+<<setDateTime 13 12 2015 8 0 0>>
+I awoke the next morning at 8 o'clock. Was there a knock on the door?
+<</nobr>>
+[[Open door->First morning door]]
+
+::Hotel room wardrobe
+<h1>Hotel room wardrobe</h1>
+<<nobr>>
+<<wardrobe>>
+<</nobr>>
+[[Back->My room]]
+
+::First morning door
+<h1>At the door</h1>
+<<= '<img src="data/img/hotel_door_01.jpg" alt="Open door">' >>
+<<nobr>>
+I opened the door and saw a little bag standing there.
+<</nobr>>
+[[Pick up bag]]
+
+::Pick up bag
+<h1>At the door</h1>
+<<= '<img src="data/img/hotel_door_01.jpg" alt="Open door">' >>
+<<nobr>>
+<<addToWardrobe 22 1>>
+<<addToWardrobe 23 1>>
+There is a suit in it. I guess I should wear it. Let me check my wardrobe.
+<</nobr>>
+[[Wardrobe->Hotel room wardrobe]]
+[[Leave->Floor 1]]
+
+::My room
+<h1>My hotel room</h1>
+<<= '<img src="data/img/hotel_suite_01.jpg" alt="My room">' >>
+<<nobr>>
+I'm in my room. What should I do next?
+<</nobr>>
+[[Suit Up->Hotel room wardrobe]]
+[[Leave->Floor 1]]
+
+::Introducing new employees
+<h1>Meeting room</h1>
+<<nobr>>
+The meeting room was huge. And full of people who were staring at me. Somebody must have told them that I'm the director's son. Great!
+Suddenly a strict looking woman entered the room and the mumbling stopped instantly.
+<<say 4 "Silence, you are here to become the best of the best hotel professionals in the world and those professionals don't chatter!">>
+Okay, the next month will be hell.
+<<say 4 "My name is Florence and everytime you have questions you come to me. I'm responsible for your training.">>
+<<renameCharacter 4 "Florence">><<setKnown 4>>
+In the next two hours Florence told us how a hotel works, who the guests are and what we will be doing to keep everything clean and the guests happy.
+When she finished my head was aching.
+<<say 4 "For your first day, I want you to explore the hotel WITHOUT making noice or being visible to our guests. Do you hear me? When I ask you tomorrow where the kitchen is, you can tell me. When I ask you how many rooms we have, you can answer me. Got it? Dismissed!">>
+<<say 2 "Afraid? You souldn't, Florence is nice once you got to know her better.">>
+Mike again appeard out of nowhere.
+<<say 0 "Okay, so where should I begin?">>
+<<say 2 "I guess the lobby would be a good orientation point. Go there! Okay man, I have to get back to work. Whenever you need something or if you need some insider knowledge about the hotel, visit me at the elevator.">>
+<<set $has_had_introduction to 1>>
+<</nobr>>
+[[End of sample]]
+
+::End of sample
+<h1>End</h1>
+This is the end of the sample story.
+
+Visit <a href="https://www.stonedrum.de">stonedrum.de</a> and <a href="https://patreon.com/padmalcom">patreon.com/padmalcom</a> for regular updates.
+
+::Lobby
+<h1>Lobby</h1>
+<<= '<img src="data/img/hotel_lobby_01.jpg" alt="Lobby">' >>
+<<nobr>>
+Okay so here I am having time to inspect the entire hotel. Where should I go?
+<</nobr>>
+[[Reception]]
+[[Elevator]]
+[[Restaurant]]
+[[Gift shop]]
+[[Hotel kitchen]]
+[[Waiting area (1h)->Waiting area]]
+
+::Cellar
+<h1>Cellar</h1>
+<<if def $has_cellar_key>>
+	[TBD add image]
+	The elevator went down to the cellar. It took ages until it stopped.
+<<else>>
+	<<= '<img src="data/img/hotel_elevator_01.jpg" alt="Elevator">' >>
+	I need a key to push the button.
+	[[Elevator]]
+<<endif>>
+
+::Floor 1
+<h1>Floor 1 corridor</h1>
+<<= '<img src="data/img/hotel_floor_01.jpg" alt="Hotel corridor">' >>
+<<if ndef $has_had_introduction>>
+	<<if is_worn(23) and is_worn(22)>>	
+		<<nobr>>
+		When I left the room I spotted Mike standing at the end of the corridor.
+		<<say 2 "There you are! Hurry up, we have to get to the group! We are already late!">>
+		<<say 0 "Nobody told me to ...">>
+		<<say 2 "It doesn't matter, we have to get down to the meeting room. Follow me!">>
+		<</nobr>>
+		[[Follow Mike->Introducing new employees]]
+	<<else>>
+		<<nobr>>
+		I should change my cloth first and wear that suit.
+		<</nobr>>
+		[[Back->My room]]
+	<<endif>>
+<<else>>
+	<<nobr>>
+	Rooms on the right, rooms on the left.
+	<</nobr>>
+	[[My room]]
+	[[Elevator->Elevator]]
+<<endif>>
+
+::Floor 2
+<h1>Floor 2 corridor</h1>
+<<= '<img src="data/img/hotel_floor_01.jpg" alt="Hotel corridor">' >>
+<<nobr>>
+Rooms on the right, rooms on the left.
+<</nobr>>
+[[Elevator->Elevator]]
+
+::Floor 3
+<h1>Floor 3 corridor</h1>
+<<= '<img src="data/img/hotel_floor_01.jpg" alt="Hotel corridor">' >>
+<<nobr>>
+Rooms on the right, rooms on the left.
+<</nobr>>
+[[Elevator->Elevator]]
+
+::Floor 4
+<h1>Floor 4 corridor</h1>
+<<= '<img src="data/img/hotel_floor_01.jpg" alt="Hotel corridor">' >>
+<<nobr>>
+Rooms on the right, rooms on the left.
+<</nobr>>
+[[Elevator->Elevator]]
+
+::Floor 5
+<h1>Floor 5 corridor</h1>
+<<= '<img src="data/img/hotel_floor_01.jpg" alt="Hotel corridor">' >>
+<<nobr>>
+Rooms on the right, rooms on the left.
+<</nobr>>
+[[Elevator->Elevator]]
+
+::Roof top
+<h1>Cellar</h1>
+<<if def $has_roof_top_key>>
+	[TBD add image]
+	The elevator went up to the roof top. Quite windy here!
+<<else>>
+	<<= '<img src="data/img/hotel_elevator_01.jpg" alt="Elevator">' >>
+	I need a key to push the button to the roof top.
+	[[Elevator]]
+<<endif>>
