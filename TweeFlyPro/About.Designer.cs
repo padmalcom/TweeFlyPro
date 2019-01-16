@@ -63,11 +63,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(137, 130);
+            this.label1.Location = new System.Drawing.Point(117, 128);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 13);
+            this.label1.Size = new System.Drawing.Size(212, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "TweeFly created by padmalcom";
+            this.label1.Text = "TweeFly 0.8 [BETA] created by padmalcom";
             // 
             // linkLabel1
             // 

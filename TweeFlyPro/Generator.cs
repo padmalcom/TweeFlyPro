@@ -1736,6 +1736,7 @@ namespace TweeFly
 
                     for(int j=0; j<_conf.shops[i].items.Count; j++)
                     {
+                        if (!TweeFlyPro.Properties.Settings.Default.IsProEdition && _conf.shops[i].items[j].type.Equals("CLOTHING")) continue;
                         twShops.Write("\t\t\t{\"type\":\"" + _conf.shops[i].items[j].type + "\",");
                         twShops.Write("\"ID\":" + _conf.shops[i].items[j].id + ",");
                         twShops.Write("\"quantity\":" + _conf.shops[i].items[j].quantityStart + ",");

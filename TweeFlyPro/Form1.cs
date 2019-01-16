@@ -1634,7 +1634,7 @@ namespace TweeFly
                     FileStream fs = null;
                     try
                     {
-                        File.Open(openFileDialog1.FileName, FileMode.Open);
+                        fs = File.Open(openFileDialog1.FileName, FileMode.Open);
                         conf = (Configuration)formatter.Deserialize(fs);
                         fileName = openFileDialog1.FileName;
                         this.Text = Form1.APP_TITLE + " - " + fileName;
