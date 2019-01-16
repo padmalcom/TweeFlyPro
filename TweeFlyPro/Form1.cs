@@ -2642,7 +2642,6 @@ namespace TweeFly
 
         private void button33_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(conf.captions.Count.ToString());
             string savedPath = Generator.generate(conf).Trim();
             if (!string.IsNullOrEmpty(savedPath))
             {

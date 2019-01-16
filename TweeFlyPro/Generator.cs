@@ -87,8 +87,8 @@ namespace TweeFly
 
                 // Story init
                 twMain.WriteLine("::StoryInit");
-                if (_conf.daytimeActive) twMain.WriteLine("<<initDaytime>>");
-                if (_conf.clothingActive)
+                if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("<<initDaytime>>");
+                if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 {
                     twMain.WriteLine("<<initAllClothing>>");
                     twMain.WriteLine("<<initClothing>>");

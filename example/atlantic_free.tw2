@@ -39,7 +39,7 @@ The cab stopped at a lively street. The hotel was enourmous. Since I grew up wit
 Me: Thanks for the ride.
 Taxi driver: It's my job boy! Hey, when you have wealthy guests leaving a big tip, remember me okay?
 __Got the drivers business card__
-<<set $has_taxi_driver_business_card to 1>>
+<<addToInventory 0 1>>
 Me: I will. Bye!
 <</nobr>>
 [[Enter the Atlantic->Lobby]] 
@@ -92,7 +92,7 @@ The gift shop is open.
 ::Elevator
 <h1>Elevator</h1>
 <<= '<img src="data/img/hotel_elevator_01.jpg" alt="Elevator">' >>
-<<if $has_room_key_card is 1>>
+<<if has_item(2) is 1>>
 	<<if ndef $has_seen_room>>
 		<<nobr>>
 		Boy: So you are the director's son? Saw you at the reception already!
@@ -125,7 +125,7 @@ The gift shop is open.
 ::Reception
 <h1>Reception</h1>
 <<= '<img src="data/img/hotel_lobby_01.jpg" alt="Lobby">' >>
-<<if $has_room_key_card is 1>>
+<<if has_item(2) is 1>>
 	<<if ndef $has_seen_room>>
 		<<nobr>>
 		I should go to the elevator and ask a guy named Mike to show me my room.
@@ -147,7 +147,7 @@ The gift shop is open.
 	Me: Hello Arthur, nice to meet you, too.
 	Arthur: So let's see if we have a keycard for you! There it is!
 	__Got the keycard for my room!__
-	<<set $has_room_key_card to 1>>
+	<<addToInventory 2 1>>
 	Arthur: Your room is in the first floor, number 0121. Mike will help you with your luggage. He awaits you at the elevator. Welcome to the Atlantic!
 	<</nobr>>
 	[[Elevator]]
