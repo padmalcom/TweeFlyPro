@@ -1929,7 +1929,7 @@ namespace TweeFly
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Generator.generate(conf);
+            Generator.generateTwee2(conf);
         }
 
         private void button5_Click_1(object sender, EventArgs e)
@@ -2108,7 +2108,7 @@ namespace TweeFly
 
         private void button30_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Generator.generate(conf).Trim()))
+            if (!string.IsNullOrEmpty(Generator.generateTwee2(conf)))
             {
                 MessageBox.Show("Success!");
             }
@@ -2642,7 +2642,7 @@ namespace TweeFly
 
         private void button33_Click(object sender, EventArgs e)
         {
-            string savedPath = Generator.generate(conf).Trim();
+            string savedPath = Generator.generateTwee2(conf);
             if (!string.IsNullOrEmpty(savedPath))
             {
                 if (ExistsOnPath("twee2"))
@@ -2821,6 +2821,14 @@ namespace TweeFly
                     conf.captions[i].caption = dataGridView1[1, e.RowIndex].Value.ToString();
                     break;
                 }
+            }
+        }
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Generator.generateTwine(conf)))
+            {
+                MessageBox.Show("Success!");
             }
         }
     }
