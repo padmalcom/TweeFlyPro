@@ -423,13 +423,11 @@
             this.button31 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.button33 = new System.Windows.Forms.Button();
-            this.label113 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button34 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.button34 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -4496,9 +4494,12 @@
             // 
             // button30
             // 
-            this.button30.Location = new System.Drawing.Point(12, 467);
+            this.button30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button30.Image = ((System.Drawing.Image)(resources.GetObject("button30.Image")));
+            this.button30.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button30.Location = new System.Drawing.Point(12, 433);
             this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(216, 23);
+            this.button30.Size = new System.Drawing.Size(216, 39);
             this.button30.TabIndex = 24;
             this.button30.Text = "Generate (Twee2)";
             this.button30.UseVisualStyleBackColor = true;
@@ -4507,7 +4508,7 @@
             // checkBox24
             // 
             this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(16, 391);
+            this.checkBox24.Location = new System.Drawing.Point(16, 365);
             this.checkBox24.Name = "checkBox24";
             this.checkBox24.Size = new System.Drawing.Size(123, 17);
             this.checkBox24.TabIndex = 25;
@@ -4537,31 +4538,16 @@
             // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(12, 496);
+            this.button33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button33.Image = ((System.Drawing.Image)(resources.GetObject("button33.Image")));
+            this.button33.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button33.Location = new System.Drawing.Point(12, 480);
             this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(216, 23);
+            this.button33.Size = new System.Drawing.Size(216, 39);
             this.button33.TabIndex = 28;
-            this.button33.Text = "Generate and Build (Twee 2)";
+            this.button33.Text = "Generate and\r\nBuild (Twee 2)";
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
-            // 
-            // label113
-            // 
-            this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(12, 368);
-            this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(49, 13);
-            this.label113.TabIndex = 29;
-            this.label113.Text = "Main file:";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(100, 365);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(128, 20);
-            this.textBox5.TabIndex = 30;
-            this.textBox5.Text = "atlantic.tw2";
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // groupBox10
             // 
@@ -4583,6 +4569,19 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // button34
+            // 
+            this.button34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button34.Image = ((System.Drawing.Image)(resources.GetObject("button34.Image")));
+            this.button34.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button34.Location = new System.Drawing.Point(12, 388);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(216, 39);
+            this.button34.TabIndex = 32;
+            this.button34.Text = "Generate (Twine)";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::TweeFlyPro.Properties.Resources.TweeFlyProLogo;
@@ -4594,16 +4593,6 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // button34
-            // 
-            this.button34.Location = new System.Drawing.Point(12, 438);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(216, 23);
-            this.button34.TabIndex = 32;
-            this.button34.Text = "Generate (Twine)";
-            this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.button34_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4611,12 +4600,10 @@
             this.ClientSize = new System.Drawing.Size(1184, 729);
             this.Controls.Add(this.button34);
             this.Controls.Add(this.groupBox10);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.label113);
+            this.Controls.Add(this.button30);
             this.Controls.Add(this.button33);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.checkBox24);
-            this.Controls.Add(this.button30);
             this.Controls.Add(this.textBox47);
             this.Controls.Add(this.textBox12);
             this.Controls.Add(this.label82);
@@ -5111,8 +5098,6 @@
         private System.Windows.Forms.Button button33;
         private System.Windows.Forms.CheckBox checkBox45;
         private System.Windows.Forms.CheckBox checkBox48;
-        private System.Windows.Forms.Label label113;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button button34;

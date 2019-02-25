@@ -39,7 +39,6 @@ namespace TweeFly
                 textBox12.Text = _conf.pathSubtract;
                 textBox47.Text = _conf.storyName;
                 checkBox24.Checked = _conf.runAfterGenerate;
-                textBox5.Text = _conf.mainFile;
 
                 // Captions
                 dataGridView1.Rows.Clear();
@@ -2363,7 +2362,6 @@ namespace TweeFly
             conf.charactersActive = true;
             conf.pathSubtract = APP_DIR;
             conf.storyName = "The Atlantic Murder";
-            conf.mainFile = "atlantic.tw2";
 
             // Inventory
             conf.inventoryInSidebar = true;
@@ -2773,7 +2771,6 @@ namespace TweeFly
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            conf.mainFile = textBox5.Text;
         }
 
         private void textBox10_TextChanged(object sender, EventArgs e)

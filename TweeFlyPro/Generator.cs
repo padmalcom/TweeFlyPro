@@ -31,7 +31,7 @@ namespace TweeFly
             return res;
         }
 
-        private static void generateMain(Configuration _conf, string _path)
+        private static void generateMain(Configuration _conf, string _path, string _mainFile)
         {
             string name = string.IsNullOrEmpty(_conf.storyName) ? "story" : _conf.storyName;
             string fileName = name + ".tw2";
@@ -63,28 +63,9 @@ namespace TweeFly
                 if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_characters.tw2");
                 twMain.WriteLine("_tw_sidebar.tw2");
                 twMain.WriteLine("_css_style.tw2");
-                if (!string.IsNullOrEmpty(_conf.mainFile))
+                if (!string.IsNullOrEmpty(_mainFile))
                 {
-                    string storyFileAbsolute = Path.IsPathRooted(_conf.mainFile) ? _conf.mainFile : Path.Combine(_path, _conf.mainFile);
-
-                    if (!File.Exists(storyFileAbsolute))
-                    {
-                        if (Path.GetExtension(storyFileAbsolute).Equals(""))
-                        {
-                            storyFileAbsolute += ".tw2";
-                        }
-                        MessageBox.Show("Story file '" + storyFileAbsolute + "' does not exist. Creating dummy/empty story as '" + storyFileAbsolute + "'.");
-
-                        if (!TweeFlyPro.Properties.Settings.Default.IsProEdition)
-                        {
-                            generateEmptyStory(storyFileAbsolute);
-                        }
-                        else
-                        {
-                            copySampleStory(storyFileAbsolute);
-                        }
-                    }
-                    twMain.WriteLine(Path.GetFileName(storyFileAbsolute));
+                    twMain.WriteLine(Path.GetFileName(_mainFile));
                 }
                 twMain.WriteLine("");
 
@@ -116,68 +97,6 @@ namespace TweeFly
                     twMain.Flush();
                     twMain.Close();
                 }
-            }
-        }
-
-        private static void generateEmptyStory(string _path)
-        {
-            TextWriter twStory = null;
-            try
-            {
-                twStory = new StreamWriter(_path, false, new UTF8Encoding(false));
-                twStory.WriteLine("::Start");
-                twStory.WriteLine("Start writing your story here...");
-            }
-            finally
-            {
-                if (twStory != null)
-                {
-                    twStory.Flush();
-                    twStory.Close();
-                }
-            }
-        }
-
-        private static void copySampleStory(string _path)
-        {
-            string exampleStory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "example/mystory.tw2");
-            string exampleAssets = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "example/data");
-            if (File.Exists(exampleStory))
-            {
-                File.Copy(exampleStory, _path);
-                CopyDir(exampleAssets, Path.Combine(Path.GetDirectoryName(_path), "data"));
-            } else
-            {
-                MessageBox.Show("Cannot copy example story from expected location '" + exampleStory + "'. Creating empty file.");
-                generateEmptyStory(_path);
-            }
-        }
-
-        private static void CopyDir(string sourceDirectory, string targetDirectory)
-        {
-            DirectoryInfo diSource = new DirectoryInfo(sourceDirectory);
-            DirectoryInfo diTarget = new DirectoryInfo(targetDirectory);
-
-            CopyAll(diSource, diTarget);
-        }
-
-        private static void CopyAll(DirectoryInfo source, DirectoryInfo target)
-        {
-            Directory.CreateDirectory(target.FullName);
-
-            // Copy each file into the new directory.
-            foreach (FileInfo fi in source.GetFiles())
-            {
-                Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
-                fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
-            }
-
-            // Copy each subdirectory using recursion.
-            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
-            {
-                DirectoryInfo nextTargetSubDir =
-                    target.CreateSubdirectory(diSourceSubDir.Name);
-                CopyAll(diSourceSubDir, nextTargetSubDir);
             }
         }
 
@@ -5104,27 +5023,31 @@ namespace TweeFly
 
         public static string generateTwee2(Configuration _conf)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.ShowNewFolderButton = true;
-            DialogResult res = fbd.ShowDialog();
-                if ((res == DialogResult.OK) && (!string.IsNullOrEmpty(fbd.SelectedPath)))
-                {
-                    generateMain(_conf, fbd.SelectedPath);
-                    generateMenu(_conf, fbd.SelectedPath);
-                    generateNavigation(_conf, fbd.SelectedPath);
-                    generateCss(_conf, fbd.SelectedPath);
-                    if (_conf.inventoryActive) generateInventory(_conf, fbd.SelectedPath);
-                    if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateClothing(_conf, fbd.SelectedPath);
-                    if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateStats(_conf, fbd.SelectedPath);
-                    if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateDaytime(_conf, fbd.SelectedPath);
-                    if (_conf.shopActive) generateShops(_conf, fbd.SelectedPath);
-                    if (_conf.moneyActive) generateMoney(_conf, fbd.SelectedPath);
-                    if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateJobs(_conf, fbd.SelectedPath);
-                    if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateCharacters(_conf, fbd.SelectedPath);
-                    generateBat(_conf, fbd.SelectedPath);
-                }
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "|*.*||*.tw2";
+            openFileDialog1.Title = "Open Twee2 File";
+            openFileDialog1.ShowDialog();
 
-            return fbd.SelectedPath;
+            if (openFileDialog1.FileName != "")
+            {
+                string path = Path.GetDirectoryName(openFileDialog1.FileName);
+                generateMain(_conf, path, openFileDialog1.FileName);
+                generateMenu(_conf, path);
+                generateNavigation(_conf, path);
+                generateCss(_conf, path);
+                if (_conf.inventoryActive) generateInventory(_conf, path);
+                if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateClothing(_conf, path);
+                if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateStats(_conf, path);
+                if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateDaytime(_conf, path);
+                if (_conf.shopActive) generateShops(_conf, path);
+                if (_conf.moneyActive) generateMoney(_conf, path);
+                if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateJobs(_conf, path);
+                if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateCharacters(_conf, path);
+                generateBat(_conf, path);
+                return openFileDialog1.FileName;
+            }
+
+            return "";
         }
 
         public static string generateTwine(Configuration _conf)
