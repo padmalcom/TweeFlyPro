@@ -5024,7 +5024,7 @@ namespace TweeFly
         public static string generateTwee2(Configuration _conf)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "|*.*||*.tw2";
+            openFileDialog1.Filter = "|*.tw2|*.*|";
             openFileDialog1.Title = "Open Twee2 File";
             openFileDialog1.ShowDialog();
 

@@ -38,7 +38,6 @@ namespace TweeFly
                 // Build
                 textBox12.Text = _conf.pathSubtract;
                 textBox47.Text = _conf.storyName;
-                checkBox24.Checked = _conf.runAfterGenerate;
 
                 // Captions
                 dataGridView1.Rows.Clear();
@@ -2135,7 +2134,7 @@ namespace TweeFly
 
         private void checkBox24_CheckedChanged(object sender, EventArgs e)
         {
-            conf.runAfterGenerate = checkBox24.Checked;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -2656,15 +2655,7 @@ namespace TweeFly
                     _processStartInfo.WorkingDirectory = savedPath;
                     _processStartInfo.FileName = @"twee2";
                     _processStartInfo.Arguments = "build \"" + storyFile + "\" \"" + htmlFile + "\"";
-                    Process myProcess = Process.Start(_processStartInfo);
-
-                    if ((myProcess != null)) {     
-                        if (checkBox24.Checked)
-                        {
-                            myProcess.WaitForExit();
-                            Process.Start(htmlFile);
-                        }      
-                    }
+                    Process.Start(_processStartInfo);
                 } else
                 {
                     MessageBox.Show("twee2 is not found.");

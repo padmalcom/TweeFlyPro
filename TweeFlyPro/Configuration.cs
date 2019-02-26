@@ -23,7 +23,6 @@ namespace TweeFly
         // Build
         public string pathSubtract { get; set; } = "";
         public string storyName { get; set; } = "story";
-        public bool runAfterGenerate { get; set; } = false;
 
         // Story options
         public bool navigationArrows { get; set; } = false;

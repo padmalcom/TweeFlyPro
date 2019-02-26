@@ -419,7 +419,6 @@
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.textBox47 = new System.Windows.Forms.TextBox();
             this.button30 = new System.Windows.Forms.Button();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
             this.button31 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.button33 = new System.Windows.Forms.Button();
@@ -4505,17 +4504,6 @@
             this.button30.UseVisualStyleBackColor = true;
             this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
-            // checkBox24
-            // 
-            this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(16, 365);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(123, 17);
-            this.checkBox24.TabIndex = 25;
-            this.checkBox24.Text = "Run after generation";
-            this.checkBox24.UseVisualStyleBackColor = true;
-            this.checkBox24.CheckedChanged += new System.EventHandler(this.checkBox24_CheckedChanged);
-            // 
             // button31
             // 
             this.button31.Location = new System.Drawing.Point(7, 162);
@@ -4603,7 +4591,6 @@
             this.Controls.Add(this.button30);
             this.Controls.Add(this.button33);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.checkBox24);
             this.Controls.Add(this.textBox47);
             this.Controls.Add(this.textBox12);
             this.Controls.Add(this.label82);
@@ -4983,7 +4970,6 @@
         private System.Windows.Forms.CheckBox checkBox20;
         private System.Windows.Forms.CheckBox checkBox21;
         private System.Windows.Forms.CheckBox checkBox23;
-        private System.Windows.Forms.CheckBox checkBox24;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.CheckBox checkBox27;
         private System.Windows.Forms.CheckBox checkBox26;
