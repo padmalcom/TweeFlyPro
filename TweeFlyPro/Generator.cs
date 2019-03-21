@@ -8,11 +8,18 @@ using System.Windows.Forms;
 using System.Xml;
 using HtmlAgilityPack;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace TweeFly
 {
     class Generator
     {
+        private static string TWEEFLY_CSS_COMMENT_START = "/* TWEEFLY_START */";
+        private static string TWEEFLY_CSS_COMMENT_END = "/* TWEEFLY_END */";
+
+        private static string TWEEFLY_COMMENT_START_ESC = System.Security.SecurityElement.Escape("<!-- TWEEFLY_START -->");
+        private static string TWEEFLY_COMMENT_END_ESC = System.Security.SecurityElement.Escape("<!-- TWEEFLY_END -->");
+
         private static bool isBool(string s)
         {
             bool r;
@@ -5050,6 +5057,24 @@ namespace TweeFly
             return "";
         }
 
+        private static int getNextFreeNode(HtmlAgilityPack.HtmlDocument doc)
+        {
+            for (int i = 0; i < 1000000; i++)
+            {
+                HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
+                if (passageNode == null)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private static HtmlAgilityPack.HtmlNode getParagraph(HtmlAgilityPack.HtmlDocument doc, string name)
+        {
+            return doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@name='" + name + "']");
+        }
+
         public static string generateTwine(Configuration _conf)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -5076,16 +5101,13 @@ namespace TweeFly
 
                 // Create start node
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
-                        {
-                            freeNode = i;
-                            break;
-                        }
+                        MessageBox.Show("There is no free passage to add the start node.");
+                        return null;
                     }
+
                     string startNode = "";
                     if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) startNode += "<<initDaytime>>";
                     if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
@@ -5105,188 +5127,366 @@ namespace TweeFly
                     if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) startNode += "<<initJobs>>";
                     if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) startNode += "<<initCharacters>>";
                     startNode = System.Security.SecurityElement.Escape(startNode);
-                    root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"StoryInit\" tags=\"\" position=\"10,10\" size=\"100, 100\">" + startNode + "</tw-passagedata>"));
+
+                    HtmlNode storyInitNode = getParagraph(doc, "StoryInit");
+                    if (storyInitNode != null)
+                    {
+                        string innerHtml = storyInitNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
+                        {
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            storyInitNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + startNode + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + startNode + TWEEFLY_COMMENT_END_ESC;
+                            storyInitNode.InnerHtml = innerHtml;
+                        }
+                    }
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"StoryInit\" tags=\"\" position=\"10,10\" size=\"100, 100\">" +
+                            TWEEFLY_COMMENT_START_ESC + startNode + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
                 // Create menu /story caption
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
+                        MessageBox.Show("There is no free passage to add the menu node.");
+                        return null;
+                    }
+
+                    string storyCaptionNodeString = System.Security.SecurityElement.Escape(generateMenuString(_conf));
+
+                    HtmlNode storyCaptionNode = getParagraph(doc, "StoryCaption");
+                    if (storyCaptionNode != null)
+                    {
+                        string innerHtml = storyCaptionNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
                         {
-                            freeNode = i;
-                            break;
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            storyCaptionNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + storyCaptionNodeString + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + storyCaptionNodeString + TWEEFLY_COMMENT_END_ESC;
+                            storyCaptionNode.InnerHtml = innerHtml;
                         }
                     }
-                    string menuNode = "<tw-passagedata pid=\"" + freeNode + "\" name=\"StoryCaption\" tags=\"\" position=\"120,10\" size=\"100, 100\">";
-                    menuNode += System.Security.SecurityElement.Escape(generateMenuString(_conf));
-                    menuNode += "</tw-passagedata>";
-                    root.AppendChild(HtmlNode.CreateNode(menuNode));
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"StoryCaption\" tags=\"\" position=\"120,10\" size=\"100, 100\">" +
+                           TWEEFLY_COMMENT_START_ESC + storyCaptionNodeString + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
                 // Create inventory passage
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
+                        MessageBox.Show("There is no free passage to add the menu node.");
+                        return null;
+                    }
+
+                    string inventoryNodeString = System.Security.SecurityElement.Escape(generateInventoryPassageString(_conf));
+
+                    HtmlNode inventoryNode = getParagraph(doc, "InventoryMenu");
+                    if (inventoryNode != null)
+                    {
+                        if ((inventoryNode.Attributes["tags"] == null) || (!inventoryNode.Attributes["tags"].Value.Equals("noreturn"))) {
+                            DialogResult dialogResult = MessageBox.Show("InventoryMenu paragraph requires attribute 'tags' with value 'noreturn'. Do you want to add it? Otherwise the process will fail.",
+                                "noreturn attribute", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                inventoryNode.SetAttributeValue("tags", "noreturn");
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return null;
+                            }
+                        }
+
+                        string innerHtml = inventoryNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
                         {
-                            freeNode = i;
-                            break;
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            inventoryNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + inventoryNodeString + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + inventoryNodeString + TWEEFLY_COMMENT_END_ESC;
+                            inventoryNode.InnerHtml = innerHtml;
                         }
                     }
-                    string menuNode = "<tw-passagedata pid=\"" + freeNode + "\" name=\"InventoryMenu\" tags=\"noreturn\" position=\"240,10\" size=\"100, 100\">";
-                    menuNode += System.Security.SecurityElement.Escape(generateInventoryPassageString(_conf));
-                    menuNode += "</tw-passagedata>";
-                    root.AppendChild(HtmlNode.CreateNode(menuNode));
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"InventoryMenu\" tags=\"noreturn\" position=\"240,10\" size=\"100, 100\">" +
+                            TWEEFLY_COMMENT_START_ESC + inventoryNodeString + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
                 // Create cloth passage
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
+                        MessageBox.Show("There is no free passage to add the menu node.");
+                        return null;
+                    }
+
+                    string clothNodeString = System.Security.SecurityElement.Escape(generateClothPassageString(_conf));
+
+                    HtmlNode clothNode = getParagraph(doc, "ClothingMenu");
+                    if (clothNode != null)
+                    {
+                        if ((clothNode.Attributes["tags"] == null) || (!clothNode.Attributes["tags"].Value.Equals("noreturn"))) {
+                            DialogResult dialogResult = MessageBox.Show("ClothingMenu paragraph requires attribute 'tags' with value 'noreturn'. Do you want to add it? Otherwise the process will fail.",
+                                "noreturn attribute", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                clothNode.SetAttributeValue("tags", "noreturn");
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return null;
+                            }
+                        }
+
+                        string innerHtml = clothNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
                         {
-                            freeNode = i;
-                            break;
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            clothNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + clothNodeString + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + clothNodeString + TWEEFLY_COMMENT_END_ESC;
+                            clothNode.InnerHtml = innerHtml;
                         }
                     }
-                    string menuNode = "<tw-passagedata pid=\"" + freeNode + "\" name=\"ClothingMenu\" tags=\"noreturn\" position=\"360,10\" size=\"100, 100\">";
-                    menuNode += System.Security.SecurityElement.Escape(generateClothPassageString(_conf));
-                    menuNode += "</tw-passagedata>";
-                    root.AppendChild(HtmlNode.CreateNode(menuNode));
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"ClothingMenu\" tags=\"noreturn\" position=\"360,10\" size=\"100, 100\">" +
+                           TWEEFLY_COMMENT_START_ESC + clothNodeString + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
                 // Create wardrobe passage
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
+                        MessageBox.Show("There is no free passage to add the menu node.");
+                        return null;
+                    }
+
+                    string wardrobeNodeString = System.Security.SecurityElement.Escape(generateWardrobePassageString(_conf));
+
+                    HtmlNode wardrobeNode = getParagraph(doc, "WardrobeMenu");
+                    if (wardrobeNode != null)
+                    {
+                        if ((wardrobeNode.Attributes["tags"] == null) || (!wardrobeNode.Attributes["tags"].Value.Equals("noreturn"))) {
+                            DialogResult dialogResult = MessageBox.Show("WardrobeMenu paragraph requires attribute 'tags' with value 'noreturn'. Do you want to add it? Otherwise the process will fail.",
+                                "noreturn attribute", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                wardrobeNode.SetAttributeValue("tags", "noreturn");
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return null;
+                            }
+                        }
+
+                        string innerHtml = wardrobeNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
                         {
-                            freeNode = i;
-                            break;
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            wardrobeNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + wardrobeNodeString + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + wardrobeNodeString + TWEEFLY_COMMENT_END_ESC;
+                            wardrobeNode.InnerHtml = innerHtml;
                         }
                     }
-                    string menuNode = "<tw-passagedata pid=\"" + freeNode + "\" name=\"WardrobeMenu\" tags=\"noreturn\" position=\"480,10\" size=\"100, 100\">";
-                    menuNode += System.Security.SecurityElement.Escape(generateWardrobePassageString(_conf));
-                    menuNode += "</tw-passagedata>";
-                    root.AppendChild(HtmlNode.CreateNode(menuNode));
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"WardrobeMenu\" tags=\"noreturn\" position=\"480,10\" size=\"100, 100\">" +
+                           TWEEFLY_COMMENT_START_ESC + wardrobeNodeString + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
                 // Create stats passage
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
+                        MessageBox.Show("There is no free passage to add the menu node.");
+                        return null;
+                    }
+
+                    string statsNodeString = System.Security.SecurityElement.Escape(generateStatsPassageString(_conf));
+
+                    HtmlNode statsNode = getParagraph(doc, "StatsMenu");
+                    if (statsNode != null)
+                    {
+                        if ((statsNode.Attributes["tags"] == null) || (!statsNode.Attributes["tags"].Value.Equals("noreturn"))) {
+                            DialogResult dialogResult = MessageBox.Show("StatsMenu paragraph requires attribute 'tags' with value 'noreturn'. Do you want to add it? Otherwise the process will fail.",
+                                "noreturn attribute", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                statsNode.SetAttributeValue("tags", "noreturn");
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return null;
+                            }
+                        }
+
+                        string innerHtml = statsNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
                         {
-                            freeNode = i;
-                            break;
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            statsNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + statsNodeString + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + statsNodeString + TWEEFLY_COMMENT_END_ESC;
+                            statsNode.InnerHtml = innerHtml;
                         }
                     }
-                    string menuNode = "<tw-passagedata pid=\"" + freeNode + "\" name=\"StatsMenu\" tags=\"noreturn\" position=\"600,10\" size=\"100, 100\">";
-                    menuNode += System.Security.SecurityElement.Escape(generateStatsPassageString(_conf));
-                    menuNode += "</tw-passagedata>";
-                    root.AppendChild(HtmlNode.CreateNode(menuNode));
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"StatsMenu\" tags=\"noreturn\" position=\"600,10\" size=\"100, 100\">" +
+                            TWEEFLY_COMMENT_START_ESC + statsNodeString + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
                 // Create characters passage
                 {
-                    int freeNode = -1;
-                    for (int i = 0; i < 100000; i++)
+                    int freeNode = getNextFreeNode(doc);
+                    if (freeNode == -1)
                     {
-                        HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
-                        if (passageNode == null)
+                        MessageBox.Show("There is no free passage to add the menu node.");
+                        return null;
+                    }
+
+                    string charactersNodeString = System.Security.SecurityElement.Escape(generateCharactersPassageString(_conf));
+
+                    HtmlNode charactersNode = getParagraph(doc, "CharactersMenu");
+                    if (charactersNode != null)
+                    {
+                        if ((charactersNode.Attributes["tags"] == null) || (!charactersNode.Attributes["tags"].Value.Equals("noreturn"))) {
+                            DialogResult dialogResult = MessageBox.Show("CharactersMenu paragraph requires attribute 'tags' with value 'noreturn'. Do you want to add it? Otherwise the process will fail.",
+                                "noreturn attribute", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                charactersNode.SetAttributeValue("tags", "noreturn");
+                                
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                return null;
+                            }                           
+                        }
+
+                        string innerHtml = charactersNode.InnerHtml;
+                        if (innerHtml.Contains(Generator.TWEEFLY_COMMENT_START_ESC))
                         {
-                            freeNode = i;
-                            break;
+                            int start = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_START_ESC);
+                            int end = innerHtml.IndexOf(Generator.TWEEFLY_COMMENT_END_ESC);
+                            string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_COMMENT_END_ESC.Length);
+                            charactersNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_COMMENT_START_ESC + charactersNodeString + TWEEFLY_COMMENT_END_ESC);
+                        }
+                        else
+                        {
+                            innerHtml += TWEEFLY_COMMENT_START_ESC + charactersNodeString + TWEEFLY_COMMENT_END_ESC;
+                            charactersNode.InnerHtml = innerHtml;
                         }
                     }
-                    string menuNode = "<tw-passagedata pid=\"" + freeNode + "\" name=\"CharactersMenu\" tags=\"noreturn\" position=\"720,10\" size=\"100, 100\">";
-                    menuNode += System.Security.SecurityElement.Escape(generateCharactersPassageString(_conf));
-                    menuNode += "</tw-passagedata>";
-                    root.AppendChild(HtmlNode.CreateNode(menuNode));
+                    else
+                    {
+                        root.AppendChild(HtmlNode.CreateNode("<tw-passagedata pid=\"" + freeNode + "\" name=\"CharactersMenu\" tags=\"noreturn\" position=\"720,10\" size=\"100, 100\">" +
+                            TWEEFLY_COMMENT_START_ESC + charactersNodeString + TWEEFLY_COMMENT_END_ESC + "</tw-passagedata>"));
+                    }
                 }
 
 
                 // Create CSS
-                HtmlNodeCollection stylesheetNodes = doc.DocumentNode.SelectNodes("/tw-storydata/style[@role='stylesheet' and @id='twine-user-stylesheet']");
-                if (stylesheetNodes != null)
+                HtmlNode cssNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/style[@role='stylesheet' and @id='twine-user-stylesheet']");
+                string cssCode = generateCssContent(_conf);
+                if (cssNode != null)
                 {
-                    HtmlNode[] ssnArray = stylesheetNodes.ToArray();
-                    foreach (HtmlNode item in ssnArray)
+                    string innerHtml = cssNode.InnerHtml;
+                    if (innerHtml.Contains(Generator.TWEEFLY_CSS_COMMENT_START))
                     {
-                        item.InnerHtml += generateCssContent(_conf);
+                        int start = innerHtml.IndexOf(Generator.TWEEFLY_CSS_COMMENT_START);
+                        int end = innerHtml.IndexOf(Generator.TWEEFLY_CSS_COMMENT_END);
+                        string oldCode = innerHtml.Substring(start, end - start + Generator.TWEEFLY_CSS_COMMENT_END.Length);
+                        cssNode.InnerHtml = innerHtml.Replace(oldCode, TWEEFLY_CSS_COMMENT_START + cssCode + TWEEFLY_CSS_COMMENT_END);
                     }
+                    else
+                    {
+                        innerHtml += TWEEFLY_CSS_COMMENT_START + cssCode + TWEEFLY_CSS_COMMENT_END;
+                        cssNode.InnerHtml = innerHtml;
+                    }
+                } else
+                {
+                    root.AppendChild(HtmlNode.CreateNode("<style role=\"stylesheet\" id=\"twine-user-stylesheet\" type=\"text/twine-css\">" + TWEEFLY_CSS_COMMENT_START + cssCode + TWEEFLY_CSS_COMMENT_END + "</style>"));
                 }
+
+
 
                 // Create JavaScript
                 HtmlNode scriptNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/script[@role='script' and @id='twine-user-script']");
+                string newInnerText = "";
+                newInnerText += generateNavigationScripts(_conf); // Navigation
+                if (_conf.inventoryActive) newInnerText += generateInventoryScripts(_conf); // Inventory
+                if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) newInnerText += generateClothingScripts(_conf); // Clothing
+                if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) newInnerText += generateDaytimeScripts(_conf); // Daytime
+                if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) newInnerText += generateStatsScripts(_conf); // Stats
+                if (_conf.shopActive) newInnerText += generateShopsScripts(_conf); // Shops
+                if (_conf.moneyActive) newInnerText += generateMoneyScripts(_conf); // Money
+                if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) newInnerText += generateJobsScripts(_conf); // Jobs
+                if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) newInnerText += generateCharactersScripts(_conf); // Characters
+
                 if (scriptNode != null)
                 {
-                    string newInnerText = "";
-                    // Navigation
-                    newInnerText += generateNavigationScripts(_conf);
-
-                    // Inventory
-                    if (_conf.inventoryActive)
+                    string innerText = scriptNode.InnerText;
+                    if (innerText.Contains(Generator.TWEEFLY_CSS_COMMENT_START))
                     {
-                        newInnerText += generateInventoryScripts(_conf);
-                    }
-
-                    // Clothing
-                    if (_conf.clothingActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                        int start = innerText.IndexOf(Generator.TWEEFLY_CSS_COMMENT_START);
+                        int end = innerText.IndexOf(Generator.TWEEFLY_CSS_COMMENT_END);
+                        string oldCode = innerText.Substring(start, end - start + Generator.TWEEFLY_CSS_COMMENT_END.Length);
+                        innerText = innerText.Replace(oldCode, TWEEFLY_CSS_COMMENT_START + newInnerText + TWEEFLY_CSS_COMMENT_END);
+                    } else
                     {
-                        newInnerText += generateClothingScripts(_conf);
-                    }
-
-                    // Daytime
-                    if (_conf.daytimeActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
-                    {
-                        newInnerText += generateDaytimeScripts(_conf);
-                    }
-
-                    // Stats
-                    if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
-                    {
-                        newInnerText += generateStatsScripts(_conf);
-                    }
-
-                    // Shops
-                    if (_conf.shopActive)
-                    {
-                        newInnerText += generateShopsScripts(_conf);
-                    }
-
-                    // Money
-                    if (_conf.moneyActive)
-                    {
-                        newInnerText += generateMoneyScripts(_conf);
-                    }
-
-                    // Jobs
-                    if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
-                    {
-                        newInnerText += generateJobsScripts(_conf);
-                    }
-
-                    // Characters
-                    if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
-                    {
-                        newInnerText += generateCharactersScripts(_conf);
+                        innerText += TWEEFLY_CSS_COMMENT_START + newInnerText + TWEEFLY_CSS_COMMENT_END;
                     }
 
                     scriptNode.ParentNode.RemoveChild(scriptNode);
-                    string oldText = scriptNode.InnerText;
-                    root.AppendChild(HtmlTextNode.CreateNode("<script role=\"script\" id=\"twine-user-script\" type=\"text/twine-javascript\">" + oldText + "\n" + newInnerText + "</script>"));
+                    root.AppendChild(HtmlTextNode.CreateNode("<script role=\"script\" id=\"twine-user-script\" type=\"text/twine-javascript\">" + innerText + "</script>"));
+                }
+                else
+                {
+                    root.AppendChild(HtmlNode.CreateNode("<style role=\"script\" id=\"twine-user-stylesheet\" type=\"text/twine-javascript\">" + TWEEFLY_CSS_COMMENT_START + cssCode + TWEEFLY_CSS_COMMENT_END + "</style>"));
                 }
 
                 doc.Save(openFileDialog1.FileName);
