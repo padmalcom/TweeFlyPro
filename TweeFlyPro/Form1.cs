@@ -537,6 +537,22 @@ namespace TweeFly
         {
             if (listView1.SelectedItems.Count == 1)
             {
+                // Update item in shops
+                int updatedItemInShop = 0;
+                for(int i=0; i<conf.shops.Count; i++)
+                {
+                    for(int j=0; j<conf.shops[i].items.Count; j++)
+                    {
+                        if ((conf.shops[i].items[j].id == int.Parse(listView1.SelectedItems[0].Text)) &&
+                            (conf.shops[i].items[j].type.Equals("ITEM")))
+                        {
+                            conf.shops[i].items[j].id = Convert.ToInt32(numericUpDown3.Value);
+                            updatedItemInShop++;
+                        }
+                    }
+                }
+
+                // Update item in item list
                 for(int i=0; i<conf.items.Count; i++)
                 {
                     if (conf.items[i].ID == int.Parse(listView1.SelectedItems[0].Text))
@@ -558,7 +574,8 @@ namespace TweeFly
 
                         updateInventory();
 
-                        MessageBox.Show("Item updated.");
+                        MessageBox.Show("Item '" + conf.items[i].name + "' updated in item list and in " + updatedItemInShop +
+                            " shop(s).");
                         return;
                     }
                 }
@@ -571,19 +588,41 @@ namespace TweeFly
         {
             foreach (ListViewItem eachItem in listView1.SelectedItems)
             {
-                for(int i=conf.items.Count-1; i>=0; i--)
+                var confirmResult = MessageBox.Show("Are you sure you want to delete the item with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
                 {
-                    if (conf.items[i].ID == int.Parse(eachItem.Text))
+                    // Delete items from shop if required
+                    int deletedItemsFromShops = 0;
+                    for (int i = 0; i < conf.shops.Count; i++)
                     {
-                        var confirmResult = MessageBox.Show("Are you sure you want to delete the item with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
-                        if (confirmResult == DialogResult.Yes)
+                        int j = 0;
+                        while (j < conf.shops[i].items.Count)
                         {
-                            conf.items.RemoveAt(i);
+                            if (conf.shops[i].items[j].id == int.Parse(eachItem.Text))
+                            {
+                                conf.shops[i].items.RemoveAt(j);
+                                j = 0;
+                                deletedItemsFromShops++;
+                            }
+                            else
+                            {
+                                j++;
+                            }
                         }
                     }
+
+                    for (int i = conf.items.Count - 1; i >= 0; i--)
+                    {
+                        if (conf.items[i].ID == int.Parse(eachItem.Text))
+                        {
+                            conf.items.RemoveAt(i);
+                            MessageBox.Show("Item '" + conf.items[i].name + "' was succesfully deleted from item list and deleted from " +
+                                deletedItemsFromShops + " shop(s).");
+                        }
+                    }
+                    updateInventory();
                 }
             }
-            updateInventory();
         }
 
         // Load selected item into item group box
@@ -1163,6 +1202,8 @@ namespace TweeFly
                     comboBox1.Items.Add(conf.clothing[i].ID);
                 }
             }
+            listView6.Items.Clear();
+            label31.Text = "Items of shop -:";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
