@@ -5057,11 +5057,23 @@ namespace TweeFly
             return "";
         }
 
+        private static HtmlNode GetTwStoryData(HtmlAgilityPack.HtmlDocument doc)
+        {
+            List<HtmlNode> storyNodes = doc.DocumentNode.Descendants("tw-storydata").ToList();
+            if (storyNodes.Count == 1)
+            {
+                return storyNodes[0];
+            } else
+            {
+                throw new Exception("Could not find 'tw-storydata' node in twine file.");
+            }
+        }
+
         private static int getNextFreeNode(HtmlAgilityPack.HtmlDocument doc)
         {
             for (int i = 0; i < 1000000; i++)
             {
-                HtmlNode passageNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@pid='" + i + "']");
+                HtmlNode passageNode = GetTwStoryData(doc).SelectSingleNode("tw-passagedata[@pid='" + i + "']");
                 if (passageNode == null)
                 {
                     return i;
@@ -5072,7 +5084,7 @@ namespace TweeFly
 
         private static HtmlAgilityPack.HtmlNode getParagraph(HtmlAgilityPack.HtmlDocument doc, string name)
         {
-            return doc.DocumentNode.SelectSingleNode("/tw-storydata/tw-passagedata[@name='" + name + "']");
+            return GetTwStoryData(doc).SelectSingleNode("tw-passagedata[@name='" + name + "']");
         }
 
         public static string generateTwine(Configuration _conf)
@@ -5087,17 +5099,21 @@ namespace TweeFly
                 HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                 doc.Load(openFileDialog1.FileName);
 
+                HtmlNode root = GetTwStoryData(doc);
+
+                if (root == null)
+                {
+                    MessageBox.Show("Twine story is invalid. Must be version 2.3.2.");
+                    return null;
+                }
+
                 // Check if SugarCube2
-                string format = doc.DocumentNode.SelectSingleNode("/tw-storydata").Attributes["format"].Value;
+                string format = GetTwStoryData(doc).Attributes["format"].Value;
                 if (string.IsNullOrEmpty(format) || !format.Equals("SugarCube"))
                 {
                     MessageBox.Show("Story format must be 'SugarCube'.");
                     return null;
                 }
-
-                HtmlNode root = doc.DocumentNode.SelectSingleNode("/tw-storydata");
-
-                // Create paragraphs
 
                 // Create start node
                 {
@@ -5430,7 +5446,7 @@ namespace TweeFly
 
 
                 // Create CSS
-                HtmlNode cssNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/style[@role='stylesheet' and @id='twine-user-stylesheet']");
+                HtmlNode cssNode = GetTwStoryData(doc).SelectSingleNode("style[@role='stylesheet' and @id='twine-user-stylesheet']");
                 string cssCode = generateCssContent(_conf);
                 if (cssNode != null)
                 {
@@ -5455,7 +5471,7 @@ namespace TweeFly
 
 
                 // Create JavaScript
-                HtmlNode scriptNode = doc.DocumentNode.SelectSingleNode("/tw-storydata/script[@role='script' and @id='twine-user-script']");
+                HtmlNode scriptNode = GetTwStoryData(doc).SelectSingleNode("script[@role='script' and @id='twine-user-script']");
                 string newInnerText = "";
                 newInnerText += generateNavigationScripts(_conf); // Navigation
                 if (_conf.inventoryActive) newInnerText += generateInventoryScripts(_conf); // Inventory
