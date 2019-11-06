@@ -127,6 +127,7 @@
     <None Include="Resources\twine1.png" />
     <None Include="Resources\twine.png" />
     <None Include="Resources\twee2.png" />
+    <None Include="Resources\CheatSheet.png" />
     <Content Include="TweeFly.ico" />
     <None Include="Resources\TweeFlyLogo1.png" />
     <None Include="Resources\TweeFlyLogo.bmp" />
