@@ -31,8 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -243,6 +248,8 @@
             this.columnHeader63 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader64 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox11 = new System.Windows.Forms.CheckBox();
@@ -363,6 +370,13 @@
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.checkBox44 = new System.Windows.Forms.CheckBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label109 = new System.Windows.Forms.Label();
+            this.numericUpDown24 = new System.Windows.Forms.NumericUpDown();
+            this.label110 = new System.Windows.Forms.Label();
+            this.numericUpDown31 = new System.Windows.Forms.NumericUpDown();
+            this.label111 = new System.Windows.Forms.Label();
             this.checkBox43 = new System.Windows.Forms.CheckBox();
             this.checkBox42 = new System.Windows.Forms.CheckBox();
             this.label108 = new System.Windows.Forms.Label();
@@ -407,24 +421,10 @@
             this.button31 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.checkBox44 = new System.Windows.Forms.CheckBox();
-            this.label97 = new System.Windows.Forms.Label();
-            this.label109 = new System.Windows.Forms.Label();
-            this.numericUpDown24 = new System.Windows.Forms.NumericUpDown();
-            this.label110 = new System.Windows.Forms.Label();
-            this.numericUpDown31 = new System.Windows.Forms.NumericUpDown();
-            this.label111 = new System.Windows.Forms.Label();
-            this.checkBox19 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button35 = new System.Windows.Forms.Button();
             this.button34 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button30 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -455,6 +455,7 @@
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
             this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabPage7.SuspendLayout();
             this.Rewards.SuspendLayout();
@@ -472,6 +473,8 @@
             this.tabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).BeginInit();
@@ -480,11 +483,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown25)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -504,6 +504,32 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Features ";
+            // 
+            // checkBox19
+            // 
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox19.Location = new System.Drawing.Point(113, 98);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(77, 17);
+            this.checkBox19.TabIndex = 7;
+            this.checkBox19.Text = "Characters";
+            this.checkBox19.UseVisualStyleBackColor = true;
+            this.checkBox19.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.checkBox19.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox12.Location = new System.Drawing.Point(113, 75);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(48, 17);
+            this.checkBox12.TabIndex = 6;
+            this.checkBox12.Text = "Jobs";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            this.checkBox12.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
             // 
             // checkBox6
             // 
@@ -526,6 +552,45 @@
             this.checkBox5.Text = "Shops";
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox4.Location = new System.Drawing.Point(6, 98);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(64, 17);
+            this.checkBox4.TabIndex = 3;
+            this.checkBox4.Text = "Daytime";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox3.Location = new System.Drawing.Point(113, 52);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(50, 17);
+            this.checkBox3.TabIndex = 2;
+            this.checkBox3.Text = "Stats";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(113, 29);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(64, 17);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Clothing";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox1
             // 
@@ -2658,6 +2723,37 @@
             this.tabPage6.Text = "Money";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown2.Enabled = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.numericUpDown2.Location = new System.Drawing.Point(124, 83);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(132, 20);
+            this.numericUpDown2.TabIndex = 4;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label11.Enabled = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.label11.Location = new System.Drawing.Point(7, 85);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 13);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Money per day:";
+            // 
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(124, 57);
@@ -3888,6 +3984,105 @@
             this.tabPage10.Text = "Configuration";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
+            // checkBox44
+            // 
+            this.checkBox44.AutoSize = true;
+            this.checkBox44.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox44.Location = new System.Drawing.Point(10, 396);
+            this.checkBox44.Name = "checkBox44";
+            this.checkBox44.Size = new System.Drawing.Size(192, 17);
+            this.checkBox44.TabIndex = 34;
+            this.checkBox44.Text = "Resize character images in dialogs:";
+            this.checkBox44.UseVisualStyleBackColor = true;
+            this.checkBox44.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.checkBox44.CheckedChanged += new System.EventHandler(this.checkBox44_CheckedChanged);
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label97.Location = new System.Drawing.Point(177, 419);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(18, 13);
+            this.label97.TabIndex = 33;
+            this.label97.Text = "px";
+            this.label97.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            // 
+            // label109
+            // 
+            this.label109.AutoSize = true;
+            this.label109.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label109.Location = new System.Drawing.Point(177, 443);
+            this.label109.Name = "label109";
+            this.label109.Size = new System.Drawing.Size(18, 13);
+            this.label109.TabIndex = 32;
+            this.label109.Text = "px";
+            this.label109.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            // 
+            // numericUpDown24
+            // 
+            this.numericUpDown24.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown24.Enabled = false;
+            this.numericUpDown24.Location = new System.Drawing.Point(98, 441);
+            this.numericUpDown24.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown24.Name = "numericUpDown24";
+            this.numericUpDown24.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown24.TabIndex = 31;
+            this.numericUpDown24.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown24.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.numericUpDown24.ValueChanged += new System.EventHandler(this.numericUpDown24_ValueChanged);
+            // 
+            // label110
+            // 
+            this.label110.AutoSize = true;
+            this.label110.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label110.Location = new System.Drawing.Point(40, 443);
+            this.label110.Name = "label110";
+            this.label110.Size = new System.Drawing.Size(41, 13);
+            this.label110.TabIndex = 30;
+            this.label110.Text = "Height:";
+            this.label110.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            // 
+            // numericUpDown31
+            // 
+            this.numericUpDown31.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown31.Enabled = false;
+            this.numericUpDown31.Location = new System.Drawing.Point(98, 417);
+            this.numericUpDown31.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDown31.Name = "numericUpDown31";
+            this.numericUpDown31.Size = new System.Drawing.Size(73, 20);
+            this.numericUpDown31.TabIndex = 29;
+            this.numericUpDown31.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDown31.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.numericUpDown31.ValueChanged += new System.EventHandler(this.numericUpDown31_ValueChanged);
+            // 
+            // label111
+            // 
+            this.label111.AutoSize = true;
+            this.label111.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label111.Location = new System.Drawing.Point(40, 419);
+            this.label111.Name = "label111";
+            this.label111.Size = new System.Drawing.Size(38, 13);
+            this.label111.TabIndex = 28;
+            this.label111.Text = "Width:";
+            this.label111.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            // 
             // checkBox43
             // 
             this.checkBox43.AutoSize = true;
@@ -4336,203 +4531,18 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Image preview";
             // 
-            // numericUpDown2
+            // pictureBox2
             // 
-            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown2.Enabled = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.numericUpDown2.Location = new System.Drawing.Point(124, 83);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(132, 20);
-            this.numericUpDown2.TabIndex = 4;
-            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label11.Enabled = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.label11.Location = new System.Drawing.Point(7, 85);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(80, 13);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Money per day:";
-            // 
-            // checkBox44
-            // 
-            this.checkBox44.AutoSize = true;
-            this.checkBox44.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox44.Location = new System.Drawing.Point(10, 396);
-            this.checkBox44.Name = "checkBox44";
-            this.checkBox44.Size = new System.Drawing.Size(192, 17);
-            this.checkBox44.TabIndex = 34;
-            this.checkBox44.Text = "Resize character images in dialogs:";
-            this.checkBox44.UseVisualStyleBackColor = true;
-            this.checkBox44.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.checkBox44.CheckedChanged += new System.EventHandler(this.checkBox44_CheckedChanged);
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label97.Location = new System.Drawing.Point(177, 419);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(18, 13);
-            this.label97.TabIndex = 33;
-            this.label97.Text = "px";
-            this.label97.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            // 
-            // label109
-            // 
-            this.label109.AutoSize = true;
-            this.label109.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label109.Location = new System.Drawing.Point(177, 443);
-            this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(18, 13);
-            this.label109.TabIndex = 32;
-            this.label109.Text = "px";
-            this.label109.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            // 
-            // numericUpDown24
-            // 
-            this.numericUpDown24.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown24.Enabled = false;
-            this.numericUpDown24.Location = new System.Drawing.Point(98, 441);
-            this.numericUpDown24.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown24.Name = "numericUpDown24";
-            this.numericUpDown24.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDown24.TabIndex = 31;
-            this.numericUpDown24.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown24.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.numericUpDown24.ValueChanged += new System.EventHandler(this.numericUpDown24_ValueChanged);
-            // 
-            // label110
-            // 
-            this.label110.AutoSize = true;
-            this.label110.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label110.Location = new System.Drawing.Point(40, 443);
-            this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(41, 13);
-            this.label110.TabIndex = 30;
-            this.label110.Text = "Height:";
-            this.label110.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            // 
-            // numericUpDown31
-            // 
-            this.numericUpDown31.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown31.Enabled = false;
-            this.numericUpDown31.Location = new System.Drawing.Point(98, 417);
-            this.numericUpDown31.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDown31.Name = "numericUpDown31";
-            this.numericUpDown31.Size = new System.Drawing.Size(73, 20);
-            this.numericUpDown31.TabIndex = 29;
-            this.numericUpDown31.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDown31.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.numericUpDown31.ValueChanged += new System.EventHandler(this.numericUpDown31_ValueChanged);
-            // 
-            // label111
-            // 
-            this.label111.AutoSize = true;
-            this.label111.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label111.Location = new System.Drawing.Point(40, 419);
-            this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(38, 13);
-            this.label111.TabIndex = 28;
-            this.label111.Text = "Width:";
-            this.label111.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            // 
-            // checkBox19
-            // 
-            this.checkBox19.AutoSize = true;
-            this.checkBox19.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox19.Location = new System.Drawing.Point(113, 98);
-            this.checkBox19.Name = "checkBox19";
-            this.checkBox19.Size = new System.Drawing.Size(77, 17);
-            this.checkBox19.TabIndex = 7;
-            this.checkBox19.Text = "Characters";
-            this.checkBox19.UseVisualStyleBackColor = true;
-            this.checkBox19.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.checkBox19.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
-            // 
-            // checkBox12
-            // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox12.Location = new System.Drawing.Point(113, 75);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(48, 17);
-            this.checkBox12.TabIndex = 6;
-            this.checkBox12.Text = "Jobs";
-            this.checkBox12.UseVisualStyleBackColor = true;
-            this.checkBox12.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox4.Location = new System.Drawing.Point(6, 98);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(64, 17);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Daytime";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox3.Location = new System.Drawing.Point(113, 52);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(50, 17);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Stats";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(113, 29);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(64, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Clothing";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.pictureBox2.Location = new System.Drawing.Point(6, 22);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(207, 163);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // button35
             // 
+            this.button35.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.button35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button35.Image = global::TweeFlyPro.Properties.Resources.CheatSheet;
             this.button35.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -4542,6 +4552,7 @@
             this.button35.TabIndex = 33;
             this.button35.Text = "Generate Cheat\r\nSheet (HTML)";
             this.button35.UseVisualStyleBackColor = true;
+            this.button35.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
             this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // button34
@@ -4556,15 +4567,6 @@
             this.button34.Text = "Generate (Twine)";
             this.button34.UseVisualStyleBackColor = true;
             this.button34.Click += new System.EventHandler(this.button34_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(6, 22);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(207, 163);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // button30
             // 
@@ -4668,6 +4670,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
@@ -4691,6 +4694,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).EndInit();
@@ -4700,11 +4705,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

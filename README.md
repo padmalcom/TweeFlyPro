@@ -14,6 +14,7 @@ A setup tool for interactive stories writte in Twee.
 - Replace skill1,2,3 edit fields from taby by localization
 - Added "say" macro to characters
 - Added "renameCharacter" macro to characters
+- Added "showInventoryLink", "hideInventoryLink", "showInventorySidebar", "hideInventorySidebar"
 
 ### TODO:
 - GUI
