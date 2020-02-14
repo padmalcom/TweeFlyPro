@@ -279,7 +279,7 @@ namespace TweeFly
                 inv += "\"description\":\"" + _conf.items[i].description + "\",";
                 inv += "\"category\":\"" + _conf.items[i].category + "\",";
                 inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                inv += "\"image\":\"" + pathSubtract(_conf.items[i].image, _conf.pathSubtract) + "\",";
+                inv += "\"image\":\"" + pathSubtractAndEscape(_conf.items[i].image, _conf.pathSubtract) + "\",";
                 inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                 inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                 inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -329,7 +329,7 @@ namespace TweeFly
                     inv += "\"description\":\"" + _conf.items[i].description + "\",";
                     inv += "\"category\":\"" + _conf.items[i].category + "\",";
                     inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                    inv += "\"image\":\"" + pathSubtract(_conf.items[i].image, _conf.pathSubtract) + "\",";
+                    inv += "\"image\":\"" + pathSubtractAndEscape(_conf.items[i].image, _conf.pathSubtract) + "\",";
                     inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                     inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                     inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -676,8 +676,8 @@ namespace TweeFly
                 cloth += "\"canBuy\":" + _conf.clothing[i].canBeBought.ToString().ToLower() + ",";
                 cloth += "\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",";
                 cloth += "\"category\":\"" + _conf.clothing[i].category + "\",";
-                cloth += "\"bodyPart\":" + _conf.clothing[i].bodyPart + ",";
-                cloth += "\"image\":\"" + pathSubtract(_conf.clothing[i].image, _conf.pathSubtract) + "\",";
+                cloth += "\"bodyPart\":\"" + _conf.clothing[i].bodyPart + "\",";
+                cloth += "\"image\":\"" + pathSubtractAndEscape(_conf.clothing[i].image, _conf.pathSubtract) + "\",";
                 cloth += "\"buyPrice\":" + _conf.clothing[i].buyPrice + ",";
                 cloth += "\"sellPrice\":" + _conf.clothing[i].sellPrice + ",";
                 cloth += "\"isWorn\":" + _conf.clothing[i].isWornAtBeginning.ToString().ToLower() + ",";
@@ -1298,7 +1298,7 @@ namespace TweeFly
             try
             {
                 twClothing = new StreamWriter(clothingPath, false, new UTF8Encoding(false));
-                twClothing.WriteLine("::Captions[script]");
+                twClothing.WriteLine("::Clothing[script]");
                 twClothing.WriteLine("");
                 twClothing.WriteLine(generateClothingScripts(_conf));
             }
@@ -1326,7 +1326,7 @@ namespace TweeFly
                 stats += "\"name\":\"" + _conf.stats[i].name + "\",";
                 stats += "\"value\":" + _conf.stats[i].value + ",";
                 stats += "\"description\":\"" + _conf.stats[i].description + "\",";
-                stats += "\"image\":\"" + pathSubtract(_conf.stats[i].image, _conf.pathSubtract) + "\"});";
+                stats += "\"image\":\"" + pathSubtractAndEscape(_conf.stats[i].image, _conf.pathSubtract) + "\"});";
             }
             stats += "\t}\n";
             stats += "};\n";
@@ -2170,7 +2170,7 @@ namespace TweeFly
                 jobs +="\"cooldown\":" + _conf.jobs[i].cooldown + ",";
                 jobs +="\"lastStart\":new Date(0, 0, 0, 0, 0, 0),";
                 jobs +="\"duration\":" + _conf.jobs[i].duration + ",";
-                jobs +="\"image\":\"" + pathSubtract(_conf.jobs[i].image, _conf.pathSubtract) + "\",";
+                jobs +="\"image\":\"" + pathSubtractAndEscape(_conf.jobs[i].image, _conf.pathSubtract) + "\",";
                 jobs +="\"rewardItems\":[\n";
                 for (int j = 0; j < _conf.jobs[i].rewardItems.Count; j++)
                 {
@@ -2396,7 +2396,7 @@ namespace TweeFly
                 characters +="\"relation\":" + _conf.characters[i].relation + ",";
                 characters +="\"known\":" + _conf.characters[i].known.ToString().ToLower() + ",";
                 characters +="\"color\":\"" + _conf.characters[i].color + "\",";
-                characters +="\"image\":\"" + pathSubtract(_conf.characters[i].image, _conf.pathSubtract) + "\"";
+                characters +="\"image\":\"" + pathSubtractAndEscape(_conf.characters[i].image, _conf.pathSubtract) + "\"";
                 if (_conf.characterUseSkill1)
                 {
                     string skill1val = (isBool(_conf.characters[i].skill1) || isNumber(_conf.characters[i].skill1)) ? _conf.characters[i].skill1 : "\"" + _conf.characters[i].skill1 + "\"";
@@ -3263,10 +3263,11 @@ namespace TweeFly
             return null;
         }
 
-        private static string pathSubtract(string _s, string _subtract)
+        private static string pathSubtractAndEscape(string _s, string _subtract)
         {
             int index = _s.IndexOf(_subtract);
-            return (index < 0) ? _s : _s.Remove(index, _subtract.Length);
+            string res = (index < 0) ? _s : _s.Remove(index, _subtract.Length);
+            return res.Replace("\\", "/");
         }
     }
 }

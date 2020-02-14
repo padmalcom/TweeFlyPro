@@ -14,7 +14,9 @@ A setup tool for interactive stories writte in Twee.
 - Replace skill1,2,3 edit fields from taby by localization
 - Added "say" macro to characters
 - Added "renameCharacter" macro to characters
-- Added "showInventoryLink", "hideInventoryLink", "showInventorySidebar", "hideInventorySidebar"
+
+### Release notes:
+	- Removed file path escape bugs
 
 ### TODO:
 - GUI
@@ -28,6 +30,7 @@ A setup tool for interactive stories writte in Twee.
 	- Place image first, in each table.
 	- Activate/Deactivate menus and links in sidebar (e.g. to inventory)
 	- Add "created with tweefly" to free edition projects.
+	- Add change relation to player for characters
 
 - Example project
 	- Add "_" to all variables used by the scripts
