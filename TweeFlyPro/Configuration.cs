@@ -189,13 +189,13 @@ namespace TweeFly
                     captions.Add(new CaptionPair("HEAD_CAP", "head"));
                     captions.Add(new CaptionPair("HAIR_CAP", "hair"));
                     captions.Add(new CaptionPair("NECK_CAP", "neck"));
-                    captions.Add(new CaptionPair("UPPER_BODY_CAP", "upper body"));
-                    captions.Add(new CaptionPair("LOWER_BODY_CAP", "lower body"));
+                    captions.Add(new CaptionPair("UPPER_BODY_CAP", "upperbody"));
+                    captions.Add(new CaptionPair("LOWER_BODY_CAP", "lowerbody"));
                     captions.Add(new CaptionPair("BELT_CAP", "belt"));
                     captions.Add(new CaptionPair("SOCKS_CAP", "socks"));
                     captions.Add(new CaptionPair("SHOES_CAP", "shoes"));
-                    captions.Add(new CaptionPair("UNDERWEAR_TOP_CAP", "underwear (top)"));
-                    captions.Add(new CaptionPair("UNDERWEAR_BOTTOM_CAP", "underwear (bottom)"));
+                    captions.Add(new CaptionPair("UNDERWEAR_TOP_CAP", "underweartop"));
+                    captions.Add(new CaptionPair("UNDERWEAR_BOTTOM_CAP", "underwearbottom"));
                 }
 
                 {

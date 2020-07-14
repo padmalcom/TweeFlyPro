@@ -795,361 +795,361 @@ namespace TweeFly
             // head
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '': state.active.variables.wearing[HEAD_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HEAD_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HEAD_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"':state.active.variables.wearing[HEAD_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // hair
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '':state.active.variables.wearing[HAIR_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[HAIR_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[HAIR_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HAIR_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // neck
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '':state.active.variables.wearing[NECK_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[NECK_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[NECK_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[NECK_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // upper body
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UPPER_BODY_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // lower body
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[LOWER_BODY_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // belt
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[BELT_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[BELT_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[BELT_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // socks
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SOCKS_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SOCKS_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // shoes
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[SHOES_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[SHOES_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SHOES_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // underwear bottom
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+ ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // underwear top
             cloth +="\t\ts +=\"<tr>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].ID + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].name + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].name) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Description"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].description + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].description) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].category + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].category) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Shop category"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].shopCategory + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].shopCategory) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Body part"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].bodyPart + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].bodyPart) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Owned"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].owned + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].owned) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Is worn"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].isWorn + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].isWorn) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can buy"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].canBuy + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].canBuy) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Buy price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].buyPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].buyPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Sell price"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].sellPrice + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].sellPrice) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Can own multiple"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].canOwnMultiple + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill2 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill2) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill3 + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill3) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
-                cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             cloth +="\t\ts +=\"</table>\";\n";
@@ -1165,16 +1165,16 @@ namespace TweeFly
             cloth +="\tnew Wikifier(place,\n";
             cloth +="\t\t\"<table class=\\\"clothing_sidebar\\\">\"+\n";
             cloth +="\t\t\"<tr><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '': state.active.variables.wearing[HEAD_NAME].image+\"></td>\" +\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '' : state.active.variables.wearing[HAIR_NAME].image+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '' : state.active.variables.wearing[NECK_NAME].image+\"></td>\" +\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '' : state.active.variables.wearing[UPPER_BODY_NAME].image+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '' : state.active.variables.wearing[LOWER_BODY_NAME].image+\"></td>\" +\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '' : state.active.variables.wearing[BELT_NAME].image+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '' : state.active.variables.wearing[SOCKS_NAME].image+\"></td>\"+\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '' : state.active.variables.wearing[SHOES_NAME].image+\"></td></tr>\"+\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '' : state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image+\"></td>\"+\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+(typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '' : state.active.variables.wearing[UNDERWEAR_TOP_NAME].image+\"></td></tr>\"+\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HEAD_NAME].image)+\"></td>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[HAIR_NAME].image)+\"></td></tr>\" +\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[NECK_NAME].image)+\"></td>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td></tr>\" +\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[BELT_NAME].image)+\"></td></tr>\" +\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\"+\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[SHOES_NAME].image)+\"></td></tr>\"+\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\"+\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td></tr>\"+\n";
             cloth += "\t\t\"</table>\");\n";
             cloth +="\t}\n";
             cloth +="};\n";

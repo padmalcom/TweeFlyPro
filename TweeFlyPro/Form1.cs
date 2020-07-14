@@ -1641,6 +1641,7 @@ namespace TweeFly
                         var serializer = new XmlSerializer(typeof(Configuration));
                         reader = new StreamReader(openFileDialog1.FileName);
                         conf = (Configuration)serializer.Deserialize(reader);
+
                         fileName = openFileDialog1.FileName;
                         this.Text = Form1.APP_TITLE + " - " + fileName;
                         // Update comboboxes
