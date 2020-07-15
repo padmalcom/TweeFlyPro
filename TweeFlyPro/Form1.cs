@@ -2002,7 +2002,7 @@ namespace TweeFly
             }
             else
             {
-                MessageBox.Show("Please select a shop to update its items.");
+                MessageBox.Show("Please select a job to update its items.");
             }
         }
 
