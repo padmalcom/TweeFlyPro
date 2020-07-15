@@ -1723,7 +1723,7 @@ namespace TweeFly
             daytime +="\n";
             daytime +="\t\tvar days = params[0];\n";
             daytime +="\n";
-            daytime +="\t\tstate.active.variables.time.setDays(state.active.variables.time.setDays() + 30);\n";
+            daytime += "\t\tstate.active.variables.time.setTime(state.active.variables.time.getTime() + (days*24*60*60*1000));\n";
             daytime +="\t}\n";
             daytime +="};\n";
             return daytime;
