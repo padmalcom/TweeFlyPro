@@ -2121,6 +2121,20 @@ namespace TweeFly
             money += "};\n";
             money += "\n";
 
+            // addMoney
+            money += "macros.addMoney = {\n";
+            money += "\thandler: function(place, macroName, params, parser) {\n";
+            money += "\t\tif (params.length < 1) {\n";
+            money += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: addMoney expects one parameter.\");\n";
+            money += "\t\t\treturn;\n";
+            money += "\t\t}\n";
+            money += "\t\tif (state.active.variables.money != undefined)\n";
+            money += "\t\t{\n";
+            money += "\t\t\t\tstate.active.variables.money += params[0];\n";
+            money += "\t\t}\n";
+            money += "\t}\n";
+            money += "};\n";
+
             // printMoney
             money += "macros.printMoney = {\n";
             money += "\thandler: function(place, macroName, params, parser) {\n";
