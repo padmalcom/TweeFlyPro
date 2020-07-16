@@ -139,7 +139,7 @@ namespace TweeFly
                     case 0: menu += "<<getTime>>\n"; break;
                     case 1: menu += "<<getDate>>\n"; break;
                     case 2: menu += "<<getDateTime>>\n"; break;
-                    case 3: menu += "<<getTimeOfDay>>\n"; break;
+                    case 3: menu += "Day <<getDaysPassed>>, <<getTimeOfDay>>\n"; break;
                 }
             }
             menu += "\n";
@@ -1530,13 +1530,28 @@ namespace TweeFly
             daytime +="\t\tif (state.active.variables.time === undefined) {\n";
             daytime +="\t\t\tstate.active.variables.time = new Date(" + _conf.startDate.Year + "," + _conf.startDate.Month + "," +
                 _conf.startDate.Day + "," + _conf.startDate.Hour + "," + _conf.startDate.Minute + "," + _conf.startDate.Second + ");\n";
+            daytime += "\t\t\tstate.active.variables.startTime = new Date(" + _conf.startDate.Year + "," + _conf.startDate.Month + "," +
+                _conf.startDate.Day + "," + _conf.startDate.Hour + "," + _conf.startDate.Minute + "," + _conf.startDate.Second + ");\n";
             daytime +="\t\t}\n";
             daytime +="\t}\n";
             daytime +="};\n";
             daytime +="\n";
 
+            // getDaysPassed
+            daytime += "macros.getDaysPassed = {\n";
+            daytime += "\thandler: function (place, macroName, params, parser) {\n";
+            daytime += "\t\tif (state.active.variables.time === undefined) {\n";
+            daytime += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: Please call initDaytime first.\");\n";
+            daytime += "\t\t\treturn;\n";
+            daytime += "\t\t}\n";
+            daytime += "\n";
+            daytime += "\t\tnew Wikifier(place, (\"\" + (Math.floor(((state.active.variables.time - state.active.variables.startTime) / (24 * 60 * 60 * 1000)))+1)));\n";
+            daytime += "\t}\n";
+            daytime += "};\n";
+            daytime += "\n";
+
             // getTime
-            daytime +="macros.getTime = {\n";
+            daytime += "macros.getTime = {\n";
             daytime +="\thandler: function (place, macroName, params, parser) {\n";
             daytime +="\n";
             daytime +="\t\tif (state.active.variables.time === undefined) {\n";
