@@ -2366,7 +2366,7 @@ namespace TweeFly
             if (_conf.displayInJobsView.Contains("Image")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><img class=\\\"paragraph\\\" src=\\\"\" + job_by_id[0].image + \"\\\"></td>\";\n";
             jobs +="\n";
             jobs +="\t\t\t\tif ((minutes_diff >= job_by_id[0].cooldown) && (job_by_id[0].available)) {\n";
-            jobs +="\t\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><a onClick=\\\"doJob('\"+escape(JSON.stringify(job_by_id[0]))+\"');\\\" href=\\\"javascript:void(0);\\\">Start</a></td>\";\n";
+            jobs += "\t\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><a onClick=\\\"doJob('\"+escape(JSON.stringify(job_by_id[0]))+\"');\\\" href=\\\"javascript:void(0);\\\">\" + job_by_id[0].name + \" (\" + job_by_id[0].duration + \" minutes)</a></td>\";\n";
             jobs +="\t\t\t\t} else {\n";
             jobs +="\t\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">Not ready</td>\";\n";
             jobs +="\t\t\t\t}\n";
