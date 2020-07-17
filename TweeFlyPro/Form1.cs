@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -1901,6 +1902,13 @@ namespace TweeFly
                 {
                     comboBox1.Items.Add(conf.items[i].ID);
                 }
+            } else if (tabControl1.SelectedTab.Text == "Configuration")
+            {
+                listBox1.Items.Clear();
+                for(int i=0; i<conf.includedFiles.Count; i++)
+                {
+                    listBox1.Items.Add(conf.includedFiles[i]);
+                }
             }
         }
 
@@ -2865,6 +2873,36 @@ namespace TweeFly
         private void button35_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void button36_Click(object sender, EventArgs e)
+        {
+            string newEntry = Interaction.InputBox("Enter a file name");
+            if (!newEntry.Trim().Equals(""))
+            {
+                if (!listBox1.Items.Contains(newEntry))
+                {
+                    listBox1.Items.Add(newEntry);
+                    conf.includedFiles.Clear();
+                    for(int i=0; i<listBox1.Items.Count; i++)
+                    {
+                        conf.includedFiles.Add(listBox1.Items[i].ToString());
+                    }
+                }
+            }
+        }
+
+        private void button37_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItems.Count > 0)
+            {
+                listBox1.Items.Remove(listBox1.SelectedItem);
+            }
+            conf.includedFiles.Clear();
+            for (int i = 0; i < listBox1.Items.Count; i++)
+            {
+                conf.includedFiles.Add(listBox1.Items[i].ToString());
+            }
         }
     }
 }

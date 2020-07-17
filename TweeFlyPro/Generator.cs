@@ -74,6 +74,10 @@ namespace TweeFly
                 {
                     twMain.WriteLine(Path.GetFileName(_mainFile));
                 }
+                for(int i=0; i<_conf.includedFiles.Count; i++)
+                {
+                    twMain.WriteLine(_conf.includedFiles[i]);
+                }
                 twMain.WriteLine("");
 
                 // Story init

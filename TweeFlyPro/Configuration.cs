@@ -24,6 +24,8 @@ namespace TweeFly
         public string pathSubtract { get; set; } = "";
         public string storyName { get; set; } = "story";
 
+        public List<string> includedFiles = new List<string>();
+
         // Story options
         public bool navigationArrows { get; set; } = false;
         public bool debugMode { get; set; } = false;

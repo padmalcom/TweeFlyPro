@@ -370,6 +370,10 @@
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
+            this.label95 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.checkBox44 = new System.Windows.Forms.CheckBox();
             this.label97 = new System.Windows.Forms.Label();
             this.label109 = new System.Windows.Forms.Label();
@@ -3948,6 +3952,10 @@
             // 
             // tabPage10
             // 
+            this.tabPage10.Controls.Add(this.button37);
+            this.tabPage10.Controls.Add(this.button36);
+            this.tabPage10.Controls.Add(this.label95);
+            this.tabPage10.Controls.Add(this.listBox1);
             this.tabPage10.Controls.Add(this.checkBox44);
             this.tabPage10.Controls.Add(this.label97);
             this.tabPage10.Controls.Add(this.label109);
@@ -3983,6 +3991,43 @@
             this.tabPage10.TabIndex = 9;
             this.tabPage10.Text = "Configuration";
             this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(80, 619);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(60, 23);
+            this.button37.TabIndex = 38;
+            this.button37.Text = "Remove";
+            this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(142, 619);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(60, 23);
+            this.button36.TabIndex = 37;
+            this.button36.Text = "Add";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(7, 498);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(80, 13);
+            this.label95.TabIndex = 36;
+            this.label95.Text = "Files to include:";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(10, 518);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(192, 95);
+            this.listBox1.TabIndex = 35;
             // 
             // checkBox44
             // 
@@ -5113,6 +5158,10 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Button button36;
     }
 }
 
