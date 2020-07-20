@@ -713,8 +713,9 @@ namespace TweeFly
             cloth +="window.is_worn = function(_id) {\n";
 
             cloth +="\tfor (var w in state.active.variables.wearing) {\n";
-
+            cloth += "\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
             cloth +="\t\tif (state.active.variables.wearing[w].ID == _id) return true;\n";
+            cloth += "\t}\n";
             cloth +="\t}\n";
             cloth +="\treturn false;\n";
             cloth +="};\n";
@@ -1192,6 +1193,24 @@ namespace TweeFly
             cloth +="};\n";
             cloth +="\n";
 
+            // undress
+            cloth += "window.undress = function(_clothing) {\n";
+            cloth += "\tvar cloth_obj = JSON.parse(unescape(_clothing));\n";
+            cloth += "\tstate.active.variables.wearing[cloth_obj.bodyPart] = undefined;\n";
+            cloth += "\tstate.display(state.active.title, null, \"back\");\n";
+            cloth += "};\n";
+            cloth += "\n";
+
+            // isNaked
+            cloth += "window.is_naked = function() {\n";
+            cloth += "\t\tif (((state.active.variables.wearing[UNDERWEAR_TOP_NAME] !== undefined) ||";
+            cloth += "\t\t(state.active.variables.wearing[LOWER_BODY_NAME] !== undefined)) &&";
+            cloth += "\t\t((state.active.variables.wearing[UPPER_BODY_NAME] !== undefined) ||";
+            cloth += "\t\t(state.active.variables.wearing[UNDERWEAR_TOP_NAME] !== undefined))) return false;\n";
+            cloth += "\treturn true;\n";
+            cloth += "};\n";
+            cloth += "\n";
+
             // wardrobe
             cloth +="macros.wardrobe = {\n";
             cloth +="\thandler: function(place, macroName, params, parser) {\n";
@@ -1238,7 +1257,7 @@ namespace TweeFly
             cloth +="\t\t\tif (((typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] !== \"undefined\") && (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID)) || (typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] === \"undefined\")) {\n";
             cloth +="\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_WEAR_CAP")).caption + "</a></td></tr>\";\n";
             cloth +="\t\t\t} else {\n";
-            cloth +="\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_IS_WORN_CAP")).caption + "</td></tr>\";\n";
+            cloth +="\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_IS_WORN_CAP")).caption + "<a onClick=\\\"undress('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_UNDRESS_CAP")).caption + "</a></td></tr>\";\n";
             cloth +="\t\t\t}\n";
             cloth +="\t\t}\n";
             cloth +="\twstr +=\"</table>\";\n";

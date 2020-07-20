@@ -183,6 +183,7 @@ namespace TweeFly
                     captions.Add(new CaptionPair("CLOTHING_COL_SKILL3_CAP", "skill3"));
                     captions.Add(new CaptionPair("CLOTHING_COL_IMAGE_CAP", "image"));
                     captions.Add(new CaptionPair("CLOTHING_WEAR_CAP", "wear"));
+                    captions.Add(new CaptionPair("CLOTHING_UNDRESS_CAP", "undress"));
                     captions.Add(new CaptionPair("CLOTHING_IS_WORN_CAP", "This is worn."));
 
                     // Bodyparts
