@@ -164,6 +164,10 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.checkBox23 = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.label114 = new System.Windows.Forms.Label();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.label113 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
@@ -187,6 +191,8 @@
             this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader62 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader72 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader73 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label28 = new System.Windows.Forms.Label();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -432,12 +438,6 @@
             this.button30 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.columnHeader72 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label113 = new System.Windows.Forms.Label();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
-            this.label114 = new System.Windows.Forms.Label();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.columnHeader73 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1899,6 +1899,51 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Stats";
             // 
+            // comboBox8
+            // 
+            this.comboBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox8.FormattingEnabled = true;
+            this.comboBox8.Items.AddRange(new object[] {
+            "None",
+            "Clothing 1",
+            "Clothing 2",
+            "Clothing 3"});
+            this.comboBox8.Location = new System.Drawing.Point(719, 50);
+            this.comboBox8.Name = "comboBox8";
+            this.comboBox8.Size = new System.Drawing.Size(112, 21);
+            this.comboBox8.TabIndex = 23;
+            this.comboBox8.Text = "None";
+            // 
+            // label114
+            // 
+            this.label114.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label114.AutoSize = true;
+            this.label114.Location = new System.Drawing.Point(673, 54);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(38, 13);
+            this.label114.TabIndex = 22;
+            this.label114.Text = "Is skill:";
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Location = new System.Drawing.Point(719, 29);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(15, 14);
+            this.checkBox24.TabIndex = 21;
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // label113
+            // 
+            this.label113.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label113.AutoSize = true;
+            this.label113.Location = new System.Drawing.Point(673, 29);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(40, 13);
+            this.label113.TabIndex = 20;
+            this.label113.Text = "Visible:";
+            // 
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -2091,6 +2136,14 @@
             // columnHeader62
             // 
             this.columnHeader62.Text = "Description";
+            // 
+            // columnHeader72
+            // 
+            this.columnHeader72.Text = "Visible";
+            // 
+            // columnHeader73
+            // 
+            this.columnHeader73.Text = "Is skill";
             // 
             // label28
             // 
@@ -4661,62 +4714,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
-            // 
-            // columnHeader72
-            // 
-            this.columnHeader72.Text = "Visible";
-            // 
-            // label113
-            // 
-            this.label113.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(673, 29);
-            this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(40, 13);
-            this.label113.TabIndex = 20;
-            this.label113.Text = "Visible:";
-            // 
-            // checkBox24
-            // 
-            this.checkBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(719, 29);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(15, 14);
-            this.checkBox24.TabIndex = 21;
-            this.checkBox24.UseVisualStyleBackColor = true;
-            // 
-            // label114
-            // 
-            this.label114.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(673, 54);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(38, 13);
-            this.label114.TabIndex = 22;
-            this.label114.Text = "Is skill:";
-            // 
-            // comboBox8
-            // 
-            this.comboBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Items.AddRange(new object[] {
-            "None",
-            "Clothing 1",
-            "Clothing 2",
-            "Clothing 3",
-            "Items 1",
-            "Items 2",
-            "Items 3"});
-            this.comboBox8.Location = new System.Drawing.Point(719, 50);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(112, 21);
-            this.comboBox8.TabIndex = 23;
-            this.comboBox8.Text = "None";
-            // 
-            // columnHeader73
-            // 
-            this.columnHeader73.Text = "Is skill";
             // 
             // Form1
             // 

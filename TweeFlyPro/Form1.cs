@@ -221,6 +221,8 @@ namespace TweeFly
                     item.SubItems.Add(_conf.stats[i].unit);
                     item.SubItems.Add(_conf.stats[i].image);
                     item.SubItems.Add(_conf.stats[i].description);
+                    item.SubItems.Add(_conf.stats[i].visible.ToString());
+                    item.SubItems.Add(_conf.stats[i].isSkill);
                     listView5.Items.Add(item);
                 }
 
