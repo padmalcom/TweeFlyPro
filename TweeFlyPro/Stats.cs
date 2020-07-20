@@ -16,7 +16,11 @@ namespace TweeFly
         public string unit { get; set; } = "";
         public string image { get; set; } = "";
 
-        public Stats(int iD, string name, string description, string value, string unit, string image)
+        public bool visible { get; set; } = true;
+
+        public string isSkill { get; set; } = "None";
+
+        public Stats(int iD, string name, string description, string value, string unit, string image, bool visible, string isSkill)
         {
             ID = iD;
             this.name = name;
@@ -24,6 +28,8 @@ namespace TweeFly
             this.value = value;
             this.unit = unit;
             this.image = image;
+            this.visible = visible;
+            this.isSkill = isSkill;
         }
 
         public Stats() { }

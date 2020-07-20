@@ -1330,9 +1330,11 @@ namespace TweeFly
                 stats += "\"name\":\"" + _conf.stats[i].name + "\",";
                 stats += "\"value\":" + _conf.stats[i].value + ",";
                 stats += "\"description\":\"" + _conf.stats[i].description + "\",";
-                stats += "\"image\":\"" + pathSubtractAndEscape(_conf.stats[i].image, _conf.pathSubtract) + "\"});";
+                stats += "\"image\":\"" + pathSubtractAndEscape(_conf.stats[i].image, _conf.pathSubtract) + "\",";
+                stats += "\"isskill\":\"" + _conf.stats[i].isSkill + "\",";
+                stats += "\"visible\":" + _conf.stats[i].visible.ToString().ToLower() + "});";
             }
-            stats += "\t}\n";
+            stats += "\n\t}\n";
             stats += "};\n";
             stats += "\n";
 
@@ -1389,6 +1391,24 @@ namespace TweeFly
             stats += "};\n";
             stats += "\n";
 
+            // setStatsVisible
+            stats += "macros.setStatsVisible = {\n";
+            stats += "\thandler: function(place, macroName, params, parser) {\n";
+            stats += "\t\tif (params.length != 2) {\n";
+            stats += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters, stat id and boolean.\");\n";
+            stats += "\t\t\treturn;\n";
+            stats += "\t\t}\n";
+            stats += "\t\tfor (var i in state.active.variables.stats)\n";
+            stats += "\t\t{\n";
+            stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
+            stats += "\t\t\t\tstate.active.variables.stats[i].visible = Boolean(params[1]);\n";
+            stats += "\t\t\t\tbreak;\n";
+            stats += "\t\t\t}\n";
+            stats += "\t\t}\n";
+            stats += "\t}\n";
+            stats += "};\n";
+            stats += "\n";
+
             // stats
             stats += "macros.stats = {\n";
             stats += "\thandler: function(place, macroName, params, parser) {\n";
@@ -1407,13 +1427,15 @@ namespace TweeFly
             stats += "\t\t\tstats_str += \"</tr>\";\n";
             stats += "\t\t\tfor (var i = 0; i < state.active.variables.stats.length; i++)\n";
             stats += "\t\t\t{\n";
-            stats += "\t\t\t\tstats_str += \"<tr>\";\n";
-            stats += "\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].ID + \"</td>\";\n";
-            stats += "\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].name + \"</td>\";\n";
-            stats += "\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].value + \"</td>\";\n";
-            stats += "\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].description + \"</td>\";\n";
-            stats += "\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";\n";
-            stats += "\t\t\t\tstats_str += \"</tr>\";\n";
+            stats += "\t\t\t\tif (state.active.variables.stats[i].visible == true) {\n";
+            stats += "\t\t\t\t\tstats_str += \"<tr>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].ID + \"</td>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].name + \"</td>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].value + \"</td>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].description + \"</td>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"</tr>\";\n";
+            stats += "\t\t\t\t}\n";
             stats += "\t\t\t}\n";
             stats += "\t\t\tstats_str += \"</table>\";\n";
             stats += "\t\t\tnew Wikifier(place, stats_str);\n";
@@ -1432,8 +1454,10 @@ namespace TweeFly
             stats += "\t\t\tvar stats_str = \"<table class=\\\"stats_sidebar\\\">\";\n";
             stats += "\t\t\tfor (var i = 0; i < state.active.variables.stats.length; i++)\n";
             stats += "\t\t\t{\n";
-            stats += "\t\t\t\tstats_str += \"<tr><td class=\\\"stats_sidebar\\\">\" + state.active.variables.stats[i].name + \"</td>\" +\n";
-            stats += "\t\t\t\t\"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].value + \"</td></tr>\";\n";
+            stats += "\t\t\t\tif (state.active.variables.stats[i].visible == true) {\n";
+            stats += "\t\t\t\t\tstats_str += \"<tr><td class=\\\"stats_sidebar\\\">\" + state.active.variables.stats[i].name + \"</td>\" +\n";
+            stats += "\t\t\t\t\t\"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].value + \"</td></tr>\";\n";
+            stats += "\t\t\t\t}\n";
             stats += "\t\t\t}\n";
             stats += "\t\t\tstats_str += \"</table>\";\n";
             stats += "\t\t\tnew Wikifier(place, stats_str);\n";

@@ -839,6 +839,8 @@ namespace TweeFly
                 stat.value = textBox16.Text;
                 stat.unit = textBox19.Text;
                 stat.image = textBox9.Text;
+                stat.visible = checkBox24.Checked;
+                stat.isSkill = comboBox8.Text;
 
                 conf.stats.Add(stat);
 
@@ -862,6 +864,8 @@ namespace TweeFly
                 updateItem.SubItems.Add(conf.stats[i].unit);
                 updateItem.SubItems.Add(conf.stats[i].image);
                 updateItem.SubItems.Add(conf.stats[i].description);
+                updateItem.SubItems.Add(conf.stats[i].visible.ToString());
+                updateItem.SubItems.Add(conf.stats[i].isSkill);
                 listView5.Items.Add(updateItem);
             }
         }
@@ -881,6 +885,8 @@ namespace TweeFly
                         conf.stats[i].value = textBox16.Text;
                         conf.stats[i].unit = textBox19.Text;
                         conf.stats[i].image = textBox9.Text;
+                        conf.stats[i].visible = checkBox24.Checked;
+                        conf.stats[i].isSkill = comboBox8.Text;
 
                         updateStats();
 
@@ -923,6 +929,8 @@ namespace TweeFly
                 textBox19.Text = listView5.SelectedItems[0].SubItems[3].Text;
                 textBox9.Text = listView5.SelectedItems[0].SubItems[4].Text;
                 textBox4.Text = listView5.SelectedItems[0].SubItems[5].Text;
+                checkBox24.Checked = listView5.SelectedItems[0].SubItems[6].Text.Equals("true");
+                comboBox8.Text = listView5.SelectedItems[0].SubItems[7].Text;
 
                 string absPath = textBox9.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
@@ -2517,8 +2525,8 @@ namespace TweeFly
             // Stats
             conf.statsInSidebar = true;
             conf.statsLinkInSidebar = true;
-            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", APP_DIR + "data/img/strength.jpg"));
-            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", APP_DIR + "data/img/intelligence.jpg"));
+            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", APP_DIR + "data/img/strength.jpg", true, "None"));
+            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", APP_DIR + "data/img/intelligence.jpg", true, "None"));
 
             // Daytime
             conf.daytimeFormat = 0;

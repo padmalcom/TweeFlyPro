@@ -432,6 +432,12 @@
             this.button30 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.columnHeader72 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label113 = new System.Windows.Forms.Label();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.label114 = new System.Windows.Forms.Label();
+            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.columnHeader73 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1869,6 +1875,10 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.comboBox8);
+            this.groupBox5.Controls.Add(this.label114);
+            this.groupBox5.Controls.Add(this.checkBox24);
+            this.groupBox5.Controls.Add(this.label113);
             this.groupBox5.Controls.Add(this.textBox4);
             this.groupBox5.Controls.Add(this.label64);
             this.groupBox5.Controls.Add(this.button6);
@@ -1895,7 +1905,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.Location = new System.Drawing.Point(385, 50);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(446, 20);
+            this.textBox4.Size = new System.Drawing.Size(270, 20);
             this.textBox4.TabIndex = 19;
             // 
             // label64
@@ -1910,7 +1920,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(803, 27);
+            this.button6.Location = new System.Drawing.Point(627, 24);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(28, 23);
             this.button6.TabIndex = 17;
@@ -1924,7 +1934,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox9.Location = new System.Drawing.Point(385, 24);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(412, 20);
+            this.textBox9.Size = new System.Drawing.Size(236, 20);
             this.textBox9.TabIndex = 12;
             this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
@@ -2045,7 +2055,9 @@
             this.columnHeader31,
             this.columnHeader32,
             this.columnHeader35,
-            this.columnHeader62});
+            this.columnHeader62,
+            this.columnHeader72,
+            this.columnHeader73});
             this.listView5.FullRowSelect = true;
             this.listView5.HideSelection = false;
             this.listView5.Location = new System.Drawing.Point(6, 82);
@@ -4650,6 +4662,62 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // columnHeader72
+            // 
+            this.columnHeader72.Text = "Visible";
+            // 
+            // label113
+            // 
+            this.label113.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label113.AutoSize = true;
+            this.label113.Location = new System.Drawing.Point(673, 29);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(40, 13);
+            this.label113.TabIndex = 20;
+            this.label113.Text = "Visible:";
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Location = new System.Drawing.Point(719, 29);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(15, 14);
+            this.checkBox24.TabIndex = 21;
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // label114
+            // 
+            this.label114.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label114.AutoSize = true;
+            this.label114.Location = new System.Drawing.Point(673, 54);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(38, 13);
+            this.label114.TabIndex = 22;
+            this.label114.Text = "Is skill:";
+            // 
+            // comboBox8
+            // 
+            this.comboBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox8.FormattingEnabled = true;
+            this.comboBox8.Items.AddRange(new object[] {
+            "None",
+            "Clothing 1",
+            "Clothing 2",
+            "Clothing 3",
+            "Items 1",
+            "Items 2",
+            "Items 3"});
+            this.comboBox8.Location = new System.Drawing.Point(719, 50);
+            this.comboBox8.Name = "comboBox8";
+            this.comboBox8.Size = new System.Drawing.Size(112, 21);
+            this.comboBox8.TabIndex = 23;
+            this.comboBox8.Text = "None";
+            // 
+            // columnHeader73
+            // 
+            this.columnHeader73.Text = "Is skill";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5162,6 +5230,12 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button37;
         private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.ColumnHeader columnHeader72;
+        private System.Windows.Forms.CheckBox checkBox24;
+        private System.Windows.Forms.Label label113;
+        private System.Windows.Forms.Label label114;
+        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.ColumnHeader columnHeader73;
     }
 }
 
