@@ -38,6 +38,24 @@ namespace TweeFly
             return res;
         }
 
+        private static string bodyPartMapper(string s)
+        {
+            switch(s)
+            {
+                case "head": return "HEAD_NAME";
+                case "hair": return "HAIR_NAME";
+                case "neck": return "NECK_NAME";
+                case "upperbody": return "UPPER_BODY_NAME";
+                case "lowerbody": return "LOWER_BODY_NAME";
+                case "belt": return "BELT_NAME";
+                case "socks": return "SOCKS_NAME";
+                case "shoes": return "SHOES_NAME";
+                case "underweartop": return "UNDERWEAR_TOP_NAME";
+                case "underwearbottom": return "UNDERWEAR_BOTTOM_NAME";
+            }
+            return "";
+        }
+
         private static void generateMain(Configuration _conf, string _path, string _mainFile)
         {
             string name = string.IsNullOrEmpty(_conf.storyName) ? "story" : _conf.storyName;
@@ -680,7 +698,7 @@ namespace TweeFly
                 cloth += "\"canBuy\":" + _conf.clothing[i].canBeBought.ToString().ToLower() + ",";
                 cloth += "\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",";
                 cloth += "\"category\":\"" + _conf.clothing[i].category + "\",";
-                cloth += "\"bodyPart\":\"" + _conf.clothing[i].bodyPart + "\",";
+                cloth += "\"bodyPart\":\"" + bodyPartMapper(_conf.clothing[i].bodyPart) + "\",";
                 cloth += "\"image\":\"" + pathSubtractAndEscape(_conf.clothing[i].image, _conf.pathSubtract) + "\",";
                 cloth += "\"buyPrice\":" + _conf.clothing[i].buyPrice + ",";
                 cloth += "\"sellPrice\":" + _conf.clothing[i].sellPrice + ",";
@@ -731,7 +749,7 @@ namespace TweeFly
             {
                 if ((_conf.clothing[i].isWornAtBeginning) && (_conf.clothing[i].owned > 0))
                 {
-                    cloth +="\t\t\tstate.active.variables.wearing[" + _conf.clothing[i].bodyPart + "] = state.active.variables.allClothing[" + i + "];\n";
+                    cloth +="\t\t\tstate.active.variables.wearing[" + bodyPartMapper(_conf.clothing[i].bodyPart) + "] = state.active.variables.allClothing[" + i + "];\n";
                 }
             }
             cloth +="\t\t}\n";
