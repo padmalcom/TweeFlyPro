@@ -501,13 +501,13 @@ namespace TweeFly
             if (_conf.displayInInventory.Contains("Can own multiple")) inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].canOwnMultiple + \"</td>\";\n";
 
             if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
-                inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].skill1 + \"</td>\";\n";
+                inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL1_CAP")).caption + " + \"</td>\";\n";
 
             if (_conf.displayInInventory.Contains("Skill2") && _conf.inventoryUseSkill2)
-                inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].skill2 + \"</td>\";\n";
+                inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL2_CAP")).caption + " + \"</td>\";\n";
 
             if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
-                inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i].skill3 + \"</td>\";\n";
+                inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL3_CAP")).caption + " + \"</td>\";\n";
 
             if (_conf.displayInInventory.Contains("Image")) inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.inventory[i].image + \"\\\" ></td>\";\n";
             inv +="\t\t\t\tinv_str += \"</tr>\";\n";
@@ -541,13 +541,13 @@ namespace TweeFly
             if (_conf.displayInInventory.Contains("Can own multiple")) inv +="\t\t\titem_info_1 += \"can own multiple:\" + state.active.variables.inventory[w].canOwnMultiple + \"&#10;\";\n";
 
             if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
-                inv +="\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL1_CAP")).caption + ": \" + state.active.variables.inventory[w].skill1 + \"&#10;\";\n";
+                inv +="\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL1_CAP")).caption + ": \" + state.active.variables.inventory[w]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL1_CAP")).caption + " + \"&#10;\";\n";
 
             if (_conf.displayInInventory.Contains("Skill2") && _conf.inventoryUseSkill2)
-                inv +="\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL2_CAP")).caption + ": \" + state.active.variables.inventory[w].skill2 + \"&#10;\";\n";
+                inv +="\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL2_CAP")).caption + ": \" + state.active.variables.inventory[w]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL2_CAP")).caption  + " + \"&#10;\";\n";
 
             if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
-                inv +="\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL3_CAP")).caption + ": \" + state.active.variables.inventory[w].skill3 + \"&#10;\";\n";
+                inv +="\t\t\titem_info_1 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL3_CAP")).caption + ": \" + state.active.variables.inventory[w]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL3_CAP")).caption + " + \"&#10;\";\n";
 
             if (_conf.inventorySidebarTooltip)
             {
@@ -573,13 +573,13 @@ namespace TweeFly
             if (_conf.displayInInventory.Contains("Can own multiple")) inv +="\t\t\t\titem_info_2 += \"can own multiple:\" + state.active.variables.inventory[w+1].canOwnMultiple + \"&#10;\";\n";
 
             if (_conf.displayInInventory.Contains("Skill1") && _conf.inventoryUseSkill1)
-                inv +="\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL1_CAP")).caption + ": \" + state.active.variables.inventory[w+1].skill1 + \"&#10;\";\n";
+                inv +="\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL1_CAP")).caption + ": \" + state.active.variables.inventory[w+1]."+ _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL1_CAP")).caption+" + \"&#10;\";\n";
 
             if (_conf.displayInInventory.Contains("Skill2") && _conf.inventoryUseSkill2)
-                inv +="\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL2_CAP")).caption + ": \" + state.active.variables.inventory[w+1].skill2 + \"&#10;\";\n";
+                inv +="\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL2_CAP")).caption + ": \" + state.active.variables.inventory[w+1]."+ _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL2_CAP")).caption + " + \"&#10;\";\n";
 
             if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
-                inv +="\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL3_CAP")).caption + ": \" + state.active.variables.inventory[w+1].skill3 + \"&#10;\";\n";
+                inv +="\t\t\t\titem_info_2 +=\"" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_COL_SKILL3_CAP")).caption + ": \" + state.active.variables.inventory[w+1]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL3_CAP")).caption + " + \"&#10;\";\n";
 
             inv +="\n";
 
@@ -842,11 +842,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"':state.active.variables.wearing[HEAD_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -878,11 +878,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HAIR_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -914,11 +914,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[NECK_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -950,11 +950,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -986,11 +986,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -1022,11 +1022,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[BELT_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -1058,11 +1058,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -1094,11 +1094,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SHOES_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -1130,11 +1130,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+ ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -1166,11 +1166,11 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Can own multiple"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].canOwnMultiple) + \"</b></td>\";\n";
             if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill1) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill2) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].skill3) + \"</b></td>\";\n";
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
@@ -1268,9 +1268,9 @@ namespace TweeFly
             if (_conf.displayInWardrobe.Contains("Sell price")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].sellPrice + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Can own multiple")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].canOwnMultiple + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Body part")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].bodyPart + \"</td>\";\n";
-            if (_conf.clothingUseSkill1 && _conf.displayInWardrobe.Contains("Skill1")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill1 + \"</td>\";\n";
-            if (_conf.clothingUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill2 + \"</td>\";\n";
-            if (_conf.clothingUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].skill3 + \"</td>\";\n";
+            if (_conf.clothingUseSkill1 && _conf.displayInWardrobe.Contains("Skill1")) cloth += "\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + " + \"</td>\";\n";
+            if (_conf.clothingUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) cloth += "\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + " + \"</td>\";\n";
+            if (_conf.clothingUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) cloth += "\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + " + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Owned")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Image")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";\n";
             cloth +="\n";
@@ -2126,6 +2126,8 @@ namespace TweeFly
             if (_conf.itemPropertiesInShops.Contains("Skill2") && _conf.shopUseSkill2) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_SKILL2_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Skill3") && _conf.shopUseSkill3) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_SKILL3_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Image")) shops +="\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
+            if (_conf.itemPropertiesInShops.Contains("Buy")) shops += "\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_BUY_CAP")).caption + "</b></td>\";\n";
+            if (_conf.itemPropertiesInShops.Contains("Sell")) shops += "\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_SELL_CAP")).caption + "</b></td>\";\n";
             shops +="\t\t\tshop_str +=\"</tr>\";\n";
             shops +="\n";
             shops +="\t\t\tfor (var i=0; i<state.active.variables.shops[params[0]].items.length; i++) {\n";
@@ -2180,11 +2182,11 @@ namespace TweeFly
                 shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\">\" + state.active.variables.shops[params[0]].items[i].quantity + \"</td>\";\n";
 
             if (_conf.itemPropertiesInShops.Contains("Skill1") && _conf.shopUseSkill1)
-                shops +="\t\t\t\tshop_str +=\"<td class=\\\"shop\\\">\" + existing_items_with_id[0].skill1 + \"</td>\";\n";
+                shops += "\t\t\t\tshop_str +=\"<td class=\\\"shop\\\">\" + existing_items_with_id[0]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL1_CAP")).caption + " + \"</td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Skill2") && _conf.shopUseSkill2)
-                shops +="\t\t\t\tshop_str +=\"<td class=\\\"shop\\\">\" + existing_items_with_id[0].skill2 + \"</td>\";\n";
+                shops += "\t\t\t\tshop_str +=\"<td class=\\\"shop\\\">\" + existing_items_with_id[0]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL2_CAP")).caption + " + \"</td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Skill3") && _conf.shopUseSkill3)
-                shops +="\t\t\t\tshop_str +=\"<td class=\\\"shop\\\">\" + existing_items_with_id[0].skill3 + \"</td>\";	\n";
+                shops += "\t\t\t\tshop_str +=\"<td class=\\\"shop\\\">\" + existing_items_with_id[0]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL3_CAP")).caption + " + \"</td>\";	\n";
             shops +="\n";
             shops +="\t\t\t\t// buy\n";
 
@@ -2644,13 +2646,13 @@ namespace TweeFly
             characters +="\n";
 
             if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
-                characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].skill1 + \"</td>\";\n";
+                characters += "\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL1_CAP")).caption + " + \"</td>\";\n";
 
             if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill2"))
-                characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].skill2 + \"</td>\";\n";
+                characters += "\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL2_CAP")).caption + " + \"</td>\";\n";
 
             if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
-                characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].skill3 + \"</td>\";\n";
+                characters += "\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL3_CAP")).caption + " + \"</td>\";\n";
             characters +="\n";
             characters +="\t\t\twstr +=\"</tr>\";\n";
             characters +="\t\t}\n";
@@ -2748,11 +2750,11 @@ namespace TweeFly
             if (_conf.displayInCharactersView.Contains("Known")) characters +="\t\t\tchar_info_1 += \"known:\" + knownCharacters[w].known + \"&#10;\";\n";
             if (_conf.displayInCharactersView.Contains("Color")) characters +="\t\t\tchar_info_1 += \"color:\" + knownCharacters[w].color + \"&#10;\";\n";
             if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
-                characters +="\t\t\tchar_info_1 +=\"skill1: \" + knownCharacters[w].skill1 + \"&#10;\";\n";
+                characters += "\t\t\tchar_info_1 +=\"skill1: \" + knownCharacters[w]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL1_CAP")).caption + " + \"&#10;\";\n";
             if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill2"))
-                characters +="\t\t\tchar_info_1 +=\"snill2: \" + knownCharacters[w].skill2 + \"&#10;\";\n";
+                characters += "\t\t\tchar_info_1 +=\"snill2: \" + knownCharacters[w]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL2_CAP")).caption + " + \"&#10;\";\n";
             if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
-                characters +="\t\t\tchar_info_1 +=\"skill3: \" + sknownCharacters[w].skill3 + \"&#10;\";\n";
+                characters += "\t\t\tchar_info_1 +=\"skill3: \" + sknownCharacters[w]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL3_CAP")).caption + " + \"&#10;\";\n";
             characters +="\n";
 
             if (_conf.charactersSidebarTooltip)
@@ -2778,13 +2780,13 @@ namespace TweeFly
             if (_conf.displayInCharactersView.Contains("Color")) characters +="\t\t\t\tchar_info_2 += \"color:\" + knownCharacters[w+1].color + \"&#10;\";\n";
 
             if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
-                characters +="\t\t\t\tchar_info_2 +=\"skill1: \" + knownCharacters[w+1].skill1 + \"&#10;\";\n";
+                characters += "\t\t\t\tchar_info_2 +=\"skill1: \" + knownCharacters[w+1]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL1_CAP")).caption + " + \"&#10;\";\n";
 
             if (_conf.characterUseSkill2 && _conf.displayInCharactersView.Contains("Skill2"))
-                characters +="\t\t\t\tchar_info_2 +=\"snill2: \" + knownCharacters[w+1].skill2 + \"&#10;\";\n";
+                characters += "\t\t\t\tchar_info_2 +=\"snill2: \" + knownCharacters[w+1]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL2_CAP")).caption + " + \"&#10;\";\n";
 
             if (_conf.characterUseSkill3 && _conf.displayInCharactersView.Contains("Skill3"))
-                characters +="\t\t\t\tchar_info_2 +=\"skill3: \" + knownCharacters[w+1].skill3 + \"&#10;\";\n";
+                characters += "\t\t\t\tchar_info_2 +=\"skill3: \" + knownCharacters[w+1]." + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_SKILL3_CAP")).caption + " + \"&#10;\";\n";
             characters +="\n";
 
             if (_conf.charactersSidebarTooltip)

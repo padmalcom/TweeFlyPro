@@ -1919,6 +1919,15 @@ namespace TweeFly
                 {
                     listBox1.Items.Add(conf.includedFiles[i]);
                 }
+            } else if (tabControl1.SelectedTab.Text == "Daytime")
+            {
+                switch(conf.daytimeFormat)
+                {
+                    case 0: radioButton1.Checked = true; break;
+                    case 1: radioButton2.Checked = true; break;
+                    case 2: radioButton3.Checked = true; break;
+                    case 3: radioButton4.Checked = true; break;
+                }
             }
         }
 
