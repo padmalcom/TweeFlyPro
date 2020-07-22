@@ -698,7 +698,7 @@ namespace TweeFly
                 cloth += "\"canBuy\":" + _conf.clothing[i].canBeBought.ToString().ToLower() + ",";
                 cloth += "\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",";
                 cloth += "\"category\":\"" + _conf.clothing[i].category + "\",";
-                cloth += "\"bodyPart\":\"" + bodyPartMapper(_conf.clothing[i].bodyPart) + "\",";
+                cloth += "\"bodyPart\":" + bodyPartMapper(_conf.clothing[i].bodyPart) + ",";
                 cloth += "\"image\":\"" + pathSubtractAndEscape(_conf.clothing[i].image, _conf.pathSubtract) + "\",";
                 cloth += "\"buyPrice\":" + _conf.clothing[i].buyPrice + ",";
                 cloth += "\"sellPrice\":" + _conf.clothing[i].sellPrice + ",";
@@ -1207,6 +1207,7 @@ namespace TweeFly
             cloth +="window.wear = function(_clothing) {\n";
             cloth +="\tvar cloth_obj = JSON.parse(unescape(_clothing));\n";
             cloth +="\tstate.active.variables.wearing[cloth_obj.bodyPart] = cloth_obj;\n";
+            cloth += "\tjQuery('#story-caption').empty().wiki(Story.get('StoryCaption').processText());\n";
             cloth += "\tstate.display(state.active.title, null, \"back\");\n";
             cloth +="};\n";
             cloth +="\n";
@@ -1215,6 +1216,7 @@ namespace TweeFly
             cloth += "window.undress = function(_clothing) {\n";
             cloth += "\tvar cloth_obj = JSON.parse(unescape(_clothing));\n";
             cloth += "\tstate.active.variables.wearing[cloth_obj.bodyPart] = undefined;\n";
+            cloth += "\tjQuery('#story-caption').empty().wiki(Story.get('StoryCaption').processText());\n";
             cloth += "\tstate.display(state.active.title, null, \"back\");\n";
             cloth += "};\n";
             cloth += "\n";
