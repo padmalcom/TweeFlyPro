@@ -931,7 +931,7 @@ namespace TweeFly
                 textBox19.Text = listView5.SelectedItems[0].SubItems[3].Text;
                 textBox9.Text = listView5.SelectedItems[0].SubItems[4].Text;
                 textBox4.Text = listView5.SelectedItems[0].SubItems[5].Text;
-                checkBox24.Checked = listView5.SelectedItems[0].SubItems[6].Text.Equals("true");
+                checkBox24.Checked = listView5.SelectedItems[0].SubItems[6].Text.Equals("True");
                 comboBox8.Text = listView5.SelectedItems[0].SubItems[7].Text;
 
                 string absPath = textBox9.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);

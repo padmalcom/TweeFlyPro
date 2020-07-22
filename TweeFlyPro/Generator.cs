@@ -1285,6 +1285,12 @@ namespace TweeFly
             cloth +="};\n";
             cloth +="\n";
 
+            // is_in_wardrobe
+            cloth += "window.is_in_wardrobe = function(_id) {\n";
+            cloth += "\tvar clothing_in_catalog = state.active.variables.wardrobe.filter(obj => {return obj.ID === _id});\n";
+            cloth += "\treturn (clothing_in_catalog.length > 0);";
+            cloth += "};\n";
+
             // addToWardrobe
             cloth +="macros.addToWardrobe = {\n";
             cloth +="\thandler: function (place, macroName, params, parser) {\n";
@@ -1394,44 +1400,38 @@ namespace TweeFly
             stats += "\n";
 
             // getStats
-            stats += "macros.getStats = {\n";
-            stats += "\thandler: function(place, macroName, params, parser) {\n";
-            stats += "\t\tif (params.length != 1) {\n";
-            stats += "\t\t\tthrowError(place, \"<<\" + macroName + \" >>: expects stat id.\");\n";
-            stats += "\t\t\treturn;\n";
-            stats += "\t\t}\n";
-            stats += "\t\tfor (var i in state.active.variables.stats)\n";
-            stats += "\t\t{\n";
-            stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
+            stats += "window.getStats = function(_statId) {\n";
+            stats += "\tfor (var i in state.active.variables.stats)\n";
+            stats += "\t{\n";
+            stats += "\t\tif (state.active.variables.stats[i].ID == _statId) {\n";
 
-            stats += "\t\t\t\tif (state.active.variables.stats[i].isskill == \"Clothing 1\") {\n";
-            stats += "\t\t\t\t\tvar sum = 0;\n";
-            stats += "\t\t\t\t\tfor (var w in state.active.variables.wearing) {\n";
-            stats += "\t\t\t\t\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
-            stats += "\t\t\t\t\t\t\tsum += isNaN(state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") ? 0 : state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ";\n";
-            stats += "\t\t\t\t\t\t}\n";
+            stats += "\t\t\tif (state.active.variables.stats[i].isskill == \"Clothing 1\") {\n";
+            stats += "\t\t\t\tvar sum = 0;\n";
+            stats += "\t\t\t\tfor (var w in state.active.variables.wearing) {\n";
+            stats += "\t\t\t\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
+            stats += "\t\t\t\t\t\tsum += isNaN(state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") ? 0 : state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ";\n";
             stats += "\t\t\t\t\t}\n";
-            stats += "\t\t\t\t\tstate.active.variables.stats[i].value = sum;\n";
-            stats += "\t\t\t\t} else if (state.active.variables.stats[i].isskill == \"Clothing 2\") {\n";
-            stats += "\t\t\t\t\tvar sum = 0;\n";
-            stats += "\t\t\t\t\tfor (var w in state.active.variables.wearing) {\n";
-            stats += "\t\t\t\t\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
-            stats += "\t\t\t\t\t\t\tsum += isNaN(state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") ? 0 : state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ";\n";
-            stats += "\t\t\t\t\t\t}\n";
-            stats += "\t\t\t\t\t}\n";
-            stats += "\t\t\t\t\tstate.active.variables.stats[i].value = sum;\n";
-            stats += "\t\t\t\t} else if (state.active.variables.stats[i].isskill == \"Clothing 3\") {\n";
-            stats += "\t\t\t\t\tvar sum = 0;\n";
-            stats += "\t\t\t\t\tfor (var w in state.active.variables.wearing) {\n";
-            stats += "\t\t\t\t\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
-            stats += "\t\t\t\t\t\t\tsum += isNaN(state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") ? 0 : state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ";\n";
-            stats += "\t\t\t\t\t\t}\n";
-            stats += "\t\t\t\t\t}\n";
-            stats += "\t\t\t\t\tstate.active.variables.stats[i].value = sum;\n";
             stats += "\t\t\t\t}\n";
-
-            stats += "\t\t\t\treturn state.active.variables.stats[i].value;\n";
+            stats += "\t\t\t\tstate.active.variables.stats[i].value = sum;\n";
+            stats += "\t\t\t} else if (state.active.variables.stats[i].isskill == \"Clothing 2\") {\n";
+            stats += "\t\t\t\tvar sum = 0;\n";
+            stats += "\t\t\t\tfor (var w in state.active.variables.wearing) {\n";
+            stats += "\t\t\t\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
+            stats += "\t\t\t\t\t\tsum += isNaN(state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") ? 0 : state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ";\n";
+            stats += "\t\t\t\t\t}\n";
+            stats += "\t\t\t\t}\n";
+            stats += "\t\t\t\tstate.active.variables.stats[i].value = sum;\n";
+            stats += "\t\t\t} else if (state.active.variables.stats[i].isskill == \"Clothing 3\") {\n";
+            stats += "\t\t\t\tvar sum = 0;\n";
+            stats += "\t\t\t\tfor (var w in state.active.variables.wearing) {\n";
+            stats += "\t\t\t\t\tif (state.active.variables.wearing[w] !== undefined) {\n";
+            stats += "\t\t\t\t\t\tsum += isNaN(state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") ? 0 : state.active.variables.wearing[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ";\n";
+            stats += "\t\t\t\t\t}\n";
+            stats += "\t\t\t\t}\n";
+            stats += "\t\t\t\tstate.active.variables.stats[i].value = sum;\n";
             stats += "\t\t\t}\n";
+
+            stats += "\t\t\treturn state.active.variables.stats[i].value;\n";
             stats += "\t\t}\n";
             stats += "\t}\n";
             stats += "};\n";
@@ -2172,6 +2172,8 @@ namespace TweeFly
                 shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\">\" + state.active.variables.shops[params[0]].items[i].ID + \"</td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Name"))
                 shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\">\" + existing_items_with_id[0].name + \"</td>\";\n";
+            if (_conf.itemPropertiesInShops.Contains("Description"))
+                shops += "\t\t\t\tshop_str += \"<td class=\\\"shop\\\">\" + existing_items_with_id[0].description + \"</td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Quantity"))
                 shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\">\" + state.active.variables.shops[params[0]].items[i].quantity + \"</td>\";\n";
 
@@ -2215,7 +2217,8 @@ namespace TweeFly
             }
 
             if (_conf.itemPropertiesInShops.Contains("Image"))
-                shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img class=\\\"paragraph\\\" src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td></tr>\";\n";
+                shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img class=\\\"paragraph\\\" src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td>\";\n";
+            shops += "\t\t\tshop_str += \"</tr>\"";
             shops +="\t\t\t}\n";
             shops +="\t\t\tshop_str +=\"</table>\";\n";
             shops +="\t\t\tnew Wikifier(place, shop_str);\n";
