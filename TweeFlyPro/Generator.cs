@@ -1491,6 +1491,24 @@ namespace TweeFly
             stats += "};\n";
             stats += "\n";
 
+            // setStats
+            stats += "macros.setStats = {\n";
+            stats += "\thandler: function(place, macroName, params, parser) {\n";
+            stats += "\t\tif (params.length != 2) {\n";
+            stats += "\t\t\tthrowError(place, \" << \" + macroName + \" >>: expects two parameters, stat id and value.\");\n";
+            stats += "\t\t\treturn;\n";
+            stats += "\t\t}\n";
+            stats += "\t\tfor (var i in state.active.variables.stats)\n";
+            stats += "\t\t{\n";
+            stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
+            stats += "\t\t\t\tstate.active.variables.stats[i].value = params[1];\n";
+            stats += "\t\t\t\tbreak;\n";
+            stats += "\t\t\t}\n";
+            stats += "\t\t}\n";
+            stats += "\t}\n";
+            stats += "};\n";
+            stats += "\n";
+
             // setStatsVisible
             stats += "macros.setStatsVisible = {\n";
             stats += "\thandler: function(place, macroName, params, parser) {\n";
