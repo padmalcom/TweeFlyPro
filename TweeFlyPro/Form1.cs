@@ -96,6 +96,7 @@ namespace TweeFly
                     item.SubItems.Add(_conf.items[i].skill1);
                     item.SubItems.Add(_conf.items[i].skill2);
                     item.SubItems.Add(_conf.items[i].skill3);
+                    item.SubItems.Add(_conf.items[i].passage);
                     listView1.Items.Add(item);
                 }
                 checkBox25.Checked = _conf.inventoryUseSkill1;
@@ -500,6 +501,7 @@ namespace TweeFly
                 item.sellPrice = Convert.ToInt32(numericUpDown22.Value);
                 item.canOwnMultiple = checkBox14.Checked;
                 item.owned = Convert.ToInt32(numericUpDown4.Value);
+                item.passage = textBox5.Text;
 
                 conf.items.Add(item);
 
@@ -531,6 +533,7 @@ namespace TweeFly
                 updateItem.SubItems.Add(conf.items[i].skill1);
                 updateItem.SubItems.Add(conf.items[i].skill2);
                 updateItem.SubItems.Add(conf.items[i].skill3);
+                updateItem.SubItems.Add(conf.items[i].passage);
                 listView1.Items.Add(updateItem);
             }
         }
@@ -574,6 +577,7 @@ namespace TweeFly
                         conf.items[i].skill1 = textBox30.Text;
                         conf.items[i].skill2 = textBox29.Text;
                         conf.items[i].skill3 = textBox28.Text;
+                        conf.items[i].passage = textBox5.Text;
 
                         updateInventory();
 
@@ -647,6 +651,7 @@ namespace TweeFly
                 textBox30.Text = listView1.SelectedItems[0].SubItems[11].Text;
                 textBox29.Text = listView1.SelectedItems[0].SubItems[12].Text;
                 textBox28.Text = listView1.SelectedItems[0].SubItems[13].Text;
+                textBox5.Text = listView1.SelectedItems[0].SubItems[14].Text;
 
                 string absPath = textBox10.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
@@ -2440,13 +2445,13 @@ namespace TweeFly
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
-                "", APP_DIR + "data/img/taxicard.jpg", -1, -1, false, 0, "", "", ""));
+                "", APP_DIR + "data/img/taxicard.jpg", -1, -1, false, 0, "", "", "", ""));
             conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", APP_DIR + "data/img/smartphone.jpg", -1, -1,
-                false, 1, "", "", ""));
+                false, 1, "", "", "", ""));
             conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", APP_DIR + "data/img/keycard.jpg", -1, -1,
-                false, 0, "", "", ""));
+                false, 0, "", "", "", ""));
             conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", APP_DIR + "data/img/chocolate.jpg", 2, 1,
-                true, 1, "", "", ""));
+                true, 1, "", "", "", ""));
 
             conf.displayInInventory.Clear();
             /*for (int i = 0; i < checkedListBox3.CheckedItems.Count; i++)

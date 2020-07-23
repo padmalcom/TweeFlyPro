@@ -24,7 +24,9 @@ namespace TweeFly
         public string skill2 { get; set; } = "";
         public string skill3 { get; set; } = "";
 
-        public Item(int iD, string name, string description, bool canBeBought, string category, string shopCategory, string image, int buyPrice, int sellPrice, bool canOwnMultiple, int owned, string skill1, string skill2, string skill3)
+        public string passage { get; set; } = "";
+
+        public Item(int iD, string name, string description, bool canBeBought, string category, string shopCategory, string image, int buyPrice, int sellPrice, bool canOwnMultiple, int owned, string skill1, string skill2, string skill3, string passage)
         {
             ID = iD;
             this.name = name;
@@ -40,6 +42,7 @@ namespace TweeFly
             this.skill1 = skill1;
             this.skill2 = skill2;
             this.skill3 = skill3;
+            this.passage = passage;
         }
 
         public Item() { }

@@ -306,7 +306,8 @@ namespace TweeFly
                 inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                 inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
                 inv += "\"canOwnMultiple\":" + _conf.items[i].canOwnMultiple.ToString().ToLower() + ",";
-                inv += "\"owned\":" + _conf.items[i].owned;
+                inv += "\"owned\":" + _conf.items[i].owned + ",";
+                inv += "\"passage\":\"" + _conf.items[i].passage + "\"";
                 if (_conf.inventoryUseSkill1)
                 {
                     string skill1val = (isBool(_conf.items[i].skill1) || isNumber(_conf.items[i].skill1)) ? _conf.items[i].skill1 : "\"" + _conf.items[i].skill1 + "\"";
@@ -356,7 +357,8 @@ namespace TweeFly
                     inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                     inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
                     inv += "\"canOwnMultiple\":" + _conf.items[i].canOwnMultiple.ToString().ToLower() + ",";
-                    inv += "\"owned\":" + _conf.items[i].owned;
+                    inv += "\"owned\":" + _conf.items[i].owned + ",";
+                    inv += "\"passage\":\"" + _conf.items[i].passage + "\"";
                     if (_conf.inventoryUseSkill1)
                     {
                         string skill1val = (isBool(_conf.items[i].skill1) || isNumber(_conf.items[i].skill1)) ? _conf.items[i].skill1 : "\"" + _conf.items[i].skill1 + "\"";
@@ -509,7 +511,15 @@ namespace TweeFly
             if (_conf.displayInInventory.Contains("Skill3") && _conf.inventoryUseSkill3)
                 inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"> \" + state.active.variables.inventory[i]." + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_SKILL3_CAP")).caption + " + \"</td>\";\n";
 
-            if (_conf.displayInInventory.Contains("Image")) inv +="\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.inventory[i].image + \"\\\" ></td>\";\n";
+
+            if (_conf.displayInInventory.Contains("Image"))
+            {
+                inv += "\t\t\t\tif (state.active.variables.inventory[i].passage) {\n";
+                inv += "\t\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[i].passage+\"\\\" class=\\\"link -internal link-image\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.inventory[i].image + \"\\\" ></a></td>\";\n";
+                inv += "\t\t\t\t} else {\n";
+                inv += "\t\t\t\t\tinv_str += \"<td class=\\\"inventory\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.inventory[i].image + \"\\\" ></td>\";\n";
+                inv += "\t\t\t\t}";
+            }
             inv +="\t\t\t\tinv_str += \"</tr>\";\n";
             inv +="\t\t\t}\n";
             inv +="\t\t\tinv_str += \"</table>\";\n";
@@ -551,11 +561,23 @@ namespace TweeFly
 
             if (_conf.inventorySidebarTooltip)
             {
-                inv +="\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" title=\\\"\" + item_info_1 + \"\\\"></td>\";\n";
+                inv += "\t\t\t\tif (state.active.variables.inventory[w].passage) {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[w].passage+\"\\\" class=\\\"link -internal link-image\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" title=\\\"\" + item_info_1 + \"\\\"></a></td>\";\n";
+                inv += "\t\t\t\t} else {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" title=\\\"\" + item_info_1 + \"\\\"></td>\";\n";
+                inv += "\t\t\t\t}";
+
+                //inv +="\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" title=\\\"\" + item_info_1 + \"\\\"></td>\";\n";
             }
             else
             {
-                inv +="\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\"></td>\";\n";
+                inv += "\t\t\t\tif (state.active.variables.inventory[w].passage) {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[w].passage+\"\\\" class=\\\"link -internal link-image\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\"></a></td>\";\n";
+                inv += "\t\t\t\t} else {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\" ></td>\";\n";
+                inv += "\t\t\t\t}";
+
+                //inv +="\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w].image + \"\\\"></td>\";\n";
             }
             inv +="\n";
             inv +="\t\t\tif (w+1 < state.active.variables.inventory.length) {\n";
@@ -585,10 +607,22 @@ namespace TweeFly
 
             if (_conf.inventorySidebarTooltip)
             {
-                inv +="\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" title=\\\"\" + item_info_2 + \"\\\"></td>\";\n";
+                inv += "\t\t\t\tif (state.active.variables.inventory[w+1].passage) {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[w+1].passage+\"\\\" class=\\\"link -internal link-image\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" title=\\\"\" + item_info_2 + \"\\\"></a></td>\";\n";
+                inv += "\t\t\t\t} else {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" title=\\\"\" + item_info_2 + \"\\\"></td>\";\n";
+                inv += "\t\t\t\t}";
+
+                //inv +="\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" title=\\\"\" + item_info_2 + \"\\\"></td>\";\n";
             }
             else
             {
+                inv += "\t\t\t\tif (state.active.variables.inventory[w+1].passage) {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[w+1].passage+\"\\\" class=\"link -internal link-image\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></a></td>\";\n";
+                inv += "\t\t\t\t} else {\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" ></td>\";\n";
+                inv += "\t\t\t\t}";
+
                 inv +="\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></td>\";\n";
             }
             inv +="\t\t\t} else {\n";

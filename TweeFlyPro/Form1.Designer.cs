@@ -438,6 +438,9 @@
             this.button30 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label115 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.columnHeader74 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -740,6 +743,8 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.textBox5);
+            this.groupBox3.Controls.Add(this.label115);
             this.groupBox3.Controls.Add(this.numericUpDown22);
             this.groupBox3.Controls.Add(this.label93);
             this.groupBox3.Controls.Add(this.textBox2);
@@ -808,7 +813,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(249, 130);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(579, 20);
+            this.textBox2.Size = new System.Drawing.Size(414, 20);
             this.textBox2.TabIndex = 34;
             // 
             // label62
@@ -1129,7 +1134,8 @@
             this.columnHeader9,
             this.columnHeader26,
             this.columnHeader27,
-            this.columnHeader38});
+            this.columnHeader38,
+            this.columnHeader74});
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.HideSelection = false;
@@ -4715,6 +4721,28 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // label115
+            // 
+            this.label115.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(698, 133);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(51, 13);
+            this.label115.TabIndex = 37;
+            this.label115.Text = "Passage:";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox5.Location = new System.Drawing.Point(758, 130);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(70, 20);
+            this.textBox5.TabIndex = 38;
+            // 
+            // columnHeader74
+            // 
+            this.columnHeader74.Text = "Passage";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5233,6 +5261,9 @@
         private System.Windows.Forms.Label label114;
         private System.Windows.Forms.ComboBox comboBox8;
         private System.Windows.Forms.ColumnHeader columnHeader73;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label115;
+        private System.Windows.Forms.ColumnHeader columnHeader74;
     }
 }
 
