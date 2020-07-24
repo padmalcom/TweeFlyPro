@@ -190,6 +190,7 @@ namespace TweeFly
                     captions.Add(new CaptionPair("NOTHING_CAP", "-"));
                     captions.Add(new CaptionPair("BODY_PART_CAP", "body part"));
                     captions.Add(new CaptionPair("HEAD_CAP", "head"));
+                    captions.Add(new CaptionPair("FACE_CAP", "face"));
                     captions.Add(new CaptionPair("HAIR_CAP", "hair"));
                     captions.Add(new CaptionPair("NECK_CAP", "neck"));
                     captions.Add(new CaptionPair("UPPER_BODY_CAP", "upperbody"));

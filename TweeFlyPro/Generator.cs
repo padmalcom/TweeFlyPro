@@ -52,6 +52,7 @@ namespace TweeFly
                 case "shoes": return "SHOES_NAME";
                 case "underweartop": return "UNDERWEAR_TOP_NAME";
                 case "underwearbottom": return "UNDERWEAR_BOTTOM_NAME";
+                case "face": return "FACE_NAME";
             }
             return "";
         }
@@ -706,6 +707,7 @@ namespace TweeFly
             string cloth = "";
 
             cloth += "var HEAD_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("HEAD_CAP")).caption + "\";\n";
+            cloth += "var FACE_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("FACE_CAP")).caption + "\";\n";
             cloth +="var HAIR_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("HAIR_CAP")).caption + "\";\n";
             cloth +="var NECK_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("NECK_CAP")).caption + "\";\n";
             cloth +="var UPPER_BODY_NAME = \"" + _conf.captions.Single(s => s.captionName.Equals("UPPER_BODY_CAP")).caption + "\";\n";
@@ -920,6 +922,42 @@ namespace TweeFly
             if (_conf.displayInClothingView.Contains("Image"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HAIR_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
+
+            // face
+            cloth += "\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("ID"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].ID) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Name"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '':state.active.variables.wearing[FACE_NAME].name) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Description"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].description) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Category"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].category) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Shop category"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].shopCategory) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Body part"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].bodyPart) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Owned"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].owned) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Is worn"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].isWorn) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Can buy"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].canBuy) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Buy price"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].buyPrice) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Sell price"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].sellPrice) + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Can own multiple"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].canOwnMultiple) + \"</b></td>\";\n";
+            if (_conf.clothingUseSkill1 && _conf.displayInClothingView.Contains("Skill1"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL1_CAP")).caption + ") + \"</b></td>\";\n";
+            if (_conf.clothingUseSkill2 && _conf.displayInClothingView.Contains("Skill2"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
+            if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[FACE_NAME].image)+\"></td>\";\n";
+            cloth += "\t\ts +=\"</tr>\";\n";
 
             // neck
             cloth +="\t\ts +=\"<tr>\";\n";
@@ -1224,6 +1262,7 @@ namespace TweeFly
             cloth +="\t\t\"<tr><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HEAD_NAME].image)+\"></td>\" +\n";
             cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[HAIR_NAME].image)+\"></td></tr>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[FACE_NAME].image)+\"></td></tr>\" +\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[NECK_NAME].image)+\"></td>\" +\n";
             cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td></tr>\" +\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\" +\n";

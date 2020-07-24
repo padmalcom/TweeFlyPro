@@ -49,6 +49,8 @@
             this.checkBox25 = new System.Windows.Forms.CheckBox();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label115 = new System.Windows.Forms.Label();
             this.numericUpDown22 = new System.Windows.Forms.NumericUpDown();
             this.label93 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -97,6 +99,7 @@
             this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader38 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader74 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label87 = new System.Windows.Forms.Label();
@@ -438,9 +441,6 @@
             this.button30 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label115 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.columnHeader74 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -778,6 +778,24 @@
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Item";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox5.Location = new System.Drawing.Point(758, 130);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(70, 20);
+            this.textBox5.TabIndex = 38;
+            // 
+            // label115
+            // 
+            this.label115.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(698, 133);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(51, 13);
+            this.label115.TabIndex = 37;
+            this.label115.Text = "Passage:";
             // 
             // numericUpDown22
             // 
@@ -1213,6 +1231,10 @@
             // 
             this.columnHeader38.Text = "Skill3";
             // 
+            // columnHeader74
+            // 
+            this.columnHeader74.Text = "Passage";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.checkedListBox2);
@@ -1439,6 +1461,7 @@
             this.comboBox5.FormattingEnabled = true;
             this.comboBox5.Items.AddRange(new object[] {
             "head",
+            "face",
             "hair",
             "neck",
             "upperbody",
@@ -4720,28 +4743,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
-            // 
-            // label115
-            // 
-            this.label115.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(698, 133);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(51, 13);
-            this.label115.TabIndex = 37;
-            this.label115.Text = "Passage:";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(758, 130);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(70, 20);
-            this.textBox5.TabIndex = 38;
-            // 
-            // columnHeader74
-            // 
-            this.columnHeader74.Text = "Passage";
             // 
             // Form1
             // 
