@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using TweeFlyPro;
@@ -2896,7 +2897,62 @@ namespace TweeFly
 
         private void button35_Click(object sender, EventArgs e)
         {
-            
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "|*.html|*.*|";
+            openFileDialog1.Title = "TweeFly Cheat Sheet";
+            openFileDialog1.ShowDialog();
+
+            if (openFileDialog1.FileName != "")
+            {
+                TextWriter twCheatSheet = null;
+                try
+                {
+                    twCheatSheet = new StreamWriter(openFileDialog1.FileName, false, new UTF8Encoding(false));
+
+                    twCheatSheet.WriteLine("<html>\n<title>TweeFly Cheat Sheet for " + conf.storyName + "</title><body>\n");
+                    twCheatSheet.WriteLine("<h1>TweeFly Cheat Sheet for " + conf.storyName + "<h1>\n");
+                    twCheatSheet.WriteLine("<table><tr><td><b>Function</b></td><td>Type</td><td><b>Parameters</b></td><td><b>Description</b></td></tr>\n");
+
+                    // Initialization
+                    // - cloth
+                    twCheatSheet.WriteLine("<tr><td cols=\"4\"><b>Initialization code (no need to call)</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initAllClothing</td><td>Macro</td><td>-</td><td>Initialized global clothing list</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initClothing</td><td>Macro</td><td>-</td><td>Initialized the worn clothing.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initWardrobe</td><td>Macro</td><td>-</td><td>Initialized all clothing in player's wardrobe.</td></tr>\n");
+
+                    // - inventory
+                    twCheatSheet.WriteLine("<tr><td>initItems</td><td>Macro</td><td>-</td><td>Initialized all global items.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initInventory</td><td>Macro</td><td>-</td><td>Initialized all items in player's inventory.</td></tr>\n");
+
+                    //<<set inventoryLinkInSidebar to 1>>
+                    //<<set inventorySidebarVisible to 1>>
+
+                    //<<initMoney>>
+                    //<<initStats>>
+                    //<<initJobs>>
+                    //<<initCharacters>>
+
+                    //<<getTime>>
+                    //<<getDate>>
+                    //<<getDateTime>>
+                    //<<getDaysPassed>>
+                    //<<getTimeOfDay>>
+
+                    // sidebar
+                    // <<inventorySidebar>>
+                    // <<clothingSidebar>>
+                    // <<statsSidebar>>
+                    // <<charactersSidebar>>
+                }
+                finally
+                {
+                    if (twCheatSheet != null)
+                    {
+                        twCheatSheet.Flush();
+                        twCheatSheet.Close();
+                    }
+                }
+            }
         }
 
         private void button36_Click(object sender, EventArgs e)
@@ -2927,6 +2983,11 @@ namespace TweeFly
             {
                 conf.includedFiles.Add(listBox1.Items[i].ToString());
             }
+        }
+
+        private void checkBox46_CheckedChanged(object sender, EventArgs e)
+        {
+            conf.listVariables = checkBox46.Checked;
         }
     }
 }

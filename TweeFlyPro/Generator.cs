@@ -88,6 +88,7 @@ namespace TweeFly
                 if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_jobs.tw2");
                 if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("_js_characters.tw2");
                 twMain.WriteLine("_tw_sidebar.tw2");
+                if (_conf.listVariables) twMain.WriteLine("_variables.tw2");
                 twMain.WriteLine("_css_style.tw2");
                 if (!string.IsNullOrEmpty(_mainFile))
                 {
@@ -112,6 +113,8 @@ namespace TweeFly
                 {
                     twMain.WriteLine("<<initItems>>");
                     twMain.WriteLine("<<initInventory>>");
+                    twMain.WriteLine("<<set $inventoryLinkInSidebar to 1>>");
+                    twMain.WriteLine("<<set $inventorySidebarVisible to 1>>");
                 }
                 if (_conf.shopActive) twMain.WriteLine("<<initShops>>");
                 if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) twMain.WriteLine("<<initStats>>");
@@ -135,7 +138,11 @@ namespace TweeFly
             string menu = "";
 
             if (_conf.inventoryActive && _conf.inventoryLinkInSidebar)
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_LINK_CAP")).caption + "->InventoryMenu]]\n";
+            {
+                menu += "<<if $inventoryLinkVisible is 1>>\n";
+                menu += "\t[[" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_LINK_CAP")).caption + "->InventoryMenu]]\n";
+                menu += "<<endif>>\n";
+            }
 
             if (_conf.clothingActive && _conf.wardrobeLinkInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_LINK_CAP")).caption + "->WardrobeMenu]]\n";
@@ -148,6 +155,11 @@ namespace TweeFly
 
             if (_conf.charactersActive && _conf.charactersLinkInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
                 menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_LINK_CAP")).caption + "->CharactersMenu]]\n";
+
+            if (_conf.listVariables)
+            {
+                menu += "[[VARIABLES->VariablesMenu]]\n";
+            }
             menu += "\n";
 
             // Variables
@@ -185,6 +197,18 @@ namespace TweeFly
                     "<<else>>" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_TITLE_CAP")).caption;
                 menu += "<<inventory>>\n";
                 menu += "<<endif>>\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "\n";
+            }
+            return menu;
+        }
+
+        private static string generateVariablesPassageString(Configuration _conf)
+        {
+            string menu = "";
+            if (_conf.inventoryActive)
+            {
+                menu += "<<variables>>\n";
                 menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
                 menu += "\n";
             }
@@ -273,6 +297,12 @@ namespace TweeFly
                 {
                     twMenu.WriteLine("::CharactersMenu[noreturn]\n");
                     twMenu.WriteLine(generateCharactersPassageString(_conf));
+                }
+
+                if(_conf.listVariables)
+                {
+                    twMenu.WriteLine("::VariablesMenu[noreturn]\n");
+                    twMenu.WriteLine(generateVariablesPassageString(_conf));
                 }
             }
             finally
@@ -384,7 +414,7 @@ namespace TweeFly
             // addToInventory
             inv +="macros.addToInventory = {\n";
             inv +="\thandler: function(place, macroName, params, parser) {\n";
-            inv +="\t\tif (params.length != 2) {\n";
+            inv +="\t\tif (params.length < 2) {\n";
             inv += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters, item id and amount.\");\n";
             inv +="\t\t\treturn;\n";
             inv +="\t\t}\n";
@@ -413,6 +443,9 @@ namespace TweeFly
             inv +="\t\t\t\t\tbreak;\n";
             inv +="\t\t\t\t}\n";
             inv +="\t\t\t}\n";
+            inv += "\t\t\tif(params.length == 3) {\n";
+            inv += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Received ' + item.name);";
+            inv += "\t\t\t}\n";
             inv +="\t\t} else {\n";
             inv +="\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several items with the same id \" + item.ID);\n";
             inv +="\t\t\treturn;\n";
@@ -424,7 +457,7 @@ namespace TweeFly
             // removeFromInventory
             inv +="macros.removeFromInventory = {\n";
             inv +="\thandler: function(place, macroName, params, parser) {\n";
-            inv +="\t\tif ((params.length == 0) || (params.length > 2)) {\n";
+            inv +="\t\tif ((params.length < 1)) {\n";
             inv += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expecting one or two parameters.\");\n";
             inv +="\t\t\treturn;\n";
             inv +="\t\t}\n";
@@ -433,6 +466,9 @@ namespace TweeFly
             inv +="\t\tif (params.length == 1) {\n";
             inv +="\t\t\tfor (var i in state.active.variables.inventory) {\n";
             inv +="\t\t\t\tif (state.active.variables.inventory[i].ID == params[0]) {\n";
+            inv +="\t\t\t\t\tif(params.length == 3) {\n";
+            inv +="\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Removed ' + item.name + '(s)');";
+            inv +="\t\t\t\t\t}\n";
             inv +="\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
             inv +="\t\t\t\t\tbreak;\n";
             inv +="\t\t\t\t}\n";
@@ -441,6 +477,9 @@ namespace TweeFly
             inv +="\t\t\tfor (var i in state.active.variables.inventory) {\n";
             inv +="\t\t\t\tif (state.active.variables.inventory[i].ID == params[0]) {\n";
             inv +="\t\t\t\t\tstate.active.variables.inventory[i].owned -= params[1];\n";
+            inv +="\t\t\t\t\tif(params.length == 3) {\n";
+            inv += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Removed ' + params[1] + ' ' + item.name + '(s)');";
+            inv +="\t\t\t\t\t}\n";
             inv +="\t\t\t\t\tif (state.active.variables.inventory[i].owned <= 0) {\n";
             inv +="\t\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
             inv +="\t\t\t\t\t}\n";
@@ -534,6 +573,7 @@ namespace TweeFly
             inv +="macros.inventorySidebar = {\n";
             inv +="\thandler: function(place, macroName, params, parser) {\n";
             inv +="\n";
+            inv += "\t\tif (state.active.variables.inventorySidebarVisible != 1) return;\n";
             inv +="\t\tvar wstr = \"<table class=\\\"inventory_sidebar\\\">\";\n";
             inv +="\t\twstr +=\"<tr><td colspan=2>Inventory</td></tr>\";\n";
             inv +="\t\tfor (var w = 0; w<state.active.variables.inventory.length; w +=2) {\n";
@@ -624,7 +664,7 @@ namespace TweeFly
                 inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" ></td>\";\n";
                 inv += "\t\t\t\t}";
 
-                inv +="\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></td>\";\n";
+                //inv +="\t\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></td>\";\n";
             }
             inv +="\t\t\t} else {\n";
             inv +="\t\t\t\twstr +=\"<td></td>\";\n";
@@ -662,7 +702,7 @@ namespace TweeFly
             inv += "};\n";
             inv += "\n";
 
-            // showInventoryLink
+            // hideInventoryLink
             inv += "macros.hideInventoryLink = {\n";
             inv += "\thandler: function(place, macroName, params, parser) {\n";
             inv += "\t\tstate.active.variables.inventoryLinkVisible = 0;\n";
@@ -1369,8 +1409,8 @@ namespace TweeFly
             // addToWardrobe
             cloth +="macros.addToWardrobe = {\n";
             cloth +="\thandler: function (place, macroName, params, parser) {\n";
-            cloth +="\t\tif (params.length != 2) {\n";
-            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters, clothing ID and amount.\");\n";
+            cloth +="\t\tif (params.length < 2) {\n";
+            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects at least two parameters, clothing ID and amount. The third shows a message about the process.\");\n";
             cloth +="\t\t\treturn;\n";
             cloth +="\t\t}\n";
             cloth +="\n";
@@ -1404,7 +1444,12 @@ namespace TweeFly
             cloth +="\t\t\t\t\tbreak;\n";
             cloth +="\t\t\t\t}\n";
             cloth +="\t\t\t}\n";
-            cloth +="\t\t} else {\n";
+
+            cloth +="\t\t\tif(params.length == 3) {\n";
+            cloth +="\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Received ' + new_clothing.name);";
+            cloth +="\t\t\t}\n";
+
+            cloth += "\t\t} else {\n";
             cloth +="\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);\n";
             cloth +="\t\t\treturn;\n";
             cloth +="\t\t}\n";
@@ -1459,14 +1504,17 @@ namespace TweeFly
             // setStats
             stats += "macros.setStats = {\n";
             stats += "\thandler: function(place, macroName, params, parser) {\n";
-            stats += "\t\tif (params.length != 2) {\n";
-            stats += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters, stat id and value.\");\n";
+            stats += "\t\tif (params.length < 2) {\n";
+            stats += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects at least two parameters, stat id and value.\");\n";
             stats += "\t\t\treturn;\n";
             stats += "\t\t}\n";
             stats += "\t\tfor (var i in state.active.variables.stats)\n";
             stats += "\t\t{\n";
             stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
             stats += "\t\t\t\tstate.active.variables.stats[i].value = params[1];\n";
+            stats += "\t\t\tif(params.length == 3) {\n";
+            stats += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, state.active.variables.stats[i].name +' is now ' + params[1]);";
+            stats += "\t\t\t}\n";
             stats += "\t\t\t\tbreak;\n";
             stats += "\t\t\t}\n";
             stats += "\t\t}\n";
@@ -1523,6 +1571,9 @@ namespace TweeFly
             stats += "\t\t{\n";
             stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
             stats += "\t\t\t\tstate.active.variables.stats[i].value += params[1];\n";
+            stats += "\t\t\tif(params.length == 3) {\n";
+            stats += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, state.active.variables.stats[i].name +' is now ' + state.active.variables.stats[i].value);";
+            stats += "\t\t\t}\n";
             stats += "\t\t\t\tbreak;\n";
             stats += "\t\t\t}\n";
             stats += "\t\t}\n";
@@ -1531,7 +1582,7 @@ namespace TweeFly
             stats += "\n";
 
             // setStats
-            stats += "macros.setStats = {\n";
+            /*stats += "macros.setStats = {\n";
             stats += "\thandler: function(place, macroName, params, parser) {\n";
             stats += "\t\tif (params.length != 2) {\n";
             stats += "\t\t\tthrowError(place, \" << \" + macroName + \" >>: expects two parameters, stat id and value.\");\n";
@@ -1546,7 +1597,7 @@ namespace TweeFly
             stats += "\t\t}\n";
             stats += "\t}\n";
             stats += "};\n";
-            stats += "\n";
+            stats += "\n";*/
 
             // setStatsVisible
             stats += "macros.setStatsVisible = {\n";
@@ -2002,6 +2053,20 @@ namespace TweeFly
             }
         }
 
+        private static string generateVariablesScripts(Configuration _conf)
+        {
+            string vars = "";
+            vars += "macros.variables = {\n";
+            vars += "\thandler: function (place, macroName, params, parser) {\n";
+            vars += "\tvar keyValuePairs = \"\";\n";
+            vars += "\t\tObject.keys(state.active.variables).forEach(key => { keyValuePairs += key + \": \" + JSON.stringify(state.active.variables[key]) + \"<br><hr>\";});\n";
+            vars += "\t\tnew Wikifier(place, keyValuePairs);\n";
+            vars += "\t}\n";
+            vars += "};\n";
+            vars += "\n";
+            return vars;
+        }
+
         private static string generateShopsScripts(Configuration _conf)
         {
             string shops = "";
@@ -2323,6 +2388,27 @@ namespace TweeFly
             return shops;
         }
 
+        private static void generateVariables(Configuration _conf, string _path)
+        {
+            string variablesPath = Path.Combine(_path, "_variables.tw2");
+            TextWriter twVariables = null;
+            try
+            {
+                twVariables = new StreamWriter(variablesPath, false, new UTF8Encoding(false));
+                twVariables.WriteLine("::Variables[script]");
+                twVariables.WriteLine("");
+                twVariables.WriteLine(generateVariablesScripts(_conf));
+            }
+            finally
+            {
+                if (twVariables != null)
+                {
+                    twVariables.Flush();
+                    twVariables.Close();
+                }
+            }
+        }
+
         private static void generateShops(Configuration _conf, string _path)
         {
             string shopsPath = Path.Combine(_path, "_js_shops.tw2");
@@ -2373,6 +2459,9 @@ namespace TweeFly
             money += "\t\tif (state.active.variables.money != undefined)\n";
             money += "\t\t{\n";
             money += "\t\t\t\tstate.active.variables.money += params[0];\n";
+            money += "\t\t\tif(params.length == 2) {\n";
+            money += "\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, 'Received ' + params[0] + '" + _conf.captions.Single(s => s.captionName.Equals("MONEY_UNIT_CAP")).caption + "'); ";
+            money += "\t\t\t}\n";
             money += "\t\t}\n";
             money += "\t}\n";
             money += "};\n";
@@ -2389,7 +2478,7 @@ namespace TweeFly
             money += "\t\t\t\tstate.active.variables.money += state.active.variables.moneyPerDay;\n";
             money += "\t\t\t\tstate.active.variables.lastMoneyUpdate = state.active.variables.time;\n";
             money += "\t\t\t}\n";
-            money += "\t\t\tnew Wikifier(place, \"\"+state.active.variables.money);\n";
+            money += "\t\t\tnew Wikifier(place, \"\"+state.active.variables.money + '" + _conf.captions.Single(s => s.captionName.Equals("MONEY_UNIT_CAP")).caption + "');\n";
             money += "\t\t} else {\n";
             money += "\t\t\tthrowError(place, \" << \" + macroName + \">>: please call initMoney first.\");\n";
             money += "\t\t\treturn;\n";
@@ -2475,7 +2564,7 @@ namespace TweeFly
             jobs +="\t}\n";
             jobs +="\n";
             jobs +="\t// Give reward\n";
-            jobs +="\tif (state.active.variables.time !== undefined) {\n";
+            jobs += "\tif (state.active.variables.money !== undefined) {\n";
             jobs +="\t\tstate.active.variables.money +=job_obj.rewardMoney;\n";
             jobs +="\t} else {\n";
             jobs +="\t\tthrowError(null, \"Money system has not been initialized so no reward money can be given for doing job.\");\n";
@@ -3073,6 +3162,7 @@ namespace TweeFly
                 if (_conf.moneyActive) generateMoney(_conf, path);
                 if (_conf.jobsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateJobs(_conf, path);
                 if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition) generateCharacters(_conf, path);
+                if (_conf.listVariables) generateVariables(_conf, path);
                 generateBat(_conf, path);
                 return openFileDialog1.FileName;
             }

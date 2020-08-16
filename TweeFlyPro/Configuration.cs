@@ -44,6 +44,8 @@ namespace TweeFly
         public int imageWidthInDialogs { get; set; } = 150;
         public int imageHeightInDialogs { get; set; } = 150;
 
+        public bool listVariables { get; set; } = false;
+
         // Captions
         public List<CaptionPair> captions = new List<CaptionPair>();
 
