@@ -1,5 +1,5 @@
 # TweeFly
-A setup tool for interactive stories writte in Twee.
+A setup tool for interactive stories writte in Twee2 and Twine.
 
 ### Implemented:
 - Display stats in sidebar vs display stats link in sidebar
@@ -16,12 +16,18 @@ A setup tool for interactive stories writte in Twee.
 - Added "renameCharacter" macro to characters
 
 ### Release notes:
-	- Removed file path escape bugs
+	- 0.13
+		- Bugfixes
+			- missing TR tag in clothing sideview - fixed
+			- Two currencly signs appeared in sidebar - fixed
+		- Beta features
+			- First draft of cheat sheet
 
 ### TODO:
 - GUI
 	- Remove "mayOwnMultiple" for cloth
 	- Add number, string, bool to skill1-3
+	- make lists sortable
 	
 - Macros:
 	- setNextDay with hours as parameter
@@ -38,3 +44,4 @@ A setup tool for interactive stories writte in Twee.
 	
 - Bugs:
 	- Tooltips for cloth
+	- cloth skill 1 not show in shops

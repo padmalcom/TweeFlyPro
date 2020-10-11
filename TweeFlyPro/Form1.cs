@@ -245,7 +245,10 @@ namespace TweeFly
                         radioButton2.Checked = true;
                         break;
                     case 2:
-                        radioButton2.Checked = true;
+                        radioButton3.Checked = true;
+                        break;
+                    case 3:
+                        radioButton4.Checked = true;
                         break;
                 }
                 dateTimePicker3.Value = conf.startDate;
@@ -2897,25 +2900,30 @@ namespace TweeFly
 
         private void button35_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "|*.html|*.*|";
-            openFileDialog1.Title = "TweeFly Cheat Sheet";
-            openFileDialog1.ShowDialog();
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "|*.html|*.*|";
+            saveFileDialog1.Title = "TweeFly Cheat Sheet";
+            saveFileDialog1.ShowDialog();
 
-            if (openFileDialog1.FileName != "")
+            if (saveFileDialog1.FileName != "")
             {
                 TextWriter twCheatSheet = null;
                 try
                 {
-                    twCheatSheet = new StreamWriter(openFileDialog1.FileName, false, new UTF8Encoding(false));
+                    twCheatSheet = new StreamWriter(saveFileDialog1.FileName, false, new UTF8Encoding(false));
 
                     twCheatSheet.WriteLine("<html>\n<title>TweeFly Cheat Sheet for " + conf.storyName + "</title><body>\n");
+                    twCheatSheet.WriteLine("<style>table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}");
+                    twCheatSheet.WriteLine("td, th {border: 1px solid #dddddd; text-align: left; padding: 8px;}");
+                    twCheatSheet.WriteLine("tr: nth-child(even) {background-color: #dddddd;}</style>");
                     twCheatSheet.WriteLine("<h1>TweeFly Cheat Sheet for " + conf.storyName + "<h1>\n");
-                    twCheatSheet.WriteLine("<table><tr><td><b>Function</b></td><td>Type</td><td><b>Parameters</b></td><td><b>Description</b></td></tr>\n");
 
+                    twCheatSheet.WriteLine("<h2>Initialization code (no need to call)<h2>\n");
                     // Initialization
+
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+
                     // - cloth
-                    twCheatSheet.WriteLine("<tr><td cols=\"4\"><b>Initialization code (no need to call)</b></td></tr>\n");
                     twCheatSheet.WriteLine("<tr><td>initAllClothing</td><td>Macro</td><td>-</td><td>Initialized global clothing list</td></tr>\n");
                     twCheatSheet.WriteLine("<tr><td>initClothing</td><td>Macro</td><td>-</td><td>Initialized the worn clothing.</td></tr>\n");
                     twCheatSheet.WriteLine("<tr><td>initWardrobe</td><td>Macro</td><td>-</td><td>Initialized all clothing in player's wardrobe.</td></tr>\n");
@@ -2923,26 +2931,103 @@ namespace TweeFly
                     // - inventory
                     twCheatSheet.WriteLine("<tr><td>initItems</td><td>Macro</td><td>-</td><td>Initialized all global items.</td></tr>\n");
                     twCheatSheet.WriteLine("<tr><td>initInventory</td><td>Macro</td><td>-</td><td>Initialized all items in player's inventory.</td></tr>\n");
+                  
+                    // - general
+                    twCheatSheet.WriteLine("<tr><td>initMoney</td><td>Macro</td><td>-</td><td>Initializes money system.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initStats</td><td>Macro</td><td>-</td><td>Initializes stats system.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initJobs</td><td>Macro</td><td>-</td><td>Initializes job system.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>initCharacters</td><td>Macro</td><td>-</td><td>Initializes character system.</td></tr></table>\n");
 
-                    //<<set inventoryLinkInSidebar to 1>>
-                    //<<set inventorySidebarVisible to 1>>
+                    // Display functions
+                    twCheatSheet.WriteLine("<h2>Paragraph views<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>inventory</td><td>Macro</td><td>-</td><td>Show the inventory.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>variables</td><td>Macro</td><td>-</td><td>Show all variables used in this game (for debug purposes)</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>clothing</td><td>Macro</td><td>-</td><td>Show all worn clothes.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>wardrobe</td><td>Macro</td><td>-</td><td>Show the player's wardrobe.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>stats</td><td>Macro</td><td>-</td><td>Show the player's stats.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>characters</td><td>Macro</td><td>-</td><td>Show all characters of the game.</td></tr></table>\n");
 
-                    //<<initMoney>>
-                    //<<initStats>>
-                    //<<initJobs>>
-                    //<<initCharacters>>
+                    // Sidebar boxes
+                    twCheatSheet.WriteLine("<h2>Sidebar views<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>inventorySidebar</td><td>Macro</td><td>-</td><td>Shows the player's inventory.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>clothingSidebar</td><td>Macro</td><td>-</td><td>Shows the player's clothing.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>statsSidebar</td><td>Macro</td><td>-</td><td>Shows the player's stats.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>charactersSidebar</td><td>Macro</td><td>-</td><td>Shows all known characters.</td></tr></table>\n");
 
-                    //<<getTime>>
-                    //<<getDate>>
-                    //<<getDateTime>>
-                    //<<getDaysPassed>>
-                    //<<getTimeOfDay>>
+                    // Time
+                    twCheatSheet.WriteLine("<h2>Time functions<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>getTime</td><td>Macro</td><td>-</td><td>Get the current time in the game.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>getDate</td><td>Macro</td><td>-</td><td>Get the current date in the game.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>getDateTime</td><td>Macro</td><td>-</td><td>Get the current time and date in the game.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>getDaysPassed</td><td>Macro</td><td>-</td><td>Get the days that passed since starting the game.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>setTime</td><td>Macro</td><td>hours, minutes, seconds</td><td>Set the time.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>setDate</td><td>Macro</td><td>year, month, day</td><td>Set the date.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>setDateTime</td><td>Macro</td><td>year, month, day, hours, minutes, seconds</td><td>Set date and time.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>addTimeInMinutes</td><td>Macro</td><td>minutes</td><td>Add time in minutes.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>addTimeInDays</td><td>Macro</td><td>days</td><td>Add time in days.</td></tr></table>\n");
 
-                    // sidebar
-                    // <<inventorySidebar>>
-                    // <<clothingSidebar>>
-                    // <<statsSidebar>>
-                    // <<charactersSidebar>>
+                    // Inventory
+                    twCheatSheet.WriteLine("<h2>Inventory<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>addToInventory</td><td>Macro</td><td>item id, amount</td><td>Adds the amount of items to the player's inventory.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>removeFromInventory</td><td>Macro</td><td>item id, amount (optional)</td><td>Removes the amount of items from the player's inventory.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>clearInventory</td><td>Macro</td><td>-</td><td>Removes all items from the player's inventory.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>showInventoryLink</td><td>Macro</td><td>-</td><td>Sets inventory link to visible.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>showInventorySidebar</td><td>Macro</td><td>-</td><td>Sets the sidebar inventory to visible.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>hideInventoryLink</td><td>Macro</td><td>-</td><td>Hides the inventory link.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>hideInventorySidebar</td><td>Macro</td><td>-</td><td>Hides the inventory from the sidebar.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>getInventory</td><td>Macro</td><td>-</td><td>Get all items from the inventory as array.</td></tr>\n");               
+                    twCheatSheet.WriteLine("<tr><td>has_item</td><td>Macro</td><td>item id</td><td>Returns 1 if the player owns one or more of this item, otherwise: 0</td></tr></table>\n");
+
+                    // Clothing
+                    twCheatSheet.WriteLine("<h2>Clothing<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>addToWardrobe</td><td>Macro</td><td>clothing id, amount</td><td>Adds the given amount of an item to the player's wardrobe.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>is_worn</td><td>Macro</td><td>clothing id</td><td>Is the player wearing a cloth? True if yes, False if not.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>is_naked</td><td>Macro</td><td>-</td><td>Is not wearing any cloths? True if yes, False if not.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>is_in_wardrobe</td><td>Macro</td><td>clothing id</td><td>Does the player own such cloth? True if yes, False if not.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>wear</td><td>Macro</td><td>clothing id</td><td>Wear the given cloth.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>undress</td><td>Macro</td><td>clothing id</td><td>Remove the given cloth.</td></tr></table>\n");
+
+                    // Stats
+                    twCheatSheet.WriteLine("<h2>Stats<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>setStats</td><td>Macro</td><td>stats id, value</td><td>Sets the stats to the given value.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>addStats</td><td>Macro</td><td>stats id, value</td><td>Adds value to the given stats.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>setStatsVisible</td><td>Macro</td><td>stats id, boolean</td><td>Show of hide the skill from the skills view.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>getStats</td><td>Macro</td><td>stats id</td><td>Get's the stats or the sum if stats are bound to clothing.</td></tr></table>\n");
+
+                    // Shops
+                    twCheatSheet.WriteLine("<h2>Shops<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>shop</td><td>Macro</td><td>shop id</td><td>Shows the shop with the given id.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>buy</td><td>Macro</td><td>item_object, type (ITEM or CLOTHING), shopid, _itemIndex of shop</td><td>Buy an item. This function call is generated from the shop view.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>sell</td><td>Macro</td><td>item_object, type (ITEM or CLOTHING), shopid, _itemIndex of shop</td><td>Sell an item. This function call is generated from the shop view.</td></tr></table>\n");
+
+                    // Money
+                    twCheatSheet.WriteLine("<h2>Money<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>addMoney</td><td>Macro</td><td>amount</td><td>Adds the given amount of money.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>printMoney</td><td>Macro</td><td>-</td><td>Outputs the money in the player's wallet. Updates the amount when there is a pocket money.</td></tr></table>\n");
+
+                    // Jobs
+                    twCheatSheet.WriteLine("<h2>Jobs<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>showJobs</td><td>Macro</td><td>Array of job ids</td><td>Prints all jobs with the given ids.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>doJob</td><td>Macro</td><td>job object</td><td>Does the given job. Updates cooldown and adds reward items and money.</td></tr></table>\n");
+
+                    // Characters
+                    twCheatSheet.WriteLine("<h2>Characters<h2>\n");
+                    twCheatSheet.WriteLine("<table><tr><td style=\"width:15%\"><b>Function</b></td><td style=\"width:7%\"><b>Type</b></td><td style=\"width:28%\"><b>Parameters</b></td><td style=\"width: 50%\"><b>Description</b></td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>say</td><td>Macro</td><td>character id, text</td><td>Let the player say something.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>renameCharacter</td><td>Macro</td><td>character id, new name</td><td>Prints all jobs with the given ids.</td></tr>\n");
+                    twCheatSheet.WriteLine("<tr><td>setKnown</td><td>Macro</td><td>character id</td><td>Sets the character to a known state so that his/her name is printed.</td></tr></table>\n");
+
+                    twCheatSheet.WriteLine("</body></html>");
+
                 }
                 finally
                 {

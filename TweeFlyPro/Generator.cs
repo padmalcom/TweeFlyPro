@@ -164,8 +164,7 @@ namespace TweeFly
 
             // Variables
             if (_conf.moneyActive && _conf.moneyInSidebar)
-                menu += _conf.captions.Single(s => s.captionName.Equals("MONEY_SIDEBAR_TITLE_CAP")).caption + " <<printMoney>>" +
-                    _conf.captions.Single(s => s.captionName.Equals("MONEY_UNIT_CAP")).caption + "\n";
+                menu += _conf.captions.Single(s => s.captionName.Equals("MONEY_SIDEBAR_TITLE_CAP")).caption + " <<printMoney>>\n";
 
             if (_conf.daytimeActive && _conf.daytimeInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition)
             {
@@ -1302,15 +1301,15 @@ namespace TweeFly
             cloth +="\t\t\"<tr><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HEAD_NAME].image)+\"></td>\" +\n";
             cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[HAIR_NAME].image)+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[FACE_NAME].image)+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[NECK_NAME].image)+\"></td>\" +\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\" +\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[BELT_NAME].image)+\"></td></tr>\" +\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\"+\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[SHOES_NAME].image)+\"></td></tr>\"+\n";
-            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\"+\n";
-            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td></tr>\"+\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[FACE_NAME].image)+\"></td>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[NECK_NAME].image)+\"></td></tr>\" +\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td></tr>\" +\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[BELT_NAME].image)+\"></td>\" +\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[SOCKS_NAME].image)+\"></td></tr>\"+\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[SHOES_NAME].image)+\"></td>\"+\n";
+            cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td></tr>\"+\n";
+            cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td><td></td></tr>\"+\n";
             cloth += "\t\t\"</table>\");\n";
             cloth +="\t}\n";
             cloth +="};\n";
