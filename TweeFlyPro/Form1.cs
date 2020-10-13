@@ -3074,5 +3074,21 @@ namespace TweeFly
         {
             conf.listVariables = checkBox46.Checked;
         }
+
+        private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            string directory = System.IO.Path.GetDirectoryName(path);
+            directory = new Uri(directory).LocalPath;
+            string[] files = Directory.GetFiles(directory, "TweeFly Documentation*.pdf");
+
+            if (files.Length < 1)
+            {
+                MessageBox.Show("Documentation file not found.");
+            } else
+            {
+                System.Diagnostics.Process.Start(files[0]);
+            }
+        }
     }
 }
