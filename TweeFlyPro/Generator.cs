@@ -201,7 +201,8 @@ namespace TweeFly
                     "<<else>>" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_TITLE_CAP")).caption;
                 menu += "<<inventory>>\n";
                 menu += "<<endif>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                //menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                menu += "<<back [" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "]>>\n";
                 menu += "\n";
             }
             return menu;
@@ -213,7 +214,8 @@ namespace TweeFly
             if (_conf.inventoryActive)
             {
                 menu += "<<variables>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                //menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                menu += "<<back [" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "]>>\n";
                 menu += "\n";
             }
             return menu;
@@ -226,7 +228,8 @@ namespace TweeFly
             {
                 menu += "<h1>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_TITLE_CAP")).caption + "</h1>\n";
                 menu += "<<clothing>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                //menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                menu += "<<back [" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "]>>\n";
                 menu += "\n";
             }
             return menu;
@@ -239,7 +242,8 @@ namespace TweeFly
             {
                 menu += "<h1>" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_TITLE_CAP")).caption + "</h1>\n";
                 menu += "<<wardrobe>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                //menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                menu += "<<back [" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "]>>\n";
                 menu += "\n";
             }
             return menu;
@@ -251,7 +255,8 @@ namespace TweeFly
             if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
             {
                 menu += "<<stats>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                //menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                menu += "<<back [" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "]>>\n";
                 menu += "\n";
             }
             return menu;
@@ -262,7 +267,8 @@ namespace TweeFly
             if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
             {
                 menu += "<<characters>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                //menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
+                menu += "<<back [" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "]>>\n";
                 menu += "\n";
             }
             return menu;
