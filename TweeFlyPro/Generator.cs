@@ -201,7 +201,7 @@ namespace TweeFly
                     "<<else>>" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_TITLE_CAP")).caption;
                 menu += "<<inventory>>\n";
                 menu += "<<endif>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
                 menu += "\n";
             }
             return menu;
@@ -213,7 +213,7 @@ namespace TweeFly
             if (_conf.inventoryActive)
             {
                 menu += "<<variables>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
                 menu += "\n";
             }
             return menu;
@@ -226,7 +226,7 @@ namespace TweeFly
             {
                 menu += "<h1>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_TITLE_CAP")).caption + "</h1>\n";
                 menu += "<<clothing>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
                 menu += "\n";
             }
             return menu;
@@ -239,7 +239,7 @@ namespace TweeFly
             {
                 menu += "<h1>" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_TITLE_CAP")).caption + "</h1>\n";
                 menu += "<<wardrobe>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
                 menu += "\n";
             }
             return menu;
@@ -251,7 +251,7 @@ namespace TweeFly
             if (_conf.statsActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
             {
                 menu += "<<stats>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
                 menu += "\n";
             }
             return menu;
@@ -262,7 +262,7 @@ namespace TweeFly
             if (_conf.charactersActive && TweeFlyPro.Properties.Settings.Default.IsProEdition)
             {
                 menu += "<<characters>>\n";
-                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$return]]\n";
+                menu += "[[" + _conf.captions.Single(s => s.captionName.Equals("BACK_CAP")).caption + "|$back]]\n"; // TODO: check $return
                 menu += "\n";
             }
             return menu;
@@ -447,13 +447,14 @@ namespace TweeFly
             inv +="\t\t\t\t\tbreak;\n";
             inv +="\t\t\t\t}\n";
             inv +="\t\t\t}\n";
-            inv += "\t\t\tif(params.length == 3) {\n";
-            inv += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_RECEIVED_ITEM_CAP")).caption  + "' + item.name);";
-            inv += "\t\t\t}\n";
-            inv +="\t\t} else {\n";
-            inv +="\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several items with the same id \" + item.ID);\n";
-            inv +="\t\t\treturn;\n";
-            inv +="\t\t}\n";
+            inv += "\t\t}\n";
+            inv += "\t\tif(params.length == 3) {\n";
+            inv += "\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_RECEIVED_ITEM_CAP")).caption  + "' + item.name);\n";
+            inv += "\t\t}\n";
+            //inv +="\t\t} else {\n";
+            //inv +="\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several items with the same id \" + item.ID);\n";
+            //inv +="\t\t\treturn;\n";
+            //inv +="\t\t}\n";
             inv +="\t}\n";
             inv +="};\n";
             inv +="\n";
@@ -471,7 +472,7 @@ namespace TweeFly
             inv +="\t\t\tfor (var i in state.active.variables.inventory) {\n";
             inv +="\t\t\t\tif (state.active.variables.inventory[i].ID == params[0]) {\n";
             inv +="\t\t\t\t\tif(params.length == 3) {\n";
-            inv += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_REMOVED_ITEM_CAP")).caption + "' + item.name + '(s)');";
+            inv += "\t\t\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_REMOVED_ITEM_CAP")).caption + "' + state.active.variables.inventory[i].name + '(s)');\n";
             inv +="\t\t\t\t\t}\n";
             inv +="\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
             inv +="\t\t\t\t\tbreak;\n";
@@ -482,7 +483,7 @@ namespace TweeFly
             inv +="\t\t\t\tif (state.active.variables.inventory[i].ID == params[0]) {\n";
             inv +="\t\t\t\t\tstate.active.variables.inventory[i].owned -= params[1];\n";
             inv +="\t\t\t\t\tif(params.length == 3) {\n";
-            inv += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_REMOVED_ITEM_CAP")).caption + "' + params[1] + ' ' + item.name + '(s)');";
+            inv += "\t\t\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_REMOVED_ITEM_CAP")).caption + "' + params[1] + ' ' + state.active.variables.inventory[i].name + '(s)');\n";
             inv +="\t\t\t\t\t}\n";
             inv +="\t\t\t\t\tif (state.active.variables.inventory[i].owned <= 0) {\n";
             inv +="\t\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
@@ -579,7 +580,7 @@ namespace TweeFly
             inv +="\n";
             inv += "\t\tif (state.active.variables.inventorySidebarVisible != 1) return;\n";
             inv +="\t\tvar wstr = \"<table class=\\\"inventory_sidebar\\\">\";\n";
-            inv += "\t\twstr +=\"<tr class=\"collapseTableHeader\"><td colspan=2>Inventory</td></tr>\";\n";
+            inv += "\t\twstr +=\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>Inventory</td></tr>\";\n";
             inv +="\t\tfor (var w = 0; w<state.active.variables.inventory.length; w +=2) {\n";
             inv +="\t\t\twstr +=\"<tr>\";\n";
             inv +="\n";
@@ -1335,7 +1336,7 @@ namespace TweeFly
             cloth +="\n";
             cloth +="\tnew Wikifier(place,\n";
             cloth +="\t\t\"<table class=\\\"clothing_sidebar\\\">\"+\n";
-            cloth += "\t\t\"<tr class=\"collapseTableHeader\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
+            cloth += "\t\t\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HEAD_NAME].image)+\"></td>\" +\n";
             cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[HAIR_NAME].image)+\"></td></tr>\" +\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[FACE_NAME].image)+\"></td>\" +\n";
@@ -1441,8 +1442,8 @@ namespace TweeFly
             // is_in_wardrobe
             cloth += "window.is_in_wardrobe = function(_id) {\n";
             cloth += "\tvar clothing_in_catalog = state.active.variables.wardrobe.filter(obj => {return obj.ID === _id});\n";
-            cloth += "\treturn (clothing_in_catalog.length > 0);";
-            cloth += "};\n";
+            cloth += "\treturn (clothing_in_catalog.length > 0);\n";
+            cloth += "};\n\n";
 
             // addToWardrobe
             cloth +="macros.addToWardrobe = {\n";
@@ -1482,14 +1483,15 @@ namespace TweeFly
             cloth +="\t\t\t\t\tbreak;\n";
             cloth +="\t\t\t\t}\n";
             cloth +="\t\t\t}\n";
-            cloth += "\t\t\tif(params.length == 3) {\n";
-            cloth += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_RECEIVED_CLOTHING_CAP")).caption + "' + new_clothing.name);";
-            cloth += "\t\t\t}\n";
-
-            cloth += "\t\t} else {\n";
-            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);\n";
-            cloth += "\t\t\treturn;\n";
             cloth += "\t\t}\n";
+            cloth += "\t\tif(params.length == 3) {\n";
+            cloth += "\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_RECEIVED_CLOTHING_CAP")).caption + "' + new_clothing.name);\n";
+            cloth += "\t\t}\n";
+
+            //cloth += "\t\t} else {\n";
+            //cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);\n";
+            //cloth += "\t\t\treturn;\n";
+            //cloth += "\t\t}\n";
             cloth += "\t}\n";
             cloth += "};\n";
             
@@ -1519,9 +1521,9 @@ namespace TweeFly
             cloth += "\t\t\tfor (var i in state.active.variables.wardrobe) {\n";
             cloth += "\t\t\t\tif (state.active.variables.wardrobe[i].ID == params[0]) {\n";
             cloth += "\t\t\t\t\tif(params.length == 3) {\n";
-            cloth += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_REMOVED_CLOTHING_CAP")).caption + "' + state.active.variables.wardrobe[i].name + '(s)');";
+            cloth += "\t\t\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_REMOVED_CLOTHING_CAP")).caption + "' + state.active.variables.wardrobe[i].name + '(s)');\n";
             cloth += "\t\t\t\t\t}\n";
-            cloth += "\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
+            cloth += "\t\t\t\t\tstate.active.variables.wardrobe.splice(i, 1);\n";
             cloth += "\t\t\t\t\tbreak;\n";
             cloth += "\t\t\t\t}\n";
             cloth += "\t\t\t}\n";
@@ -1531,7 +1533,7 @@ namespace TweeFly
             cloth += "\t\t\t\tif (state.active.variables.wardrobe[i].ID == params[0]) {\n";
             cloth += "\t\t\t\t\tstate.active.variables.wardrobe[i].owned -= params[1];\n";
             cloth += "\t\t\t\t\tif(params.length == 3) {\n";
-            cloth += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_REMOVED_CLOTHING_CAP")).caption + "' + params[1] + ' ' + state.active.variables.wardrobe[i].name + '(s)');";
+            cloth += "\t\t\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_REMOVED_CLOTHING_CAP")).caption + "' + params[1] + ' ' + state.active.variables.wardrobe[i].name + '(s)');\n";
             cloth += "\t\t\t\t\t}\n";
             cloth += "\t\t\t\t\tif (state.active.variables.wardrobe[i].owned <= 0) {\n";
             cloth += "\t\t\t\t\t\tstate.active.variables.wardrobe.splice(i, 1);\n";
@@ -1601,7 +1603,7 @@ namespace TweeFly
             stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
             stats += "\t\t\t\tstate.active.variables.stats[i].value = params[1];\n";
             stats += "\t\t\tif(params.length == 3) {\n";
-            stats += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, state.active.variables.stats[i].name +' is now ' + params[1]);";
+            stats += "\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, state.active.variables.stats[i].name +' is now ' + params[1]);\n";
             stats += "\t\t\t}\n";
             stats += "\t\t\t\tbreak;\n";
             stats += "\t\t\t}\n";
@@ -1660,7 +1662,7 @@ namespace TweeFly
             stats += "\t\t\tif (state.active.variables.stats[i].ID == params[0]) {\n";
             stats += "\t\t\t\tstate.active.variables.stats[i].value += params[1];\n";
             stats += "\t\t\tif(params.length == 3) {\n";
-            stats += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, state.active.variables.stats[i].name +' is now ' + state.active.variables.stats[i].value);";
+            stats += "\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, state.active.variables.stats[i].name +' is now ' + state.active.variables.stats[i].value);\n";
             stats += "\t\t\t}\n";
             stats += "\t\t\t\tbreak;\n";
             stats += "\t\t\t}\n";
@@ -1775,7 +1777,7 @@ namespace TweeFly
             stats += "\t\t\tnew Wikifier(place, 'No stats');\n";
             stats += "\t\t} else {\n";
             stats += "\t\t\tvar stats_str = \"<table class=\\\"stats_sidebar\\\">\";\n";
-            stats += "\t\t\tstats_str +=\"<tr class=\"collapseTableHeader\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("STATS_TITLE_CAP")).caption + "</td></tr>\n";
+            stats += "\t\t\tstats_str +=\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("STATS_TITLE_CAP")).caption + "</td></tr>\";\n";
             stats += "\t\t\tfor (var i = 0; i < state.active.variables.stats.length; i++)\n";
             stats += "\t\t\t{\n";
             stats += "\t\t\t\tif (state.active.variables.stats[i].visible == true) {\n";
@@ -2584,7 +2586,7 @@ namespace TweeFly
             money += "\t\t{\n";
             money += "\t\t\t\tstate.active.variables.money += params[0];\n";
             money += "\t\t\tif(params.length == 2) {\n";
-            money += "\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, 'Received ' + params[0] + '" + _conf.captions.Single(s => s.captionName.Equals("MONEY_UNIT_CAP")).caption + "'); ";
+            money += "\t\t\t\tif (Boolean(params[2]) == true) new Wikifier(place, 'Received ' + params[0] + '" + _conf.captions.Single(s => s.captionName.Equals("MONEY_UNIT_CAP")).caption + "');\n";
             money += "\t\t\t}\n";
             money += "\t\t}\n";
             money += "\t}\n";
@@ -2772,7 +2774,7 @@ namespace TweeFly
 
             // Does this job lead to some passage?
             jobs += "\tif (job_obj.passage) {\n";
-            jobs += "\t\tstate.display(job_by_id[0].passage);\n";
+            jobs += "\t\tstate.display(job_obj.passage);\n";
             jobs += "\t\treturn;\n";
             jobs += "\t}\n";
             jobs += "\tstate.display(state.active.title, null, \"back\");\n";
@@ -3045,7 +3047,7 @@ namespace TweeFly
             characters +="\thandler: function(place, macroName, params, parser) {\n";
             characters +="\n";
             characters +="\t\tvar wstr = \"<table class=\\\"character\\\">\";	\n";
-            characters += "\t\twstr +=\"<tr class=\"collapseTableHeader\"><td colspan=2>Characters</td></tr>\";	\n";
+            characters += "\t\twstr +=\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>Characters</td></tr>\";	\n";
 
             // get known characters
             characters +="\t\tvar knownCharacters = state.active.variables.characters.filter(c => {return c.known == true});\n";
@@ -3761,13 +3763,7 @@ namespace TweeFly
 
         private static string pathPrefixAndEscape(string _s, string _prefix)
         {
-            string res = _prefix;
-            if (res.EndsWith("/")) {
-                res += _s;
-            } else
-            {
-                res += "/" + _s;
-            }
+            string res = Path.Combine(_prefix, _s);
             return res.Replace("\\", "/");
         }
     }

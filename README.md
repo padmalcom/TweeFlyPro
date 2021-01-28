@@ -35,6 +35,8 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 		- Improvements:
 			- Item, clothing, character ... images are shown as first item in each table now
 			- Path subtract has been replaced with path prefix. Path prefix is a relative path to the story where images are stored.
+		- Bug fixes:
+			- "back" in inventory etc. did not reset variables, because $return was used -> replaced $return with $back
 ### TODO:
 - GUI
 	- Postponed: Remove "mayOwnMultiple" for cloth
@@ -48,7 +50,6 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 	- Inventory Mouse Over - Show only description
 	- Remove distance between dialogs in tweefly	
 	- Add macro to display images. Pro feature: convert image to base64
-	- Replace subtraction path by prefix
 	
 - Example project
 	- Add "_" to all variables used by the scripts
@@ -57,4 +58,4 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 - Bugs:
 	- Tooltips for cloth
 	- cloth skill 1 not show in shops
-	- "back" does not reset variables -> tweefly sidebar replace return with back
+
