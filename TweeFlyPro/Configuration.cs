@@ -21,7 +21,7 @@ namespace TweeFly
         public bool charactersActive { get; set; } = false;
 
         // Build
-        public string pathSubtract { get; set; } = "";
+        public string pathPrefix { get; set; } = "";
         public string storyName { get; set; } = "story";
 
         public List<string> includedFiles = new List<string>();
@@ -143,6 +143,8 @@ namespace TweeFly
                     captions.Add(new CaptionPair("INVENTORY_COL_SKILL1_CAP", "skill1"));
                     captions.Add(new CaptionPair("INVENTORY_COL_SKILL2_CAP", "skill2"));
                     captions.Add(new CaptionPair("INVENTORY_COL_SKILL3_CAP", "skill3"));
+                    captions.Add(new CaptionPair("INVENTORY_RECEIVED_ITEM_CAP", "received: "));
+                    captions.Add(new CaptionPair("INVENTORY_REMOVED_ITEM_CAP", "removed: "));
                 }
 
                 {
@@ -160,6 +162,8 @@ namespace TweeFly
                     captions.Add(new CaptionPair("WARDROBE_COL_SKILL2_CAP", "skill2"));
                     captions.Add(new CaptionPair("WARDROBE_COL_SKILL3_CAP", "skill3"));
                     captions.Add(new CaptionPair("WARDROBE_COL_IMAGE_CAP", "image"));
+                    captions.Add(new CaptionPair("WARDROBE_RECEIVED_CLOTHING_CAP", "received: "));
+                    captions.Add(new CaptionPair("WARDROBE_REMOVED_CLOTHING_CAP", "received: "));
 
                     // Clothing
                     captions.Add(new CaptionPair("CLOTHING_TITLE_CAP", "Clothing"));

@@ -20,7 +20,9 @@ namespace TweeFly
         public int duration { get; set; } = 0;
         public List<RewardItem> rewardItems { get; set; } = new List<RewardItem>();
 
-        public Job(int iD, string name, string description, bool available, int cooldown, string category, string image, int rewardMoney, int duration)
+        public string passage { get; set; } = "";
+
+        public Job(int iD, string name, string description, bool available, int cooldown, string category, string image, int rewardMoney, int duration, string passage)
         {
             ID = iD;
             this.name = name;
@@ -32,6 +34,7 @@ namespace TweeFly
             this.rewardMoney = rewardMoney;
             this.duration = duration;
             this.rewardItems = new List<RewardItem>();
+            this.passage = passage;
         }
 
         public Job() { }

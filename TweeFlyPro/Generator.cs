@@ -183,6 +183,11 @@ namespace TweeFly
             if (_conf.clothingActive && _conf.clothingInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition) menu += "<<clothingSidebar>>\n";
             if (_conf.statsActive && _conf.statsInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition) menu += "<<statsSidebar>>\n";
             if (_conf.charactersActive && _conf.charactersInSidebar && TweeFlyPro.Properties.Settings.Default.IsProEdition) menu += "<<charactersSidebar>>\n";
+
+            if (!TweeFlyPro.Properties.Settings.Default.IsProEdition)
+            {
+                menu += "<a href=\"https://www.patreon.com/padmalcom\">Created with TweeFly</a>";
+            }
             menu += "\n";
             return menu;
         }
@@ -331,7 +336,7 @@ namespace TweeFly
                 inv += "\"description\":\"" + _conf.items[i].description + "\",";
                 inv += "\"category\":\"" + _conf.items[i].category + "\",";
                 inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                inv += "\"image\":\"" + pathSubtractAndEscape(_conf.items[i].image, _conf.pathSubtract) + "\",";
+                inv += "\"image\":\"" + pathPrefixAndEscape(_conf.items[i].image, _conf.pathPrefix) + "\",";
                 inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                 inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                 inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -382,7 +387,7 @@ namespace TweeFly
                     inv += "\"description\":\"" + _conf.items[i].description + "\",";
                     inv += "\"category\":\"" + _conf.items[i].category + "\",";
                     inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                    inv += "\"image\":\"" + pathSubtractAndEscape(_conf.items[i].image, _conf.pathSubtract) + "\",";
+                    inv += "\"image\":\"" + pathPrefixAndEscape(_conf.items[i].image, _conf.pathPrefix) + "\",";
                     inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                     inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                     inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -443,7 +448,7 @@ namespace TweeFly
             inv +="\t\t\t\t}\n";
             inv +="\t\t\t}\n";
             inv += "\t\t\tif(params.length == 3) {\n";
-            inv += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Received ' + item.name);";
+            inv += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_RECEIVED_ITEM_CAP")).caption  + "' + item.name);";
             inv += "\t\t\t}\n";
             inv +="\t\t} else {\n";
             inv +="\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several items with the same id \" + item.ID);\n";
@@ -466,7 +471,7 @@ namespace TweeFly
             inv +="\t\t\tfor (var i in state.active.variables.inventory) {\n";
             inv +="\t\t\t\tif (state.active.variables.inventory[i].ID == params[0]) {\n";
             inv +="\t\t\t\t\tif(params.length == 3) {\n";
-            inv +="\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Removed ' + item.name + '(s)');";
+            inv += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_REMOVED_ITEM_CAP")).caption + "' + item.name + '(s)');";
             inv +="\t\t\t\t\t}\n";
             inv +="\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
             inv +="\t\t\t\t\tbreak;\n";
@@ -477,7 +482,7 @@ namespace TweeFly
             inv +="\t\t\t\tif (state.active.variables.inventory[i].ID == params[0]) {\n";
             inv +="\t\t\t\t\tstate.active.variables.inventory[i].owned -= params[1];\n";
             inv +="\t\t\t\t\tif(params.length == 3) {\n";
-            inv += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Removed ' + params[1] + ' ' + item.name + '(s)');";
+            inv += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_REMOVED_ITEM_CAP")).caption + "' + params[1] + ' ' + item.name + '(s)');";
             inv +="\t\t\t\t\t}\n";
             inv +="\t\t\t\t\tif (state.active.variables.inventory[i].owned <= 0) {\n";
             inv +="\t\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
@@ -574,7 +579,7 @@ namespace TweeFly
             inv +="\n";
             inv += "\t\tif (state.active.variables.inventorySidebarVisible != 1) return;\n";
             inv +="\t\tvar wstr = \"<table class=\\\"inventory_sidebar\\\">\";\n";
-            inv +="\t\twstr +=\"<tr><td colspan=2>Inventory</td></tr>\";\n";
+            inv += "\t\twstr +=\"<tr class=\"collapseTableHeader\"><td colspan=2>Inventory</td></tr>\";\n";
             inv +="\t\tfor (var w = 0; w<state.active.variables.inventory.length; w +=2) {\n";
             inv +="\t\t\twstr +=\"<tr>\";\n";
             inv +="\n";
@@ -774,7 +779,7 @@ namespace TweeFly
                 cloth += "\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",";
                 cloth += "\"category\":\"" + _conf.clothing[i].category + "\",";
                 cloth += "\"bodyPart\":" + bodyPartMapper(_conf.clothing[i].bodyPart) + ",";
-                cloth += "\"image\":\"" + pathSubtractAndEscape(_conf.clothing[i].image, _conf.pathSubtract) + "\",";
+                cloth += "\"image\":\"" + pathPrefixAndEscape(_conf.clothing[i].image, _conf.pathPrefix) + "\",";
                 cloth += "\"buyPrice\":" + _conf.clothing[i].buyPrice + ",";
                 cloth += "\"sellPrice\":" + _conf.clothing[i].sellPrice + ",";
                 cloth += "\"isWorn\":" + _conf.clothing[i].isWornAtBeginning.ToString().ToLower() + ",";
@@ -857,6 +862,7 @@ namespace TweeFly
             // header
             cloth += "\t\tvar s = \"<table class=\\\"clothing\\\">\";\n";
             cloth +="\t\ts +=\"<tr>\";\n";
+            cloth += "\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</td>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth +="\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_ID_CAP")).caption + "</td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -887,11 +893,13 @@ namespace TweeFly
                 cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + "</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth +="\t\ts +=\"<td class=\\\"clothing\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + "</b></td>\";\n";
-            cloth +="\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</td>\";\n";
+            //cloth +="\t\ts +=\"<td class=\\\"clothing\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // head
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"':state.active.variables.wearing[HEAD_NAME].image)+\"></td>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '': state.active.variables.wearing[HEAD_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -922,12 +930,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '':state.active.variables.wearing[HEAD_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"':state.active.variables.wearing[HEAD_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"':state.active.variables.wearing[HEAD_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // hair
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HAIR_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -958,12 +969,14 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '': state.active.variables.wearing[HAIR_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HAIR_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HAIR_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // face
             cloth += "\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[FACE_NAME].image)+\"></td>\";\n";
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -994,12 +1007,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '': state.active.variables.wearing[FACE_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[FACE_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[FACE_NAME].image)+\"></td>\";\n";
             cloth += "\t\ts +=\"</tr>\";\n";
 
             // neck
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[NECK_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '':state.active.variables.wearing[NECK_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1030,12 +1046,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '': state.active.variables.wearing[NECK_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[NECK_NAME].image)+\"></td>\";\n";
+            // if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[NECK_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[NECK_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // upper body
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1066,12 +1085,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[UPPER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UPPER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UPPER_BODY_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // lower body
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1102,12 +1124,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '': state.active.variables.wearing[LOWER_BODY_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[LOWER_BODY_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[LOWER_BODY_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // belt
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[BELT_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1138,12 +1163,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '': state.active.variables.wearing[BELT_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[BELT_NAME].image)+\"></td>\";\n";
+            // if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[BELT_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[BELT_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // socks
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1174,12 +1202,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '': state.active.variables.wearing[SOCKS_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SOCKS_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SOCKS_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // shoes
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SHOES_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1210,12 +1241,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '': state.active.variables.wearing[SHOES_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SHOES_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[SHOES_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[SHOES_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // underwear bottom
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+ ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1246,12 +1280,15 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" +  ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+ ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+ ((typeof state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_BOTTOM_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             // underwear top
             cloth +="\t\ts +=\"<tr>\";\n";
+            if (_conf.displayInClothingView.Contains("Image"))
+                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td>\";\n";
+
             if (_conf.displayInClothingView.Contains("ID"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME].ID) + \"</b></td>\";\n";
             if (_conf.displayInClothingView.Contains("Name"))
@@ -1282,8 +1319,8 @@ namespace TweeFly
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + ") + \"</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInClothingView.Contains("Skill3"))
                 cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><b>\" + ((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '': state.active.variables.wearing[UNDERWEAR_TOP_NAME]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + ") + \"</b></td>\";\n";
-            if (_conf.displayInClothingView.Contains("Image"))
-                cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td>\";\n";
+            //if (_conf.displayInClothingView.Contains("Image"))
+            //    cloth += "\t\ts +=\"<td class=\\\"clothing\\\"><img class=\\\"paragraph\\\" src=\"+((typeof state.active.variables.wearing[UNDERWEAR_TOP_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[UNDERWEAR_TOP_NAME].image)+\"></td>\";\n";
             cloth +="\t\ts +=\"</tr>\";\n";
 
             cloth +="\t\ts +=\"</table>\";\n";
@@ -1298,7 +1335,7 @@ namespace TweeFly
             cloth +="\n";
             cloth +="\tnew Wikifier(place,\n";
             cloth +="\t\t\"<table class=\\\"clothing_sidebar\\\">\"+\n";
-            cloth +="\t\t\"<tr><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
+            cloth += "\t\t\"<tr class=\"collapseTableHeader\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HEAD_NAME].image)+\"></td>\" +\n";
             cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[HAIR_NAME].image)+\"></td></tr>\" +\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[FACE_NAME].image)+\"></td>\" +\n";
@@ -1348,6 +1385,7 @@ namespace TweeFly
             cloth +="\thandler: function(place, macroName, params, parser) {\n";
             cloth +="\t\tvar wstr = \"<table class=\\\"wardrobe\\\">\";\n";
             cloth +="\t\twstr +=\"<tr>\";\n";
+            if (_conf.displayInWardrobe.Contains("Image")) cloth += "\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInWardrobe.Contains("ID")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_ID_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInWardrobe.Contains("Name")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_NAME_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInWardrobe.Contains("Description")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_DESCRIPTION_CAP")).caption + "</b></td>\";\n";
@@ -1363,12 +1401,13 @@ namespace TweeFly
             if (_conf.clothingUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SKILL2_CAP")).caption + "</b></td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_SKILL3_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInWardrobe.Contains("Owned")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_OWNED_CAP")).caption + "</b></td>\";\n";
-            if (_conf.displayInWardrobe.Contains("Image")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
+            //if (_conf.displayInWardrobe.Contains("Image")) cloth +="\t\twstr +=\"<td class=\\\"wardrobe\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
             cloth +="\t\twstr +=\"<td></td>\";\n"; // wear / isworn
             cloth +="\t\twstr +=\"</tr>\";\n";
             cloth +="\n";
             cloth +="\t\tfor (var w = 0; w<state.active.variables.wardrobe.length; w++) {\n";
             cloth +="\t\t\twstr +=\"<tr>\";\n";
+            if (_conf.displayInWardrobe.Contains("Image")) cloth += "\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";\n";
             if (_conf.displayInWardrobe.Contains("ID")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].ID + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Name")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].name + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Description")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].description + \"</td>\";\n";
@@ -1384,7 +1423,7 @@ namespace TweeFly
             if (_conf.clothingUseSkill2 && _conf.displayInWardrobe.Contains("Skill2")) cloth += "\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL2_CAP")).caption + " + \"</td>\";\n";
             if (_conf.clothingUseSkill3 && _conf.displayInWardrobe.Contains("Skill3")) cloth += "\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w]." + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SKILL3_CAP")).caption + " + \"</td>\";\n";
             if (_conf.displayInWardrobe.Contains("Owned")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\">\" + state.active.variables.wardrobe[w].owned + \"</td>\";\n";
-            if (_conf.displayInWardrobe.Contains("Image")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";\n";
+            //if (_conf.displayInWardrobe.Contains("Image")) cloth +="\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.wardrobe[w].image + \"\\\"></td>\";\n";
             cloth +="\n";
             cloth +="\t\t\tif (((typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] !== \"undefined\") && (state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart].ID != state.active.variables.wardrobe[w].ID)) || (typeof state.active.variables.wearing[state.active.variables.wardrobe[w].bodyPart] === \"undefined\")) {\n";
             cloth +="\t\t\t\twstr +=\"<td class=\\\"wardrobe\\\"><a onClick=\\\"wear('\"+escape(JSON.stringify(state.active.variables.wardrobe[w]))+\"');\\\" href=\\\"javascript:void(0);\\\">" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_WEAR_CAP")).caption + "</a></td></tr>\";\n";
@@ -1443,17 +1482,67 @@ namespace TweeFly
             cloth +="\t\t\t\t\tbreak;\n";
             cloth +="\t\t\t\t}\n";
             cloth +="\t\t\t}\n";
-
-            cloth +="\t\t\tif(params.length == 3) {\n";
-            cloth +="\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, 'Received ' + new_clothing.name);";
-            cloth +="\t\t\t}\n";
+            cloth += "\t\t\tif(params.length == 3) {\n";
+            cloth += "\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_RECEIVED_CLOTHING_CAP")).caption + "' + new_clothing.name);";
+            cloth += "\t\t\t}\n";
 
             cloth += "\t\t} else {\n";
-            cloth +="\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);\n";
-            cloth +="\t\t\treturn;\n";
-            cloth +="\t\t}\n";
-            cloth +="\t}\n";
-            cloth +="};\n";
+            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: There are several clothing with the same id \" + new_clothing.ID);\n";
+            cloth += "\t\t\treturn;\n";
+            cloth += "\t\t}\n";
+            cloth += "\t}\n";
+            cloth += "};\n";
+            
+
+            // removeFromWardrobe
+            cloth += "macros.removeFromWardrobe = {\n";
+            cloth += "\thandler: function (place, macroName, params, parser) {\n";
+            cloth += "\t\tif (params.length < 2) {\n";
+            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects at least two parameters, clothing ID and amount. The third shows a message about the process.\");\n";
+            cloth += "\t\t\treturn;\n";
+            cloth += "\t\t}\n";
+            cloth += "\n";
+            cloth += "\t\tif ((!Number.isInteger(params[0])) || (!Number.isInteger(params[1]))) {\n";
+            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two integer parameters.\");\n";
+            cloth += "\t\t\treturn;\n";
+            cloth += "\t\t}\n";
+            cloth += "\n";
+            cloth += "\t\tvar clothing_in_catalog = state.active.variables.allClothing.filter(obj => {return obj.ID === params[0]});\n";
+            cloth += "\n";
+            cloth += "\t\tif (clothing_in_catalog.length == 0) {\n";
+            cloth += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: Clothing with id \" + params[0] + \" does not exist.\");\n";
+            cloth += "\t\t\treturn;\n";
+            cloth += "\t\t}\n";
+            cloth += "\n";
+            // if there is no amount given, remove all
+            cloth += "\t\tif (params.length == 1) {\n";
+            cloth += "\t\t\tfor (var i in state.active.variables.wardrobe) {\n";
+            cloth += "\t\t\t\tif (state.active.variables.wardrobe[i].ID == params[0]) {\n";
+            cloth += "\t\t\t\t\tif(params.length == 3) {\n";
+            cloth += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_REMOVED_CLOTHING_CAP")).caption + "' + state.active.variables.wardrobe[i].name + '(s)');";
+            cloth += "\t\t\t\t\t}\n";
+            cloth += "\t\t\t\t\tstate.active.variables.inventory.splice(i, 1);\n";
+            cloth += "\t\t\t\t\tbreak;\n";
+            cloth += "\t\t\t\t}\n";
+            cloth += "\t\t\t}\n";
+            // if there are more items
+            cloth += "\t\t} else if (params.length > 1) {\n";
+            cloth += "\t\t\tfor (var i in state.active.variables.wardrobe) {\n";
+            cloth += "\t\t\t\tif (state.active.variables.wardrobe[i].ID == params[0]) {\n";
+            cloth += "\t\t\t\t\tstate.active.variables.wardrobe[i].owned -= params[1];\n";
+            cloth += "\t\t\t\t\tif(params.length == 3) {\n";
+            cloth += "\t\t\t\t\t\tif (Boolean(params[3]) == true) new Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("WARDROBE_REMOVED_CLOTHING_CAP")).caption + "' + params[1] + ' ' + state.active.variables.wardrobe[i].name + '(s)');";
+            cloth += "\t\t\t\t\t}\n";
+            cloth += "\t\t\t\t\tif (state.active.variables.wardrobe[i].owned <= 0) {\n";
+            cloth += "\t\t\t\t\t\tstate.active.variables.wardrobe.splice(i, 1);\n";
+            cloth += "\t\t\t\t\t}\n";
+            cloth += "\t\t\t\t\tbreak;\n";
+            cloth += "\t\t\t\t}\n";
+            cloth += "\t\t\t}\n";
+            cloth += "\t\t}\n";
+            cloth += "\t}\n";
+            cloth += "};\n";
+            cloth += "\n";
             return cloth;
         }
 
@@ -1492,7 +1581,7 @@ namespace TweeFly
                 stats += "\"name\":\"" + _conf.stats[i].name + "\",";
                 stats += "\"value\":" + _conf.stats[i].value + ",";
                 stats += "\"description\":\"" + _conf.stats[i].description + "\",";
-                stats += "\"image\":\"" + pathSubtractAndEscape(_conf.stats[i].image, _conf.pathSubtract) + "\",";
+                stats += "\"image\":\"" + pathPrefixAndEscape(_conf.stats[i].image, _conf.pathPrefix) + "\",";
                 stats += "\"isskill\":\"" + _conf.stats[i].isSkill + "\",";
                 stats += "\"visible\":" + _conf.stats[i].visible.ToString().ToLower() + "});";
             }
@@ -1626,11 +1715,12 @@ namespace TweeFly
             stats += "\t\telse\n";
             stats += "\t\t{\n";
             stats += "\t\t\tvar stats_str = \"<table class=\\\"stats\\\"><tr>\";\n";
+            stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>image</b></td>\";\n";
             stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>ID</b></td>\";\n";
             stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>name</b></td>\";\n";
             stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>value</b></td>\";\n";
             stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>description</b></td>\";\n";
-            stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>image</b></td>\";\n";
+            //stats += "\t\t\tstats_str += \"<td class=\\\"stats\\\"><b>image</b></td>\";\n";
             stats += "\t\t\tstats_str += \"</tr>\";\n";
             stats += "\t\t\tfor (var i = 0; i < state.active.variables.stats.length; i++)\n";
             stats += "\t\t\t{\n";
@@ -1661,11 +1751,12 @@ namespace TweeFly
             stats += "\t\t\t\t}\n";
             stats += "\t\t\t\tif (state.active.variables.stats[i].visible == true) {\n";
             stats += "\t\t\t\t\tstats_str += \"<tr>\";\n";
+            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";\n";
             stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].ID + \"</td>\";\n";
             stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].name + \"</td>\";\n";
             stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].value + \"</td>\";\n";
             stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\">\" + state.active.variables.stats[i].description + \"</td>\";\n";
-            stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";\n";
+            //stats += "\t\t\t\t\tstats_str += \"<td class=\\\"stats\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.stats[i].image + \"\\\"></td>\";\n";
             stats += "\t\t\t\t\tstats_str += \"</tr>\";\n";
             stats += "\t\t\t\t}\n";
             stats += "\t\t\t}\n";
@@ -1684,6 +1775,7 @@ namespace TweeFly
             stats += "\t\t\tnew Wikifier(place, 'No stats');\n";
             stats += "\t\t} else {\n";
             stats += "\t\t\tvar stats_str = \"<table class=\\\"stats_sidebar\\\">\";\n";
+            stats += "\t\t\tstats_str +=\"<tr class=\"collapseTableHeader\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("STATS_TITLE_CAP")).caption + "</td></tr>\n";
             stats += "\t\t\tfor (var i = 0; i < state.active.variables.stats.length; i++)\n";
             stats += "\t\t\t{\n";
             stats += "\t\t\t\tif (state.active.variables.stats[i].visible == true) {\n";
@@ -1760,6 +1852,13 @@ namespace TweeFly
             nav += "\t\tState.variables.return = passage();\n";
             nav += "\t}\n";
             nav += "};\n";
+
+            // Add collapse/expand jquery script
+            // from: https://stackoverflow.com/questions/16926752/expand-collapse-table-rows-with-jquery
+            nav += "$('.collapseTableHeader').click(function(){\n";
+            nav += "\t$(this).find('span').text(function(_, value){ return value == '-' ? '+' : '-'});\n";
+            nav += "\t$(this).nextUntil('tr.header').slideToggle(100);\n";
+            nav += "\t});\n";
             return nav;
         }
 
@@ -2028,6 +2127,29 @@ namespace TweeFly
             daytime += "\t\tstate.active.variables.time.setTime(state.active.variables.time.getTime() + (days*24*60*60*1000));\n";
             daytime +="\t}\n";
             daytime +="};\n";
+
+            // setNextDay
+            daytime += "macros.setNextDay = {\n";
+            daytime += "\thandler: function (place, macroName, params, parser) {\n";
+            daytime += "\n";
+            daytime += "\t\tif (state.active.variables.time === undefined) {\n";
+            daytime += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: Please call initDaytime first.\");\n";
+            daytime += "\t\t\treturn;\n";
+            daytime += "\t\t}\n";
+            daytime += "\n";
+            daytime += "\t\tif (params.length != 2) {\n";
+            daytime += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: Expecting hour and minutes as parameters.\");\n";
+            daytime += "\t\t\treturn;\n";
+            daytime += "\t\t}\n";
+            daytime += "\n";
+            daytime += "\t\tvar hours = params[0];\n";
+            daytime += "\t\tvar minutes = params[1];\n";
+            daytime += "\n";
+            daytime += "\t\tstate.active.variables.time.setDay(state.active.variables.time.getDay() + 1);\n";
+            daytime += "\t\tstate.active.variables.time.setHours(hours);\n";
+            daytime += "\t\tstate.active.variables.time.setMinutes(minutes);\n";
+            daytime += "\t}\n";
+            daytime += "};\n";
             return daytime;
         }
 
@@ -2272,6 +2394,7 @@ namespace TweeFly
             shops +="\t\t\tnew Wikifier(place, '" + _conf.captions.Single(s => s.captionName.Equals("SHOP_NO_ITEMS_CAP")).caption + "');\n";
             shops +="\t\t} else {\n";
             shops +="\t\t\tvar shop_str = \"<table class=\\\"shop\\\"><tr>\";\n";
+            if (_conf.itemPropertiesInShops.Contains("Image")) shops += "\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("ID")) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_ID_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Name")) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_NAME_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Quantity")) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_QUANTITY_CAP")).caption + "</b></td>\";\n";
@@ -2280,7 +2403,7 @@ namespace TweeFly
             if (_conf.itemPropertiesInShops.Contains("Skill1") && _conf.shopUseSkill1) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_SKILL1_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Skill2") && _conf.shopUseSkill2) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_SKILL2_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Skill3") && _conf.shopUseSkill3) shops +="\t\t\tshop_str += \"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_SKILL3_CAP")).caption + "</b></td>\";\n";
-            if (_conf.itemPropertiesInShops.Contains("Image")) shops +="\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
+            //if (_conf.itemPropertiesInShops.Contains("Image")) shops +="\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Buy")) shops += "\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_BUY_CAP")).caption + "</b></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Sell")) shops += "\t\t\tshop_str +=\"<td class=\\\"shop\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("SHOP_SELL_CAP")).caption + "</b></td>\";\n";
             shops +="\t\t\tshop_str +=\"</tr>\";\n";
@@ -2327,6 +2450,8 @@ namespace TweeFly
             shops +="\t\t\t\t}\n";
             shops +="\n";
             shops +="\t\t\t\tshop_str += \"<tr>\";\n";
+            if (_conf.itemPropertiesInShops.Contains("Image"))
+                shops += "\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img class=\\\"paragraph\\\" src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("ID"))
                 shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\">\" + state.active.variables.shops[params[0]].items[i].ID + \"</td>\";\n";
             if (_conf.itemPropertiesInShops.Contains("Name"))
@@ -2375,8 +2500,8 @@ namespace TweeFly
                 shops +="\n";
             }
 
-            if (_conf.itemPropertiesInShops.Contains("Image"))
-                shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img class=\\\"paragraph\\\" src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td>\";\n";
+            //if (_conf.itemPropertiesInShops.Contains("Image"))
+            //    shops +="\t\t\t\tshop_str += \"<td class=\\\"shop\\\"><img class=\\\"paragraph\\\" src=\\\"\" + existing_items_with_id[0].image + \"\\\"></td>\";\n";
             shops += "\t\t\tshop_str += \"</tr>\"";
             shops +="\t\t\t}\n";
             shops +="\t\t\tshop_str +=\"</table>\";\n";
@@ -2529,7 +2654,8 @@ namespace TweeFly
                 jobs +="\"cooldown\":" + _conf.jobs[i].cooldown + ",";
                 jobs +="\"lastStart\":new Date(0, 0, 0, 0, 0, 0),";
                 jobs +="\"duration\":" + _conf.jobs[i].duration + ",";
-                jobs +="\"image\":\"" + pathSubtractAndEscape(_conf.jobs[i].image, _conf.pathSubtract) + "\",";
+                jobs +="\"image\":\"" + pathPrefixAndEscape(_conf.jobs[i].image, _conf.pathPrefix) + "\",";
+                jobs += "\"passage\":\"" + _conf.jobs[i].passage + "\",";
                 jobs +="\"rewardItems\":[\n";
                 for (int j = 0; j < _conf.jobs[i].rewardItems.Count; j++)
                 {
@@ -2643,8 +2769,14 @@ namespace TweeFly
             jobs +="\t} else {\n";
             jobs +="\t\tthrowError(null, \"Inventory system has not been initialized so no reward items can be given for doing job.\");\n";
             jobs +="\t}\n";
-            jobs +="\tstate.display(state.active.title, null, \"back\");\n";
-            jobs +="};\n";
+
+            // Does this job lead to some passage?
+            jobs += "\tif (job_obj.passage) {\n";
+            jobs += "\t\tstate.display(job_by_id[0].passage);\n";
+            jobs += "\t\treturn;\n";
+            jobs += "\t}\n";
+            jobs += "\tstate.display(state.active.title, null, \"back\");\n";
+            jobs += "};\n";
             jobs +="\n";
 
             // showJobs
@@ -2662,6 +2794,7 @@ namespace TweeFly
             jobs +="\t\t}\n";
             jobs +="\n";
             jobs +="\t\tvar jobs_str = \"<table class=\\\"jobs\\\"><tr>\";\n";
+            if (_conf.displayInJobsView.Contains("Image")) jobs += "\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_IMAGE_CAP")).caption + "</th>\";\n";
             if (_conf.displayInJobsView.Contains("ID")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_ID_CAP")).caption + "</th>\";\n";
             if (_conf.displayInJobsView.Contains("Name")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_NAME_CAP")).caption + "</th>\";\n";
             if (_conf.displayInJobsView.Contains("Description")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_DESCRIPTION_CAP")).caption + "</th>\";\n";
@@ -2671,7 +2804,7 @@ namespace TweeFly
             if (_conf.displayInJobsView.Contains("Cooldown")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_COOLDOWN_CAP")).caption + "</th>\";\n";
             if (_conf.displayInJobsView.Contains("LastStart")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_LAST_START_CAP")).caption + "</th>\";\n";
             if (_conf.displayInJobsView.Contains("Duration")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_DURATION_CAP")).caption + "</th>\";\n";
-            if (_conf.displayInJobsView.Contains("Image")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_IMAGE_CAP")).caption + "</th>\";\n";
+            //if (_conf.displayInJobsView.Contains("Image")) jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">" + _conf.captions.Single(s => s.captionName.Equals("JOBS_COL_IMAGE_CAP")).caption + "</th>\";\n";
             jobs +="\t\tjobs_str +=\"<th class=\\\"jobs\\\">start</th>\";\n";
             jobs +="\t\tjobs_str +=\"</tr>\";\n";
             jobs +="\n";
@@ -2684,6 +2817,7 @@ namespace TweeFly
             jobs +="\t\t\t\tvar minutes_diff = Math.floor(((Math.abs(state.active.variables.time - job_by_id[0].lastStart))/1000)/60);\n";
             jobs +="\n";
             jobs +="\t\t\t\tjobs_str +=\"<tr>\";\n";
+            if (_conf.displayInJobsView.Contains("Image")) jobs += "\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><img class=\\\"paragraph\\\" src=\\\"\" + job_by_id[0].image + \"\\\"></td>\";\n";
             if (_conf.displayInJobsView.Contains("ID")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].ID + \"</td>\";\n";
             if (_conf.displayInJobsView.Contains("Name")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].name + \"</td>\";\n";
             if (_conf.displayInJobsView.Contains("Description")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].description + \"</td>\";\n";
@@ -2693,7 +2827,7 @@ namespace TweeFly
             if (_conf.displayInJobsView.Contains("Cooldown")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].cooldown + \"</td>\";\n";
             if (_conf.displayInJobsView.Contains("LastStart")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].lastStart + \"</td>\";\n";
             if (_conf.displayInJobsView.Contains("Duration")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\">\" + job_by_id[0].duration + \"</td>\";\n";
-            if (_conf.displayInJobsView.Contains("Image")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><img class=\\\"paragraph\\\" src=\\\"\" + job_by_id[0].image + \"\\\"></td>\";\n";
+            //if (_conf.displayInJobsView.Contains("Image")) jobs +="\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><img class=\\\"paragraph\\\" src=\\\"\" + job_by_id[0].image + \"\\\"></td>\";\n";
             jobs +="\n";
             jobs +="\t\t\t\tif ((minutes_diff >= job_by_id[0].cooldown) && (job_by_id[0].available)) {\n";
             jobs += "\t\t\t\t\tjobs_str +=\"<td class=\\\"jobs\\\"><a onClick=\\\"doJob('\"+escape(JSON.stringify(job_by_id[0]))+\"');\\\" href=\\\"javascript:void(0);\\\">\" + job_by_id[0].name + \" (\" + job_by_id[0].duration + \" minutes)</a></td>\";\n";
@@ -2755,7 +2889,7 @@ namespace TweeFly
                 characters +="\"relation\":" + _conf.characters[i].relation + ",";
                 characters +="\"known\":" + _conf.characters[i].known.ToString().ToLower() + ",";
                 characters +="\"color\":\"" + _conf.characters[i].color + "\",";
-                characters +="\"image\":\"" + pathSubtractAndEscape(_conf.characters[i].image, _conf.pathSubtract) + "\"";
+                characters +="\"image\":\"" + pathPrefixAndEscape(_conf.characters[i].image, _conf.pathPrefix) + "\"";
                 if (_conf.characterUseSkill1)
                 {
                     string skill1val = (isBool(_conf.characters[i].skill1) || isNumber(_conf.characters[i].skill1)) ? _conf.characters[i].skill1 : "\"" + _conf.characters[i].skill1 + "\"";
@@ -2785,6 +2919,7 @@ namespace TweeFly
             characters +="\thandler: function(place, macroName, params, parser) {\n";
             characters +="\t\tvar wstr = \"<table class=\\\"character\\\">\";\n";
             characters +="\t\twstr +=\"<tr>\";\n";
+            if (_conf.displayInCharactersView.Contains("Image")) characters += "\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInCharactersView.Contains("ID")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_ID_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInCharactersView.Contains("Name")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_NAME_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInCharactersView.Contains("Category")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_CATEGORY_CAP")).caption + "</b></td>\";\n";
@@ -2795,7 +2930,7 @@ namespace TweeFly
             if (_conf.displayInCharactersView.Contains("Relation")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_RELATION_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInCharactersView.Contains("Known")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_KNOWN_CAP")).caption + "</b></td>\";\n";
             if (_conf.displayInCharactersView.Contains("Color")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_COLOR_CAP")).caption + "</b></td>\";\n";
-            if (_conf.displayInCharactersView.Contains("Image")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
+            //if (_conf.displayInCharactersView.Contains("Image")) characters +="\t\twstr +=\"<td class=\\\"character\\\"><b>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_COL_IMAGE_CAP")).caption + "</b></td>\";\n";
             characters +="\n";
 
             if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
@@ -2811,6 +2946,7 @@ namespace TweeFly
             characters +="\t\tfor (var w = 0; w<state.active.variables.characters.length; w++) {\n";
             characters +="\t\t\tif (state.active.variables.characters[w].known == false) continue;\n";
             characters +="\t\t\twstr +=\"<tr>\";\n";
+            if (_conf.displayInCharactersView.Contains("Image")) characters += "\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";\n";
             if (_conf.displayInCharactersView.Contains("ID")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].ID + \"</td>\";\n";
             if (_conf.displayInCharactersView.Contains("Name")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].name + \"</td>\";\n";
             if (_conf.displayInCharactersView.Contains("Category")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].category + \"</td>\";\n";
@@ -2821,7 +2957,7 @@ namespace TweeFly
             if (_conf.displayInCharactersView.Contains("Relation")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].relation + \"</td>\";\n";
             if (_conf.displayInCharactersView.Contains("Known")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].known + \"</td>\";\n";
             if (_conf.displayInCharactersView.Contains("Color")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\">\" + state.active.variables.characters[w].color + \"</td>\";\n";
-            if (_conf.displayInCharactersView.Contains("Image")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";\n";
+            //if (_conf.displayInCharactersView.Contains("Image")) characters +="\t\t\twstr +=\"<td class=\\\"character\\\"><img class=\\\"paragraph\\\" src=\\\"\" + state.active.variables.characters[w].image + \"\\\"></td>\";\n";
             characters +="\n";
 
             if (_conf.characterUseSkill1 && _conf.displayInCharactersView.Contains("Skill1"))
@@ -2909,7 +3045,7 @@ namespace TweeFly
             characters +="\thandler: function(place, macroName, params, parser) {\n";
             characters +="\n";
             characters +="\t\tvar wstr = \"<table class=\\\"character\\\">\";	\n";
-            characters +="\t\twstr +=\"<tr><td colspan=2>Characters</td></tr>\";	\n";
+            characters += "\t\twstr +=\"<tr class=\"collapseTableHeader\"><td colspan=2>Characters</td></tr>\";	\n";
 
             // get known characters
             characters +="\t\tvar knownCharacters = state.active.variables.characters.filter(c => {return c.known == true});\n";
@@ -3623,10 +3759,15 @@ namespace TweeFly
             return null;
         }
 
-        private static string pathSubtractAndEscape(string _s, string _subtract)
+        private static string pathPrefixAndEscape(string _s, string _prefix)
         {
-            int index = _s.IndexOf(_subtract);
-            string res = (index < 0) ? _s : _s.Remove(index, _subtract.Length);
+            string res = _prefix;
+            if (res.EndsWith("/")) {
+                res += _s;
+            } else
+            {
+                res += "/" + _s;
+            }
             return res.Replace("\\", "/");
         }
     }

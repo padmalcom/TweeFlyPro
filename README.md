@@ -23,21 +23,33 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 		- Beta features
 			- First draft of cheat sheet
 
+	- 0.14
+		- New features:
+			- setNextDay: Sets date to the next day. Parameters are hours and minutes.
+			- addToInventory: Added optional 3rd parameter. If True: A short message that an item was received is shown. Added new caption to configuration: INVENTORY_RECEIVED_ITEM_CAP
+			- removeFromInventory: Added optional 3rd parameter. If True: A short message that an item was removed is shown. Added new caption to configuration: INVENTORY_REMOVED_ITEM_CAP
+			- addToWardrobe: Added optional 3rd parameter. If True: A short message that clothing was received is shown. Added new caption to configuration: WARDROBE_RECEIVED_CLOTHING_CAP
+			- (new function) removeFromWardrobe: Added optional 3rd parameter. If True: A short message that clothing was removed is shown. Added new caption to configuration: WARDROBE_REMOVED_CLOTHING_CAP
+			- Tables in sidebar are now collapsable/expandable
+			- Jobs can forward to a passage
+		- Improvements:
+			- Item, clothing, character ... images are shown as first item in each table now
+			- Path subtract has been replaced with path prefix. Path prefix is a relative path to the story where images are stored.
 ### TODO:
 - GUI
-	- Remove "mayOwnMultiple" for cloth
-	- Add number, string, bool to skill1-3
-	- make lists sortable
+	- Postponed: Remove "mayOwnMultiple" for cloth
+	- Postponed: Add number, string, bool to skill1-3
+	- Postponed: make lists sortable
 	
 - Macros:
-	- setNextDay with hours as parameter
-	- When using addItem then show a text if wanted.
 	- Display boolean values as images.
-	- Place image first, in each table.
 	- Activate/Deactivate menus and links in sidebar (e.g. to inventory)
-	- Add "created with tweefly" to free edition projects.
 	- Add change relation to player for characters
-
+	- Inventory Mouse Over - Show only description
+	- Remove distance between dialogs in tweefly	
+	- Add macro to display images. Pro feature: convert image to base64
+	- Replace subtraction path by prefix
+	
 - Example project
 	- Add "_" to all variables used by the scripts
 	- Add macros to each
@@ -45,3 +57,4 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 - Bugs:
 	- Tooltips for cloth
 	- cloth skill 1 not show in shops
+	- "back" does not reset variables -> tweefly sidebar replace return with back

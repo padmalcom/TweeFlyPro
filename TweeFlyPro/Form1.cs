@@ -38,7 +38,7 @@ namespace TweeFly
                 checkBox19.Checked = _conf.charactersActive;
 
                 // Build
-                textBox12.Text = _conf.pathSubtract;
+                textBox12.Text = _conf.pathPrefix;
                 textBox47.Text = _conf.storyName;
 
                 // Captions
@@ -310,6 +310,7 @@ namespace TweeFly
                     item.SubItems.Add(_conf.jobs[i].cooldown.ToString());
                     item.SubItems.Add(_conf.jobs[i].duration.ToString());
                     item.SubItems.Add(_conf.jobs[i].image);
+                    item.SubItems.Add(_conf.jobs[i].passage);
                     listView4.Items.Add(item);
                 }
 
@@ -1327,6 +1328,7 @@ namespace TweeFly
                 updateItem.SubItems.Add(conf.jobs[i].cooldown.ToString());
                 updateItem.SubItems.Add(conf.jobs[i].duration.ToString());
                 updateItem.SubItems.Add(conf.jobs[i].image);
+                updateItem.SubItems.Add(conf.jobs[i].passage);
                 listView4.Items.Add(updateItem);
             }
         }
@@ -1349,6 +1351,7 @@ namespace TweeFly
                         conf.jobs[i].image = textBox15.Text;
                         conf.jobs[i].description = textBox1.Text;
                         conf.jobs[i].rewardMoney = Convert.ToInt32(numericUpDown9.Value);
+                        conf.jobs[i].passage = textBox6.Text;
 
                         updateJobs();
 
@@ -1394,6 +1397,7 @@ namespace TweeFly
                 textBox15.Text = listView4.SelectedItems[0].SubItems[8].Text;
                 numericUpDown19.Value = int.Parse(listView4.SelectedItems[0].SubItems[7].Text);
                 numericUpDown9.Value = int.Parse(listView4.SelectedItems[0].SubItems[5].Text);
+                textBox6.Text = listView4.SelectedItems[0].SubItems[9].Text;
 
                 string absPath = textBox15.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
@@ -1427,7 +1431,7 @@ namespace TweeFly
 
             if (openFileDialog1.FileName != "")
             {
-                textBox10.Text = openFileDialog1.FileName;
+                textBox10.Text = Path.GetFileName(openFileDialog1.FileName);
             }
         }
 
@@ -1440,7 +1444,7 @@ namespace TweeFly
 
             if (openFileDialog1.FileName != "")
             {
-                textBox11.Text = openFileDialog1.FileName;
+                textBox11.Text = Path.GetFileName(openFileDialog1.FileName);
             }
         }
 
@@ -1453,7 +1457,7 @@ namespace TweeFly
 
             if (openFileDialog1.FileName != "")
             {
-                textBox15.Text = openFileDialog1.FileName;
+                textBox15.Text = Path.GetFileName(openFileDialog1.FileName);
             }
         }
 
@@ -1466,7 +1470,7 @@ namespace TweeFly
 
             if (openFileDialog1.FileName != "")
             {
-                textBox37.Text = openFileDialog1.FileName;
+                textBox37.Text = Path.GetFileName(openFileDialog1.FileName);
             }
         }
 
@@ -2173,7 +2177,7 @@ namespace TweeFly
 
             if (openFileDialog1.FileName != "")
             {
-                textBox9.Text = openFileDialog1.FileName;
+                textBox9.Text = Path.GetFileName(openFileDialog1.FileName);
             }
         }
 
@@ -2207,7 +2211,7 @@ namespace TweeFly
 
         private void textBox12_TextChanged_1(object sender, EventArgs e)
         {
-            conf.pathSubtract = textBox12.Text;
+            conf.pathPrefix = textBox12.Text;
         }
 
         private void checkBox24_CheckedChanged(object sender, EventArgs e)
@@ -2437,7 +2441,7 @@ namespace TweeFly
             conf.moneyActive = true;
             conf.jobsActive = true;
             conf.charactersActive = true;
-            conf.pathSubtract = APP_DIR;
+            conf.pathPrefix = "data/img";
             conf.storyName = "The Atlantic Murder";
 
             // Inventory
@@ -2571,8 +2575,8 @@ namespace TweeFly
             conf.startMoney = 10;
 
             // Jobs
-            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", APP_DIR + "data/img/dishes.jpg", 5, 60);
-            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", APP_DIR + "data/img/cleaningfloor.jpg", 10, 120);
+            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", APP_DIR + "data/img/dishes.jpg", 5, 60, "");
+            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", APP_DIR + "data/img/cleaningfloor.jpg", 10, 120, "");
             j1.rewardItems.Add(new RewardItem("ITEM", 3, 1));
             conf.jobs.Add(j1);
             conf.jobs.Add(j2);

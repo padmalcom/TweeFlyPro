@@ -442,6 +442,9 @@
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button35 = new System.Windows.Forms.Button();
+            this.columnHeader75 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label116 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1885,7 +1888,7 @@
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(942, 664);
+            this.tabPage3.Size = new System.Drawing.Size(925, 664);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2214,7 +2217,7 @@
             this.tabPage4.Controls.Add(this.checkBox10);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(942, 664);
+            this.tabPage4.Size = new System.Drawing.Size(925, 664);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Daytime";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2817,7 +2820,7 @@
             this.tabPage6.Controls.Add(this.label8);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(930, 664);
+            this.tabPage6.Size = new System.Drawing.Size(925, 664);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Money";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -2914,7 +2917,7 @@
             this.tabPage7.Controls.Add(this.listView4);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(930, 664);
+            this.tabPage7.Size = new System.Drawing.Size(925, 664);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "Jobs";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -3133,6 +3136,8 @@
             // 
             this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox8.Controls.Add(this.textBox6);
+            this.groupBox8.Controls.Add(this.label116);
             this.groupBox8.Controls.Add(this.textBox1);
             this.groupBox8.Controls.Add(this.label55);
             this.groupBox8.Controls.Add(this.numericUpDown19);
@@ -3167,7 +3172,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(75, 97);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(458, 20);
+            this.textBox1.Size = new System.Drawing.Size(232, 20);
             this.textBox1.TabIndex = 19;
             // 
             // label55
@@ -3403,7 +3408,8 @@
             this.columnHeader22,
             this.columnHeader36,
             this.columnHeader57,
-            this.columnHeader37});
+            this.columnHeader37,
+            this.columnHeader75});
             this.listView4.FullRowSelect = true;
             this.listView4.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView4.HideSelection = false;
@@ -3476,7 +3482,7 @@
             this.tabPage8.Controls.Add(this.listView7);
             this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(930, 664);
+            this.tabPage8.Size = new System.Drawing.Size(925, 664);
             this.tabPage8.TabIndex = 7;
             this.tabPage8.Text = "Characters";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -4028,7 +4034,7 @@
             this.tabPage9.Controls.Add(this.dataGridView1);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(930, 664);
+            this.tabPage9.Size = new System.Drawing.Size(925, 664);
             this.tabPage9.TabIndex = 8;
             this.tabPage9.Text = "Captions";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -4083,7 +4089,7 @@
             this.tabPage10.Controls.Add(this.label111);
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(930, 664);
+            this.tabPage10.Size = new System.Drawing.Size(925, 664);
             this.tabPage10.TabIndex = 9;
             this.tabPage10.Text = "Configuration";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -4633,9 +4639,9 @@
             this.label82.AutoSize = true;
             this.label82.Location = new System.Drawing.Point(12, 271);
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(73, 13);
+            this.label82.Size = new System.Drawing.Size(60, 13);
             this.label82.TabIndex = 20;
-            this.label82.Text = "Path subtract:";
+            this.label82.Text = "Path prefix:";
             // 
             // textBox12
             // 
@@ -4758,6 +4764,26 @@
             this.button35.UseVisualStyleBackColor = true;
             this.button35.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
             this.button35.Click += new System.EventHandler(this.button35_Click);
+            // 
+            // columnHeader75
+            // 
+            this.columnHeader75.Text = "Passage";
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(313, 100);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(51, 13);
+            this.label116.TabIndex = 20;
+            this.label116.Text = "Passage:";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(370, 97);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(163, 20);
+            this.textBox6.TabIndex = 21;
             // 
             // Form1
             // 
@@ -5281,6 +5307,9 @@
         private System.Windows.Forms.Label label115;
         private System.Windows.Forms.ColumnHeader columnHeader74;
         private System.Windows.Forms.CheckBox checkBox46;
+        private System.Windows.Forms.ColumnHeader columnHeader75;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label116;
     }
 }
 
