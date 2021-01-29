@@ -586,7 +586,7 @@ namespace TweeFly
             inv +="\n";
             inv += "\t\tif (state.active.variables.inventorySidebarVisible != 1) return;\n";
             inv +="\t\tvar wstr = \"<table class=\\\"inventory_sidebar\\\">\";\n";
-            inv += "\t\twstr +=\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>Inventory</td></tr>\";\n";
+            inv += "\t\twstr +=\"<tr class=\\\"collapseTableHeader\\\" onclick=\\\"$(this).find('span').text(function(_, value){ return value == '-' ? '+' : '-'}); $(this).nextUntil('tr.collapseTableHeader').slideToggle(100);\\\" ><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("INVENTORY_TITLE_CAP")).caption + " <span>-</span></td></tr>\";\n";
             inv +="\t\tfor (var w = 0; w<state.active.variables.inventory.length; w +=2) {\n";
             inv +="\t\t\twstr +=\"<tr>\";\n";
             inv +="\n";
@@ -1342,7 +1342,7 @@ namespace TweeFly
             cloth +="\n";
             cloth +="\tnew Wikifier(place,\n";
             cloth +="\t\t\"<table class=\\\"clothing_sidebar\\\">\"+\n";
-            cloth += "\t\t\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + "</td></tr>\"+\n";
+            cloth += "\t\t\"<tr class=\\\"collapseTableHeader\\\" onclick=\\\"$(this).find('span').text(function(_, value){ return value == '-' ? '+' : '-'}); $(this).nextUntil('tr.collapseTableHeader').slideToggle(100);\\\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CLOTHING_SIDEBAR_TITLE_CAP")).caption + " <span>-</span></td></tr>\"+\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HEAD_NAME] === \'undefined\') ? '\"\"': state.active.variables.wearing[HEAD_NAME].image)+\"></td>\" +\n";
             cloth += "\t\t\"<td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[HAIR_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[HAIR_NAME].image)+\"></td></tr>\" +\n";
             cloth += "\t\t\"<tr><td class=\\\"clothing_sidebar\\\"><img class=\\\"sidebar\\\" src=\"+((typeof state.active.variables.wearing[FACE_NAME] === \'undefined\') ? '\"\"' : state.active.variables.wearing[FACE_NAME].image)+\"></td>\" +\n";
@@ -1783,7 +1783,7 @@ namespace TweeFly
             stats += "\t\t\tnew Wikifier(place, 'No stats');\n";
             stats += "\t\t} else {\n";
             stats += "\t\t\tvar stats_str = \"<table class=\\\"stats_sidebar\\\">\";\n";
-            stats += "\t\t\tstats_str +=\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("STATS_TITLE_CAP")).caption + "</td></tr>\";\n";
+            stats += "\t\t\tstats_str +=\"<tr class=\\\"collapseTableHeader\\\" onclick=\\\"$(this).find('span').text(function(_, value){ return value == '-' ? '+' : '-'}); $(this).nextUntil('tr.collapseTableHeader').slideToggle(100);\\\" ><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("STATS_TITLE_CAP")).caption + " <span>-</span></td></tr>\";\n";
             stats += "\t\t\tfor (var i = 0; i < state.active.variables.stats.length; i++)\n";
             stats += "\t\t\t{\n";
             stats += "\t\t\t\tif (state.active.variables.stats[i].visible == true) {\n";
@@ -1861,12 +1861,6 @@ namespace TweeFly
             nav += "\t}\n";
             nav += "};\n";
 
-            // Add collapse/expand jquery script
-            // from: https://stackoverflow.com/questions/16926752/expand-collapse-table-rows-with-jquery
-            nav += "$('.collapseTableHeader').click(function(){\n";
-            nav += "\t$(this).find('span').text(function(_, value){ return value == '-' ? '+' : '-'});\n";
-            nav += "\t$(this).nextUntil('tr.header').slideToggle(100);\n";
-            nav += "\t});\n";
             return nav;
         }
 
@@ -3053,7 +3047,7 @@ namespace TweeFly
             characters +="\thandler: function(place, macroName, params, parser) {\n";
             characters +="\n";
             characters +="\t\tvar wstr = \"<table class=\\\"character\\\">\";	\n";
-            characters += "\t\twstr +=\"<tr class=\\\"collapseTableHeader\\\"><td colspan=2>Characters</td></tr>\";	\n";
+            characters += "\t\twstr +=\"<tr class=\\\"collapseTableHeader\\\" onclick=\\\"$(this).find('span').text(function(_, value){ return value == '-' ? '+' : '-'}); $(this).nextUntil('tr.collapseTableHeader').slideToggle(100);\\\"><td colspan=2>" + _conf.captions.Single(s => s.captionName.Equals("CHARACTER_TITLE_CAP")).caption + " <span>-</span></td></tr>\";	\n";
 
             // get known characters
             characters +="\t\tvar knownCharacters = state.active.variables.characters.filter(c => {return c.known == true});\n";
