@@ -670,7 +670,7 @@ namespace TweeFly
             else
             {
                 inv += "\t\t\t\tif (state.active.variables.inventory[w+1].passage) {\n";
-                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[w+1].passage+\"\\\" class=\"link -internal link-image\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></a></td>\";\n";
+                inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><a data-passage=\\\"\"+ state.active.variables.inventory[w+1].passage+\"\\\" class=\\\"link -internal link-image\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\"></a></td>\";\n";
                 inv += "\t\t\t\t} else {\n";
                 inv += "\t\t\t\t\twstr += \"<td class=\\\"character\\\"><img class=\\\"sidebar\\\" src=\\\"\" + state.active.variables.inventory[w+1].image + \"\\\" ></td>\";\n";
                 inv += "\t\t\t\t}";
@@ -3022,7 +3022,26 @@ namespace TweeFly
             characters +="};\n";
             characters +="\n";
 
-            // rename
+            characters += "macros.addRelationCharacter = {\n";
+            characters += "\thandler: function(place, macroName, params, parser) {\n";
+
+            characters += "\t\tif (params.length != 2) {\n";
+            characters += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: expects two parameters: character ID and addtional relation.\");\n";
+            characters += "\t\t\treturn;\n";
+            characters += "\t\t}\n";
+
+            characters += "\t\tvar character = state.active.variables.characters.filter(c => { return c.ID === params[0]});\n";
+            characters += "\t\tif (character.length != 1) {\n";
+            characters += "\t\t\tthrowError(place, \"<<\" + macroName + \">>: There must be exactly one character of id \" + params[0] + \" in the character list but there are \" + item_in_catalog.length);\n";
+            characters += "\t\t\treturn;\n";
+            characters += "\t\t}\n";
+
+            characters += "\t\tcharacter[0].relation = character[0].relation + params[1];\n";
+
+            characters += "\t}\n";
+            characters += "};\n";
+
+// rename
             characters +="macros.renameCharacter = {\n";
             characters +="\thandler: function(place, macroName, params, parser) {\n";
             characters +="\n";

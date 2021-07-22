@@ -29,9 +29,11 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 			- addToInventory: Added optional 3rd parameter. If True: A short message that an item was received is shown. Added new caption to configuration: INVENTORY_RECEIVED_ITEM_CAP
 			- removeFromInventory: Added optional 3rd parameter. If True: A short message that an item was removed is shown. Added new caption to configuration: INVENTORY_REMOVED_ITEM_CAP
 			- addToWardrobe: Added optional 3rd parameter. If True: A short message that clothing was received is shown. Added new caption to configuration: WARDROBE_RECEIVED_CLOTHING_CAP
-			- (new function) removeFromWardrobe: Added optional 3rd parameter. If True: A short message that clothing was removed is shown. Added new caption to configuration: WARDROBE_REMOVED_CLOTHING_CAP
+			- (new function)
+			- removeFromWardrobe: Added optional 3rd parameter. If True: A short message that clothing was removed is shown. Added new caption to configuration: WARDROBE_REMOVED_CLOTHING_CAP
 			- Tables in sidebar are now collapsable/expandable
 			- Jobs can forward to a passage
+			- addRelationCharacter: Add (or subtact) points to a player/npc relation
 		- Improvements:
 			- Item, clothing, character ... images are shown as first item in each table now
 			- Path subtract has been replaced with path prefix. Path prefix is a relative path to the story where images are stored.

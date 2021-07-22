@@ -17,7 +17,7 @@ namespace TweeFly
         private Configuration conf = new Configuration(true);
         private string fileName = "";
         private const string APP_TITLE = "TweeFly - Interactive Story Setup for SugarCube2";
-        private string APP_DIR = "%APP_DIR%";
+        private string PROJECT_DIR = "%PROJECT_DIR%";
 
         public Form1()
         {
@@ -658,7 +658,7 @@ namespace TweeFly
                 textBox28.Text = listView1.SelectedItems[0].SubItems[13].Text;
                 textBox5.Text = listView1.SelectedItems[0].SubItems[14].Text;
 
-                string absPath = textBox10.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                string absPath = textBox10.Text.Replace(PROJECT_DIR, fileName);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
@@ -817,7 +817,7 @@ namespace TweeFly
                 textBox23.Text = listView2.SelectedItems[0].SubItems[14].Text;
                 textBox24.Text = listView2.SelectedItems[0].SubItems[15].Text;
 
-                string absPath = textBox11.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                string absPath = textBox11.Text.Replace(PROJECT_DIR, fileName);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
@@ -944,7 +944,7 @@ namespace TweeFly
                 checkBox24.Checked = listView5.SelectedItems[0].SubItems[6].Text.Equals("True");
                 comboBox8.Text = listView5.SelectedItems[0].SubItems[7].Text;
 
-                string absPath = textBox9.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                string absPath = textBox9.Text.Replace(PROJECT_DIR, fileName);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
@@ -1237,7 +1237,7 @@ namespace TweeFly
                     {
                         label73.Text = "(" + conf.items[i].name + ")";
 
-                        string absPath = conf.items[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        string absPath = conf.items[i].image.Replace(PROJECT_DIR, fileName);
                         if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
@@ -1250,7 +1250,7 @@ namespace TweeFly
                     {
                         label73.Text = "(" + conf.clothing[i].name + ")";
 
-                        string absPath = conf.clothing[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        string absPath = conf.clothing[i].image.Replace(PROJECT_DIR, fileName);
                         if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
@@ -1399,7 +1399,7 @@ namespace TweeFly
                 numericUpDown9.Value = int.Parse(listView4.SelectedItems[0].SubItems[5].Text);
                 textBox6.Text = listView4.SelectedItems[0].SubItems[9].Text;
 
-                string absPath = textBox15.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                string absPath = textBox15.Text.Replace(PROJECT_DIR, fileName);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
 
                 // Get the right job
@@ -1621,7 +1621,7 @@ namespace TweeFly
                 textBox35.Text = listView7.SelectedItems[0].SubItems[12].Text;
                 textBox34.Text = listView7.SelectedItems[0].SubItems[13].Text;
 
-                string absPath = textBox37.Text.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                string absPath = textBox37.Text.Replace(PROJECT_DIR, fileName);
                 if (File.Exists(absPath)) pictureBox2.Load(absPath);
             }
         }
@@ -2143,7 +2143,7 @@ namespace TweeFly
                     {
                         label80.Text = conf.items[i].name;
 
-                        string absPath = conf.items[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        string absPath = conf.items[i].image.Replace(PROJECT_DIR, fileName);
                         if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
@@ -2156,7 +2156,7 @@ namespace TweeFly
                     {
                         label80.Text = conf.clothing[i].name;
 
-                        string absPath = conf.clothing[i].image.Replace(APP_DIR, AppDomain.CurrentDomain.BaseDirectory);
+                        string absPath = conf.clothing[i].image.Replace(PROJECT_DIR, fileName);
                         if (File.Exists(absPath)) pictureBox2.Load(absPath);
                     }
                 }
@@ -2453,12 +2453,12 @@ namespace TweeFly
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
-                "", APP_DIR + "data/img/taxicard.jpg", -1, -1, false, 0, "", "", "", ""));
-            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", APP_DIR + "data/img/smartphone.jpg", -1, -1,
+                "", PROJECT_DIR + "data/img/taxicard.jpg", -1, -1, false, 0, "", "", "", ""));
+            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", PROJECT_DIR + "data/img/smartphone.jpg", -1, -1,
                 false, 1, "", "", "", ""));
-            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", APP_DIR + "data/img/keycard.jpg", -1, -1,
+            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", PROJECT_DIR + "data/img/keycard.jpg", -1, -1,
                 false, 0, "", "", "", ""));
-            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", APP_DIR + "data/img/chocolate.jpg", 2, 1,
+            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", PROJECT_DIR + "data/img/chocolate.jpg", 2, 1,
                 true, 1, "", "", "", ""));
 
             conf.displayInInventory.Clear();
@@ -2500,57 +2500,57 @@ namespace TweeFly
             conf.displayInClothingView.Add("Image");
 
             // name, description, canbebougt, shopcat, cat, bodypart, image, buiprice, sellprice, multiple, owned, s1, s2, s3
-            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", APP_DIR + "data/img/beanie.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", PROJECT_DIR + "data/img/beanie.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Hair
-            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", APP_DIR + "data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", PROJECT_DIR + "data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Neck
-            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", APP_DIR + "data/img/necklace_male.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", PROJECT_DIR + "data/img/necklace_male.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Upper body
-            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", APP_DIR + "data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", APP_DIR + "data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", PROJECT_DIR + "data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", PROJECT_DIR + "data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Lower body
-            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/shortpants.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/shortpants.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Belt
-            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", APP_DIR + "data/img/belt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", PROJECT_DIR + "data/img/belt.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Socks
-            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", APP_DIR + "data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", PROJECT_DIR + "data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Shoes
-            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", APP_DIR + "data/img/shoes_male.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", PROJECT_DIR + "data/img/shoes_male.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Underwear top
-            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", APP_DIR + "data/img/tanktop.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", PROJECT_DIR + "data/img/tanktop.jpg", 20, 10, true, 1, "", "", "", false));
 
             // Underwear bottom
-            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", APP_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", APP_DIR + "data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", PROJECT_DIR + "data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
 
             // Suit
-            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", APP_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", APP_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", PROJECT_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
 
 
             // Stats
             conf.statsInSidebar = true;
             conf.statsLinkInSidebar = true;
-            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", APP_DIR + "data/img/strength.jpg", true, "None"));
-            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", APP_DIR + "data/img/intelligence.jpg", true, "None"));
+            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", PROJECT_DIR + "data/img/strength.jpg", true, "None"));
+            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", PROJECT_DIR + "data/img/intelligence.jpg", true, "None"));
 
             // Daytime
             conf.daytimeFormat = 0;
@@ -2575,8 +2575,8 @@ namespace TweeFly
             conf.startMoney = 10;
 
             // Jobs
-            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", APP_DIR + "data/img/dishes.jpg", 5, 60, "");
-            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", APP_DIR + "data/img/cleaningfloor.jpg", 10, 120, "");
+            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", PROJECT_DIR + "data/img/dishes.jpg", 5, 60, "");
+            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", PROJECT_DIR + "data/img/cleaningfloor.jpg", 10, 120, "");
             j1.rewardItems.Add(new RewardItem("ITEM", 3, 1));
             conf.jobs.Add(j1);
             conf.jobs.Add(j2);
@@ -2592,11 +2592,11 @@ namespace TweeFly
             conf.displayInJobsView.Add("Image");
 
             // Characters
-            Character c0 = new Character(0, "Player", 21, "You", true, "", APP_DIR + "data/img/player.jpg", "male", "", 0, "#42f46e", "", "", "");
-            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", APP_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
-            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", APP_DIR + "data/img/rex.jpg", "male", "footboy", 0, "#f44242", "", "", "");
-            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", APP_DIR + "data/img/simon.jpg", "male", "", 0, "#f44242", "", "", "");
-            Character c4 = new Character(4, "Woman", 50, "", false, "", APP_DIR + "data/img/joana.jpg", "female", "", 0, "#f4d942", "", "", "");
+            Character c0 = new Character(0, "Player", 21, "You", true, "", PROJECT_DIR + "data/img/player.jpg", "male", "", 0, "#42f46e", "", "", "");
+            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", PROJECT_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
+            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", PROJECT_DIR + "data/img/rex.jpg", "male", "footboy", 0, "#f44242", "", "", "");
+            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", PROJECT_DIR + "data/img/simon.jpg", "male", "", 0, "#f44242", "", "", "");
+            Character c4 = new Character(4, "Woman", 50, "", false, "", PROJECT_DIR + "data/img/joana.jpg", "female", "", 0, "#f4d942", "", "", "");
             conf.characters.Add(c0);
             conf.characters.Add(c1);
             conf.characters.Add(c2);
