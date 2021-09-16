@@ -14,17 +14,18 @@ namespace TweeFly
     public partial class Form1 : Form
     {
 
-        private Configuration conf = new Configuration(true);
-        private string fileName = "";
+        public Configuration conf = new Configuration(true);
+        private string projectName = "";
+        private string projectDir = "";
+        private string imgDir = "img";
         private const string APP_TITLE = "TweeFly - Interactive Story Setup for SugarCube2";
-        private string PROJECT_DIR = "%PROJECT_DIR%";
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void updateFromConf(Configuration _conf)
+        public void updateFromConf(Configuration _conf)
         {
             if (_conf != null)
             {
@@ -38,7 +39,6 @@ namespace TweeFly
                 checkBox19.Checked = _conf.charactersActive;
 
                 // Build
-                textBox12.Text = _conf.pathPrefix;
                 textBox47.Text = _conf.storyName;
 
                 // Captions
@@ -73,6 +73,9 @@ namespace TweeFly
                 numericUpDown24.Value = _conf.imageHeightInDialogs;
 
                 numericUpDown30.Value = _conf.paragraphWidth;
+
+                checkBox47.Checked = _conf.storeProjectFileAsBinary;
+                checkBox46.Checked = _conf.listVariables;
 
                 // Inventory
                 checkBox9.Checked = _conf.inventoryLinkInSidebar;
@@ -508,6 +511,17 @@ namespace TweeFly
                 item.owned = Convert.ToInt32(numericUpDown4.Value);
                 item.passage = textBox5.Text;
 
+                // Copy file
+                if (!Directory.Exists(Path.Combine(projectDir, imgDir))) {
+                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                }
+                if (File.Exists(textBox10.Text))
+                {
+                    File.Copy(textBox10.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox10.Text)));
+                }
+                item.image = Path.GetFileName(textBox10.Text);
+                textBox10.Text = Path.GetFileName(textBox10.Text);
+
                 conf.items.Add(item);
 
                 // Update inventory                
@@ -584,6 +598,28 @@ namespace TweeFly
                         conf.items[i].skill3 = textBox28.Text;
                         conf.items[i].passage = textBox5.Text;
 
+                        // Copy file
+                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                        }
+                        if (File.Exists(textBox10.Text))
+                        {
+                            File.Copy(textBox10.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox10.Text)));
+                        }
+                        // Delete old file
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image)) && !conf.items[i].image.Equals(textBox10.Text))
+                        {
+                            DialogResult deleteOld = MessageBox.Show("The item image " + conf.items[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
+                            if (deleteOld == DialogResult.Yes)
+                            {
+                                File.Delete(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                            }
+                        }
+                        conf.items[i].image = Path.GetFileName(textBox10.Text);
+                        textBox10.Text = Path.GetFileName(textBox10.Text);
+
+                        // update inventory
                         updateInventory();
 
                         MessageBox.Show("Item '" + conf.items[i].name + "' updated in item list and in " + updatedItemInShop +
@@ -627,9 +663,17 @@ namespace TweeFly
                     {
                         if (conf.items[i].ID == int.Parse(eachItem.Text))
                         {
-                            conf.items.RemoveAt(i);
+                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image)))
+                            {
+                                if (MessageBox.Show("Do you want to delete the item image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    File.Delete(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                                }
+                            }
+                            
                             MessageBox.Show("Item '" + conf.items[i].name + "' was succesfully deleted from item list and deleted from " +
                                 deletedItemsFromShops + " shop(s).");
+                            conf.items.RemoveAt(i);
                         }
                     }
                     updateInventory();
@@ -658,8 +702,11 @@ namespace TweeFly
                 textBox28.Text = listView1.SelectedItems[0].SubItems[13].Text;
                 textBox5.Text = listView1.SelectedItems[0].SubItems[14].Text;
 
-                string absPath = textBox10.Text.Replace(PROJECT_DIR, fileName);
-                if (File.Exists(absPath)) pictureBox2.Load(absPath);
+
+                if (File.Exists(Path.Combine(projectDir, imgDir, textBox10.Text)))
+                {
+                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox10.Text));
+                }
             }
         }
 
@@ -702,6 +749,18 @@ namespace TweeFly
                 clothing.canOwnMultiple = checkBox15.Checked;
                 clothing.owned = Convert.ToInt32(numericUpDown7.Value);
                 clothing.isWornAtBeginning = checkBox35.Checked;
+
+                // Copy file
+                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                {
+                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                }
+                if (File.Exists(textBox11.Text))
+                {
+                    File.Copy(textBox11.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox11.Text)));
+                }
+                clothing.image = Path.GetFileName(textBox11.Text);
+                textBox11.Text = Path.GetFileName(textBox11.Text);
 
                 conf.clothing.Add(clothing);
 
@@ -766,6 +825,27 @@ namespace TweeFly
                         conf.clothing[i].skill3 = textBox24.Text;
                         conf.clothing[i].isWornAtBeginning = checkBox35.Checked;
 
+                        // Copy file
+                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                        }
+                        if (File.Exists(textBox11.Text))
+                        {
+                            File.Copy(textBox11.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox11.Text)));
+                        }
+                        // Delete old file
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)) && !conf.clothing[i].image.Equals(textBox11.Text))
+                        {
+                            DialogResult deleteOld = MessageBox.Show("The clothing image " + conf.clothing[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
+                            if (deleteOld == DialogResult.Yes)
+                            {
+                                File.Delete(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                            }
+                        }
+                        conf.clothing[i].image = Path.GetFileName(textBox11.Text);
+                        textBox11.Text = Path.GetFileName(textBox11.Text);
+
                         updateClothing();
 
                         MessageBox.Show("Clothing updated.");
@@ -788,6 +868,13 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete clothing with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
+                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)))
+                            {
+                                if (MessageBox.Show("Do you want to delete the clothing image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    File.Delete(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                                }
+                            }
                             conf.clothing.RemoveAt(i);
                         }
                     }
@@ -817,8 +904,10 @@ namespace TweeFly
                 textBox23.Text = listView2.SelectedItems[0].SubItems[14].Text;
                 textBox24.Text = listView2.SelectedItems[0].SubItems[15].Text;
 
-                string absPath = textBox11.Text.Replace(PROJECT_DIR, fileName);
-                if (File.Exists(absPath)) pictureBox2.Load(absPath);
+                if (File.Exists(Path.Combine(projectDir, imgDir, textBox11.Text)))
+                {
+                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox11.Text));
+                }
             }
         }
 
@@ -853,6 +942,18 @@ namespace TweeFly
                 stat.image = textBox9.Text;
                 stat.visible = checkBox24.Checked;
                 stat.isSkill = comboBox8.Text;
+
+                // Copy file
+                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                {
+                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                }
+                if (File.Exists(textBox9.Text))
+                {
+                    File.Copy(textBox9.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox9.Text)));
+                }
+                stat.image = Path.GetFileName(textBox9.Text);
+                textBox9.Text = Path.GetFileName(textBox9.Text);
 
                 conf.stats.Add(stat);
 
@@ -900,6 +1001,27 @@ namespace TweeFly
                         conf.stats[i].visible = checkBox24.Checked;
                         conf.stats[i].isSkill = comboBox8.Text;
 
+                        // Copy file
+                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                        }
+                        if (File.Exists(textBox9.Text))
+                        {
+                            File.Copy(textBox9.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox9.Text)));
+                        }
+                        // Delete old file
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.stats[i].image)) && !conf.stats[i].image.Equals(textBox9.Text))
+                        {
+                            DialogResult deleteOld = MessageBox.Show("The stats image " + conf.stats[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
+                            if (deleteOld == DialogResult.Yes)
+                            {
+                                File.Delete(Path.Combine(projectDir, imgDir, conf.stats[i].image));
+                            }
+                        }
+                        conf.stats[i].image = Path.GetFileName(textBox9.Text);
+                        textBox9.Text = Path.GetFileName(textBox9.Text);
+
                         updateStats();
 
                         MessageBox.Show("Stats updated.");
@@ -922,6 +1044,13 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete stats with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
+                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.stats[i].image)))
+                            {
+                                if (MessageBox.Show("Do you want to delete the stats image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    File.Delete(Path.Combine(projectDir, imgDir, conf.stats[i].image));
+                                }
+                            }
                             conf.stats.RemoveAt(i);
                         }
                     }
@@ -944,8 +1073,10 @@ namespace TweeFly
                 checkBox24.Checked = listView5.SelectedItems[0].SubItems[6].Text.Equals("True");
                 comboBox8.Text = listView5.SelectedItems[0].SubItems[7].Text;
 
-                string absPath = textBox9.Text.Replace(PROJECT_DIR, fileName);
-                if (File.Exists(absPath)) pictureBox2.Load(absPath);
+
+                if (File.Exists(Path.Combine(projectDir, imgDir, textBox9.Text))) {
+                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox9.Text));
+                }
             }
         }
 
@@ -1237,8 +1368,9 @@ namespace TweeFly
                     {
                         label73.Text = "(" + conf.items[i].name + ")";
 
-                        string absPath = conf.items[i].image.Replace(PROJECT_DIR, fileName);
-                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image))) {
+                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                        }
                     }
                 }
             }
@@ -1250,8 +1382,10 @@ namespace TweeFly
                     {
                         label73.Text = "(" + conf.clothing[i].name + ")";
 
-                        string absPath = conf.clothing[i].image.Replace(PROJECT_DIR, fileName);
-                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)))
+                        {
+                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                        }
                     }
                 }
             }
@@ -1302,7 +1436,19 @@ namespace TweeFly
                 job.description = textBox1.Text;
                 job.duration = Convert.ToInt32(numericUpDown19.Value);
                 job.rewardMoney = Convert.ToInt32(numericUpDown9.Value);
-                
+
+                // Copy file
+                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                {
+                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                }
+                if (File.Exists(textBox15.Text))
+                {
+                    File.Copy(textBox15.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox15.Text)));
+                }
+                job.image = Path.GetFileName(textBox15.Text);
+                textBox15.Text = Path.GetFileName(textBox15.Text);
+
                 conf.jobs.Add(job);
 
                 // Update jobs                
@@ -1353,6 +1499,27 @@ namespace TweeFly
                         conf.jobs[i].rewardMoney = Convert.ToInt32(numericUpDown9.Value);
                         conf.jobs[i].passage = textBox6.Text;
 
+                        // Copy file
+                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                        }
+                        if (File.Exists(textBox10.Text))
+                        {
+                            File.Copy(textBox15.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox15.Text)));
+                        }
+                        // Delete old file
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.jobs[i].image)) && !conf.jobs[i].image.Equals(textBox15.Text))
+                        {
+                            DialogResult deleteOld = MessageBox.Show("The jobs image " + conf.jobs[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
+                            if (deleteOld == DialogResult.Yes)
+                            {
+                                File.Delete(Path.Combine(projectDir, imgDir, conf.jobs[i].image));
+                            }
+                        }
+                        conf.jobs[i].image = Path.GetFileName(textBox15.Text);
+                        textBox15.Text = Path.GetFileName(textBox15.Text);
+
                         updateJobs();
 
                         MessageBox.Show("Jobs updated.");
@@ -1375,6 +1542,13 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete jobs with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
+                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.jobs[i].image)))
+                            {
+                                if (MessageBox.Show("Do you want to delete the job image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    File.Delete(Path.Combine(projectDir, imgDir, conf.jobs[i].image));
+                                }
+                            }
                             conf.jobs.RemoveAt(i);
                         }
                     }
@@ -1399,8 +1573,10 @@ namespace TweeFly
                 numericUpDown9.Value = int.Parse(listView4.SelectedItems[0].SubItems[5].Text);
                 textBox6.Text = listView4.SelectedItems[0].SubItems[9].Text;
 
-                string absPath = textBox15.Text.Replace(PROJECT_DIR, fileName);
-                if (File.Exists(absPath)) pictureBox2.Load(absPath);
+                if (File.Exists(Path.Combine(projectDir, imgDir, textBox15.Text)))
+                {
+                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox15.Text));
+                }
 
                 // Get the right job
                 for (int i = 0; i < conf.jobs.Count; i++)
@@ -1515,6 +1691,18 @@ namespace TweeFly
                 character.color = HexConverter(panel1.BackColor);
                 character.skill3 = textBox34.Text;
 
+                // Copy file
+                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                {
+                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                }
+                if (File.Exists(textBox37.Text))
+                {
+                    File.Copy(textBox37.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox37.Text)));
+                }
+                character.image = Path.GetFileName(textBox37.Text);
+                textBox37.Text = Path.GetFileName(textBox37.Text);
+
                 conf.characters.Add(character);
 
                 // Update jobs                
@@ -1572,6 +1760,26 @@ namespace TweeFly
                         conf.characters[i].color = HexConverter(panel1.BackColor);
                         conf.characters[i].skill3 = textBox34.Text;
 
+                        // Copy file
+                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                        }
+                        if (File.Exists(textBox37.Text))
+                        {
+                            File.Copy(textBox37.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox37.Text)));
+                        }
+                        // Delete old file
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.characters[i].image)) && !conf.characters[i].image.Equals(textBox37.Text))
+                        {
+                            DialogResult deleteOld = MessageBox.Show("The character image " + conf.characters[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
+                            if (deleteOld == DialogResult.Yes)
+                            {
+                                File.Delete(Path.Combine(projectDir, imgDir, conf.characters[i].image));
+                            }
+                        }
+                        conf.characters[i].image = Path.GetFileName(textBox37.Text);
+                        textBox37.Text = Path.GetFileName(textBox37.Text);
 
                         updateCharacters();
 
@@ -1594,6 +1802,13 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete character with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
+                            if ( File.Exists(Path.Combine(projectDir, imgDir, conf.characters[i].image)))
+                            {
+                                if (MessageBox.Show("Do you want to delete the character image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                {
+                                    File.Delete(Path.Combine(projectDir, imgDir, conf.characters[i].image));
+                                }
+                            }
                             conf.characters.RemoveAt(i);
                         }
                     }
@@ -1621,215 +1836,270 @@ namespace TweeFly
                 textBox35.Text = listView7.SelectedItems[0].SubItems[12].Text;
                 textBox34.Text = listView7.SelectedItems[0].SubItems[13].Text;
 
-                string absPath = textBox37.Text.Replace(PROJECT_DIR, fileName);
-                if (File.Exists(absPath)) pictureBox2.Load(absPath);
-            }
-        }
-
-        private void newConfig()
-        {
-            var confirmResult = MessageBox.Show("Are you sure you want to start a new configuration?", "Confirm Delete", MessageBoxButtons.YesNo);
-            if (confirmResult == DialogResult.Yes)
-            {
-                fileName = "";
-                this.Text = Form1.APP_TITLE;
-
-                conf = new Configuration(true);
-                updateFromConf(conf);
-            }
-        }
-
-        private void loadConf()
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            if (TweeFlyPro.Properties.Settings.Default.IsProEdition)
-            {
-                openFileDialog1.Filter = "|*.tfcx||*.tfc||*.*";
-            } else
-            {
-                openFileDialog1.Filter = "|*.tfc";
-            }
-            openFileDialog1.Title = "Open TweeFly Configuration File";
-            openFileDialog1.ShowDialog();
-
-            if (openFileDialog1.FileName != "")
-            {
-
-                string ext = Path.GetExtension(openFileDialog1.FileName);
-
-                if (ext.ToUpper().Equals(".TFCX")) // XML
+                if (File.Exists(Path.Combine(projectDir, imgDir, textBox37.Text)))
                 {
-                    TextReader reader = null;
-                    try
-                    {
-                        var serializer = new XmlSerializer(typeof(Configuration));
-                        reader = new StreamReader(openFileDialog1.FileName);
-                        conf = (Configuration)serializer.Deserialize(reader);
+                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox37.Text));
+                }
+            }
+        }
 
-                        fileName = openFileDialog1.FileName;
-                        this.Text = Form1.APP_TITLE + " - " + fileName;
-                        // Update comboboxes
-                        comboBox3.Items.Clear();
-                        for (int i = 0; i < conf.shops.Count; i++)
-                        {
-                            comboBox3.Items.Add(conf.shops[i].name);
-                        }
-                        comboBox2.Items.Clear();
-                        for (int i = 0; i < conf.shops.Count; i++)
-                        {
-                            comboBox2.Items.Add(conf.shops[i].name);
-                        }
-                        comboBox4.Items.Clear();
-                        for (int i = 0; i < conf.items.Count; i++)
-                        {
-                            comboBox4.Items.Add(conf.items[i].ID);
-                        }
-                    }
-                    finally
+        public bool newConfig(bool askToSave = true)
+        {
+            var confirmResult = DialogResult.Yes;
+
+            if (askToSave)
+            {
+                confirmResult = MessageBox.Show("Do you want to save the current project before starting a new one?", "Save", MessageBoxButtons.YesNoCancel);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    save();
+                }
+            }
+
+            if (confirmResult != DialogResult.Cancel)
+            {
+                using (var project_folder_dialog = new FolderBrowserDialog())
+                {
+                    // Start in application directory
+                    project_folder_dialog.SelectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+                    if (!Directory.Exists(project_folder_dialog.SelectedPath))
                     {
-                        if (reader != null)
-                            reader.Close();
+                        Directory.CreateDirectory(project_folder_dialog.SelectedPath);
                     }
-                } else if (ext.ToUpper().Equals(".TFC")) // BINARY
+
+                    DialogResult result = project_folder_dialog.ShowDialog();
+
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(project_folder_dialog.SelectedPath))
+                    {
+                        if ((Directory.Exists(project_folder_dialog.SelectedPath) && (Directory.GetFiles(project_folder_dialog.SelectedPath).Length > 0))
+                            || (!Directory.GetParent(project_folder_dialog.SelectedPath).FullName.Equals(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"))))
+                        {
+                            MessageBox.Show("Please create a new folder or select an empty folder in the 'projects' directory.");
+                        }
+                        else
+                        {
+                            if (!Directory.Exists(project_folder_dialog.SelectedPath))
+                            {
+                                Directory.CreateDirectory(project_folder_dialog.SelectedPath);
+                            }
+
+                            projectName = new DirectoryInfo(project_folder_dialog.SelectedPath).Name;
+                            projectDir = project_folder_dialog.SelectedPath;
+                            this.Text = Form1.APP_TITLE + " - " + projectName;
+                            conf = new Configuration(true);
+                            updateFromConf(conf);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool loadConf()
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                fbd.SelectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string projectFile = "";
+                    if (File.Exists(Path.Combine(fbd.SelectedPath, "project.tfc"))) {
+                        projectFile = Path.Combine(fbd.SelectedPath, "project.tfc");
+                    }
+
+                    if (File.Exists(Path.Combine(fbd.SelectedPath, "project.tfcx")) && TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                    {
+                        projectFile = Path.Combine(fbd.SelectedPath, "project.tfcx");
+                    }
+
+                    if (projectFile.Equals(""))
+                    {
+                        if (TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                        {
+                            MessageBox.Show("This folder does neither contain a 'project.tfcx' nor a 'project.tfc'.");
+                        } else
+                        {
+                            MessageBox.Show("This folder does not contain a 'project.tfc'.");
+                        }
+                        return false;
+                    }
+
+
+                    string ext = Path.GetExtension(projectFile);
+
+                    if (ext.ToUpper().Equals(".TFCX")) // XML
+                    {
+                        TextReader reader = null;
+                        try
+                        {
+                            var serializer = new XmlSerializer(typeof(Configuration));
+                            reader = new StreamReader(projectFile);
+                            conf = (Configuration)serializer.Deserialize(reader);
+
+                            projectName = new DirectoryInfo(fbd.SelectedPath).Name;
+                            this.Text = Form1.APP_TITLE + " - " + projectName;
+                            projectDir = fbd.SelectedPath;
+                            // Update comboboxes
+                            comboBox3.Items.Clear();
+                            for (int i = 0; i < conf.shops.Count; i++)
+                            {
+                                comboBox3.Items.Add(conf.shops[i].name);
+                            }
+                            comboBox2.Items.Clear();
+                            for (int i = 0; i < conf.shops.Count; i++)
+                            {
+                                comboBox2.Items.Add(conf.shops[i].name);
+                            }
+                            comboBox4.Items.Clear();
+                            for (int i = 0; i < conf.items.Count; i++)
+                            {
+                                comboBox4.Items.Add(conf.items[i].ID);
+                            }
+                        }
+                        finally
+                        {
+                            if (reader != null)
+                                reader.Close();
+                        }
+                        return true;
+                    }
+                    else if (ext.ToUpper().Equals(".TFC")) // BINARY
                     {
                         BinaryFormatter formatter = new BinaryFormatter();
 
-                    //Reading the file from the server
-                    FileStream fs = null;
-                    try
-                    {
-                        fs = File.Open(openFileDialog1.FileName, FileMode.Open);
-                        conf = (Configuration)formatter.Deserialize(fs);
-                        fileName = openFileDialog1.FileName;
-                        this.Text = Form1.APP_TITLE + " - " + fileName;
-                        // Update comboboxes
-                        comboBox3.Items.Clear();
-                        for (int i = 0; i < conf.shops.Count; i++)
+                        //Reading the file from the server
+                        FileStream fs = null;
+                        try
                         {
-                            comboBox3.Items.Add(conf.shops[i].name);
+                            fs = File.Open(projectFile, FileMode.Open);
+                            conf = (Configuration)formatter.Deserialize(fs);
+                            projectName = new DirectoryInfo(fbd.SelectedPath).Name;
+                            this.Text = Form1.APP_TITLE + " - " + projectName;
+                            projectDir = fbd.SelectedPath;
+                            // Update comboboxes
+                            comboBox3.Items.Clear();
+                            for (int i = 0; i < conf.shops.Count; i++)
+                            {
+                                comboBox3.Items.Add(conf.shops[i].name);
+                            }
+                            comboBox2.Items.Clear();
+                            for (int i = 0; i < conf.shops.Count; i++)
+                            {
+                                comboBox2.Items.Add(conf.shops[i].name);
+                            }
+                            comboBox4.Items.Clear();
+                            for (int i = 0; i < conf.items.Count; i++)
+                            {
+                                comboBox4.Items.Add(conf.items[i].ID);
+                            }
                         }
-                        comboBox2.Items.Clear();
-                        for (int i = 0; i < conf.shops.Count; i++)
+                        finally
                         {
-                            comboBox2.Items.Add(conf.shops[i].name);
+                            if (fs != null)
+                            {
+                                fs.Close();
+                                fs.Dispose();
+                            }
                         }
-                        comboBox4.Items.Clear();
-                        for (int i = 0; i < conf.items.Count; i++)
-                        {
-                            comboBox4.Items.Add(conf.items[i].ID);
-                        }
+                        return true;
                     }
-                    finally
+                    else
                     {
-                        if (fs != null)
-                        {
-                            fs.Close();
-                            fs.Dispose();
-                        }
+                        MessageBox.Show("Invalid file extension '" + ext + "'");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Invalid file extension '" + ext + "'");
                 }
             }
+            return false;
         }
 
         private void saveConfAs()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            if (TweeFlyPro.Properties.Settings.Default.IsProEdition)
+ 
+            using (var project_folder_dialog = new FolderBrowserDialog())
             {
-                saveFileDialog1.Filter = "TweeFly Configuration XML|*.tfcx|TweeFly Configuration Binary|*.tfc";
-            } else
-            {
-                saveFileDialog1.Filter = "TweeFly Configuration Binary|*.tfc";
-            }
-            saveFileDialog1.Title = "Save TweeFly Configuration File";
-            saveFileDialog1.ShowDialog();
-
-            if (saveFileDialog1.FileName != "")
-            {
-                string ext = Path.GetExtension(saveFileDialog1.FileName);
-
-                if (string.IsNullOrEmpty(ext)) saveFileDialog1.FileName += ".tfc";
-                if (!ext.ToUpper().Equals(".TFCX") && !ext.ToUpper().Equals(".TFC")) saveFileDialog1.FileName += ".tfc";
-                if (ext.ToUpper().Equals("TFCX") && !TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                // Start in application directory
+                project_folder_dialog.SelectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+                if (!Directory.Exists(project_folder_dialog.SelectedPath))
                 {
-                    saveFileDialog1.FileName = saveFileDialog1.FileName.Remove(saveFileDialog1.FileName.Length - 1);
+                    Directory.CreateDirectory(project_folder_dialog.SelectedPath);
                 }
 
-                if (Path.GetExtension(saveFileDialog1.FileName).ToUpper().Equals(".TFCX")) // XML
+                DialogResult result = project_folder_dialog.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(project_folder_dialog.SelectedPath))
                 {
-                    TextWriter writer = null;
-                    try
+                    if ((Directory.Exists(project_folder_dialog.SelectedPath) && (Directory.GetFiles(project_folder_dialog.SelectedPath).Length > 0))
+                        || (!Directory.GetParent(project_folder_dialog.SelectedPath).FullName.Equals(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"))))
                     {
-                        var serializer = new XmlSerializer(typeof(Configuration));
-                        writer = new StreamWriter(saveFileDialog1.FileName);
-                        serializer.Serialize(writer, conf);
-                        fileName = saveFileDialog1.FileName;
-                        this.Text = Form1.APP_TITLE + " - " + fileName;
+                        MessageBox.Show("Please create a new folder or select an empty folder in the 'projects' directory.");
                     }
-                    finally
+                    else
                     {
-                        if (writer != null)
+                        if (!Directory.Exists(project_folder_dialog.SelectedPath))
                         {
-                            writer.Close();
-                        }
-                    }
-                }
-                else
-                {
-                    Stream ms = null;
-                    try
-                    {
-                        ms = File.OpenWrite(saveFileDialog1.FileName);
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        formatter.Serialize(ms, conf);
-                        fileName = saveFileDialog1.FileName;
-                        this.Text = Form1.APP_TITLE + " - " + fileName;
-                    }
-                    finally
-                    {
-                        if (MaximumSize != null)
-                        {
-                            ms.Flush();
-                            ms.Close();
-                            ms.Dispose();
+                            Directory.CreateDirectory(project_folder_dialog.SelectedPath);
                         }
 
+                        // Todo copy all folders from fileName to new Dir
+                        string[] filesInCurrentDir = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName), "^(?!.*projects.tfc.*)");
+                        filesInCurrentDir = Array.FindAll(filesInCurrentDir, file => !file.ToUpper().StartsWith("PROJECT.TFC"));
+                        string[] dirsInCurrentDir = Directory.GetDirectories(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName));
+                        int totalSubs = filesInCurrentDir.Length + dirsInCurrentDir.Length;
+                        if (totalSubs > 0)
+                        {
+                            DialogResult copyFiles = MessageBox.Show("There are multiple files in the current project. Do you want to copy them to the new location?", "Copy all", MessageBoxButtons.YesNo);
+                            if (copyFiles == DialogResult.Yes)
+                            {
+                                Helper.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName), project_folder_dialog.SelectedPath);
+                                if (File.Exists(Path.Combine(project_folder_dialog.SelectedPath, "project.tfc")))
+                                {
+                                    File.Delete(Path.Combine(project_folder_dialog.SelectedPath, "project.tfc"));
+                                }
+                                if (File.Exists(Path.Combine(project_folder_dialog.SelectedPath, "project.tfcx")))
+                                {
+                                    File.Delete(Path.Combine(project_folder_dialog.SelectedPath, "project.tfcx"));
+                                }
+                            }
+                        }
+
+                        projectName = new DirectoryInfo(project_folder_dialog.SelectedPath).Name;
+                        this.Text = Form1.APP_TITLE + " - " + projectName;
+                        projectDir = project_folder_dialog.SelectedPath;
+                        save();
                     }
 
                 }
             }
-            else
-            {
-                MessageBox.Show("Please enter a file name.");
-            }
+
+
         }
 
         private void save()
         {
-            if (!fileName.Equals(""))
+            if (!projectName.Equals(""))
             {
-                string ext = Path.GetExtension(fileName);
+                // Find the project file
+                string projectFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName, "project.tfc");
 
-                if (string.IsNullOrEmpty(ext)) fileName += ".tfc";
-                if (!ext.ToUpper().Equals(".TFCX") && !ext.ToUpper().Equals(".TFC")) fileName += ".tfc";
-                if (ext.ToUpper().Equals("TFCX") && !TweeFlyPro.Properties.Settings.Default.IsProEdition)
+
+
+                if (!File.Exists(projectFile) || !TweeFlyPro.Properties.Settings.Default.IsProEdition || !conf.storeProjectFileAsBinary)
                 {
-                    fileName = fileName.Remove(fileName.Length - 1);
+                    projectFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName, "project.tfcx");
                 }
 
 
-                if (Path.GetExtension(fileName).ToUpper().Equals(".TFCX")) // XML
+                if (Path.GetExtension(projectFile).ToUpper().Equals(".TFCX")) // XML
                 {
 
                     TextWriter writer = null;
                     try
                     {
                         var serializer = new XmlSerializer(typeof(Configuration));
-                        writer = new StreamWriter(fileName);
+                        writer = new StreamWriter(projectFile);
                         serializer.Serialize(writer, conf);
                     }
                     finally
@@ -1840,13 +2110,13 @@ namespace TweeFly
                         }
                     }
                 }
-                else if (ext.ToUpper().Equals(".TFC")) // BINARY
+                else if (Path.GetExtension(projectFile).ToUpper().Equals(".TFC")) // BINARY
                 {
 
                     Stream ms = null;
                     try
                     {
-                        ms = File.OpenWrite(fileName);
+                        ms = File.OpenWrite(projectFile);
                         BinaryFormatter formatter = new BinaryFormatter();
                         formatter.Serialize(ms, conf);
                     }
@@ -1862,7 +2132,7 @@ namespace TweeFly
                     }
                 } else
                 {
-                    MessageBox.Show("Invalid file extension '" + ext + "'");
+                    MessageBox.Show("Invalid file extension '" + Path.GetExtension(projectFile) + "'");
                 }
 
             } else
@@ -2143,8 +2413,10 @@ namespace TweeFly
                     {
                         label80.Text = conf.items[i].name;
 
-                        string absPath = conf.items[i].image.Replace(PROJECT_DIR, fileName);
-                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image)))
+                        {
+                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                        }
                     }
                 }
             }
@@ -2156,8 +2428,10 @@ namespace TweeFly
                     {
                         label80.Text = conf.clothing[i].name;
 
-                        string absPath = conf.clothing[i].image.Replace(PROJECT_DIR, fileName);
-                        if (File.Exists(absPath)) pictureBox2.Load(absPath);
+                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)))
+                        {
+                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                        }
                     }
                 }
             }
@@ -2207,11 +2481,6 @@ namespace TweeFly
         private void checkBox23_CheckedChanged(object sender, EventArgs e)
         {
             conf.statsInSidebar = checkBox23.Checked;
-        }
-
-        private void textBox12_TextChanged_1(object sender, EventArgs e)
-        {
-            conf.pathPrefix = textBox12.Text;
         }
 
         private void checkBox24_CheckedChanged(object sender, EventArgs e)
@@ -2296,6 +2565,14 @@ namespace TweeFly
                 // Change logo
                 pictureBox1.Image = TweeFlyPro.Properties.Resources.TweeFlyFreeLogo;
             }
+
+            // Create projects folder if not exists
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"))) {
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"));
+            }
+
+            Welcome welcomeForm = new Welcome(this);
+            welcomeForm.ShowDialog();
         }
 
         private void checkBox25_CheckedChanged(object sender, EventArgs e)
@@ -2441,7 +2718,6 @@ namespace TweeFly
             conf.moneyActive = true;
             conf.jobsActive = true;
             conf.charactersActive = true;
-            conf.pathPrefix = "data/img";
             conf.storyName = "The Atlantic Murder";
 
             // Inventory
@@ -2453,12 +2729,12 @@ namespace TweeFly
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
-                "", PROJECT_DIR + "data/img/taxicard.jpg", -1, -1, false, 0, "", "", "", ""));
-            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", PROJECT_DIR + "data/img/smartphone.jpg", -1, -1,
+                "", Path.Combine(projectDir, imgDir, "taxicard.jpg"), -1, -1, false, 0, "", "", "", ""));
+            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", Path.Combine(projectDir, imgDir, "smartphone.jpg"), -1, -1,
                 false, 1, "", "", "", ""));
-            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", PROJECT_DIR + "data/img/keycard.jpg", -1, -1,
+            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", Path.Combine(projectDir, imgDir, "keycard.jpg"), -1, -1,
                 false, 0, "", "", "", ""));
-            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", PROJECT_DIR + "data/img/chocolate.jpg", 2, 1,
+            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", Path.Combine(projectDir, imgDir, "chocolate.jpg"), 2, 1,
                 true, 1, "", "", "", ""));
 
             conf.displayInInventory.Clear();
@@ -2500,57 +2776,57 @@ namespace TweeFly
             conf.displayInClothingView.Add("Image");
 
             // name, description, canbebougt, shopcat, cat, bodypart, image, buiprice, sellprice, multiple, owned, s1, s2, s3
-            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", PROJECT_DIR + "data/img/beanie.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", Path.Combine(projectDir, imgDir, "beanie.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Hair
-            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", PROJECT_DIR + "data/img/headscarf.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", Path.Combine(projectDir, imgDir, "headscarf.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Neck
-            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", PROJECT_DIR + "data/img/necklace_male.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", Path.Combine(projectDir, imgDir, "necklace_male.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Upper body
-            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", PROJECT_DIR + "data/img/shirt.jpg", 20, 10, true, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", PROJECT_DIR + "data/img/tshirt.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "shirt.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "tshirt.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Lower body
-            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/jeans.jpg", 20, 10, true, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/shortpants.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "jeans.jpg"), 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "shortpants.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Belt
-            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", PROJECT_DIR + "data/img/belt.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", Path.Combine(projectDir, imgDir, "belt.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Socks
-            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", PROJECT_DIR + "data/img/socks.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", Path.Combine(projectDir, imgDir, "socks.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Shoes
-            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", PROJECT_DIR + "data/img/shoes_male.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", Path.Combine(projectDir, imgDir, "shoes_male.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Underwear top
-            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", PROJECT_DIR + "data/img/tanktop.jpg", 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", Path.Combine(projectDir, imgDir, "tanktop.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Underwear bottom
-            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", PROJECT_DIR + "data/img/none.jpg", -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", PROJECT_DIR + "data/img/boxershorts.jpg", 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", Path.Combine(projectDir, imgDir, "boxershorts.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Suit
-            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", PROJECT_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", PROJECT_DIR + "data/img/suit.jpg", 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "suit.jpg"), 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "suit.jpg"), 2000, -1, false, 1, "", "", "", false));
 
 
             // Stats
             conf.statsInSidebar = true;
             conf.statsLinkInSidebar = true;
-            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", PROJECT_DIR + "data/img/strength.jpg", true, "None"));
-            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", PROJECT_DIR + "data/img/intelligence.jpg", true, "None"));
+            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", Path.Combine(projectDir, imgDir, "strength.jpg"), true, "None"));
+            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", Path.Combine(projectDir, imgDir, "intelligence.jpg"), true, "None"));
 
             // Daytime
             conf.daytimeFormat = 0;
@@ -2575,8 +2851,8 @@ namespace TweeFly
             conf.startMoney = 10;
 
             // Jobs
-            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", PROJECT_DIR + "data/img/dishes.jpg", 5, 60, "");
-            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", PROJECT_DIR + "data/img/cleaningfloor.jpg", 10, 120, "");
+            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", Path.Combine(projectDir, imgDir, "dishes.jpg"), 5, 60, "");
+            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", Path.Combine(projectDir, imgDir, "cleaningfloor.jpg"), 10, 120, "");
             j1.rewardItems.Add(new RewardItem("ITEM", 3, 1));
             conf.jobs.Add(j1);
             conf.jobs.Add(j2);
@@ -2592,11 +2868,11 @@ namespace TweeFly
             conf.displayInJobsView.Add("Image");
 
             // Characters
-            Character c0 = new Character(0, "Player", 21, "You", true, "", PROJECT_DIR + "data/img/player.jpg", "male", "", 0, "#42f46e", "", "", "");
-            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", PROJECT_DIR + "data/img/jim.jpg", "male", "receptionist", 0, "#42f44b", "", "", "");
-            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", PROJECT_DIR + "data/img/rex.jpg", "male", "footboy", 0, "#f44242", "", "", "");
-            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", PROJECT_DIR + "data/img/simon.jpg", "male", "", 0, "#f44242", "", "", "");
-            Character c4 = new Character(4, "Woman", 50, "", false, "", PROJECT_DIR + "data/img/joana.jpg", "female", "", 0, "#f4d942", "", "", "");
+            Character c0 = new Character(0, "Player", 21, "You", true, "", Path.Combine(projectDir, imgDir, "player.jpg"), "male", "", 0, "#42f46e", "", "", "");
+            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", Path.Combine(projectDir, imgDir, "jim.jpg"), "male", "receptionist", 0, "#42f44b", "", "", "");
+            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", Path.Combine(projectDir, imgDir, "rex.jpg"), "male", "footboy", 0, "#f44242", "", "", "");
+            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", Path.Combine(projectDir, imgDir, "simon.jpg"), "male", "", 0, "#f44242", "", "", "");
+            Character c4 = new Character(4, "Woman", 50, "", false, "", Path.Combine(projectDir, imgDir, "joana.jpg"), "female", "", 0, "#f4d942", "", "", "");
             conf.characters.Add(c0);
             conf.characters.Add(c1);
             conf.characters.Add(c2);
@@ -3093,6 +3369,21 @@ namespace TweeFly
             {
                 System.Diagnostics.Process.Start(files[0]);
             }
+        }
+
+        private void checkBox47_CheckedChanged(object sender, EventArgs e)
+        {
+            conf.storeProjectFileAsBinary = checkBox47.Checked;
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -67,7 +67,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(181, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "TweeFly 0.14 created by padmalcom";
+            this.label1.Text = "TweeFly 0.15 created by padmalcom";
             // 
             // linkLabel1
             // 

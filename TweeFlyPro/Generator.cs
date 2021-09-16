@@ -342,7 +342,7 @@ namespace TweeFly
                 inv += "\"description\":\"" + _conf.items[i].description + "\",";
                 inv += "\"category\":\"" + _conf.items[i].category + "\",";
                 inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                inv += "\"image\":\"" + pathPrefixAndEscape(_conf.items[i].image, _conf.pathPrefix) + "\",";
+                inv += "\"image\":\"" + _conf.items[i].image + "\",";
                 inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                 inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                 inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -393,7 +393,7 @@ namespace TweeFly
                     inv += "\"description\":\"" + _conf.items[i].description + "\",";
                     inv += "\"category\":\"" + _conf.items[i].category + "\",";
                     inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                    inv += "\"image\":\"" + pathPrefixAndEscape(_conf.items[i].image, _conf.pathPrefix) + "\",";
+                    inv += "\"image\":\"" + _conf.items[i].image + "\",";
                     inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                     inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                     inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -786,7 +786,7 @@ namespace TweeFly
                 cloth += "\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",";
                 cloth += "\"category\":\"" + _conf.clothing[i].category + "\",";
                 cloth += "\"bodyPart\":" + bodyPartMapper(_conf.clothing[i].bodyPart) + ",";
-                cloth += "\"image\":\"" + pathPrefixAndEscape(_conf.clothing[i].image, _conf.pathPrefix) + "\",";
+                cloth += "\"image\":\"" + _conf.clothing[i].image + "\",";
                 cloth += "\"buyPrice\":" + _conf.clothing[i].buyPrice + ",";
                 cloth += "\"sellPrice\":" + _conf.clothing[i].sellPrice + ",";
                 cloth += "\"isWorn\":" + _conf.clothing[i].isWornAtBeginning.ToString().ToLower() + ",";
@@ -1589,7 +1589,7 @@ namespace TweeFly
                 stats += "\"name\":\"" + _conf.stats[i].name + "\",";
                 stats += "\"value\":" + _conf.stats[i].value + ",";
                 stats += "\"description\":\"" + _conf.stats[i].description + "\",";
-                stats += "\"image\":\"" + pathPrefixAndEscape(_conf.stats[i].image, _conf.pathPrefix) + "\",";
+                stats += "\"image\":\"" + _conf.stats[i].image + "\",";
                 stats += "\"isskill\":\"" + _conf.stats[i].isSkill + "\",";
                 stats += "\"visible\":" + _conf.stats[i].visible.ToString().ToLower() + "});";
             }
@@ -2656,7 +2656,7 @@ namespace TweeFly
                 jobs +="\"cooldown\":" + _conf.jobs[i].cooldown + ",";
                 jobs +="\"lastStart\":new Date(0, 0, 0, 0, 0, 0),";
                 jobs +="\"duration\":" + _conf.jobs[i].duration + ",";
-                jobs +="\"image\":\"" + pathPrefixAndEscape(_conf.jobs[i].image, _conf.pathPrefix) + "\",";
+                jobs +="\"image\":\"" + _conf.jobs[i].image + "\",";
                 jobs += "\"passage\":\"" + _conf.jobs[i].passage + "\",";
                 jobs +="\"rewardItems\":[\n";
                 for (int j = 0; j < _conf.jobs[i].rewardItems.Count; j++)
@@ -2891,7 +2891,7 @@ namespace TweeFly
                 characters +="\"relation\":" + _conf.characters[i].relation + ",";
                 characters +="\"known\":" + _conf.characters[i].known.ToString().ToLower() + ",";
                 characters +="\"color\":\"" + _conf.characters[i].color + "\",";
-                characters +="\"image\":\"" + pathPrefixAndEscape(_conf.characters[i].image, _conf.pathPrefix) + "\"";
+                characters +="\"image\":\"" + _conf.characters[i].image + "\"";
                 if (_conf.characterUseSkill1)
                 {
                     string skill1val = (isBool(_conf.characters[i].skill1) || isNumber(_conf.characters[i].skill1)) ? _conf.characters[i].skill1 : "\"" + _conf.characters[i].skill1 + "\"";

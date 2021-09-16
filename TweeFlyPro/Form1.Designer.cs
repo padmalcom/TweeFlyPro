@@ -285,6 +285,8 @@
             this.columnHeader55 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label76 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label116 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label55 = new System.Windows.Forms.Label();
             this.numericUpDown19 = new System.Windows.Forms.NumericUpDown();
@@ -317,6 +319,7 @@
             this.columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader57 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader37 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader75 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.checkBox48 = new System.Windows.Forms.CheckBox();
             this.checkBox36 = new System.Windows.Forms.CheckBox();
@@ -379,6 +382,9 @@
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox47 = new System.Windows.Forms.TextBox();
+            this.checkBox47 = new System.Windows.Forms.CheckBox();
             this.checkBox46 = new System.Windows.Forms.CheckBox();
             this.button37 = new System.Windows.Forms.Button();
             this.button36 = new System.Windows.Forms.Button();
@@ -429,22 +435,15 @@
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label79 = new System.Windows.Forms.Label();
-            this.label82 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox47 = new System.Windows.Forms.TextBox();
             this.button31 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.button35 = new System.Windows.Forms.Button();
             this.button34 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button30 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button35 = new System.Windows.Forms.Button();
-            this.columnHeader75 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label116 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -501,8 +500,8 @@
             this.menuStrip1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -3166,6 +3165,22 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Job";
             // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(370, 97);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(163, 20);
+            this.textBox6.TabIndex = 21;
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(313, 100);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(51, 13);
+            this.label116.TabIndex = 20;
+            this.label116.Text = "Passage:";
+            // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -3462,6 +3477,10 @@
             // 
             this.columnHeader37.Text = "Image";
             this.columnHeader37.Width = 116;
+            // 
+            // columnHeader75
+            // 
+            this.columnHeader75.Text = "Passage";
             // 
             // tabPage8
             // 
@@ -4053,6 +4072,9 @@
             // 
             // tabPage10
             // 
+            this.tabPage10.Controls.Add(this.label7);
+            this.tabPage10.Controls.Add(this.textBox47);
+            this.tabPage10.Controls.Add(this.checkBox47);
             this.tabPage10.Controls.Add(this.checkBox46);
             this.tabPage10.Controls.Add(this.button37);
             this.tabPage10.Controls.Add(this.button36);
@@ -4093,6 +4115,35 @@
             this.tabPage10.TabIndex = 9;
             this.tabPage10.Text = "Configuration";
             this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 78);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 13);
+            this.label7.TabIndex = 42;
+            this.label7.Text = "Story name:";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // textBox47
+            // 
+            this.textBox47.Location = new System.Drawing.Point(98, 75);
+            this.textBox47.Name = "textBox47";
+            this.textBox47.Size = new System.Drawing.Size(161, 20);
+            this.textBox47.TabIndex = 41;
+            this.textBox47.Text = "story";
+            // 
+            // checkBox47
+            // 
+            this.checkBox47.AutoSize = true;
+            this.checkBox47.Location = new System.Drawing.Point(280, 124);
+            this.checkBox47.Name = "checkBox47";
+            this.checkBox47.Size = new System.Drawing.Size(175, 17);
+            this.checkBox47.TabIndex = 40;
+            this.checkBox47.Text = "Store project file as binary (*.tfc)";
+            this.checkBox47.UseVisualStyleBackColor = true;
+            this.checkBox47.CheckedChanged += new System.EventHandler(this.checkBox47_CheckedChanged);
             // 
             // checkBox46
             // 
@@ -4378,7 +4429,7 @@
             // checkBox41
             // 
             this.checkBox41.AutoSize = true;
-            this.checkBox41.Location = new System.Drawing.Point(7, 100);
+            this.checkBox41.Location = new System.Drawing.Point(280, 101);
             this.checkBox41.Name = "checkBox41";
             this.checkBox41.Size = new System.Drawing.Size(95, 17);
             this.checkBox41.TabIndex = 8;
@@ -4399,7 +4450,7 @@
             // checkBox40
             // 
             this.checkBox40.AutoSize = true;
-            this.checkBox40.Location = new System.Drawing.Point(7, 77);
+            this.checkBox40.Location = new System.Drawing.Point(7, 104);
             this.checkBox40.Name = "checkBox40";
             this.checkBox40.Size = new System.Drawing.Size(137, 17);
             this.checkBox40.TabIndex = 0;
@@ -4537,58 +4588,59 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.newToolStripMenuItem.Text = "&New...";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "&New Project...";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "&Load...";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(127, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // generateToolStripMenuItem
             // 
             this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
-            this.generateToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.generateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.generateToolStripMenuItem.Text = "&Generate...";
             this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(127, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -4634,32 +4686,6 @@
             this.label79.TabIndex = 19;
             this.label79.Text = "Support me on";
             // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(12, 271);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(60, 13);
-            this.label82.TabIndex = 20;
-            this.label82.Text = "Path prefix:";
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(100, 268);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(128, 20);
-            this.textBox12.TabIndex = 21;
-            this.textBox12.TextChanged += new System.EventHandler(this.textBox12_TextChanged_1);
-            // 
-            // textBox47
-            // 
-            this.textBox47.Location = new System.Drawing.Point(100, 293);
-            this.textBox47.Name = "textBox47";
-            this.textBox47.Size = new System.Drawing.Size(128, 20);
-            this.textBox47.TabIndex = 23;
-            this.textBox47.Text = "story";
-            this.textBox47.TextChanged += new System.EventHandler(this.textBox47_TextChanged);
-            // 
             // button31
             // 
             this.button31.Location = new System.Drawing.Point(7, 162);
@@ -4671,25 +4697,44 @@
             this.button31.Visible = false;
             this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 296);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 13);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "Story name:";
-            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.button31);
             this.groupBox10.Controls.Add(this.pictureBox2);
-            this.groupBox10.Location = new System.Drawing.Point(9, 525);
+            this.groupBox10.Location = new System.Drawing.Point(9, 492);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(219, 192);
             this.groupBox10.TabIndex = 31;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Image preview";
+            // 
+            // button35
+            // 
+            this.button35.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.button35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button35.Image = global::TweeFlyPro.Properties.Resources.CheatSheet;
+            this.button35.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button35.Location = new System.Drawing.Point(9, 432);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(216, 40);
+            this.button35.TabIndex = 33;
+            this.button35.Text = "Generate Cheat\r\nSheet (HTML)";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
+            // 
+            // button34
+            // 
+            this.button34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button34.Image = ((System.Drawing.Image)(resources.GetObject("button34.Image")));
+            this.button34.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button34.Location = new System.Drawing.Point(9, 282);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(216, 39);
+            this.button34.TabIndex = 32;
+            this.button34.Text = "Generate (Twine)";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
             // pictureBox2
             // 
@@ -4700,25 +4745,12 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
-            // button34
-            // 
-            this.button34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button34.Image = ((System.Drawing.Image)(resources.GetObject("button34.Image")));
-            this.button34.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button34.Location = new System.Drawing.Point(12, 342);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(216, 39);
-            this.button34.TabIndex = 32;
-            this.button34.Text = "Generate (Twine)";
-            this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.button34_Click);
-            // 
             // button30
             // 
             this.button30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button30.Image = ((System.Drawing.Image)(resources.GetObject("button30.Image")));
             this.button30.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button30.Location = new System.Drawing.Point(12, 387);
+            this.button30.Location = new System.Drawing.Point(9, 332);
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(216, 39);
             this.button30.TabIndex = 24;
@@ -4731,7 +4763,7 @@
             this.button33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button33.Image = ((System.Drawing.Image)(resources.GetObject("button33.Image")));
             this.button33.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button33.Location = new System.Drawing.Point(12, 434);
+            this.button33.Location = new System.Drawing.Point(9, 381);
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(216, 39);
             this.button33.TabIndex = 28;
@@ -4750,41 +4782,6 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
-            // button35
-            // 
-            this.button35.DataBindings.Add(new System.Windows.Forms.Binding("Visible", global::TweeFlyPro.Properties.Settings.Default, "IsProEdition", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.button35.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button35.Image = global::TweeFlyPro.Properties.Resources.CheatSheet;
-            this.button35.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button35.Location = new System.Drawing.Point(12, 479);
-            this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(216, 40);
-            this.button35.TabIndex = 33;
-            this.button35.Text = "Generate Cheat\r\nSheet (HTML)";
-            this.button35.UseVisualStyleBackColor = true;
-            this.button35.Visible = global::TweeFlyPro.Properties.Settings.Default.IsProEdition;
-            this.button35.Click += new System.EventHandler(this.button35_Click);
-            // 
-            // columnHeader75
-            // 
-            this.columnHeader75.Text = "Passage";
-            // 
-            // label116
-            // 
-            this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(313, 100);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(51, 13);
-            this.label116.TabIndex = 20;
-            this.label116.Text = "Passage:";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(370, 97);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(163, 20);
-            this.textBox6.TabIndex = 21;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4795,10 +4792,6 @@
             this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.button30);
             this.Controls.Add(this.button33);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox47);
-            this.Controls.Add(this.textBox12);
-            this.Controls.Add(this.label82);
             this.Controls.Add(this.label79);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.linkLabel1);
@@ -4886,8 +4879,8 @@
             this.menuStrip1.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5164,12 +5157,9 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.Label label82;
-        private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox47;
         private System.Windows.Forms.Button button30;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.CheckBox checkBox20;
@@ -5242,7 +5232,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox35;
         private System.Windows.Forms.ColumnHeader columnHeader70;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox17;
         private System.Windows.Forms.ColumnHeader columnHeader69;
         private System.Windows.Forms.RadioButton radioButton4;
@@ -5310,6 +5299,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader75;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label116;
+        private System.Windows.Forms.CheckBox checkBox47;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox47;
     }
 }
 

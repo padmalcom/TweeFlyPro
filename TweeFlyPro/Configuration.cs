@@ -21,8 +21,8 @@ namespace TweeFly
         public bool charactersActive { get; set; } = false;
 
         // Build
-        public string pathPrefix { get; set; } = "";
         public string storyName { get; set; } = "story";
+        public bool storeProjectFileAsBinary { get; set; } = false;
 
         public List<string> includedFiles = new List<string>();
 
