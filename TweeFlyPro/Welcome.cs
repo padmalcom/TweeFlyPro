@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace TweeFlyPro
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (this.mainForm.newConfig(false))
+            if (this.mainForm.newConfig(textBox1.Text, false))
             {
                 this.Close();
             }
@@ -43,10 +44,57 @@ namespace TweeFlyPro
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (this.mainForm.loadConf())
+            if (this.mainForm.loadConf(comboBox2.Text, false))
             {
                 this.mainForm.updateFromConf(this.mainForm.conf);
                 this.Close();
+            } else
+            {
+                MessageBox.Show("Error loading project " + comboBox2.Text);
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Welcome_Load(object sender, EventArgs e)
+        {
+            // Load templates
+            string templateDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "templates");
+            if (Directory.Exists(templateDir))
+            {
+                string[] templateDirs = Directory.GetDirectories(templateDir);
+                comboBox1.Items.Clear();
+                foreach (string td in templateDirs)
+                {
+                    comboBox1.Items.Add(new DirectoryInfo(td).Name);
+                }
+                if (comboBox1.Items.Count > 0)
+                {
+                    comboBox1.SelectedIndex = 0;
+                }
+            }
+
+            // Load projects
+            string projectsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+            if (Directory.Exists(projectsDir))
+            {
+                string[] projectDirs = Directory.GetDirectories(projectsDir);
+                comboBox2.Items.Clear();
+                foreach (string pd in projectDirs)
+                {
+                    if (File.Exists(Path.Combine(pd, "project.tfcx")))
+                    {
+                        comboBox2.Items.Add(new DirectoryInfo(pd).Name);
+                    }
+                }
+                if (comboBox2.Items.Count > 0)
+                {
+                    comboBox2.SelectedIndex = 0;
+                }
+
             }
         }
     }

@@ -1843,7 +1843,7 @@ namespace TweeFly
             }
         }
 
-        public bool newConfig(bool askToSave = true)
+        public bool newConfig(string newProjectName, bool askToSave = true)
         {
             var confirmResult = DialogResult.Yes;
 
@@ -1858,72 +1858,71 @@ namespace TweeFly
 
             if (confirmResult != DialogResult.Cancel)
             {
-                using (var project_folder_dialog = new FolderBrowserDialog())
+
+                // Start in application directory
+                string projectsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+                if (!Directory.Exists(projectsDir))
                 {
-                    // Start in application directory
-                    project_folder_dialog.SelectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
-                    if (!Directory.Exists(project_folder_dialog.SelectedPath))
-                    {
-                        Directory.CreateDirectory(project_folder_dialog.SelectedPath);
-                    }
-
-                    DialogResult result = project_folder_dialog.ShowDialog();
-
-                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(project_folder_dialog.SelectedPath))
-                    {
-                        if ((Directory.Exists(project_folder_dialog.SelectedPath) && (Directory.GetFiles(project_folder_dialog.SelectedPath).Length > 0))
-                            || (!Directory.GetParent(project_folder_dialog.SelectedPath).FullName.Equals(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"))))
-                        {
-                            MessageBox.Show("Please create a new folder or select an empty folder in the 'projects' directory.");
-                        }
-                        else
-                        {
-                            if (!Directory.Exists(project_folder_dialog.SelectedPath))
-                            {
-                                Directory.CreateDirectory(project_folder_dialog.SelectedPath);
-                            }
-
-                            projectName = new DirectoryInfo(project_folder_dialog.SelectedPath).Name;
-                            projectDir = project_folder_dialog.SelectedPath;
-                            this.Text = Form1.APP_TITLE + " - " + projectName;
-                            conf = new Configuration(true);
-                            updateFromConf(conf);
-                            return true;
-                        }
-                    }
+                    Directory.CreateDirectory(projectsDir);
                 }
+
+                string pd = Path.Combine(projectsDir, newProjectName);
+
+
+                if ((Directory.Exists(pd) && (Directory.GetFiles(pd).Length > 0))
+                    || (!Directory.GetParent(pd).FullName.Equals(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"))))
+                {
+                    MessageBox.Show("'" + newProjectName + "' already exists.");
+                }
+                else
+                {
+                    if (!Directory.Exists(pd))
+                    {
+                        Directory.CreateDirectory(pd);
+                    }
+
+                    projectName = newProjectName;
+                    projectDir = pd;
+                    this.Text = Form1.APP_TITLE + " - " + projectName;
+                    conf = new Configuration(true);
+                    updateFromConf(conf);
+                    save();
+                    return true;
+                }
+
             }
             return false;
         }
 
-        public bool loadConf()
+        public bool loadConf(string projectName, bool askToSave = true)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                fbd.SelectedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
-                DialogResult result = fbd.ShowDialog();
+            var confirmResult = DialogResult.Yes;
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            if (askToSave)
+            {
+                confirmResult = MessageBox.Show("Do you want to save the current project before loading?", "Save", MessageBoxButtons.YesNoCancel);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    save();
+                }
+            }
+
+            if (confirmResult != DialogResult.Cancel)
+            {
+                string pd = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName);
+
+                if (Directory.Exists(pd))
                 {
                     string projectFile = "";
-                    if (File.Exists(Path.Combine(fbd.SelectedPath, "project.tfc"))) {
-                        projectFile = Path.Combine(fbd.SelectedPath, "project.tfc");
-                    }
 
-                    if (File.Exists(Path.Combine(fbd.SelectedPath, "project.tfcx")) && TweeFlyPro.Properties.Settings.Default.IsProEdition)
+                    if (File.Exists(Path.Combine(pd, "project.tfcx")))
                     {
-                        projectFile = Path.Combine(fbd.SelectedPath, "project.tfcx");
+                        projectFile = Path.Combine(pd, "project.tfcx");
                     }
 
                     if (projectFile.Equals(""))
                     {
-                        if (TweeFlyPro.Properties.Settings.Default.IsProEdition)
-                        {
-                            MessageBox.Show("This folder does neither contain a 'project.tfcx' nor a 'project.tfc'.");
-                        } else
-                        {
-                            MessageBox.Show("This folder does not contain a 'project.tfc'.");
-                        }
+                        MessageBox.Show("This folder does not contain a 'project.tfcx'.");
                         return false;
                     }
 
@@ -1939,9 +1938,9 @@ namespace TweeFly
                             reader = new StreamReader(projectFile);
                             conf = (Configuration)serializer.Deserialize(reader);
 
-                            projectName = new DirectoryInfo(fbd.SelectedPath).Name;
+                            projectName = new DirectoryInfo(pd).Name;
                             this.Text = Form1.APP_TITLE + " - " + projectName;
-                            projectDir = fbd.SelectedPath;
+                            projectDir = pd;
                             // Update comboboxes
                             comboBox3.Items.Clear();
                             for (int i = 0; i < conf.shops.Count; i++)
@@ -1965,50 +1964,6 @@ namespace TweeFly
                                 reader.Close();
                         }
                         return true;
-                    }
-                    else if (ext.ToUpper().Equals(".TFC")) // BINARY
-                    {
-                        BinaryFormatter formatter = new BinaryFormatter();
-
-                        //Reading the file from the server
-                        FileStream fs = null;
-                        try
-                        {
-                            fs = File.Open(projectFile, FileMode.Open);
-                            conf = (Configuration)formatter.Deserialize(fs);
-                            projectName = new DirectoryInfo(fbd.SelectedPath).Name;
-                            this.Text = Form1.APP_TITLE + " - " + projectName;
-                            projectDir = fbd.SelectedPath;
-                            // Update comboboxes
-                            comboBox3.Items.Clear();
-                            for (int i = 0; i < conf.shops.Count; i++)
-                            {
-                                comboBox3.Items.Add(conf.shops[i].name);
-                            }
-                            comboBox2.Items.Clear();
-                            for (int i = 0; i < conf.shops.Count; i++)
-                            {
-                                comboBox2.Items.Add(conf.shops[i].name);
-                            }
-                            comboBox4.Items.Clear();
-                            for (int i = 0; i < conf.items.Count; i++)
-                            {
-                                comboBox4.Items.Add(conf.items[i].ID);
-                            }
-                        }
-                        finally
-                        {
-                            if (fs != null)
-                            {
-                                fs.Close();
-                                fs.Dispose();
-                            }
-                        }
-                        return true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Invalid file extension '" + ext + "'");
                     }
                 }
             }
@@ -2044,8 +1999,8 @@ namespace TweeFly
                         }
 
                         // Todo copy all folders from fileName to new Dir
-                        string[] filesInCurrentDir = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName), "^(?!.*projects.tfc.*)");
-                        filesInCurrentDir = Array.FindAll(filesInCurrentDir, file => !file.ToUpper().StartsWith("PROJECT.TFC"));
+                        string[] filesInCurrentDir = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName)); // "^(?!.*projects.tfcx)"
+                        filesInCurrentDir = Array.FindAll(filesInCurrentDir, file => !file.ToUpper().StartsWith("PROJECT.TFCX"));
                         string[] dirsInCurrentDir = Directory.GetDirectories(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName));
                         int totalSubs = filesInCurrentDir.Length + dirsInCurrentDir.Length;
                         if (totalSubs > 0)
@@ -2054,10 +2009,6 @@ namespace TweeFly
                             if (copyFiles == DialogResult.Yes)
                             {
                                 Helper.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName), project_folder_dialog.SelectedPath);
-                                if (File.Exists(Path.Combine(project_folder_dialog.SelectedPath, "project.tfc")))
-                                {
-                                    File.Delete(Path.Combine(project_folder_dialog.SelectedPath, "project.tfc"));
-                                }
                                 if (File.Exists(Path.Combine(project_folder_dialog.SelectedPath, "project.tfcx")))
                                 {
                                     File.Delete(Path.Combine(project_folder_dialog.SelectedPath, "project.tfcx"));
@@ -2082,15 +2033,7 @@ namespace TweeFly
             if (!projectName.Equals(""))
             {
                 // Find the project file
-                string projectFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName, "project.tfc");
-
-
-
-                if (!File.Exists(projectFile) || !TweeFlyPro.Properties.Settings.Default.IsProEdition || !conf.storeProjectFileAsBinary)
-                {
-                    projectFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName, "project.tfcx");
-                }
-
+                string projectFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", projectName, "project.tfcx");
 
                 if (Path.GetExtension(projectFile).ToUpper().Equals(".TFCX")) // XML
                 {
@@ -2110,30 +2053,6 @@ namespace TweeFly
                         }
                     }
                 }
-                else if (Path.GetExtension(projectFile).ToUpper().Equals(".TFC")) // BINARY
-                {
-
-                    Stream ms = null;
-                    try
-                    {
-                        ms = File.OpenWrite(projectFile);
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        formatter.Serialize(ms, conf);
-                    }
-                    finally
-                    {
-                        if (MaximumSize != null)
-                        {
-                            ms.Flush();
-                            ms.Close();
-                            ms.Dispose();
-                        }
-
-                    }
-                } else
-                {
-                    MessageBox.Show("Invalid file extension '" + Path.GetExtension(projectFile) + "'");
-                }
 
             } else
             {
@@ -2143,13 +2062,14 @@ namespace TweeFly
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            newConfig();
+            Welcome welcomeForm = new Welcome(this);
+            welcomeForm.ShowDialog();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            loadConf();
-            updateFromConf(conf);
+            Welcome welcomeForm = new Welcome(this);
+            welcomeForm.ShowDialog();
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3384,6 +3304,25 @@ namespace TweeFly
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void openProjectsFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string pf = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+            if (Directory.Exists(pf))
+            {
+                Process.Start("explorer.exe", pf);
+            }
+        }
+
+        private void convertTfcToTfcxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
