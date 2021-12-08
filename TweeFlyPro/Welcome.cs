@@ -94,7 +94,28 @@ namespace TweeFlyPro
                 {
                     comboBox2.SelectedIndex = 0;
                 }
+            }
 
+            // Disable create button if project already exists
+            string startProjectDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfcx");
+            button1.Enabled = !File.Exists(startProjectDir);
+            button4.Enabled = !File.Exists(startProjectDir);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string projectsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfcx");
+            button1.Enabled = !File.Exists(projectsDir);
+            button4.Enabled = !File.Exists(projectsDir);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string templateDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "templates");
+
+            if (this.mainForm.newConfigFromTemplate(textBox1.Text, Path.Combine(templateDir, comboBox1.Text), false))
+            {
+                this.Close();
             }
         }
     }

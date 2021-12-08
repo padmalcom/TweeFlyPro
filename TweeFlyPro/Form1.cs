@@ -1843,6 +1843,111 @@ namespace TweeFly
             }
         }
 
+        public bool newConfigFromTemplate(string newProjectName, string templateDir, bool askToSave = true)
+        {
+            var confirmResult = DialogResult.Yes;
+
+            if (askToSave)
+            {
+                confirmResult = MessageBox.Show("Do you want to save the current project before starting a new one?", "Save", MessageBoxButtons.YesNoCancel);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    save();
+                }
+            }
+
+            if (confirmResult != DialogResult.Cancel)
+            {
+
+                // Start in application directory
+                string projectsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects");
+                if (!Directory.Exists(projectsDir))
+                {
+                    Directory.CreateDirectory(projectsDir);
+                }
+
+                string pd = Path.Combine(projectsDir, newProjectName);
+
+
+                if ((Directory.Exists(pd) && (Directory.GetFiles(pd).Length > 0))
+                    || (!Directory.GetParent(pd).FullName.Equals(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects"))))
+                {
+                    MessageBox.Show("'" + newProjectName + "' already exists.");
+                }
+                else
+                {
+                    if (!Directory.Exists(pd))
+                    {
+                        Directory.CreateDirectory(pd);
+                    }
+
+                    // Copy from template
+                    MessageBox.Show("Copying from " + templateDir + " to " + pd);
+                    Helper.Copy(templateDir, pd);
+
+                    // Load template conf and update
+                    string projectFile = "";
+
+                    if (File.Exists(Path.Combine(pd, "project.tfcx")))
+                    {
+                        projectFile = Path.Combine(pd, "project.tfcx");
+                    }
+
+                    if (projectFile.Equals(""))
+                    {
+                        MessageBox.Show("This template does not contain a 'project.tfcx'.");
+                        return false;
+                    }
+
+                    string ext = Path.GetExtension(projectFile);
+
+                    if (ext.ToUpper().Equals(".TFCX")) // XML
+                    {
+                        TextReader reader = null;
+                        try
+                        {
+                            var serializer = new XmlSerializer(typeof(Configuration));
+                            reader = new StreamReader(projectFile);
+                            conf = (Configuration)serializer.Deserialize(reader);
+
+                            projectName = newProjectName;
+                            projectDir = pd;
+                            this.Text = Form1.APP_TITLE + " - " + projectName;
+                            // Update comboboxes
+                            /*comboBox3.Items.Clear();
+                            for (int i = 0; i < conf.shops.Count; i++)
+                            {
+                                comboBox3.Items.Add(conf.shops[i].name);
+                            }
+                            comboBox2.Items.Clear();
+                            for (int i = 0; i < conf.shops.Count; i++)
+                            {
+                                comboBox2.Items.Add(conf.shops[i].name);
+                            }
+                            comboBox4.Items.Clear();
+                            for (int i = 0; i < conf.items.Count; i++)
+                            {
+                                comboBox4.Items.Add(conf.items[i].ID);
+                            }*/
+                            updateFromConf(conf);
+                        }
+                        finally
+                        {
+                            if (reader != null)
+                                reader.Close();
+                        }
+                        return true;
+                    }
+                    conf = new Configuration(true);
+                    updateFromConf(conf);
+                    save();
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
         public bool newConfig(string newProjectName, bool askToSave = true)
         {
             var confirmResult = DialogResult.Yes;
@@ -1942,21 +2047,22 @@ namespace TweeFly
                             this.Text = Form1.APP_TITLE + " - " + projectName;
                             projectDir = pd;
                             // Update comboboxes
-                            comboBox3.Items.Clear();
-                            for (int i = 0; i < conf.shops.Count; i++)
-                            {
-                                comboBox3.Items.Add(conf.shops[i].name);
-                            }
-                            comboBox2.Items.Clear();
-                            for (int i = 0; i < conf.shops.Count; i++)
-                            {
-                                comboBox2.Items.Add(conf.shops[i].name);
-                            }
-                            comboBox4.Items.Clear();
-                            for (int i = 0; i < conf.items.Count; i++)
-                            {
-                                comboBox4.Items.Add(conf.items[i].ID);
-                            }
+                            /* comboBox3.Items.Clear();
+                             for (int i = 0; i < conf.shops.Count; i++)
+                             {
+                                 comboBox3.Items.Add(conf.shops[i].name);
+                             }
+                             comboBox2.Items.Clear();
+                             for (int i = 0; i < conf.shops.Count; i++)
+                             {
+                                 comboBox2.Items.Add(conf.shops[i].name);
+                             }
+                             comboBox4.Items.Clear();
+                             for (int i = 0; i < conf.items.Count; i++)
+                             {
+                                 comboBox4.Items.Add(conf.items[i].ID);
+                             }*/
+                            updateFromConf(conf);
                         }
                         finally
                         {
