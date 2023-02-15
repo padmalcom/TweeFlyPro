@@ -20,6 +20,13 @@ namespace TweeFly
         private static string TWEEFLY_COMMENT_START_ESC = System.Security.SecurityElement.Escape("<!-- TWEEFLY_START -->");
         private static string TWEEFLY_COMMENT_END_ESC = System.Security.SecurityElement.Escape("<!-- TWEEFLY_END -->");
 
+        public static string IMAGE_PATH_PREFIX = "img";
+        public static string INVENTORY_PATH_PREFIX = "inventory";
+        public static string CHARACTERS_PATH_PREFIX = "characters";
+        public static string CLOTHING_PATH_PREFIX = "clothing";
+        public static string JOBS_PATH_PREFIX = "jobs";
+        public static string STATS_PATH_PREFIX = "stats";
+
         private static bool isBool(string s)
         {
             bool r;
@@ -348,7 +355,7 @@ namespace TweeFly
                 inv += "\"description\":\"" + _conf.items[i].description + "\",";
                 inv += "\"category\":\"" + _conf.items[i].category + "\",";
                 inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                inv += "\"image\":\"" + _conf.items[i].image + "\",";
+                inv += "\"image\":\"" + IMAGE_PATH_PREFIX + "/" + INVENTORY_PATH_PREFIX + "/" + _conf.items[i].image + "\",";
                 inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                 inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                 inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -399,7 +406,7 @@ namespace TweeFly
                     inv += "\"description\":\"" + _conf.items[i].description + "\",";
                     inv += "\"category\":\"" + _conf.items[i].category + "\",";
                     inv += "\"shopCategory\":\"" + _conf.items[i].shopCategory + "\",";
-                    inv += "\"image\":\"" + _conf.items[i].image + "\",";
+                    inv += "\"image\":\"" + IMAGE_PATH_PREFIX + "/" + INVENTORY_PATH_PREFIX + "/" + _conf.items[i].image + "\",";
                     inv += "\"canBeBought\":" + _conf.items[i].canBeBought.ToString().ToLower() + ",";
                     inv += "\"buyPrice\":" + _conf.items[i].buyPrice + ",";
                     inv += "\"sellPrice\":" + _conf.items[i].sellPrice + ",";
@@ -792,7 +799,7 @@ namespace TweeFly
                 cloth += "\"shopCategory\":\"" + _conf.clothing[i].shopCategory + "\",";
                 cloth += "\"category\":\"" + _conf.clothing[i].category + "\",";
                 cloth += "\"bodyPart\":" + bodyPartMapper(_conf.clothing[i].bodyPart) + ",";
-                cloth += "\"image\":\"" + _conf.clothing[i].image + "\",";
+                cloth += "\"image\":\"" + IMAGE_PATH_PREFIX + "/" + CLOTHING_PATH_PREFIX + "/" + _conf.clothing[i].image + "\",";
                 cloth += "\"buyPrice\":" + _conf.clothing[i].buyPrice + ",";
                 cloth += "\"sellPrice\":" + _conf.clothing[i].sellPrice + ",";
                 cloth += "\"isWorn\":" + _conf.clothing[i].isWornAtBeginning.ToString().ToLower() + ",";
@@ -1595,7 +1602,7 @@ namespace TweeFly
                 stats += "\"name\":\"" + _conf.stats[i].name + "\",";
                 stats += "\"value\":" + _conf.stats[i].value + ",";
                 stats += "\"description\":\"" + _conf.stats[i].description + "\",";
-                stats += "\"image\":\"" + _conf.stats[i].image + "\",";
+                stats += "\"image\":\"" + IMAGE_PATH_PREFIX + "/" + STATS_PATH_PREFIX + "/" + _conf.stats[i].image + "\",";
                 stats += "\"isskill\":\"" + _conf.stats[i].isSkill + "\",";
                 stats += "\"visible\":" + _conf.stats[i].visible.ToString().ToLower() + "});";
             }
@@ -2662,7 +2669,7 @@ namespace TweeFly
                 jobs +="\"cooldown\":" + _conf.jobs[i].cooldown + ",";
                 jobs +="\"lastStart\":new Date(0, 0, 0, 0, 0, 0),";
                 jobs +="\"duration\":" + _conf.jobs[i].duration + ",";
-                jobs +="\"image\":\"" + _conf.jobs[i].image + "\",";
+                jobs +="\"image\":\"" + IMAGE_PATH_PREFIX + "/" + JOBS_PATH_PREFIX + "/" + _conf.jobs[i].image + "\",";
                 jobs += "\"passage\":\"" + _conf.jobs[i].passage + "\",";
                 jobs +="\"rewardItems\":[\n";
                 for (int j = 0; j < _conf.jobs[i].rewardItems.Count; j++)
@@ -2897,7 +2904,7 @@ namespace TweeFly
                 characters +="\"relation\":" + _conf.characters[i].relation + ",";
                 characters +="\"known\":" + _conf.characters[i].known.ToString().ToLower() + ",";
                 characters +="\"color\":\"" + _conf.characters[i].color + "\",";
-                characters +="\"image\":\"" + _conf.characters[i].image + "\"";
+                characters +="\"image\":\"" + IMAGE_PATH_PREFIX + "/" + CHARACTERS_PATH_PREFIX + "/" + _conf.characters[i].image + "\"";
                 if (_conf.characterUseSkill1)
                 {
                     string skill1val = (isBool(_conf.characters[i].skill1) || isNumber(_conf.characters[i].skill1)) ? _conf.characters[i].skill1 : "\"" + _conf.characters[i].skill1 + "\"";

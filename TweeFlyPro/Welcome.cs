@@ -46,11 +46,9 @@ namespace TweeFlyPro
         {
             if (this.mainForm.loadConf(comboBox2.Text, false))
             {
+                this.mainForm.projectName = comboBox2.Text;
                 this.mainForm.updateFromConf(this.mainForm.conf);
                 this.Close();
-            } else
-            {
-                MessageBox.Show("Error loading project " + comboBox2.Text);
             }
         }
 
@@ -85,7 +83,7 @@ namespace TweeFlyPro
                 comboBox2.Items.Clear();
                 foreach (string pd in projectDirs)
                 {
-                    if (File.Exists(Path.Combine(pd, "project.tfcx")))
+                    if (File.Exists(Path.Combine(pd, "project.tfcx")) || File.Exists(Path.Combine(pd, "project.tfc")))
                     {
                         comboBox2.Items.Add(new DirectoryInfo(pd).Name);
                     }
@@ -97,16 +95,18 @@ namespace TweeFlyPro
             }
 
             // Disable create button if project already exists
-            string startProjectDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfcx");
-            button1.Enabled = !File.Exists(startProjectDir);
-            button4.Enabled = !File.Exists(startProjectDir);
+            string startProjectXDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfcx");
+            string startProjectDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfc");
+            button1.Enabled = !File.Exists(startProjectDir) && !File.Exists(startProjectXDir);
+            button4.Enabled = !File.Exists(startProjectDir) && !File.Exists(startProjectXDir);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             string projectsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfcx");
-            button1.Enabled = !File.Exists(projectsDir);
-            button4.Enabled = !File.Exists(projectsDir);
+            string projectXDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projects", textBox1.Text, "project.tfc");
+            button1.Enabled = !File.Exists(projectsDir) && !File.Exists(projectXDir);
+            button4.Enabled = !File.Exists(projectsDir) && !File.Exists(projectXDir);
         }
 
         private void button4_Click(object sender, EventArgs e)

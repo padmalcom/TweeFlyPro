@@ -14,10 +14,12 @@ namespace TweeFly
     public partial class Form1 : Form
     {
 
+        private ColumnHeader SortingColumn = null;
+
         public Configuration conf = new Configuration(true);
-        private string projectName = "";
+        public string projectName = "";
         private string projectDir = "";
-        private string imgDir = "img";
+        //private string imgDir = "img";
         private const string APP_TITLE = "TweeFly - Interactive Story Setup for SugarCube2";
 
         public Form1()
@@ -512,12 +514,12 @@ namespace TweeFly
                 item.passage = textBox5.Text;
 
                 // Copy file
-                if (!Directory.Exists(Path.Combine(projectDir, imgDir))) {
-                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX))) {
+                    Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX));
                 }
                 if (File.Exists(textBox10.Text))
                 {
-                    File.Copy(textBox10.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox10.Text)));
+                    File.Copy(textBox10.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, Path.GetFileName(textBox10.Text)));
                 }
                 item.image = Path.GetFileName(textBox10.Text);
                 textBox10.Text = Path.GetFileName(textBox10.Text);
@@ -599,21 +601,21 @@ namespace TweeFly
                         conf.items[i].passage = textBox5.Text;
 
                         // Copy file
-                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX)))
                         {
-                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                            Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX));
                         }
                         if (File.Exists(textBox10.Text))
                         {
-                            File.Copy(textBox10.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox10.Text)));
+                            File.Copy(textBox10.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, Path.GetFileName(textBox10.Text)));
                         }
                         // Delete old file
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image)) && !conf.items[i].image.Equals(textBox10.Text))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image)) && !conf.items[i].image.Equals(textBox10.Text))
                         {
                             DialogResult deleteOld = MessageBox.Show("The item image " + conf.items[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
                             if (deleteOld == DialogResult.Yes)
                             {
-                                File.Delete(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                                File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image));
                             }
                         }
                         conf.items[i].image = Path.GetFileName(textBox10.Text);
@@ -663,11 +665,11 @@ namespace TweeFly
                     {
                         if (conf.items[i].ID == int.Parse(eachItem.Text))
                         {
-                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image)))
+                            if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image)))
                             {
                                 if (MessageBox.Show("Do you want to delete the item image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
-                                    File.Delete(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                                    File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image));
                                 }
                             }
                             
@@ -703,9 +705,9 @@ namespace TweeFly
                 textBox5.Text = listView1.SelectedItems[0].SubItems[14].Text;
 
 
-                if (File.Exists(Path.Combine(projectDir, imgDir, textBox10.Text)))
+                if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, textBox10.Text)))
                 {
-                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox10.Text));
+                    pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, textBox10.Text));
                 }
             }
         }
@@ -738,6 +740,7 @@ namespace TweeFly
                 clothing.name = textBox14.Text;
                 clothing.canBeBought = checkBox16.Checked;
                 clothing.bodyPart = comboBox5.Text;
+                clothing.description = textBox3.Text;
                 clothing.skill1 = textBox20.Text;
                 clothing.skill2 = textBox23.Text;
                 clothing.skill3 = textBox24.Text;
@@ -751,13 +754,13 @@ namespace TweeFly
                 clothing.isWornAtBeginning = checkBox35.Checked;
 
                 // Copy file
-                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX)))
                 {
-                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                    Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX));
                 }
                 if (File.Exists(textBox11.Text))
                 {
-                    File.Copy(textBox11.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox11.Text)));
+                    File.Copy(textBox11.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, Path.GetFileName(textBox11.Text)));
                 }
                 clothing.image = Path.GetFileName(textBox11.Text);
                 textBox11.Text = Path.GetFileName(textBox11.Text);
@@ -826,21 +829,21 @@ namespace TweeFly
                         conf.clothing[i].isWornAtBeginning = checkBox35.Checked;
 
                         // Copy file
-                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX)))
                         {
-                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                            Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX));
                         }
                         if (File.Exists(textBox11.Text))
                         {
-                            File.Copy(textBox11.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox11.Text)));
+                            File.Copy(textBox11.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, Path.GetFileName(textBox11.Text)));
                         }
                         // Delete old file
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)) && !conf.clothing[i].image.Equals(textBox11.Text))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image)) && !conf.clothing[i].image.Equals(textBox11.Text))
                         {
                             DialogResult deleteOld = MessageBox.Show("The clothing image " + conf.clothing[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
                             if (deleteOld == DialogResult.Yes)
                             {
-                                File.Delete(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                                File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image));
                             }
                         }
                         conf.clothing[i].image = Path.GetFileName(textBox11.Text);
@@ -868,11 +871,11 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete clothing with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
-                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)))
+                            if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image)))
                             {
                                 if (MessageBox.Show("Do you want to delete the clothing image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
-                                    File.Delete(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                                    File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image));
                                 }
                             }
                             conf.clothing.RemoveAt(i);
@@ -904,9 +907,9 @@ namespace TweeFly
                 textBox23.Text = listView2.SelectedItems[0].SubItems[14].Text;
                 textBox24.Text = listView2.SelectedItems[0].SubItems[15].Text;
 
-                if (File.Exists(Path.Combine(projectDir, imgDir, textBox11.Text)))
+                if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, textBox11.Text)))
                 {
-                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox11.Text));
+                    pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, textBox11.Text));
                 }
             }
         }
@@ -944,13 +947,13 @@ namespace TweeFly
                 stat.isSkill = comboBox8.Text;
 
                 // Copy file
-                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX)))
                 {
-                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                    Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX));
                 }
                 if (File.Exists(textBox9.Text))
                 {
-                    File.Copy(textBox9.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox9.Text)));
+                    File.Copy(textBox9.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, Path.GetFileName(textBox9.Text)));
                 }
                 stat.image = Path.GetFileName(textBox9.Text);
                 textBox9.Text = Path.GetFileName(textBox9.Text);
@@ -1002,21 +1005,21 @@ namespace TweeFly
                         conf.stats[i].isSkill = comboBox8.Text;
 
                         // Copy file
-                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX)))
                         {
-                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                            Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX));
                         }
                         if (File.Exists(textBox9.Text))
                         {
-                            File.Copy(textBox9.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox9.Text)));
+                            File.Copy(textBox9.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, Path.GetFileName(textBox9.Text)));
                         }
                         // Delete old file
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.stats[i].image)) && !conf.stats[i].image.Equals(textBox9.Text))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, conf.stats[i].image)) && !conf.stats[i].image.Equals(textBox9.Text))
                         {
                             DialogResult deleteOld = MessageBox.Show("The stats image " + conf.stats[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
                             if (deleteOld == DialogResult.Yes)
                             {
-                                File.Delete(Path.Combine(projectDir, imgDir, conf.stats[i].image));
+                                File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, conf.stats[i].image));
                             }
                         }
                         conf.stats[i].image = Path.GetFileName(textBox9.Text);
@@ -1044,11 +1047,11 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete stats with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
-                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.stats[i].image)))
+                            if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, conf.stats[i].image)))
                             {
                                 if (MessageBox.Show("Do you want to delete the stats image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
-                                    File.Delete(Path.Combine(projectDir, imgDir, conf.stats[i].image));
+                                    File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, conf.stats[i].image));
                                 }
                             }
                             conf.stats.RemoveAt(i);
@@ -1074,8 +1077,8 @@ namespace TweeFly
                 comboBox8.Text = listView5.SelectedItems[0].SubItems[7].Text;
 
 
-                if (File.Exists(Path.Combine(projectDir, imgDir, textBox9.Text))) {
-                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox9.Text));
+                if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, textBox9.Text))) {
+                    pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, textBox9.Text));
                 }
             }
         }
@@ -1341,7 +1344,7 @@ namespace TweeFly
         private void tabPage5_Enter(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
-            if (comboBox6.Text.Equals("Item"))
+            if (comboBox6.Text.Equals("ITEM"))
             {
                 for (int i = 0; i < conf.items.Count; i++)
                 {
@@ -1364,12 +1367,12 @@ namespace TweeFly
             {
                 for (int i = 0; i < conf.items.Count; i++)
                 {
-                    if (comboBox1.Text == conf.items[i].ID.ToString())
+                    if (comboBox1.Text.Equals(conf.items[i].ID.ToString()))
                     {
                         label73.Text = "(" + conf.items[i].name + ")";
 
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image))) {
-                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image))) {
+                            pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image));
                         }
                     }
                 }
@@ -1378,13 +1381,13 @@ namespace TweeFly
             {
                 for (int i = 0; i < conf.clothing.Count; i++)
                 {
-                    if (comboBox1.Text == conf.clothing[i].ID.ToString())
+                    if (comboBox1.Text.Equals(conf.clothing[i].ID.ToString()))
                     {
                         label73.Text = "(" + conf.clothing[i].name + ")";
 
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image)))
                         {
-                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                            pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image));
                         }
                     }
                 }
@@ -1438,13 +1441,13 @@ namespace TweeFly
                 job.rewardMoney = Convert.ToInt32(numericUpDown9.Value);
 
                 // Copy file
-                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX)))
                 {
-                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                    Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX));
                 }
                 if (File.Exists(textBox15.Text))
                 {
-                    File.Copy(textBox15.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox15.Text)));
+                    File.Copy(textBox15.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, Path.GetFileName(textBox15.Text)));
                 }
                 job.image = Path.GetFileName(textBox15.Text);
                 textBox15.Text = Path.GetFileName(textBox15.Text);
@@ -1500,21 +1503,21 @@ namespace TweeFly
                         conf.jobs[i].passage = textBox6.Text;
 
                         // Copy file
-                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX)))
                         {
-                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                            Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX));
                         }
                         if (File.Exists(textBox10.Text))
                         {
-                            File.Copy(textBox15.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox15.Text)));
+                            File.Copy(textBox15.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, Path.GetFileName(textBox15.Text)));
                         }
                         // Delete old file
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.jobs[i].image)) && !conf.jobs[i].image.Equals(textBox15.Text))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, conf.jobs[i].image)) && !conf.jobs[i].image.Equals(textBox15.Text))
                         {
                             DialogResult deleteOld = MessageBox.Show("The jobs image " + conf.jobs[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
                             if (deleteOld == DialogResult.Yes)
                             {
-                                File.Delete(Path.Combine(projectDir, imgDir, conf.jobs[i].image));
+                                File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, conf.jobs[i].image));
                             }
                         }
                         conf.jobs[i].image = Path.GetFileName(textBox15.Text);
@@ -1542,11 +1545,11 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete jobs with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
-                            if (File.Exists(Path.Combine(projectDir, imgDir, conf.jobs[i].image)))
+                            if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, conf.jobs[i].image)))
                             {
                                 if (MessageBox.Show("Do you want to delete the job image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
-                                    File.Delete(Path.Combine(projectDir, imgDir, conf.jobs[i].image));
+                                    File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, conf.jobs[i].image));
                                 }
                             }
                             conf.jobs.RemoveAt(i);
@@ -1573,9 +1576,9 @@ namespace TweeFly
                 numericUpDown9.Value = int.Parse(listView4.SelectedItems[0].SubItems[5].Text);
                 textBox6.Text = listView4.SelectedItems[0].SubItems[9].Text;
 
-                if (File.Exists(Path.Combine(projectDir, imgDir, textBox15.Text)))
+                if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, textBox15.Text)))
                 {
-                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox15.Text));
+                    pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, textBox15.Text));
                 }
 
                 // Get the right job
@@ -1607,7 +1610,7 @@ namespace TweeFly
 
             if (openFileDialog1.FileName != "")
             {
-                textBox10.Text = Path.GetFileName(openFileDialog1.FileName);
+                textBox10.Text = openFileDialog1.FileName;
             }
         }
 
@@ -1692,13 +1695,13 @@ namespace TweeFly
                 character.skill3 = textBox34.Text;
 
                 // Copy file
-                if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX)))
                 {
-                    Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                    Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX));
                 }
                 if (File.Exists(textBox37.Text))
                 {
-                    File.Copy(textBox37.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox37.Text)));
+                    File.Copy(textBox37.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, Path.GetFileName(textBox37.Text)));
                 }
                 character.image = Path.GetFileName(textBox37.Text);
                 textBox37.Text = Path.GetFileName(textBox37.Text);
@@ -1761,21 +1764,21 @@ namespace TweeFly
                         conf.characters[i].skill3 = textBox34.Text;
 
                         // Copy file
-                        if (!Directory.Exists(Path.Combine(projectDir, imgDir)))
+                        if (!Directory.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX)))
                         {
-                            Directory.CreateDirectory(Path.Combine(projectDir, imgDir));
+                            Directory.CreateDirectory(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX));
                         }
                         if (File.Exists(textBox37.Text))
                         {
-                            File.Copy(textBox37.Text, Path.Combine(projectDir, imgDir, Path.GetFileName(textBox37.Text)));
+                            File.Copy(textBox37.Text, Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, Path.GetFileName(textBox37.Text)));
                         }
                         // Delete old file
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.characters[i].image)) && !conf.characters[i].image.Equals(textBox37.Text))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, conf.characters[i].image)) && !conf.characters[i].image.Equals(textBox37.Text))
                         {
                             DialogResult deleteOld = MessageBox.Show("The character image " + conf.characters[i].image + " has changed. Delete the old one?", "Delete", MessageBoxButtons.YesNo);
                             if (deleteOld == DialogResult.Yes)
                             {
-                                File.Delete(Path.Combine(projectDir, imgDir, conf.characters[i].image));
+                                File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, conf.characters[i].image));
                             }
                         }
                         conf.characters[i].image = Path.GetFileName(textBox37.Text);
@@ -1788,7 +1791,7 @@ namespace TweeFly
                     }
                 }
             }
-            MessageBox.Show("Stats could not be updated.");
+            MessageBox.Show("Characters could not be updated.");
         }
 
         private void button29_Click(object sender, EventArgs e)
@@ -1802,11 +1805,11 @@ namespace TweeFly
                         var confirmResult = MessageBox.Show("Are you sure you want to delete character with ID " + eachItem.Text + "?", "Confirm Delete", MessageBoxButtons.YesNo);
                         if (confirmResult == DialogResult.Yes)
                         {
-                            if ( File.Exists(Path.Combine(projectDir, imgDir, conf.characters[i].image)))
+                            if ( File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, conf.characters[i].image)))
                             {
                                 if (MessageBox.Show("Do you want to delete the character image, too?", "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
-                                    File.Delete(Path.Combine(projectDir, imgDir, conf.characters[i].image));
+                                    File.Delete(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, conf.characters[i].image));
                                 }
                             }
                             conf.characters.RemoveAt(i);
@@ -1836,9 +1839,9 @@ namespace TweeFly
                 textBox35.Text = listView7.SelectedItems[0].SubItems[12].Text;
                 textBox34.Text = listView7.SelectedItems[0].SubItems[13].Text;
 
-                if (File.Exists(Path.Combine(projectDir, imgDir, textBox37.Text)))
+                if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, textBox37.Text)))
                 {
-                    pictureBox2.Load(Path.Combine(projectDir, imgDir, textBox37.Text));
+                    pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, textBox37.Text));
                 }
             }
         }
@@ -1882,7 +1885,6 @@ namespace TweeFly
                     }
 
                     // Copy from template
-                    MessageBox.Show("Copying from " + templateDir + " to " + pd);
                     Helper.Copy(templateDir, pd);
 
                     // Load template conf and update
@@ -2439,9 +2441,9 @@ namespace TweeFly
                     {
                         label80.Text = conf.items[i].name;
 
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.items[i].image)))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image)))
                         {
-                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.items[i].image));
+                            pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, conf.items[i].image));
                         }
                     }
                 }
@@ -2454,9 +2456,9 @@ namespace TweeFly
                     {
                         label80.Text = conf.clothing[i].name;
 
-                        if (File.Exists(Path.Combine(projectDir, imgDir, conf.clothing[i].image)))
+                        if (File.Exists(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image)))
                         {
-                            pictureBox2.Load(Path.Combine(projectDir, imgDir, conf.clothing[i].image));
+                            pictureBox2.Load(Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, conf.clothing[i].image));
                         }
                     }
                 }
@@ -2755,12 +2757,12 @@ namespace TweeFly
             conf.inventoryUseSkill3 = false;
 
             conf.items.Add(new Item(0, "taxi driver card", "The card from the taxi driver I met when I arrived here.", false, "story item",
-                "", Path.Combine(projectDir, imgDir, "taxicard.jpg"), -1, -1, false, 0, "", "", "", ""));
-            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", Path.Combine(projectDir, imgDir, "smartphone.jpg"), -1, -1,
+                "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, "taxicard.jpg"), -1, -1, false, 0, "", "", "", ""));
+            conf.items.Add(new Item(1, "smartphone", "My smartphone I got from my mom", false, "story item", "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, "smartphone.jpg"), -1, -1,
                 false, 1, "", "", "", ""));
-            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", Path.Combine(projectDir, imgDir, "keycard.jpg"), -1, -1,
+            conf.items.Add(new Item(2, "my keycard", "The keycard to my room in the hotel", false, "story item", "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, "keycard.jpg"), -1, -1,
                 false, 0, "", "", "", ""));
-            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", Path.Combine(projectDir, imgDir, "chocolate.jpg"), 2, 1,
+            conf.items.Add(new Item(3, "Chocolate", "A chocolate bar", true, "food", "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.INVENTORY_PATH_PREFIX, "chocolate.jpg"), 2, 1,
                 true, 1, "", "", "", ""));
 
             conf.displayInInventory.Clear();
@@ -2802,57 +2804,57 @@ namespace TweeFly
             conf.displayInClothingView.Add("Image");
 
             // name, description, canbebougt, shopcat, cat, bodypart, image, buiprice, sellprice, multiple, owned, s1, s2, s3
-            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", Path.Combine(projectDir, imgDir, "beanie.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(0, "nothing", "description", false, "", "clothing", "HEAD_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(1, "beanie", "description", true, "", "clothing", "HEAD_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "beanie.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Hair
-            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", Path.Combine(projectDir, imgDir, "headscarf.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(2, "nothing", "description",false, "", "clothing", "HAIR_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(3, "headscarf", "description",true, "", "clothing", "HAIR_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "headscarf.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Neck
-            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", Path.Combine(projectDir, imgDir, "necklace_male.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(4, "nothing", "description",false,"", "clothing", "NECK_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(5, "necklace (male)", "description",true, "", "clothing", "NECK_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "necklace_male.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Upper body
-            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "shirt.jpg"), 20, 10, true, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "tshirt.jpg"), 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(6, "nothing", "description",false, "", "clothing","UPPER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(7, "shirt", "description",true,"", "clothing",  "UPPER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "shirt.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(8, "tshirt", "description",true, "", "clothing", "UPPER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "tshirt.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Lower body
-            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "jeans.jpg"), 20, 10, true, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "shortpants.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(9, "nothing", "description",false,"","clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(10, "jeans", "description",true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "jeans.jpg"), 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(11, "short pants", "description",true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "shortpants.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Belt
-            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", Path.Combine(projectDir, imgDir, "belt.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(12, "nothing", "description",false, "", "clothing",  "BELT_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(13, "simple belt", "description",true, "", "clothing", "BELT_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "belt.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Socks
-            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", Path.Combine(projectDir, imgDir, "socks.jpg"), 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(14, "nothing", "description",false,"", "clothing", "SOCKS_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(15, "male socks", "description",true, "", "clothing", "SOCKS_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "socks.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Shoes
-            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", Path.Combine(projectDir, imgDir, "shoes_male.jpg"), 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(16, "nothing", "description",false, "", "clothing","SHOES_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(17, "shoes (male)", "description",true, "", "clothing", "SHOES_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "shoes_male.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Underwear top
-            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", true));
-            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", Path.Combine(projectDir, imgDir, "tanktop.jpg"), 20, 10, true, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(18, "nothing", "description",false,"","clothing", "UNDERWEAR_TOP_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(19, "tanktop", "description",true,"","clothing","UNDERWEAR_TOP_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "tanktop.jpg"), 20, 10, true, 1, "", "", "", false));
 
             // Underwear bottom
-            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", Path.Combine(projectDir, imgDir, "none.jpg"), -1, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", Path.Combine(projectDir, imgDir, "boxershorts.jpg"), 20, 10, true, 1, "", "", "", true));
+            conf.clothing.Add(new Clothing(20, "nothing", "description",false, "", "clothing", "UNDERWEAR_BOTTOM_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "none.jpg"), -1, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(21, "boxershorts", "description",true,"", "clothing", "UNDERWEAR_BOTTOM_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "boxershorts.jpg"), 20, 10, true, 1, "", "", "", true));
 
             // Suit
-            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, imgDir, "suit.jpg"), 2000, -1, false, 1, "", "", "", false));
-            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", Path.Combine(projectDir, imgDir, "suit.jpg"), 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(22, "Suit pants", "description", true, "", "clothing", "LOWER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "suit.jpg"), 2000, -1, false, 1, "", "", "", false));
+            conf.clothing.Add(new Clothing(23, "Suit shirt", "description", true, "", "clothing", "UPPER_BODY_NAME", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CLOTHING_PATH_PREFIX, "suit.jpg"), 2000, -1, false, 1, "", "", "", false));
 
 
             // Stats
             conf.statsInSidebar = true;
             conf.statsLinkInSidebar = true;
-            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", Path.Combine(projectDir, imgDir, "strength.jpg"), true, "None"));
-            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", Path.Combine(projectDir, imgDir, "intelligence.jpg"), true, "None"));
+            conf.stats.Add(new Stats(0, "strength", "my strength", "0", "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, "strength.jpg"), true, "None"));
+            conf.stats.Add(new Stats(0, "intelligence", "my intelligence", "0", "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.STATS_PATH_PREFIX, "intelligence.jpg"), true, "None"));
 
             // Daytime
             conf.daytimeFormat = 0;
@@ -2877,8 +2879,8 @@ namespace TweeFly
             conf.startMoney = 10;
 
             // Jobs
-            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", Path.Combine(projectDir, imgDir, "dishes.jpg"), 5, 60, "");
-            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", Path.Combine(projectDir, imgDir, "cleaningfloor.jpg"), 10, 120, "");
+            Job j1 = new Job(0, "wash dishes", "washing the dishes", true, 180, "kitchen", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, "dishes.jpg"), 5, 60, "");
+            Job j2 = new Job(1, "clean floor", "cleaning the kitchen floor", true, 330, "kitchen", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.JOBS_PATH_PREFIX, "cleaningfloor.jpg"), 10, 120, "");
             j1.rewardItems.Add(new RewardItem("ITEM", 3, 1));
             conf.jobs.Add(j1);
             conf.jobs.Add(j2);
@@ -2894,11 +2896,11 @@ namespace TweeFly
             conf.displayInJobsView.Add("Image");
 
             // Characters
-            Character c0 = new Character(0, "Player", 21, "You", true, "", Path.Combine(projectDir, imgDir, "player.jpg"), "male", "", 0, "#42f46e", "", "", "");
-            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", Path.Combine(projectDir, imgDir, "jim.jpg"), "male", "receptionist", 0, "#42f44b", "", "", "");
-            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", Path.Combine(projectDir, imgDir, "rex.jpg"), "male", "footboy", 0, "#f44242", "", "", "");
-            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", Path.Combine(projectDir, imgDir, "simon.jpg"), "male", "", 0, "#f44242", "", "", "");
-            Character c4 = new Character(4, "Woman", 50, "", false, "", Path.Combine(projectDir, imgDir, "joana.jpg"), "female", "", 0, "#f4d942", "", "", "");
+            Character c0 = new Character(0, "Player", 21, "You", true, "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, "player.jpg"), "male", "", 0, "#42f46e", "", "", "");
+            Character c1 = new Character(1, "Receptionist", 53, "Arthur is a receptionist.", false, "hotel", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, "jim.jpg"), "male", "receptionist", 0, "#42f44b", "", "", "");
+            Character c2 = new Character(2, "Footboy", 21, "Mike is a footboy.", false, "hotel", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, "rex.jpg"), "male", "footboy", 0, "#f44242", "", "", "");
+            Character c3 = new Character(3, "Taxi driver", 50, "", false, "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, "simon.jpg"), "male", "", 0, "#f44242", "", "", "");
+            Character c4 = new Character(4, "Woman", 50, "", false, "", Path.Combine(projectDir, Generator.IMAGE_PATH_PREFIX, Generator.CHARACTERS_PATH_PREFIX, "joana.jpg"), "female", "", 0, "#f4d942", "", "", "");
             conf.characters.Add(c0);
             conf.characters.Add(c1);
             conf.characters.Add(c2);
@@ -3429,6 +3431,62 @@ namespace TweeFly
         private void convertTfcToTfcxToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Get the new sorting column.
+            ColumnHeader new_sorting_column = listView1.Columns[e.Column];
+
+            // Figure out the new sorting order.
+            System.Windows.Forms.SortOrder sort_order;
+            if (SortingColumn == null)
+            {
+                // New column. Sort ascending.
+                sort_order = SortOrder.Ascending;
+            }
+            else
+            {
+                // See if this is the same column.
+                if (new_sorting_column == SortingColumn)
+                {
+                    // Same column. Switch the sort order.
+                    if (SortingColumn.Text.StartsWith("> "))
+                    {
+                        sort_order = SortOrder.Descending;
+                    }
+                    else
+                    {
+                        sort_order = SortOrder.Ascending;
+                    }
+                }
+                else
+                {
+                    // New column. Sort ascending.
+                    sort_order = SortOrder.Ascending;
+                }
+
+                // Remove the old sort indicator.
+                SortingColumn.Text = SortingColumn.Text.Substring(2);
+            }
+
+            // Display the new sort order.
+            SortingColumn = new_sorting_column;
+            if (sort_order == SortOrder.Ascending)
+            {
+                SortingColumn.Text = "> " + SortingColumn.Text;
+            }
+            else
+            {
+                SortingColumn.Text = "< " + SortingColumn.Text;
+            }
+
+            // Create a comparer.
+            listView1.ListViewItemSorter =
+                new ListViewComparer(e.Column, sort_order);
+
+            // Sort.
+            listView1.Sort();
         }
     }
 }

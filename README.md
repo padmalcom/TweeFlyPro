@@ -39,6 +39,16 @@ A setup tool for interactive stories writte in Twee2 and Twine.
 			- Path subtract has been replaced with path prefix. Path prefix is a relative path to the story where images are stored.
 		- Bug fixes:
 			- "back" in inventory etc. did not reset variables, because $return was used -> replaced $return with $back
+	- 0.15
+		- New features:
+			- Introduced Welcome Screen to Start a new game, a new game from a template or to load an existing project
+			- Project templates are games with prefabricated assets that can be used to create a new game without much configuration
+			- Project template for detective adventure was added
+		- Bug fixes:
+			- Fixed bug in "back" button in inventory etc. which frequently caused an exception because it lead back to a non existent node
+			- Bugfix when adding cloth (description is not added, could be changed only on update)
+			- Bugfix when listing items for a shop (really nasty one)
+		
 ### TODO:
 - GUI
 	- Postponed: Remove "mayOwnMultiple" for cloth
