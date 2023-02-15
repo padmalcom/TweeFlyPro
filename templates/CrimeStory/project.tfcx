@@ -1,0 +1,1364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <includedFiles />
+  <captions>
+    <CaptionPair>
+      <captionName>BACK_CAP</captionName>
+      <caption>back</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>RETURN_CAP</captionName>
+      <caption>return</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CONTINUE_CAP</captionName>
+      <caption>continue</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_TITLE_CAP</captionName>
+      <caption>Inventory</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_LINK_CAP</captionName>
+      <caption>Inventory</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Inventory</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_EMPTY_CAP</captionName>
+      <caption>No items in inventory.</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_ID_CAP</captionName>
+      <caption>ID</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_NAME_CAP</captionName>
+      <caption>name</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_CATEGORY_CAP</captionName>
+      <caption>category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_SHOP_CATEGORY_CAP</captionName>
+      <caption>shop category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_CAN_BUY_CAP</captionName>
+      <caption>can be bought</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_BUY_PRICE_CAP</captionName>
+      <caption>buy price</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_SELL_PRICE_CAP</captionName>
+      <caption>sell price</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_CAN_OWN_MULTIPLE_CAP</captionName>
+      <caption>Can own multiple</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_OWNED_CAP</captionName>
+      <caption>owned</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_COL_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_RECEIVED_ITEM_CAP</captionName>
+      <caption>received: </caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>INVENTORY_REMOVED_ITEM_CAP</captionName>
+      <caption>removed: </caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_TITLE_CAP</captionName>
+      <caption>Wardrobe</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_LINK_CAP</captionName>
+      <caption>Wardrobe</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Wardrobe</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_EMPTY_CAP</captionName>
+      <caption>No clothing in wardrobe.</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_ID_CAP</captionName>
+      <caption>ID</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_NAME_CAP</captionName>
+      <caption>name</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_CATEGORY_CAP</captionName>
+      <caption>category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_OWNED_CAP</captionName>
+      <caption>owned</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_RECEIVED_CLOTHING_CAP</captionName>
+      <caption>received: </caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>WARDROBE_REMOVED_CLOTHING_CAP</captionName>
+      <caption>received: </caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_TITLE_CAP</captionName>
+      <caption>Clothing</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_LINK_CAP</captionName>
+      <caption>Clothing</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Clothing</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_ID_CAP</captionName>
+      <caption>ID</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_NAME_CAP</captionName>
+      <caption>name</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_CATEGORY_CAP</captionName>
+      <caption>category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_SHOP_CATEGORY_CAP</captionName>
+      <caption>shop category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_OWNED_CAP</captionName>
+      <caption>owned</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_IS_WORN_CAP</captionName>
+      <caption>is worn</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_CAN_BUY_CAP</captionName>
+      <caption>can buy</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_BUY_PRICE_CAP</captionName>
+      <caption>buy price</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_SELL_PRICE_CAP</captionName>
+      <caption>sell price</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_CAN_OWN_MULTIPLE_CAP</captionName>
+      <caption>can own multiple</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_BODY_PART_CAP</captionName>
+      <caption>body part</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_WEAR_CAP</captionName>
+      <caption>wear</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_UNDRESS_CAP</captionName>
+      <caption>undress</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CLOTHING_IS_WORN_CAP</captionName>
+      <caption>This is worn.</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>NOTHING_CAP</captionName>
+      <caption>-</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>BODY_PART_CAP</captionName>
+      <caption>body part</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>HEAD_CAP</captionName>
+      <caption>head</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>FACE_CAP</captionName>
+      <caption>face</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>HAIR_CAP</captionName>
+      <caption>hair</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>NECK_CAP</captionName>
+      <caption>neck</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>UPPER_BODY_CAP</captionName>
+      <caption>upperbody</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>LOWER_BODY_CAP</captionName>
+      <caption>lowerbody</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>BELT_CAP</captionName>
+      <caption>belt</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SOCKS_CAP</captionName>
+      <caption>socks</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOES_CAP</captionName>
+      <caption>shoes</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>UNDERWEAR_TOP_CAP</captionName>
+      <caption>underweartop</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>UNDERWEAR_BOTTOM_CAP</captionName>
+      <caption>underwearbottom</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_TITLE_CAP</captionName>
+      <caption>Stats</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_LINK_CAP</captionName>
+      <caption>Stats</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Stats</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_COL_ID_CAP</captionName>
+      <caption>ID</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_COL_NAME_CAP</captionName>
+      <caption>name</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_COL_VALUE_CAP</captionName>
+      <caption>value</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>STATS_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Daytime</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_EARLY_MORNING_CAP</captionName>
+      <caption>Early morning</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_DAWN_CAP</captionName>
+      <caption>Dawn</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_MORNING_CAP</captionName>
+      <caption>Morning</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_NOON_CAP</captionName>
+      <caption>Noon</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_AFTERNOON_CAP</captionName>
+      <caption>Afternoon</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_EVENING_CAP</captionName>
+      <caption>Evening</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_NIGHT_CAP</captionName>
+      <caption>Night</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_MID_NIGHT_CAP</captionName>
+      <caption>Mid-Night</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_JANUARY_CAP</captionName>
+      <caption>January</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_FEBRUARY_CAP</captionName>
+      <caption>February</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_MARCH_CAP</captionName>
+      <caption>March</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_APRIL_CAP</captionName>
+      <caption>April</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_MAY_CAP</captionName>
+      <caption>May</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_JUNE_CAP</captionName>
+      <caption>June</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_JULY_CAP</captionName>
+      <caption>July</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_AUGUST_CAP</captionName>
+      <caption>August</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_SEPTEMBER_CAP</captionName>
+      <caption>September</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_OCTOBER_CAP</captionName>
+      <caption>October</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_NOVEMBER_CAP</captionName>
+      <caption>November</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>DAYTIME_DECEMBER_CAP</captionName>
+      <caption>December</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_ID_CAP</captionName>
+      <caption>id</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_NAME_CAP</captionName>
+      <caption>name</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_QUANTITY_CAP</captionName>
+      <caption>quantity</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_PRICE_CAP</captionName>
+      <caption>price</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_PRICE_CAP</captionName>
+      <caption>price</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_BUY_CAP</captionName>
+      <caption>buy</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_SELL_CAP</captionName>
+      <caption>sell</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_NO_ITEMS_CAP</captionName>
+      <caption>no items to sell.</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>SHOP_CLOSED_CAP</captionName>
+      <caption>shop is closed.</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>MONEY_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Money: </caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>MONEY_UNIT_CAP</captionName>
+      <caption>$</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_ID_CAP</captionName>
+      <caption>ID</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_NAME_CAP</captionName>
+      <caption>job</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_CATEGORY_CAP</captionName>
+      <caption>category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_AVAILABLE_CAP</captionName>
+      <caption>available</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_REWARD_MONEY_CAP</captionName>
+      <caption>reward money</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_COOLDOWN_CAP</captionName>
+      <caption>cooldown</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_DURATION_CAP</captionName>
+      <caption>duration</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_REWARD_ITEMS_CAP</captionName>
+      <caption>reward items</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_DO_JOB_CAP</captionName>
+      <caption>start</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>JOBS_COL_JOB_NOT_READY_CAP</captionName>
+      <caption>not ready</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_TITLE_CAP</captionName>
+      <caption>Characters</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_LINK_CAP</captionName>
+      <caption>Characters</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_SIDEBAR_TITLE_CAP</captionName>
+      <caption>Characters</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_ID_CAP</captionName>
+      <caption>ID</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_NAME_CAP</captionName>
+      <caption>name</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_CATEGORY_CAP</captionName>
+      <caption>category</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_DESCRIPTION_CAP</captionName>
+      <caption>description</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_AGE_CAP</captionName>
+      <caption>age</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_GENDER_CAP</captionName>
+      <caption>gender</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_JOB_CAP</captionName>
+      <caption>job</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_RELATION_CAP</captionName>
+      <caption>relation</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_KNOWN_CAP</captionName>
+      <caption>known</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_COLOR_CAP</captionName>
+      <caption>color</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_SKILL1_CAP</captionName>
+      <caption>skill1</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_SKILL2_CAP</captionName>
+      <caption>skill2</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_SKILL3_CAP</captionName>
+      <caption>skill3</caption>
+    </CaptionPair>
+    <CaptionPair>
+      <captionName>CHARACTER_COL_IMAGE_CAP</captionName>
+      <caption>image</caption>
+    </CaptionPair>
+  </captions>
+  <inventoryActive>false</inventoryActive>
+  <clothingActive>false</clothingActive>
+  <statsActive>false</statsActive>
+  <daytimeActive>true</daytimeActive>
+  <shopActive>false</shopActive>
+  <moneyActive>false</moneyActive>
+  <jobsActive>false</jobsActive>
+  <charactersActive>false</charactersActive>
+  <storyName>crime story</storyName>
+  <storeProjectFileAsBinary>false</storeProjectFileAsBinary>
+  <navigationArrows>false</navigationArrows>
+  <debugMode>false</debugMode>
+  <saveSlots>6</saveSlots>
+  <paragraphWidth>1000</paragraphWidth>
+  <resizeImagesInSidebar>false</resizeImagesInSidebar>
+  <imageWidthInSidebar>150</imageWidthInSidebar>
+  <imageHeightInSidebar>150</imageHeightInSidebar>
+  <resizeImagesInParagraph>false</resizeImagesInParagraph>
+  <imageWidthInParagraph>150</imageWidthInParagraph>
+  <imageHeightInParagraph>150</imageHeightInParagraph>
+  <resizeImagesInDialogs>false</resizeImagesInDialogs>
+  <imageWidthInDialogs>150</imageWidthInDialogs>
+  <imageHeightInDialogs>150</imageHeightInDialogs>
+  <listVariables>false</listVariables>
+  <inventoryInSidebar>false</inventoryInSidebar>
+  <inventoryLinkInSidebar>false</inventoryLinkInSidebar>
+  <inventorySidebarTooltip>false</inventorySidebarTooltip>
+  <inventoryUseSkill1>false</inventoryUseSkill1>
+  <inventoryUseSkill2>false</inventoryUseSkill2>
+  <inventoryUseSkill3>false</inventoryUseSkill3>
+  <items>
+    <Item>
+      <ID>0</ID>
+      <name>amunition</name>
+      <description>A small box of bullets</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>ammunition.jpg</image>
+      <buyPrice>10</buyPrice>
+      <sellPrice>8</sellPrice>
+      <canOwnMultiple>true</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>1</ID>
+      <name>binoculars</name>
+      <description>Old binoculars</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>binoculars.jpg</image>
+      <buyPrice>50</buyPrice>
+      <sellPrice>20</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>3</ID>
+      <name>book</name>
+      <description>An old book about birds</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>book.jpg</image>
+      <buyPrice>50</buyPrice>
+      <sellPrice>20</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>4</ID>
+      <name>camera</name>
+      <description>A professional camera</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>camera.jpg</image>
+      <buyPrice>150</buyPrice>
+      <sellPrice>120</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>5</ID>
+      <name>chocolate</name>
+      <description>Tasty dark chocolate</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>chocolate.jpg</image>
+      <buyPrice>5</buyPrice>
+      <sellPrice>2</sellPrice>
+      <canOwnMultiple>true</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>6</ID>
+      <name>diary</name>
+      <description>Samathas diary</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>diary.jpg</image>
+      <buyPrice>0</buyPrice>
+      <sellPrice>0</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>7</ID>
+      <name>dog</name>
+      <description>My tracking dog Buck</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>dog.jpg</image>
+      <buyPrice>0</buyPrice>
+      <sellPrice>0</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>8</ID>
+      <name>dog food</name>
+      <description>Bucks favorit dog food</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>dogfood.jpg</image>
+      <buyPrice>8</buyPrice>
+      <sellPrice>2</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>9</ID>
+      <name>fingerprints</name>
+      <description>The fingerprints of the suspect</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>fingerprints.jpg</image>
+      <buyPrice>0</buyPrice>
+      <sellPrice>0</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>10</ID>
+      <name>gun</name>
+      <description>My toy gun</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>gun.jpg</image>
+      <buyPrice>20</buyPrice>
+      <sellPrice>5</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>11</ID>
+      <name>lockpick</name>
+      <description>A set of lockpicks</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>lockpicks.jpg</image>
+      <buyPrice>40</buyPrice>
+      <sellPrice>10</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>12</ID>
+      <name>magnifier</name>
+      <description>A professional magnifier</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>magnifyer.jpg</image>
+      <buyPrice>30</buyPrice>
+      <sellPrice>6</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>13</ID>
+      <name>mask</name>
+      <description>A plastic mask</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>mask.jpg</image>
+      <buyPrice>14</buyPrice>
+      <sellPrice>4</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>14</ID>
+      <name>counterfeit money</name>
+      <description>A pile of counterfeit money</description>
+      <canBeBought>false</canBeBought>
+      <category />
+      <shopCategory />
+      <image>money.jpg</image>
+      <buyPrice>3</buyPrice>
+      <sellPrice>1</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>15</ID>
+      <name>notebook</name>
+      <description>An empty notebook</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>notebook.jpg</image>
+      <buyPrice>10</buyPrice>
+      <sellPrice>2</sellPrice>
+      <canOwnMultiple>true</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>16</ID>
+      <name>pencils</name>
+      <description>Some new pencils</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>pencils.jpg</image>
+      <buyPrice>4</buyPrice>
+      <sellPrice>1</sellPrice>
+      <canOwnMultiple>true</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+    <Item>
+      <ID>17</ID>
+      <name>whiskey</name>
+      <description>My favorite whiskey</description>
+      <canBeBought>true</canBeBought>
+      <category />
+      <shopCategory />
+      <image>whiskey.jpg</image>
+      <buyPrice>120</buyPrice>
+      <sellPrice>100</sellPrice>
+      <canOwnMultiple>true</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <passage />
+    </Item>
+  </items>
+  <displayInInventory />
+  <clothingInSidebar>false</clothingInSidebar>
+  <clothingLinkInSidebar>false</clothingLinkInSidebar>
+  <wardrobeLinkInSidebar>false</wardrobeLinkInSidebar>
+  <clothingUseSkill1>false</clothingUseSkill1>
+  <clothingUseSkill2>false</clothingUseSkill2>
+  <clothingUseSkill3>false</clothingUseSkill3>
+  <clothing>
+    <Clothing>
+      <ID>0</ID>
+      <name>hat</name>
+      <description>a simple hat</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>head</bodyPart>
+      <image>hat1.jpg</image>
+      <buyPrice>8</buyPrice>
+      <sellPrice>2</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>1</ID>
+      <name>cap</name>
+      <description>a cap</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>head</bodyPart>
+      <image>hat2.jpg</image>
+      <buyPrice>15</buyPrice>
+      <sellPrice>3</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>2</ID>
+      <name>jeans</name>
+      <description>a pair of jeans</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>lowerbody</bodyPart>
+      <image>jeans.jpg</image>
+      <buyPrice>25</buyPrice>
+      <sellPrice>8</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>3</ID>
+      <name>pullover</name>
+      <description>a pullover in blue and white</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>upperbody</bodyPart>
+      <image>pullover.jpg</image>
+      <buyPrice>35</buyPrice>
+      <sellPrice>10</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>4</ID>
+      <name>shirt</name>
+      <description>a business shirt</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>upperbody</bodyPart>
+      <image>shirt.jpg</image>
+      <buyPrice>20</buyPrice>
+      <sellPrice>8</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>5</ID>
+      <name>shoes</name>
+      <description>nice black shoes</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>shoes</bodyPart>
+      <image>shoes.jpg</image>
+      <buyPrice>50</buyPrice>
+      <sellPrice>15</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>6</ID>
+      <name>shorts</name>
+      <description>my favorite shorts</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>underwearbottom</bodyPart>
+      <image>shorts.jpg</image>
+      <buyPrice>12</buyPrice>
+      <sellPrice>1</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>7</ID>
+      <name>socks</name>
+      <description>warm socks</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>socks</bodyPart>
+      <image>socks.jpg</image>
+      <buyPrice>6</buyPrice>
+      <sellPrice>1</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>8</ID>
+      <name>blazer</name>
+      <description>an expensive blazer</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>upperbody</bodyPart>
+      <image>suit.jpg</image>
+      <buyPrice>120</buyPrice>
+      <sellPrice>60</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>9</ID>
+      <name>tie</name>
+      <description>a blue tie</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>neck</bodyPart>
+      <image>tie.jpg</image>
+      <buyPrice>30</buyPrice>
+      <sellPrice>12</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+    <Clothing>
+      <ID>10</ID>
+      <name>undershirt</name>
+      <description>a white undershirt</description>
+      <canBeBought>false</canBeBought>
+      <shopCategory />
+      <category />
+      <bodyPart>underweartop</bodyPart>
+      <image>undershirt.jpg</image>
+      <buyPrice>4</buyPrice>
+      <sellPrice>1</sellPrice>
+      <canOwnMultiple>false</canOwnMultiple>
+      <owned>0</owned>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+      <isWornAtBeginning>false</isWornAtBeginning>
+    </Clothing>
+  </clothing>
+  <displayInWardrobe />
+  <displayInClothingView />
+  <statsInSidebar>false</statsInSidebar>
+  <statsLinkInSidebar>false</statsLinkInSidebar>
+  <stats>
+    <Stats>
+      <ID>0</ID>
+      <name>intelligence</name>
+      <description />
+      <value>10</value>
+      <unit>units</unit>
+      <image>intelligence.jpg</image>
+      <visible>true</visible>
+      <isSkill>Clothing 1</isSkill>
+    </Stats>
+    <Stats>
+      <ID>1</ID>
+      <name>strength</name>
+      <description />
+      <value>3</value>
+      <unit>units</unit>
+      <image>strength.jpg</image>
+      <visible>true</visible>
+      <isSkill>Clothing 2</isSkill>
+    </Stats>
+  </stats>
+  <startDate>2021-12-08T15:55:48.229273+01:00</startDate>
+  <daytimeInSidebar>true</daytimeInSidebar>
+  <daytimeFormat>0</daytimeFormat>
+  <shopUseSkill1>false</shopUseSkill1>
+  <shopUseSkill2>false</shopUseSkill2>
+  <shopUseSkill3>false</shopUseSkill3>
+  <shops>
+    <Shop>
+      <ID>0</ID>
+      <name>Liquer store</name>
+      <opening>2022-07-21T12:00:00</opening>
+      <closing>2022-07-21T23:00:00</closing>
+      <items>
+        <ShopItem>
+          <type>ITEM</type>
+          <id>5</id>
+          <quantityStart>5</quantityStart>
+          <quantityMax>5</quantityMax>
+          <refillDelay>1</refillDelay>
+        </ShopItem>
+        <ShopItem>
+          <type>ITEM</type>
+          <id>17</id>
+          <quantityStart>1</quantityStart>
+          <quantityMax>2</quantityMax>
+          <refillDelay>1</refillDelay>
+        </ShopItem>
+      </items>
+    </Shop>
+  </shops>
+  <itemPropertiesInShops>
+    <string>Name</string>
+    <string>Description</string>
+    <string>Quantity</string>
+    <string>Buy</string>
+    <string>Sell</string>
+  </itemPropertiesInShops>
+  <moneyInSidebar>true</moneyInSidebar>
+  <startMoney>20</startMoney>
+  <moneyPerDay>5</moneyPerDay>
+  <jobs>
+    <Job>
+      <ID>0</ID>
+      <name>paper work</name>
+      <description>Do paper work and sort folders</description>
+      <available>true</available>
+      <cooldown>3600</cooldown>
+      <category />
+      <image>folders.jpg</image>
+      <rewardMoney>10</rewardMoney>
+      <duration>120</duration>
+      <rewardItems />
+      <passage />
+    </Job>
+    <Job>
+      <ID>1</ID>
+      <name>observation</name>
+      <description>Observe suspects for the police</description>
+      <available>true</available>
+      <cooldown>7200</cooldown>
+      <category />
+      <image>observation.jpg</image>
+      <rewardMoney>100</rewardMoney>
+      <duration>600</duration>
+      <rewardItems>
+        <RewardItem>
+          <type>ITEM</type>
+          <ID>0</ID>
+          <amount>1</amount>
+        </RewardItem>
+      </rewardItems>
+      <passage />
+    </Job>
+  </jobs>
+  <displayInJobsView />
+  <charactersInSidebar>false</charactersInSidebar>
+  <charactersLinkInSidebar>true</charactersLinkInSidebar>
+  <charactersSidebarTooltip>false</charactersSidebarTooltip>
+  <characterUseSkill1>false</characterUseSkill1>
+  <characterUseSkill2>false</characterUseSkill2>
+  <characterUseSkill3>false</characterUseSkill3>
+  <characters>
+    <Character>
+      <ID>0</ID>
+      <name>Cat</name>
+      <age>24</age>
+      <description />
+      <known>false</known>
+      <category />
+      <image>cat.jpg</image>
+      <gender>female</gender>
+      <job>researcher</job>
+      <relation>0</relation>
+      <color>#FF80C0</color>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+    </Character>
+    <Character>
+      <ID>1</ID>
+      <name>Jada</name>
+      <age>28</age>
+      <description />
+      <known>true</known>
+      <category />
+      <image>jada.jpg</image>
+      <gender>female</gender>
+      <job>medium</job>
+      <relation>20</relation>
+      <color>#8000FF</color>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+    </Character>
+    <Character>
+      <ID>2</ID>
+      <name>Jake</name>
+      <age>36</age>
+      <description />
+      <known>false</known>
+      <category />
+      <image>jake.jpg</image>
+      <gender>male</gender>
+      <job>detective</job>
+      <relation>10</relation>
+      <color>#0000A0</color>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+    </Character>
+    <Character>
+      <ID>3</ID>
+      <name>Keith</name>
+      <age>24</age>
+      <description />
+      <known>false</known>
+      <category />
+      <image>keith.jpg</image>
+      <gender>male</gender>
+      <job>street gang member</job>
+      <relation>0</relation>
+      <color>#80FFFF</color>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+    </Character>
+    <Character>
+      <ID>4</ID>
+      <name>Samantha</name>
+      <age>42</age>
+      <description />
+      <known>true</known>
+      <category />
+      <image>samantha.jpg</image>
+      <gender>female</gender>
+      <job>secretary</job>
+      <relation>45</relation>
+      <color>#408080</color>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+    </Character>
+    <Character>
+      <ID>5</ID>
+      <name>Sergio Ramone</name>
+      <age>38</age>
+      <description />
+      <known>false</known>
+      <category />
+      <image>sergio.jpg</image>
+      <gender>male</gender>
+      <job>CEO</job>
+      <relation>0</relation>
+      <color>#408080</color>
+      <skill1 />
+      <skill2 />
+      <skill3 />
+    </Character>
+  </characters>
+  <displayInCharactersView />
+</Configuration>
